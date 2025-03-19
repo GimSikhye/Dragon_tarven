@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 9c1eb6a116a424340b4c373b64db9946
+guid: 5b887eb463dd7ab4c8bd98030da51ecd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4483607655262404820
-    second: wallsnfloor_0
+      213: -2977686445602227480
+    second: wallsnfloorFix_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,27 +109,40 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: wallsnfloor_0
+      name: wallsnfloorFix_0
       rect:
         serializedVersion: 2
         x: 14
-        y: 2
+        y: 4
         width: 165
-        height: 152
-      alignment: 8
-      pivot: {x: 1, y: 0}
+        height: 150
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4d043244869f83e30800000000000000
-      internalID: 4483607655262404820
+      spriteID: 8ea326544f12da6d0800000000000000
+      internalID: -2977686445602227480
       vertices: []
       indices: 
       edges: []
@@ -138,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: e2da547072397944f893d8bab5bc022b
+    spriteID: c3e4c30408541084f85ed0cd889fe98f
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      wallsnfloor_0: 4483607655262404820
+      wallsnfloorFix_0: -2977686445602227480
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
