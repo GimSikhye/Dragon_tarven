@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.Escape))
             {
-                //BackPanel
+                UIManager.Instance.ShowExitWindow();
             }
         }
     }
