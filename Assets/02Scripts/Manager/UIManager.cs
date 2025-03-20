@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour
     public void ShowExitWindow()
     {
         panels[1].SetActive(true);
-
     }
 
     public void ShowCapitonText()

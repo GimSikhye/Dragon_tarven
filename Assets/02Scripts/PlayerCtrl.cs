@@ -39,7 +39,7 @@ public class PlayerCtrl : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                Debug.Log("손가락을 뗀 것이 감지됨!!");
+                //Debug.Log("손가락을 뗀 것이 감지됨!!");
 
                 // 이동할 수 있는 곳이면
                 OnMove(touch);

@@ -2016,7 +2016,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UiCozyFree_72
+      name: X_Button
       rect:
         serializedVersion: 2
         x: 64
@@ -2786,7 +2786,6 @@ TextureImporter:
       UiCozyFree_7: -6480627986385389889
       UiCozyFree_70: 5709233350014461385
       UiCozyFree_71: -5405781672685118915
-      UiCozyFree_72: 8089963488052411901
       UiCozyFree_73: 4669949386775315708
       UiCozyFree_74: 3350616203553946559
       UiCozyFree_75: -4315308444010617821
@@ -2815,6 +2814,7 @@ TextureImporter:
       UiCozyFree_97: 6063119558440388452
       UiCozyFree_98: 7397192416590421093
       UiCozyFree_99: -574910557706837514
+      X_Button: 8089963488052411901
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
