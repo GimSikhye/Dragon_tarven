@@ -42,9 +42,9 @@ public class PlayerCtrl : MonoBehaviour
                 Debug.Log("손가락을 뗀 것이 감지됨!!");
 
                 // 이동할 수 있는 곳이면
-                //OnMove(touch);
+                OnMove(touch);
 
-                
+
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
                 Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
 
