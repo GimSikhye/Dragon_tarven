@@ -36,6 +36,12 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        
+        if(Application.platform == RuntimePlatform.Android)
+        {
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                //BackPanel
+            }
+        }
     }
 }

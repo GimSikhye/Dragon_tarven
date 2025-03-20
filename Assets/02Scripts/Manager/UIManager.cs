@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    //enum으로 윈도우 창 이름 배열 관리하기
 
     public static UIManager Instance;
     [SerializeField] private GameObject[] panels;
@@ -36,6 +37,11 @@ public class UIManager : MonoBehaviour
     public void ShowPopup()
     {
         panels[0].SetActive(true);
+    }
+
+    public void ShowExitWindow()
+    {
+
     }
 
     public void ShowCapitonText()
