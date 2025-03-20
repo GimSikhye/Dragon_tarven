@@ -4,17 +4,23 @@ using UnityEngine.UI;
 public class PlayerCtrl : MonoBehaviour
 {
     [SerializeField] private Image touch_feedback;
-    [SerializeField] Transform coffeeMachine;
+    [SerializeField] private Transform coffeeMachine;
 
     [SerializeField] private float interactionRange;
+    private SpriteRenderer spriteRenderer;
 
     public static PlayerCtrl Instance;
 
+    public SpriteRenderer SpriteRender
+    {
+        get { return spriteRenderer; }
+    }
     private void Awake()
     {
         if(Instance == null)
         {
             Instance = this;
+            spriteRenderer = GetComponent<SpriteRenderer>();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -39,7 +45,7 @@ public class PlayerCtrl : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                Debug.Log("손가락을 뗀 것이 감지됨!!");
+                //Debug.Log("손가락을 뗀 것이 감지됨!!");
 
                 // 이동할 수 있는 곳이면
                 OnMove(touch);

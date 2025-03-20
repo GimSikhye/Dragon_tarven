@@ -11,7 +11,7 @@ public class UIManager : MonoBehaviour
     //[SerializeField] private GameObject captionText;
     [SerializeField] private TextMeshProUGUI captionTmp;
 
-
+    // 원두 개수 값이 바뀔때 갱신해주기.
     private void Awake()
     {
         if(Instance == null)
@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour
     public void ShowExitWindow()
     {
         panels[1].SetActive(true);
-
     }
 
     public void ShowCapitonText()

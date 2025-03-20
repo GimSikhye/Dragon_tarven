@@ -5,6 +5,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private AudioClip[] bgm_clips;
+    [Header("¿Á»≠")]
+    [SerializeField] private ushort beans_count;
+    [SerializeField] private ushort coin_count;
+    [SerializeField] private ushort gem_count;
 
     void Awake()
     {
