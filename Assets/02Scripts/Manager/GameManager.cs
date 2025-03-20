@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
                 SoundManager.Instance.PlayBGM(bgm_clips[0], 0.5f);
                 break;
             case "Game scene":
-                Debug.Log("∞‘¿”æ¿");
+                //Debug.Log("∞‘¿”æ¿");
                 SoundManager.Instance.PlayBGM(bgm_clips[1], 0.5f);
                 break;
         }
