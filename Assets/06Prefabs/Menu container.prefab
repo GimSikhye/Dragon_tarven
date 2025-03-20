@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 556624108892634020}
   - component: {fileID: 3052026777379454777}
   m_Layer: 5
-  m_Name: 0
+  m_Name: make_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &792224958795480576
 RectTransform:
   m_ObjectHideFlags: 0
@@ -153,13 +153,13 @@ RectTransform:
   m_Children:
   - {fileID: 1360650052086008895}
   - {fileID: 5702376241949988225}
-  - {fileID: 7576921600614020124}
   - {fileID: 792224958795480576}
+  - {fileID: 7576921600614020124}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 140.07306, y: -237.81958}
+  m_AnchoredPosition: {x: 140.07306, y: -237.8196}
   m_SizeDelta: {x: 180.1461, y: 275.6392}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9083462661331020164
@@ -234,8 +234,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -58.9, y: 0}
-  m_SizeDelta: {x: -125.7892, y: 0}
+  m_AnchoredPosition: {x: -51.7, y: -0.5787}
+  m_SizeDelta: {x: -137.4123, y: -5.7869}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3664163275847692922
 CanvasRenderer:
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 09f6aa4f4776e1e4aa2510018b004b08, type: 3}
+  m_Sprite: {fileID: 375834526874422378, guid: 7f5c3cfbad7939743b40a00264a643d1, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -627,10 +627,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text: "\uCEE4\uD53C \uB9CC\uB4E4\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 6030188581704459053}
   - component: {fileID: 6628963710607204738}
   m_Layer: 5
-  m_Name: make_btn
+  m_Name: ingredient_btn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

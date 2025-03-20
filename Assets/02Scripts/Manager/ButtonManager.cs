@@ -40,7 +40,23 @@ public class ButtonManager : MonoBehaviour
         window.SetActive(false);
     }
 
- 
+
+    public void IngredientButton()
+    {
+        GameObject ingredientButton = GameObject.Find("ingredient_btn");
+        GameObject makeButton = GameObject.Find("make_btn");
+        
+        ingredientButton.SetActive(false);
+    }
+
+    public void MakeDrinkButton()
+    {
+        Debug.Log("만들기 시작");
+
+        // 만들기
+    }
+
+
 
     public void QuitButton()
     {
