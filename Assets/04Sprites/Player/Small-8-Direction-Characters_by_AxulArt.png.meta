@@ -939,7 +939,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Small-8-Direction-Characters_by_AxulArt_40
+      name: Customer1_Up0
       rect:
         serializedVersion: 2
         x: 0
@@ -1115,7 +1115,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Small-8-Direction-Characters_by_AxulArt_48
+      name: Customer1_Up1
       rect:
         serializedVersion: 2
         x: 0
@@ -1291,7 +1291,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Small-8-Direction-Characters_by_AxulArt_56
+      name: Customer1_Up2
       rect:
         serializedVersion: 2
         x: 0
@@ -2008,6 +2008,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Customer1_Up0: 6396989588978632775
+      Customer1_Up1: 2552153717530130704
+      Customer1_Up2: 7057583873565921941
       Front_0: 5554300686759545946
       Player_Down0: 5804860221266551222
       Player_Down1: 1125379381859389362
@@ -2046,7 +2049,6 @@ TextureImporter:
       Small-8-Direction-Characters_by_AxulArt_38: -8989780477179548062
       Small-8-Direction-Characters_by_AxulArt_39: 534821202343493053
       Small-8-Direction-Characters_by_AxulArt_4: 2822392472766049395
-      Small-8-Direction-Characters_by_AxulArt_40: 6396989588978632775
       Small-8-Direction-Characters_by_AxulArt_41: 4231563231303591020
       Small-8-Direction-Characters_by_AxulArt_42: 7400792001476597451
       Small-8-Direction-Characters_by_AxulArt_43: -8527564442724020587
@@ -2054,7 +2056,6 @@ TextureImporter:
       Small-8-Direction-Characters_by_AxulArt_45: 1408869818135702755
       Small-8-Direction-Characters_by_AxulArt_46: -8734128555168634486
       Small-8-Direction-Characters_by_AxulArt_47: 866086912981252047
-      Small-8-Direction-Characters_by_AxulArt_48: 2552153717530130704
       Small-8-Direction-Characters_by_AxulArt_49: 7074741479498802654
       Small-8-Direction-Characters_by_AxulArt_5: 1875530579765883208
       Small-8-Direction-Characters_by_AxulArt_50: 6279345569671006892
@@ -2063,7 +2064,6 @@ TextureImporter:
       Small-8-Direction-Characters_by_AxulArt_53: 4339810400250722761
       Small-8-Direction-Characters_by_AxulArt_54: -6383814987320937140
       Small-8-Direction-Characters_by_AxulArt_55: -5851069236004528113
-      Small-8-Direction-Characters_by_AxulArt_56: 7057583873565921941
       Small-8-Direction-Characters_by_AxulArt_57: 2125592803057769448
       Small-8-Direction-Characters_by_AxulArt_58: 2174973545699553740
       Small-8-Direction-Characters_by_AxulArt_59: 794618213534797419
