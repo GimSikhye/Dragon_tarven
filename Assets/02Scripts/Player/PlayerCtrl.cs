@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
@@ -11,10 +13,10 @@ public class PlayerCtrl : MonoBehaviour
 
     public static PlayerCtrl Instance;
 
-    public SpriteRenderer SpriteRender
-    {
-        get { return spriteRenderer; }
-    }
+    public SpriteRenderer SpriteRender { get { return spriteRenderer; } }
+
+    private bool startedOverUI = false; // 터치 시작 시 UI 위 여부 기록
+
     private void Awake()
     {
         if(Instance == null)
@@ -39,15 +41,25 @@ public class PlayerCtrl : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
+            // 터치 시작 시 UI 위인지 체크하고 기록
+            if(touch.phase == TouchPhase.Began)
+            {
+                startedOverUI = IsTouchOverUI(touch);  
+            }
             if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 ShowTouchFeedback(touch.position);
             }
             else if (touch.phase == TouchPhase.Ended)
             {
-                //Debug.Log("손가락을 뗀 것이 감지됨!!");
-
-                // 이동할 수 있는 곳이면
+                // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
+                if(startedOverUI)
+                {
+                    Debug.Log("터치 시작이 UI 위에서 이루어졌음");
+                    startedOverUI = false; // 초기화
+                    return;
+                }
+                // 이동 처리
                 OnMove(touch);
 
 
@@ -73,11 +85,27 @@ public class PlayerCtrl : MonoBehaviour
 
     private void OnMove(Touch touch)
     {
+        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+        {
+            Debug.Log("UI 터치");
+            return;
+        }
+
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
         worldPosition.z = 0;
         transform.position = worldPosition;
 
         touch_feedback.enabled = false;
+    }
+
+    // 터치 위치가 UI 위인지 판단하는 커스텀 함수
+    private bool IsTouchOverUI(Touch touch)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = touch.position;
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
     private void ShowTouchFeedback(Vector2 screenPosition)
