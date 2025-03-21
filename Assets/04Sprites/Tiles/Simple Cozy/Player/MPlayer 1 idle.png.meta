@@ -1,0 +1,930 @@
+fileFormatVersion: 2
+guid: 0b28e1e5424f5e040a740667f091bcb9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7987384838523919942
+    second: MPlayer 1 idle_0
+  - first:
+      213: 7457349803818390202
+    second: MPlayer 1 idle_1
+  - first:
+      213: 4109062344150621611
+    second: MPlayer 1 idle_2
+  - first:
+      213: 8592540420550787638
+    second: MPlayer 1 idle_3
+  - first:
+      213: -7247290142011290432
+    second: MPlayer 1 idle_4
+  - first:
+      213: -2122031044191927490
+    second: MPlayer 1 idle_5
+  - first:
+      213: 5611267335404535673
+    second: MPlayer 1 idle_6
+  - first:
+      213: -764389650849023908
+    second: MPlayer 1 idle_7
+  - first:
+      213: 8741935459996706175
+    second: MPlayer 1 idle_8
+  - first:
+      213: -677872362595731409
+    second: MPlayer 1 idle_9
+  - first:
+      213: 1847010908890456849
+    second: MPlayer 1 idle_10
+  - first:
+      213: 5556439184327241778
+    second: MPlayer 1 idle_11
+  - first:
+      213: -4683115224631572856
+    second: MPlayer 1 idle_12
+  - first:
+      213: 8411785931555038021
+    second: MPlayer 1 idle_13
+  - first:
+      213: 6148007704767623510
+    second: MPlayer 1 idle_14
+  - first:
+      213: -1592120242975698588
+    second: MPlayer 1 idle_15
+  - first:
+      213: -4206665840669663503
+    second: MPlayer 1 idle_16
+  - first:
+      213: -6744547584938698566
+    second: MPlayer 1 idle_17
+  - first:
+      213: 5736255976450583777
+    second: MPlayer 1 idle_18
+  - first:
+      213: -4703292962759206280
+    second: MPlayer 1 idle_19
+  - first:
+      213: 5357324786205747635
+    second: MPlayer 1 idle_20
+  - first:
+      213: -6496095689066073810
+    second: MPlayer 1 idle_21
+  - first:
+      213: 6207849689735597342
+    second: MPlayer 1 idle_22
+  - first:
+      213: -2580980083975073374
+    second: MPlayer 1 idle_23
+  - first:
+      213: -1052222285491072389
+    second: MPlayer 1 idle_24
+  - first:
+      213: -4606728269826185846
+    second: MPlayer 1 idle_25
+  - first:
+      213: 8976394832762378033
+    second: MPlayer 1 idle_26
+  - first:
+      213: 894563585583998118
+    second: MPlayer 1 idle_27
+  - first:
+      213: -4998373190455727124
+    second: MPlayer 1 idle_28
+  - first:
+      213: 2679675300439799549
+    second: MPlayer 1 idle_29
+  - first:
+      213: -2200530154214307762
+    second: MPlayer 1 idle_30
+  - first:
+      213: -622687619068332577
+    second: MPlayer 1 idle_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: MPlayer 1 idle_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 337
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64e1f801134e8de60800000000000000
+      internalID: 7987384838523919942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_1
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 337
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab29c66c224dd7760800000000000000
+      internalID: 7457349803818390202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 337
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bad18076e62560930800000000000000
+      internalID: 4109062344150621611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_3
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 337
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6328d1dbcf5de3770800000000000000
+      internalID: 8592540420550787638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_4
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 289
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0cc0a3d73047c6b90800000000000000
+      internalID: -7247290142011290432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_5
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 289
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e33c69022080d82e0800000000000000
+      internalID: -2122031044191927490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_6
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 289
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97f3a8a69e93fdd40800000000000000
+      internalID: 5611267335404535673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_7
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 289
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c58b82799a75465f0800000000000000
+      internalID: -764389650849023908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_8
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 243
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f75ae7eebf7915970800000000000000
+      internalID: 8741935459996706175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_9
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 243
+        width: 23
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f283d608da6b796f0800000000000000
+      internalID: -677872362595731409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_10
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 243
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 113efa0c2a6e1a910800000000000000
+      internalID: 1847010908890456849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_11
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 243
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 230f2e5bfff6c1d40800000000000000
+      internalID: 5556439184327241778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_12
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 196
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8868c91f38b320fb0800000000000000
+      internalID: -4683115224631572856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_13
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 196
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 54367f8bcbaacb470800000000000000
+      internalID: 8411785931555038021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_14
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 196
+        width: 23
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 651f9071f6c125550800000000000000
+      internalID: 6148007704767623510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_15
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 196
+        width: 23
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 46199bd0317a7e9e0800000000000000
+      internalID: -1592120242975698588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_16
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 145
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1fe5d1ea4bbee95c0800000000000000
+      internalID: -4206665840669663503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_17
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 145
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab89205a4bd8662a0800000000000000
+      internalID: -6744547584938698566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_18
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 145
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ec6c092b664b9f40800000000000000
+      internalID: 5736255976450583777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_19
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 145
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 87a942038fb8abeb0800000000000000
+      internalID: -4703292962759206280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_20
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 97
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b9603c328a095a40800000000000000
+      internalID: 5357324786205747635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_21
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 97
+        width: 23
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e21354a736b39d5a0800000000000000
+      internalID: -6496095689066073810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_22
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 97
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1d85b7f666b62650800000000000000
+      internalID: 6207849689735597342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_23
+      rect:
+        serializedVersion: 2
+        x: 155
+        y: 97
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a1de4ac9448e2cd0800000000000000
+      internalID: -2580980083975073374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_24
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 50
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b721e800861c561f0800000000000000
+      internalID: -1052222285491072389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_25
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 50
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a85a24ccb0d9110c0800000000000000
+      internalID: -4606728269826185846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_26
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 50
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 137147a9a8f829c70800000000000000
+      internalID: 8976394832762378033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_27
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 50
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a4ebbb67d02a6c00800000000000000
+      internalID: 894563585583998118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_28
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 2
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cebec08d01632aab0800000000000000
+      internalID: -4998373190455727124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_29
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 2
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df63a1cfc7e103520800000000000000
+      internalID: 2679675300439799549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_30
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 2
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e484580db752671e0800000000000000
+      internalID: -2200530154214307762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MPlayer 1 idle_31
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 2
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd5f56bd8e4cb57f0800000000000000
+      internalID: -622687619068332577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

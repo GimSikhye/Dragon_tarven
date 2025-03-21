@@ -1,0 +1,930 @@
+fileFormatVersion: 2
+guid: 54071fbc949a0014cba3497d7d938e8a
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 9111085079866482369
+    second: FPlayer 1 walking_0
+  - first:
+      213: 7914893477372536514
+    second: FPlayer 1 walking_1
+  - first:
+      213: 8181430113004098477
+    second: FPlayer 1 walking_2
+  - first:
+      213: 2019385392813727189
+    second: FPlayer 1 walking_3
+  - first:
+      213: -917233425910811037
+    second: FPlayer 1 walking_4
+  - first:
+      213: 1916651958966701349
+    second: FPlayer 1 walking_5
+  - first:
+      213: 7161960451518188267
+    second: FPlayer 1 walking_6
+  - first:
+      213: -2035888045851208766
+    second: FPlayer 1 walking_7
+  - first:
+      213: 133263412305976469
+    second: FPlayer 1 walking_8
+  - first:
+      213: 9124102829730627296
+    second: FPlayer 1 walking_9
+  - first:
+      213: -318022386558101215
+    second: FPlayer 1 walking_10
+  - first:
+      213: 124364046120039235
+    second: FPlayer 1 walking_11
+  - first:
+      213: 2234647162882492465
+    second: FPlayer 1 walking_12
+  - first:
+      213: -1789682684902295203
+    second: FPlayer 1 walking_13
+  - first:
+      213: -8860483542705652964
+    second: FPlayer 1 walking_14
+  - first:
+      213: 3641488826349464247
+    second: FPlayer 1 walking_15
+  - first:
+      213: 1964293191796082214
+    second: FPlayer 1 walking_16
+  - first:
+      213: -7405507467164512012
+    second: FPlayer 1 walking_17
+  - first:
+      213: 724921251189601930
+    second: FPlayer 1 walking_18
+  - first:
+      213: -2233258131661817345
+    second: FPlayer 1 walking_19
+  - first:
+      213: 3037917843217948026
+    second: FPlayer 1 walking_20
+  - first:
+      213: 1807417807998577296
+    second: FPlayer 1 walking_21
+  - first:
+      213: 8247684642491646546
+    second: FPlayer 1 walking_22
+  - first:
+      213: -1435399212731970602
+    second: FPlayer 1 walking_23
+  - first:
+      213: -382577809032636984
+    second: FPlayer 1 walking_24
+  - first:
+      213: -8027910643817448515
+    second: FPlayer 1 walking_25
+  - first:
+      213: -1250812717648144142
+    second: FPlayer 1 walking_26
+  - first:
+      213: -2219680570955634685
+    second: FPlayer 1 walking_27
+  - first:
+      213: 7332655220028349898
+    second: FPlayer 1 walking_28
+  - first:
+      213: -3451616599408524111
+    second: FPlayer 1 walking_29
+  - first:
+      213: -1674175812931235031
+    second: FPlayer 1 walking_30
+  - first:
+      213: -5594381856379896219
+    second: FPlayer 1 walking_31
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: FPlayer 1 walking_0
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 337
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ce9dc78b93117e70800000000000000
+      internalID: 9111085079866482369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_1
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 337
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c6a8d9cea957dd60800000000000000
+      internalID: 7914893477372536514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_2
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 337
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da31b4837574a8170800000000000000
+      internalID: 8181430113004098477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_3
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 337
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5dd564bc05c460c10800000000000000
+      internalID: 2019385392813727189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_4
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 289
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 366b8701f055543f0800000000000000
+      internalID: -917233425910811037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_5
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 289
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 52d44444dc0599a10800000000000000
+      internalID: 1916651958966701349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_6
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 289
+        width: 32
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bea4320c515646360800000000000000
+      internalID: 7161960451518188267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_7
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 289
+        width: 33
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c31390eb921fb3e0800000000000000
+      internalID: -2035888045851208766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_8
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 243
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59cdd001e5279d100800000000000000
+      internalID: 133263412305976469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_9
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 243
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eefa3c9e235f9e70800000000000000
+      internalID: 9124102829730627296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_10
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 243
+        width: 23
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 129159a0358269bf0800000000000000
+      internalID: -318022386558101215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_11
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 243
+        width: 23
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 343b0d7e074d9b100800000000000000
+      internalID: 124364046120039235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_12
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 196
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13802f541cf030f10800000000000000
+      internalID: 2234647162882492465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_13
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 195
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d593bb98415c927e0800000000000000
+      internalID: -1789682684902295203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_14
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 196
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1bb5daa92d390580800000000000000
+      internalID: -8860483542705652964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_15
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 195
+        width: 23
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ba2d1c4bca298230800000000000000
+      internalID: 3641488826349464247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_16
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 145
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62649bb2042924b10800000000000000
+      internalID: 1964293191796082214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_17
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 146
+        width: 31
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f01826d13a5a3990800000000000000
+      internalID: -7405507467164512012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_18
+      rect:
+        serializedVersion: 2
+        x: 110
+        y: 145
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a86b94389007f0a00800000000000000
+      internalID: 724921251189601930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_19
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 145
+        width: 32
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff97b82cf8fd101e0800000000000000
+      internalID: -2233258131661817345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_20
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 97
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7d93ddce2ad82a20800000000000000
+      internalID: 3037917843217948026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_21
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 98
+        width: 31
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09a68769bec351910800000000000000
+      internalID: 1807417807998577296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_22
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 97
+        width: 30
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 252c827fb79a57270800000000000000
+      internalID: 8247684642491646546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_23
+      rect:
+        serializedVersion: 2
+        x: 147
+        y: 97
+        width: 32
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6db4c366500741ce0800000000000000
+      internalID: -1435399212731970602
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_24
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 50
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8c599a9728fc0baf0800000000000000
+      internalID: -382577809032636984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_25
+      rect:
+        serializedVersion: 2
+        x: 60
+        y: 49
+        width: 31
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbbfeaa9dc1279090800000000000000
+      internalID: -8027910643817448515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_26
+      rect:
+        serializedVersion: 2
+        x: 108
+        y: 50
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f89a0cd57834aee0800000000000000
+      internalID: -1250812717648144142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_27
+      rect:
+        serializedVersion: 2
+        x: 156
+        y: 51
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3086a55f74c1231e0800000000000000
+      internalID: -2219680570955634685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_28
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 2
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: acd14329213d2c560800000000000000
+      internalID: 7332655220028349898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_29
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 1
+        width: 31
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b4c9638df46910d0800000000000000
+      internalID: -3451616599408524111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_30
+      rect:
+        serializedVersion: 2
+        x: 102
+        y: 2
+        width: 30
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 923dea2e7f124c8e0800000000000000
+      internalID: -1674175812931235031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FPlayer 1 walking_31
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 3
+        width: 31
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56ef5988753cc52b0800000000000000
+      internalID: -5594381856379896219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable: {}
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
