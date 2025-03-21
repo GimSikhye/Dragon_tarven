@@ -1,16 +1,26 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
+    [Header("화면 이동")]
     public float dragSpeed = 0.1f; // 드래그 속도 조절
     public Vector2 minBounds; // 최소 좌표(왼쪽 아래)
     public Vector2 maxBounds; // 최대 좌표(오른쪽 위)
+    [Space(10)]
+    [Header("줌 이동")]
+    public float zoomSpeed = 0.05f; // 줌 속도 조절
+    public float minZoom = 3f; // 최소 줌(최대로 확대)
+    public float maxZoom = 10f; // 최대 줌(최대로 축소)
+
 
     private Vector3 lastTouchPosition;
+    private float lastTouchDistance;
 
     void Update()
     {
         HandleCameraDrag();
+        HandlePinchZoom();
     }
 
     private void HandleCameraDrag()
@@ -33,6 +43,30 @@ public class CameraController : MonoBehaviour
         }
     }
 
+    private void HandlePinchZoom()
+    {
+        if (Input.touchCount == 2)
+        {
+            Touch touch1 = Input.GetTouch(0);
+            Touch touch2 = Input.GetTouch(1);
+
+            // 현재 두 손가락 거리 계산(계속 갱신)
+            float currentDistance = Vector2.Distance(touch1.position, touch2.position);
+
+            if (touch1.phase == TouchPhase.Began || touch2.phase == TouchPhase.Began)
+            {
+                lastTouchDistance = currentDistance; // 초기 거리 저장
+            }
+            else if (touch1.phase == TouchPhase.Moved || touch2.phase == TouchPhase.Moved)
+            {
+                float deltaDistance = currentDistance - lastTouchDistance; // 거리 변화 계산 
+                ZoomCamera(deltaDistance * zoomSpeed);
+                lastTouchDistance = currentDistance;
+                lastTouchDistance = currentDistance; // 다음 프레임을 위해 저장
+            }
+        }
+    }
+
     private void MoveCamera(Vector3 moveDirection)
     {
         Vector3 newPosition = transform.position + moveDirection * dragSpeed; // 새로운 위치 계산
@@ -42,5 +76,26 @@ public class CameraController : MonoBehaviour
         newPosition.y = Mathf.Clamp(newPosition.y, minBounds.y, maxBounds.y);
 
         transform.position = newPosition;
+    }
+
+    private void ZoomCamera(float zoomAmount)
+    {
+        // 카메라 줌 변경
+        Camera.main.orthographicSize = Mathf.Clamp(Camera.main.orthographicSize - zoomAmount, minZoom, maxZoom);
+
+        // 줌을 하면 카메라의 화면 범위가 바뀌므로 minBOunds와 maxBounds를 다시 적용
+        AdjustCameraBounds();
+    }
+
+    private void AdjustCameraBounds()
+    {
+        float camHeight = Camera.main.orthographicSize * 2f;
+        float camWidth = camHeight * Camera.main.aspect;
+
+        // 확대&축소 후에도 카메라가 맵 밖으로 나가지 않도록 자동 조정
+        minBounds.x = -10f + camWidth / 2;
+        maxBounds.x = 10f - camWidth / 2;
+        minBounds.y = -10f + camHeight / 2;
+        maxBounds.y = 10f - camHeight / 2;
     }
 }

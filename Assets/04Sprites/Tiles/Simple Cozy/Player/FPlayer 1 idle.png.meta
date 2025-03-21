@@ -922,7 +922,39 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FPlayer 1 idle_0: 8168424417839543826
+      FPlayer 1 idle_1: 4437524083601704645
+      FPlayer 1 idle_10: 1404149320442160028
+      FPlayer 1 idle_11: -1562069803575974093
+      FPlayer 1 idle_12: -8060035860836602230
+      FPlayer 1 idle_13: 4582681574932683095
+      FPlayer 1 idle_14: -3540040276807320205
+      FPlayer 1 idle_15: -8826671610232952791
+      FPlayer 1 idle_16: 364122204621072197
+      FPlayer 1 idle_17: -8271096027293698959
+      FPlayer 1 idle_18: -4430735341705120820
+      FPlayer 1 idle_19: -3070199660876132396
+      FPlayer 1 idle_2: -1940941103426407212
+      FPlayer 1 idle_20: -1289891952757967096
+      FPlayer 1 idle_21: 2580402243755928711
+      FPlayer 1 idle_22: -5257435580465488173
+      FPlayer 1 idle_23: -4317036441140157464
+      FPlayer 1 idle_24: 3061424491363493125
+      FPlayer 1 idle_25: 637418448898066502
+      FPlayer 1 idle_26: 3989067932647161660
+      FPlayer 1 idle_27: -2334957084090335353
+      FPlayer 1 idle_28: 767201281978628446
+      FPlayer 1 idle_29: 470319969951290923
+      FPlayer 1 idle_3: 9079798078886669131
+      FPlayer 1 idle_30: 1506162603090722968
+      FPlayer 1 idle_31: 1479000242529301385
+      FPlayer 1 idle_4: 1607758244336739237
+      FPlayer 1 idle_5: -942461442804934988
+      FPlayer 1 idle_6: 7490239779474348471
+      FPlayer 1 idle_7: -8946799756913475185
+      FPlayer 1 idle_8: 9024892607827545258
+      FPlayer 1 idle_9: 5504627183500164576
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -922,7 +922,39 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      FPlayer 1 walking_0: 9111085079866482369
+      FPlayer 1 walking_1: 7914893477372536514
+      FPlayer 1 walking_10: -318022386558101215
+      FPlayer 1 walking_11: 124364046120039235
+      FPlayer 1 walking_12: 2234647162882492465
+      FPlayer 1 walking_13: -1789682684902295203
+      FPlayer 1 walking_14: -8860483542705652964
+      FPlayer 1 walking_15: 3641488826349464247
+      FPlayer 1 walking_16: 1964293191796082214
+      FPlayer 1 walking_17: -7405507467164512012
+      FPlayer 1 walking_18: 724921251189601930
+      FPlayer 1 walking_19: -2233258131661817345
+      FPlayer 1 walking_2: 8181430113004098477
+      FPlayer 1 walking_20: 3037917843217948026
+      FPlayer 1 walking_21: 1807417807998577296
+      FPlayer 1 walking_22: 8247684642491646546
+      FPlayer 1 walking_23: -1435399212731970602
+      FPlayer 1 walking_24: -382577809032636984
+      FPlayer 1 walking_25: -8027910643817448515
+      FPlayer 1 walking_26: -1250812717648144142
+      FPlayer 1 walking_27: -2219680570955634685
+      FPlayer 1 walking_28: 7332655220028349898
+      FPlayer 1 walking_29: -3451616599408524111
+      FPlayer 1 walking_3: 2019385392813727189
+      FPlayer 1 walking_30: -1674175812931235031
+      FPlayer 1 walking_31: -5594381856379896219
+      FPlayer 1 walking_4: -917233425910811037
+      FPlayer 1 walking_5: 1916651958966701349
+      FPlayer 1 walking_6: 7161960451518188267
+      FPlayer 1 walking_7: -2035888045851208766
+      FPlayer 1 walking_8: 133263412305976469
+      FPlayer 1 walking_9: 9124102829730627296
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

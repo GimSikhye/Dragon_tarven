@@ -20931,8 +20931,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 0.4
-  minBounds: {x: -10, y: -10}
-  maxBounds: {x: 10, y: 10}
+  minBounds: {x: -7, y: -2}
+  maxBounds: {x: 7, y: 2}
+  zoomSpeed: 0.05
+  minZoom: 3
+  maxZoom: 10
 --- !u!1 &1447380137
 GameObject:
   m_ObjectHideFlags: 0
