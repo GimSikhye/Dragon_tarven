@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
@@ -19,7 +20,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             spriteRenderer = GetComponent<SpriteRenderer>();
@@ -42,9 +43,9 @@ public class PlayerCtrl : MonoBehaviour
             Touch touch = Input.GetTouch(0);
 
             // 터치 시작 시 UI 위인지 체크하고 기록
-            if(touch.phase == TouchPhase.Began)
+            if (touch.phase == TouchPhase.Began)
             {
-                startedOverUI = IsTouchOverUI(touch);  
+                startedOverUI = IsTouchOverUI(touch);
             }
             if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
@@ -52,6 +53,8 @@ public class PlayerCtrl : MonoBehaviour
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+                CoffeMachine(touch);
+
                 // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
                 if (startedOverUI)
                 {
@@ -59,13 +62,21 @@ public class PlayerCtrl : MonoBehaviour
                     startedOverUI = false; // 초기화
                     return;
                 }
-                //else if()
+
                 {
                     // 터치 포지션이 위치한 곳의 layer가 floor가 아니라면 return
+                    Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition);
+
+                    if (hitCollider == null || hitCollider.gameObject.layer != LayerMask.NameToLayer("Floor"))
+                    {
+                        Debug.Log("바닥으로만 이동할 수 있습니다.");
+                        return;
+                    }
+
                 }
-                    // 이동 처리
-                    OnMove(touch);
-                CoffeMachine(touch);
+                // 이동 처리
+                OnMove(touch);
             }
         }
     }
@@ -119,5 +130,5 @@ public class PlayerCtrl : MonoBehaviour
 
 
 
-    
+
 }
