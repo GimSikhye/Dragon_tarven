@@ -53,43 +53,45 @@ public class PlayerCtrl : MonoBehaviour
             else if (touch.phase == TouchPhase.Ended)
             {
                 // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
-                if(startedOverUI)
+                if (startedOverUI)
                 {
                     Debug.Log("터치 시작이 UI 위에서 이루어졌음");
                     startedOverUI = false; // 초기화
                     return;
                 }
-                // 이동 처리
-                OnMove(touch);
-
-
-                Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
-                Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
-
-                if (hitCollider != null && hitCollider.transform == coffeeMachine)
+                //else if()
                 {
-                    // 거리도 확인해서 가까울 경우만 팝업 표시
-                    if (Vector3.Distance(transform.position, coffeeMachine.position) < interactionRange)
-                    {
-                        UIManager.Instance.ShowPopup(); // UIManager의 팝업 표시 함수 호출
-                    }
-                    else
-                    {
-                        Debug.Log("거리가 너무 멀어요!!");
-                        UIManager.Instance.ShowCapitonText();
-                    }
+                    // 터치 포지션이 위치한 곳의 layer가 floor가 아니라면 return
                 }
+                    // 이동 처리
+                    OnMove(touch);
+                CoffeMachine(touch);
+            }
+        }
+    }
+
+    private void CoffeMachine(Touch touch)
+    {
+        Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
+        Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
+
+        if (hitCollider != null && hitCollider.transform == coffeeMachine)
+        {
+            // 거리도 확인해서 가까울 경우만 팝업 표시
+            if (Vector3.Distance(transform.position, coffeeMachine.position) < interactionRange)
+            {
+                UIManager.Instance.ShowPopup(); // UIManager의 팝업 표시 함수 호출
+            }
+            else
+            {
+                Debug.Log("거리가 너무 멀어요!!");
+                UIManager.Instance.ShowCapitonText();
             }
         }
     }
 
     private void OnMove(Touch touch)
     {
-        if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
-        {
-            Debug.Log("UI 터치");
-            return;
-        }
 
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
         worldPosition.z = 0;
