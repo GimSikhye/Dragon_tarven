@@ -24,6 +24,7 @@ public class ButtonManager : MonoBehaviour
     public void LoadButton(string sceneName)
     {
         SoundManager.Instance.PlaySFX(click_clip, 0.6f);
+        Debug.Log("æ¿ ¿Ãµø");
         SceneManager.LoadScene(sceneName);
     }
 
