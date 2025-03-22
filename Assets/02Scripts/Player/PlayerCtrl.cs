@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,17 +7,23 @@ using UnityEngine.UI;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    [SerializeField] private Image touch_feedback;
-    [SerializeField] private Transform coffeeMachine;
-
-    [SerializeField] private float interactionRange;
-    private SpriteRenderer spriteRenderer;
-
+    [Header("싱글톤")]
     public static PlayerCtrl Instance;
+    [Space(10)]
+    [Header("터치 UI")]
+    [SerializeField] private Image touch_feedback;
+    [Header("커피머신 로직")]
+    [SerializeField] private Transform coffeeMachine;
+    [SerializeField] private float interactionRange;
+    [Header("플레이어 이동")]
+    private float moveSpeed = 3f;
 
+    private SpriteRenderer spriteRenderer;
     public SpriteRenderer SpriteRender { get { return spriteRenderer; } }
 
     private bool startedOverUI = false; // 터치 시작 시 UI 위 여부 기록
+    private Vector3 targetPosition;
+    private bool isMoving = false;
 
     private void Awake()
     {
@@ -106,9 +113,27 @@ public class PlayerCtrl : MonoBehaviour
 
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
         worldPosition.z = 0;
-        transform.position = worldPosition;
+        targetPosition = worldPosition; // 이동 목표 위치 저장
 
+        if(!isMoving) // 이동 중이 아닐 때만 이동 시작
+        {
+            StartCoroutine(MoveToTarget());
+        }
+
+    }
+
+    private IEnumerator MoveToTarget()
+    {
+        isMoving = true;
+        while(Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+        transform.position = targetPosition; // 정확한 위치 보정
+        isMoving = false;
         touch_feedback.enabled = false;
+
     }
 
     // 터치 위치가 UI 위인지 판단하는 커스텀 함수
