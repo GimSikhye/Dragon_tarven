@@ -20,7 +20,7 @@ public class PlayerCtrl : MonoBehaviour
 
     private SpriteRenderer spriteRenderer;
     public SpriteRenderer SpriteRender { get { return spriteRenderer; } }
-
+    private Animator animator;
     private bool startedOverUI = false; // 터치 시작 시 UI 위 여부 기록
     private Vector3 targetPosition;
     private bool isMoving = false;
@@ -31,6 +31,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             Instance = this;
             spriteRenderer = GetComponent<SpriteRenderer>();
+            animator = GetComponent<Animator>();    
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -125,18 +126,37 @@ public class PlayerCtrl : MonoBehaviour
     private IEnumerator MoveToTarget()
     {
         isMoving = true;
-        while(Vector3.Distance(transform.position, targetPosition) > 0.1f)
+        animator.SetBool("isMoving", true);
+
+        while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            SetAnimation(direction); // 이동 방향 애니메이션 설정
+
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
             yield return null;
         }
+
         transform.position = targetPosition; // 정확한 위치 보정
         isMoving = false;
+        animator.SetBool("isMoving", false);
+
         touch_feedback.enabled = false;
+    }
+
+    private void SetAnimation(Vector3 direction)
+    {
+
+        // 이동 방향을 Normalize하여 MoveX, MoveY 값 설정
+        Vector3 normalizedDirection = direction.normalized;
+        animator.SetFloat("MoveX", normalizedDirection.x);
+        animator.SetFloat("MoveY", normalizedDirection.y);
 
     }
 
-    // 터치 위치가 UI 위인지 판단하는 커스텀 함수
+  
+
+    // 터치 위치가 UI 위인지 판단함
     private bool IsTouchOverUI(Touch touch)
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);

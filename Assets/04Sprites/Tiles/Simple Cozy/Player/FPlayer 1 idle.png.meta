@@ -130,7 +130,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -144,7 +144,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -165,10 +165,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 1024
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -209,12 +209,12 @@ TextureImporter:
       name: FPlayer 1 idle_0
       rect:
         serializedVersion: 2
-        x: 14
-        y: 337
-        width: 32
-        height: 42
+        x: 5
+        y: 334
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -231,12 +231,12 @@ TextureImporter:
       name: FPlayer 1 idle_1
       rect:
         serializedVersion: 2
-        x: 62
-        y: 337
-        width: 32
-        height: 42
+        x: 53
+        y: 334
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -253,12 +253,12 @@ TextureImporter:
       name: FPlayer 1 idle_2
       rect:
         serializedVersion: 2
-        x: 110
-        y: 337
-        width: 32
-        height: 41
+        x: 101
+        y: 334
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -275,12 +275,12 @@ TextureImporter:
       name: FPlayer 1 idle_3
       rect:
         serializedVersion: 2
-        x: 158
-        y: 337
-        width: 32
-        height: 41
+        x: 3
+        y: 284
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -297,12 +297,12 @@ TextureImporter:
       name: FPlayer 1 idle_4
       rect:
         serializedVersion: 2
-        x: 2
-        y: 289
-        width: 32
-        height: 42
+        x: 51
+        y: 285
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -319,12 +319,12 @@ TextureImporter:
       name: FPlayer 1 idle_5
       rect:
         serializedVersion: 2
-        x: 50
-        y: 289
-        width: 32
-        height: 42
+        x: 99
+        y: 284
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -341,12 +341,12 @@ TextureImporter:
       name: FPlayer 1 idle_6
       rect:
         serializedVersion: 2
-        x: 98
-        y: 289
-        width: 32
-        height: 41
+        x: 3
+        y: 234
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -363,12 +363,12 @@ TextureImporter:
       name: FPlayer 1 idle_7
       rect:
         serializedVersion: 2
-        x: 146
-        y: 289
-        width: 32
-        height: 41
+        x: 54
+        y: 234
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -385,12 +385,12 @@ TextureImporter:
       name: FPlayer 1 idle_8
       rect:
         serializedVersion: 2
-        x: 13
-        y: 243
-        width: 23
-        height: 41
+        x: 105
+        y: 234
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -407,12 +407,12 @@ TextureImporter:
       name: FPlayer 1 idle_9
       rect:
         serializedVersion: 2
-        x: 61
-        y: 243
-        width: 23
-        height: 41
+        x: 3
+        y: 184
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -429,12 +429,12 @@ TextureImporter:
       name: FPlayer 1 idle_10
       rect:
         serializedVersion: 2
-        x: 109
-        y: 243
-        width: 23
-        height: 40
+        x: 54
+        y: 184
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -451,12 +451,12 @@ TextureImporter:
       name: FPlayer 1 idle_11
       rect:
         serializedVersion: 2
-        x: 157
-        y: 243
-        width: 23
-        height: 40
+        x: 105
+        y: 184
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -473,12 +473,12 @@ TextureImporter:
       name: FPlayer 1 idle_12
       rect:
         serializedVersion: 2
-        x: 13
-        y: 196
-        width: 23
-        height: 38
+        x: 3
+        y: 134
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -495,12 +495,12 @@ TextureImporter:
       name: FPlayer 1 idle_13
       rect:
         serializedVersion: 2
-        x: 61
-        y: 196
-        width: 23
-        height: 38
+        x: 54
+        y: 134
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -517,12 +517,12 @@ TextureImporter:
       name: FPlayer 1 idle_14
       rect:
         serializedVersion: 2
-        x: 109
-        y: 196
-        width: 23
-        height: 37
+        x: 105
+        y: 134
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -539,12 +539,12 @@ TextureImporter:
       name: FPlayer 1 idle_15
       rect:
         serializedVersion: 2
-        x: 157
-        y: 196
-        width: 23
-        height: 37
+        x: 3
+        y: 84
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -561,12 +561,12 @@ TextureImporter:
       name: FPlayer 1 idle_16
       rect:
         serializedVersion: 2
-        x: 14
-        y: 145
-        width: 30
-        height: 42
+        x: 54
+        y: 84
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -583,12 +583,12 @@ TextureImporter:
       name: FPlayer 1 idle_17
       rect:
         serializedVersion: 2
-        x: 62
-        y: 145
-        width: 30
-        height: 42
+        x: 105
+        y: 84
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -605,19 +605,19 @@ TextureImporter:
       name: FPlayer 1 idle_18
       rect:
         serializedVersion: 2
-        x: 110
-        y: 145
-        width: 30
-        height: 41
+        x: 3
+        y: 34
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: cc3b5e78eadd282c0800000000000000
+      spriteID: 5ce79ae5f4aa19e4684cab64b4df9ffb
       internalID: -4430735341705120820
       vertices: []
       indices: 
@@ -627,19 +627,19 @@ TextureImporter:
       name: FPlayer 1 idle_19
       rect:
         serializedVersion: 2
-        x: 158
-        y: 145
-        width: 30
-        height: 41
+        x: 54
+        y: 34
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 4df04ffcca57465d0800000000000000
+      spriteID: c114beb036dbecc4db2f882bc644143f
       internalID: -3070199660876132396
       vertices: []
       indices: 
@@ -649,19 +649,19 @@ TextureImporter:
       name: FPlayer 1 idle_20
       rect:
         serializedVersion: 2
-        x: 4
-        y: 97
-        width: 30
-        height: 42
+        x: 105
+        y: 34
+        width: 40
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 807f9356a12691ee0800000000000000
+      spriteID: 37dcddbe7333e4c45bd96619369538b2
       internalID: -1289891952757967096
       vertices: []
       indices: 
@@ -671,19 +671,19 @@ TextureImporter:
       name: FPlayer 1 idle_21
       rect:
         serializedVersion: 2
-        x: 52
-        y: 97
+        x: 100
+        y: 4
         width: 30
-        height: 42
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 78c61bc4b2e6fc320800000000000000
+      spriteID: 00eba8060f609fc43998f2670a972643
       internalID: 2580402243755928711
       vertices: []
       indices: 
@@ -693,19 +693,19 @@ TextureImporter:
       name: FPlayer 1 idle_22
       rect:
         serializedVersion: 2
-        x: 100
-        y: 97
-        width: 30
-        height: 41
+        x: 149
+        y: 335
+        width: 40
+        height: 49
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3dedad4d136d907b0800000000000000
+      spriteID: aad54dcf2dfaad74bbba4473ae4feead
       internalID: -5257435580465488173
       vertices: []
       indices: 
@@ -715,20 +715,20 @@ TextureImporter:
       name: FPlayer 1 idle_23
       rect:
         serializedVersion: 2
-        x: 148
-        y: 97
-        width: 30
-        height: 41
+        x: 147
+        y: 284
+        width: 37
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 8e3ac6bba3ec614c0800000000000000
-      internalID: -4317036441140157464
+      spriteID: a2fe4a316cb2e694987c11fb82131dd0
+      internalID: 575324881
       vertices: []
       indices: 
       edges: []
@@ -737,20 +737,20 @@ TextureImporter:
       name: FPlayer 1 idle_24
       rect:
         serializedVersion: 2
-        x: 12
-        y: 50
-        width: 30
-        height: 41
+        x: 30
+        y: 40
+        width: 38
+        height: 38
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 505e662da5d5c7a20800000000000000
-      internalID: 3061424491363493125
+      spriteID: 8d57f7838be7b0849ac0923324ca69d0
+      internalID: -795453161
       vertices: []
       indices: 
       edges: []
@@ -759,152 +759,20 @@ TextureImporter:
       name: FPlayer 1 idle_25
       rect:
         serializedVersion: 2
-        x: 60
-        y: 50
-        width: 30
-        height: 41
+        x: 149
+        y: 234
+        width: 39
+        height: 50
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 64889dbb3b098d800800000000000000
-      internalID: 637418448898066502
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_26
-      rect:
-        serializedVersion: 2
-        x: 108
-        y: 50
-        width: 30
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: c3ff55656240c5730800000000000000
-      internalID: 3989067932647161660
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_27
-      rect:
-        serializedVersion: 2
-        x: 156
-        y: 50
-        width: 30
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 78f730537e0989fd0800000000000000
-      internalID: -2334957084090335353
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_28
-      rect:
-        serializedVersion: 2
-        x: 6
-        y: 2
-        width: 30
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e597f8b4085a5aa00800000000000000
-      internalID: 767201281978628446
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_29
-      rect:
-        serializedVersion: 2
-        x: 54
-        y: 2
-        width: 30
-        height: 41
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: b2618b35589e68600800000000000000
-      internalID: 470319969951290923
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_30
-      rect:
-        serializedVersion: 2
-        x: 102
-        y: 2
-        width: 30
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 890433358e6f6e410800000000000000
-      internalID: 1506162603090722968
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FPlayer 1 idle_31
-      rect:
-        serializedVersion: 2
-        x: 150
-        y: 2
-        width: 30
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 983fcae62e6768410800000000000000
-      internalID: 1479000242529301385
+      spriteID: 26e183296b20bd34387211151eb656a3
+      internalID: 605920690
       vertices: []
       indices: 
       edges: []
@@ -913,7 +781,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: eae4d9cadfa6be94bb21681adf41b6be
     internalID: 0
     vertices: []
     indices: 
@@ -939,16 +807,10 @@ TextureImporter:
       FPlayer 1 idle_20: -1289891952757967096
       FPlayer 1 idle_21: 2580402243755928711
       FPlayer 1 idle_22: -5257435580465488173
-      FPlayer 1 idle_23: -4317036441140157464
-      FPlayer 1 idle_24: 3061424491363493125
-      FPlayer 1 idle_25: 637418448898066502
-      FPlayer 1 idle_26: 3989067932647161660
-      FPlayer 1 idle_27: -2334957084090335353
-      FPlayer 1 idle_28: 767201281978628446
-      FPlayer 1 idle_29: 470319969951290923
+      FPlayer 1 idle_23: 575324881
+      FPlayer 1 idle_24: -795453161
+      FPlayer 1 idle_25: 605920690
       FPlayer 1 idle_3: 9079798078886669131
-      FPlayer 1 idle_30: 1506162603090722968
-      FPlayer 1 idle_31: 1479000242529301385
       FPlayer 1 idle_4: 1607758244336739237
       FPlayer 1 idle_5: -942461442804934988
       FPlayer 1 idle_6: 7490239779474348471
