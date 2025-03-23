@@ -8,8 +8,12 @@ public class UIManager : MonoBehaviour
 
     public static UIManager Instance;
     [SerializeField] private GameObject[] panels;
-    //[SerializeField] private GameObject captionText;
     [SerializeField] private TextMeshProUGUI captionTmp;
+
+    [Header("재화량 텍스트")]
+    [SerializeField] private TextMeshProUGUI coffeeBeanText;
+    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI gemText;
 
     // 원두 개수 값이 바뀔때 갱신해주기.
     private void Awake()
@@ -33,6 +37,26 @@ public class UIManager : MonoBehaviour
         }
         captionTmp.enabled = false;
     }
+
+    public void UpdateCoffeeBeanUI(int value)
+    {
+        coffeeBeanText.text = value.ToString();
+    }
+
+    public void UpdateCoinUI(int value)
+    {
+        coinText.text = value.ToString();
+    }
+
+    public void UpdateGemUI(int value)
+    {
+        gemText.text = value.ToString();
+    }
+
+ 
+
+
+
 
     public void ShowPopup()
     {

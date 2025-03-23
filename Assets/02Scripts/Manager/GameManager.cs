@@ -5,10 +5,11 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] private AudioClip[] bgm_clips;
+
     [Header("재화")]
-    [SerializeField] private ushort beans_count;
-    [SerializeField] private ushort coin_count;
-    [SerializeField] private ushort gem_count;
+    [SerializeField] private int coffeeBean;
+    [SerializeField] private int gem;
+    [SerializeField] private int coin;
 
     void Awake()
     {
@@ -22,6 +23,56 @@ public class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded += ChangeScene;
     }
+
+    private void Start()
+    {
+        // 게임 시작 시 저장된 데이터 불러오기
+        coffeeBean = PlayerPrefs.GetInt("CoffeeBean", 100);
+        coin = PlayerPrefs.GetInt("Coin", 1000);
+        gem = PlayerPrefs.GetInt("Gem", 0);
+
+        // UI 업데이트
+        UIManager.Instance.UpdateCoffeeBeanUI(coffeeBean);
+        UIManager.Instance.UpdateCoinUI(coin);
+        UIManager.Instance.UpdateGemUI(gem);
+
+    }
+
+
+    public int CoffeeBean
+    {
+        get { return coffeeBean; }
+        set
+        {
+            coffeeBean = value;
+            PlayerPrefs.SetInt("CoffeeBean", coffeeBean); // 자동 저장
+            UIManager.Instance.UpdateCoffeeBeanUI(coin);
+        }
+    }
+
+    public int Coin
+    {
+        get { return coin; }
+        set
+        {
+            gem = value;
+            PlayerPrefs.SetInt("Coin", coin); // 자동 저장
+            UIManager.Instance.UpdateCoinUI(coin);
+        }
+    }
+
+    public int Gem
+    {
+        get { return gem; }
+        set
+        {
+            gem = value;
+            PlayerPrefs.SetInt("Gem", gem); // 자동 저장
+            UIManager.Instance.UpdateGemUI(gem);
+
+        }
+    }
+
 
     private void ChangeScene(Scene scene, LoadSceneMode mode)
     {
