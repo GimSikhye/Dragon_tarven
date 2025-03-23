@@ -6,14 +6,30 @@ public class Customer : MonoBehaviour
     public enum CustomerState { Entering, Ordering, Exiting, Despawning }
     private CustomerState state;
 
-    [SerializeField] private float moveSpeed = 2f;
-    [SerializeField] private Transform[] pathPoints; // 이동 경로 (입구 → 계산대 → 출구)
+    private float moveSpeed = 2f;
+     private Transform[] pathPoints; // 이동 경로 (입구 → 계산대 → 출구)
     private int currentPointIndex = 0;
 
     private CustomerPool customerPool;
 
+    
     private void Start()
     {
+        // PathPoints 오브젝트를 찾아서 자식 Transform을 가져오기
+        GameObject pathParent = GameObject.Find("PathPoints");
+        if (pathParent != null)
+        {
+            pathPoints = new Transform[pathParent.transform.childCount];
+            for (int i = 0; i < pathPoints.Length; i++)
+            {
+                pathPoints[i] = pathParent.transform.GetChild(i);
+            }
+        }
+        else
+        {
+            Debug.LogError("PathPoints 오브젝트를 찾을 수 없습니다!");
+        }
+
         customerPool = FindObjectOfType<CustomerPool>(); // 손님 풀 찾기
         StartCoroutine(CustomerRoutine());
     }
