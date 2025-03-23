@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour
 {
@@ -16,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     private Vector3 lastTouchPosition;
     private float lastTouchDistance;
+    private bool isTouchingUI = false; // UI 터치 여부 저장
 
     void Update()
     {
@@ -31,14 +34,24 @@ public class CameraController : MonoBehaviour
 
             if(touch.phase == TouchPhase.Began)
             {
+                // 터치 시작 시 UI 위에 있는지 확인
+                isTouchingUI = EventSystem.current.IsPointerOverGameObject(touch.fingerId);
                 lastTouchPosition = Camera.main.ScreenToWorldPoint(touch.position);
             }
             else if(touch.phase == TouchPhase.Moved)
             {
+                // 드래그 중에도 UI 위인지 확인하여 UI에서 시작했으면 화면 이동 차단
+                if (isTouchingUI) return;
+
                 Vector3 currentPosition = Camera.main.ScreenToWorldPoint(touch.position);
                 Vector3 direction = currentPosition - lastTouchPosition; // 이동방향 계산
                 MoveCamera(-direction);
                 lastTouchPosition = currentPosition;
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                // 터치가 끝나면 UI 터치 여부 초기화
+                isTouchingUI = false;
             }
         }
     }
@@ -49,6 +62,10 @@ public class CameraController : MonoBehaviour
         {
             Touch touch1 = Input.GetTouch(0);
             Touch touch2 = Input.GetTouch(1);
+
+            // 두 손가랅 중 하나라도 UI를 터치했으면 줌X
+            if (EventSystem.current.IsPointerOverGameObject(touch1.fingerId) || EventSystem.current.IsPointerOverGameObject(touch2.fingerId))
+                return;
 
             // 현재 두 손가락 거리 계산(계속 갱신)
             float currentDistance = Vector2.Distance(touch1.position, touch2.position);
@@ -98,4 +115,6 @@ public class CameraController : MonoBehaviour
         minBounds.y = -10f + camHeight / 2;
         maxBounds.y = 10f - camHeight / 2;
     }
+
+
 }
