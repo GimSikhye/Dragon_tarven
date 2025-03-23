@@ -20,7 +20,7 @@ public class CustomerSpawner : MonoBehaviour
             GameObject customer = customerPool.SpawnCustomer();
             if (customer != null)
             {
-                customer.GetComponent<Customer>().StartCoroutine("CustomerRoutine");
+                //customer.GetComponent<Customer>().StartCoroutine("CustomerRoutine");
             }
         }
     }
