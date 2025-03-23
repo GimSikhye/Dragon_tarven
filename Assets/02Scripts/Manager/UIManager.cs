@@ -29,14 +29,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        foreach(var item  in panels)
-        {
-            item.SetActive(false);  
-        }
-        captionTmp.enabled = false;
-    }
+    //private void Start()
+    //{
+    //    foreach(var item  in panels)
+    //    {
+    //        item.SetActive(false);  
+    //    }
+    //    captionTmp.enabled = false;
+    //}
 
     public void UpdateCoffeeBeanUI(int value)
     {
@@ -52,11 +52,6 @@ public class UIManager : MonoBehaviour
     {
         gemText.text = value.ToString();
     }
-
- 
-
-
-
 
     public void ShowPopup()
     {

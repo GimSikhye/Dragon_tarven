@@ -15,4 +15,7 @@ public class CoffeeData : ScriptableObject
     [SerializeField]
     private int beanUse;
     public int BeanUse { get { return beanUse; } }
+    [SerializeField]
+    private Sprite menuIcon;
+    public Sprite MenuIcon { get { return menuIcon; } }
 }
