@@ -56,7 +56,7 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    public void MakeDrinkButton(GameObject button)
+    public void RoastingButton(GameObject button)
     {
         // 현재 버튼이 속한 Menu Container 찾기
         GameObject menuContainer = button.transform.parent?.gameObject;
