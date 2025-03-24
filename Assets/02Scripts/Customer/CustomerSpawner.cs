@@ -18,10 +18,6 @@ public class CustomerSpawner : MonoBehaviour
         {
             yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
             GameObject customer = customerPool.SpawnCustomer();
-            if (customer != null)
-            {
-                //customer.GetComponent<Customer>().StartCoroutine("CustomerRoutine");
-            }
         }
     }
 }

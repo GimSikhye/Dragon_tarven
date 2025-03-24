@@ -8,6 +8,7 @@ public class Customer : MonoBehaviour
     GameObject pathParent;
     Transform[] pathPoints;
     private int currentIndex = 0;
+    private CustomerPool custerPool;
 
     void Start()
     {
@@ -17,7 +18,8 @@ public class Customer : MonoBehaviour
             Debug.LogError("AIPath 컴포넌트가 없습니다!");
             return;
         }
-
+        
+        custerPool = FindAnyObjectByType<CustomerPool>();
         SetNextDestination(); // 첫 번째 목표 설정
     }
 
@@ -34,6 +36,7 @@ public class Customer : MonoBehaviour
 
             if (pathPoints.Length > 0)
             {
+                currentIndex = 0; // 시작 시 인덱스 초기화
                 target = pathPoints[0]; // 첫 번째 지점을 목표로 설정
                 aiPath.destination = target.position; // A* 이동 목표 설정
             }
@@ -42,10 +45,18 @@ public class Customer : MonoBehaviour
 
     void Update() 
     {
-        // 목표 지점에 도착하면 다음 지점으로 변경
         if (aiPath.reachedDestination && target != null)
         {
-            target = pathPoints[++currentIndex]; // 다음 목표 지점
+            currentIndex++;
+
+            if (currentIndex >= pathPoints.Length)
+            {
+                // 경로를 다 돌았으면 오브젝트 비활성화 후 Pool로 반환
+                custerPool.ReturnCustomer(gameObject);
+                return;
+            }
+
+            target = pathPoints[currentIndex];
             aiPath.destination = target.position;
         }
     }

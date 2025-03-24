@@ -46,15 +46,18 @@ public class ButtonManager : MonoBehaviour
     {
         GameObject ingredientButton = GameObject.Find("ingredient_btn");
         GameObject makeButton = GameObject.Find("make_btn");
+        GameObject beanUseTmp = GameObject.Find("beanUse_tmp");
         
         ingredientButton.SetActive(false);
+        makeButton.SetActive(true);
     }
 
     public void MakeDrinkButton()
     {
         Debug.Log("만들기 시작");
+        GameObject ingredientButton = GameObject.Find("ingredient_btn");
+        GameObject makeButton = GameObject.Find("make_btn");
 
-        // 만들기
     }
 
 

@@ -35,7 +35,7 @@ public class DrinkWindow : MonoBehaviour
             nameTmp.text = coffee.CoffeName;
             coinTmp.text = coffee.Price.ToString();
             mugQtyTmp.text = "X " + coffee.MugQty.ToString();
-            beanUseTmp.text = "- " + beanUseTmp.ToString();
+            beanUseTmp.text = "- " + coffee.BeanUse.ToString();
             iconImg.sprite = coffee.MenuIcon;
             
         }
