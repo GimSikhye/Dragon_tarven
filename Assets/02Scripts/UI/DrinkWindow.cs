@@ -6,10 +6,10 @@ using System.Collections.Generic;
 public class DrinkWindow : MonoBehaviour
 {
     [Header("메뉴 데이터 리스트")]
-    [SerializeField] private List<CoffeeData> coffeDataList; // SO 데이터 리스트
+    [SerializeField] public List<CoffeeData> coffeDataList; // SO 데이터 리스트
 
     [Header("메뉴 UI 패널")]
-    [SerializeField] private List<GameObject> menuContainers; //menu COntainer 패널 리스트
+    [SerializeField] public List<GameObject> menuContainers; //menu Container 패널 리스트
 
     void Start()
     {

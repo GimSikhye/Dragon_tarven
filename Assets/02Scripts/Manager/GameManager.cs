@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
         {
             coffeeBean = value;
             PlayerPrefs.SetInt("CoffeeBean", coffeeBean); // 자동 저장
-            UIManager.Instance.UpdateCoffeeBeanUI(coin);
+            UIManager.Instance.UpdateCoffeeBeanUI(coffeeBean);
         }
     }
 
