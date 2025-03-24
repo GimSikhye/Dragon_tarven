@@ -58,48 +58,33 @@ public class ButtonManager : MonoBehaviour
 
     public void MakeDrinkButton(GameObject button)
     {
-
-        // 1. 현재 버튼이 속한 Menu Container 찾기
+        // 현재 버튼이 속한 Menu Container 찾기
         GameObject menuContainer = button.transform.parent?.gameObject;
-        if (menuContainer == null)
-        {
-            Debug.LogError("Menu Container를 찾을 수 없습니다! (버튼의 부모 오브젝트가 없음)");
-            return;
-        }
-        Debug.Log($"찾은 Menu Container: {menuContainer.name}");
 
-        // 2. DrinkWindow 오브젝트 찾기
-        DrinkWindow drinkWindow = FindObjectOfType<DrinkWindow>();
-        int index = drinkWindow.menuContainers.IndexOf(menuContainer);
-        if (index < 0)
-        {
-            Debug.LogError("해당 Menu Container가 DrinkWindow.menuContainers 리스트에 없습니다!");
+        RoastingWindow roastingWindow = FindObjectOfType<RoastingWindow>();
+        int index = roastingWindow.menuContainers.IndexOf(menuContainer);
+
+        if (index < 0 || index >= roastingWindow.coffeDataList.Count)
+        { 
+            Debug.LogError("유효하지 않은 커피 메뉴 선택!");
             return;
         }
 
         // 해당 인덱스를 이용하여 coffeDataList에서 CoffeeData를 가져오기
-        CoffeeData coffeeData = drinkWindow.coffeDataList[index];
-        if (coffeeData == null)
-        {
-            Debug.LogError("coffeDataList[" + index + "]가 null입니다!");
-            return;
-        }
+        CoffeeData coffeeData = roastingWindow.coffeDataList[index];
 
-        int beanUseAmount = coffeeData.BeanUse; // 커피를 만들 때 사용할 원두 소모량
-
-        // 5. GameManager.Instance의 커피콩 수량에서 beanUseAmount만큼 차감
-        if (GameManager.Instance.CoffeeBean >= beanUseAmount)
+        // 원두 소모 체크
+        if (GameManager.Instance.CoffeeBean >= coffeeData.BeanUse)
         {
-            GameManager.Instance.CoffeeBean -= beanUseAmount;
-            Debug.Log($"{coffeeData.CoffeName} 커피를 만듭니다. 남은 커피콩: {GameManager.Instance.CoffeeBean}");
+            GameManager.Instance.CoffeeBean -= coffeeData.BeanUse;
+            CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
+            Debug.Log($"{coffeeData.CoffeName} 로스팅 시작!");
         }
         else
         {
             Debug.LogError("커피콩이 부족합니다!");
         }
     }
-
-
 
 
     public void QuitButton()

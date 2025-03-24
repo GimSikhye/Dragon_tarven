@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class DrinkWindow : MonoBehaviour
+public class RoastingWindow : MonoBehaviour
 {
     [Header("메뉴 데이터 리스트")]
     [SerializeField] public List<CoffeeData> coffeDataList; // SO 데이터 리스트

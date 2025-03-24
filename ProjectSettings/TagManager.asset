@@ -6,11 +6,12 @@ TagManager:
   tags:
   - stand
   - Object
+  - Coffee Machine
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Coffee Machine
   - Water
   - UI
   - Object
