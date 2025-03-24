@@ -98,8 +98,14 @@ public class PlayerCtrl : MonoBehaviour
             // 거리도 확인해서 가까울 경우만 팝업 표시
             if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
             {
-                if (CoffeeMachine.LastTouchedMachine.IsRoasting) return; // UIManager ShowMenuWindow
                 CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
+
+                if (CoffeeMachine.LastTouchedMachine.IsRoasting)
+                {
+                    UIManager.Instance.ShowCurrentMenuWindow();
+                    //CurrentMenuWindow.UpdateMenuWindow(CoffeeMachine.LastTouchedMachine);
+                    // 다른데 터치하면 다시 창 끄기
+                }
                 UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
             }
             else

@@ -1,7 +1,14 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+enum Windows
+{
+    Roasting = 0,
+    Exit,
+    CurrentMenu
+}
 public class UIManager : MonoBehaviour
 {
     //enum으로 윈도우 창 이름 배열 관리하기
@@ -28,16 +35,12 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-
-    //private void Start()
-    //{
-    //    foreach(var item  in panels)
-    //    {
-    //        item.SetActive(false);  
-    //    }
-    //    captionTmp.enabled = false;
-    //}
-
+    private void Start()
+    {
+        foreach (var panel in panels)
+            panel.SetActive(false);
+    }
+    // 모든 UI 비활성화
     public void UpdateCoffeeBeanUI(int value)
     {
         coffeeBeanText.text = value.ToString();
@@ -55,12 +58,12 @@ public class UIManager : MonoBehaviour
 
     public void ShowRoastingWindow()
     {
-        panels[0].SetActive(true);
+        panels[(int)Windows.Roasting].SetActive(true);
     }
 
     public void ShowExitWindow()
     {
-        panels[1].SetActive(true);
+        panels[(int)Windows.Exit].SetActive(true);
     }
 
     public void ShowCapitonText()
@@ -72,6 +75,9 @@ public class UIManager : MonoBehaviour
         captionTmp.text = "거리가 너무 멀어요!";
     }
 
+    internal void ShowCurrentMenuWindow()
+    {
+        panels[(int)Windows.CurrentMenu].SetActive(true); 
 
-
+    }
 }

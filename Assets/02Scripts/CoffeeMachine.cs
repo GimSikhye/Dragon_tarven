@@ -10,7 +10,8 @@ public class CoffeeMachine : MonoBehaviour
     [SerializeField] private bool isRoasting = false;
 
     public bool IsRoasting { get; }
-
+    public CoffeeData CurrentCoffee { get; }
+    public int RemainingMugs { get; }
 
     public void RoastCoffee(CoffeeData coffee)
     {
@@ -43,6 +44,11 @@ public class CoffeeMachine : MonoBehaviour
     {
         LastTouchedMachine = machine;
         Debug.Log(LastTouchedMachine.gameObject.name);
+    }
+
+    public bool HasCoffee()
+    {
+        return remainingMugs <= 0 ? true : false;
     }
 
 
