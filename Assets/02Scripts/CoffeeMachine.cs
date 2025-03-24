@@ -9,9 +9,9 @@ public class CoffeeMachine : MonoBehaviour
     [SerializeField] private int remainingMugs; // 남은 커피 잔 수
     [SerializeField] private bool isRoasting = false;
 
-    public bool IsRoasting { get; }
-    public CoffeeData CurrentCoffee { get; }
-    public int RemainingMugs { get; }
+    public bool IsRoasting => isRoasting;
+    public CoffeeData CurrentCoffee { get { return currentCoffee; } }
+    public int RemainingMugs => remainingMugs;
 
     public void RoastCoffee(CoffeeData coffee)
     {

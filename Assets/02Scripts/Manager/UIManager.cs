@@ -75,8 +75,9 @@ public class UIManager : MonoBehaviour
         captionTmp.text = "거리가 너무 멀어요!";
     }
 
-    internal void ShowCurrentMenuWindow()
+    public void ShowCurrentMenuWindow()
     {
+        Debug.Log("현재 메뉴창 띄움");
         panels[(int)Windows.CurrentMenu].SetActive(true); 
 
     }

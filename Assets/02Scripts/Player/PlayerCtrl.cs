@@ -99,14 +99,17 @@ public class PlayerCtrl : MonoBehaviour
             if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
             {
                 CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
-
-                if (CoffeeMachine.LastTouchedMachine.IsRoasting)
+                Debug.Log(hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting);
+                if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
                 {
                     UIManager.Instance.ShowCurrentMenuWindow();
-                    //CurrentMenuWindow.UpdateMenuWindow(CoffeeMachine.LastTouchedMachine);
-                    // 다른데 터치하면 다시 창 끄기
                 }
-                UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
+                else
+                {
+                    Debug.Log("로스팅이 아직 안됨");
+
+                    UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
+                }
             }
             else
             {

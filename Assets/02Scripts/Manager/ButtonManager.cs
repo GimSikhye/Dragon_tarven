@@ -36,23 +36,7 @@ public class ButtonManager : MonoBehaviour
             Debug.LogError("비활성화 활 윈도우를 찾지 못했습니다!");
             return;
         }
-
-        Debug.Log($"비활성화할 패널: {window.name}");
         window.SetActive(false);
-    }
-
-
-    public void IngredientButton()
-    {
-        // 만들기 버튼 띄우고 Ingrdient Button 비활성화하기.
-
-        GameObject ingredientButton = GameObject.Find("ingredient_btn");
-        GameObject makeButton = GameObject.Find("make_btn");
-        GameObject beanUseTmp = GameObject.Find("beanUse_tmp");
-
-        ingredientButton.SetActive(false);
-        beanUseTmp.SetActive(false);
-        makeButton.SetActive(true);
     }
 
 
