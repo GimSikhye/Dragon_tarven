@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour
         gemText.text = value.ToString();
     }
 
-    public void ShowPopup()
+    public void ShowRoastingWindow()
     {
         panels[0].SetActive(true);
     }

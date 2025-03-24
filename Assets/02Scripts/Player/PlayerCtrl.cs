@@ -13,7 +13,6 @@ public class PlayerCtrl : MonoBehaviour
     [Header("터치 UI")]
     [SerializeField] private Image touch_feedback;
     [Header("커피머신 로직")]
-    [SerializeField] private Transform coffeeMachine;
     [SerializeField] private float interactionRange;
     [Header("플레이어 이동")]
     private float moveSpeed = 3f;
@@ -94,12 +93,13 @@ public class PlayerCtrl : MonoBehaviour
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
         Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
 
-        if (hitCollider != null && hitCollider.transform == coffeeMachine)
+        if (hitCollider != null && hitCollider.transform.CompareTag("Coffee Machine"))
         {
             // 거리도 확인해서 가까울 경우만 팝업 표시
-            if (Vector3.Distance(transform.position, coffeeMachine.position) < interactionRange)
+            if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
             {
-                UIManager.Instance.ShowPopup(); // UIManager의 팝업 표시 함수 호출
+                CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
+                UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
             }
             else
             {
