@@ -37,7 +37,7 @@ public class Customer : MonoBehaviour
         }
     }
 
-    void Update()
+    void Update() // ??
     {
         // 목표 지점에 도착하면 다음 지점으로 변경
         if (aiPath.reachedDestination && target != null)
