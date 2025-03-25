@@ -912,12 +912,12 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 164
-        width: 49
-        height: 45
+        y: 176
+        width: 48
+        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 6, y: 5, z: 6, w: 6}
       customData: 
       outline: []
       physicsShape: []
