@@ -10,3 +10,5 @@
 22	3871	7644369149876412	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	c9e93baf29289fd4
 15	4074	7644369151887308	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	f802bf9df4f9fcb9
 4074	4300	7644369154222031	D:/Unity Project/Dragon_tarven/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5n6z6m6z/obj/arm64-v8a/libgame.so	747d408eab24cba0
+10	584	7645744429844204	FramePacing/CMakeFiles/swappywrapper.dir/UnitySwappyWrapper.cpp.o	4ab07b659b0c806a
+585	795	7645744432121012	D:/Unity Project/Dragon_tarven/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5n6z6m6z/obj/arm64-v8a/libswappywrapper.so	dbe7a8091121e384
