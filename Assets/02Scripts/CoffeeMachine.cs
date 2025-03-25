@@ -8,6 +8,7 @@ public class CoffeeMachine : MonoBehaviour
     [SerializeField] private CoffeeData currentCoffee; // 현재 로스팅 중인 커피
     [SerializeField] private int remainingMugs; // 남은 커피 잔 수
     [SerializeField] private bool isRoasting = false;
+    [SerializeField] GameObject SteamParticle;
 
     public bool IsRoasting => isRoasting;
     public CoffeeData CurrentCoffee { get { return currentCoffee; } }
@@ -19,7 +20,8 @@ public class CoffeeMachine : MonoBehaviour
         currentCoffee = coffee;
         remainingMugs = coffee.MugQty;
         Debug.Log($"{coffee.CoffeName} 커피를 로스팅 시작! 잔 수: {remainingMugs}");
-
+        GameObject particle = Instantiate(SteamParticle);
+        particle.transform.position = transform.position;
     }
 
     // 현재 로스팅 중일 때, isRosating = true;

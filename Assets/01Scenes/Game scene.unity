@@ -22352,6 +22352,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coffe Machine Stand2
       objectReference: {fileID: 0}
+    - target: {fileID: 6463957236243978542, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
+      propertyPath: SteamParticle
+      value: 
+      objectReference: {fileID: 6004524597253031573, guid: 874fa157c5f0fb948bf3d54181f64b4f, type: 3}
     - target: {fileID: 9127399735750025267, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.3400002
@@ -24501,67 +24505,67 @@ PrefabInstance:
       objectReference: {fileID: 999722471}
     - target: {fileID: 1248711663941218870, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1248711663941218870, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1248711663941218870, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 1020.3599
       objectReference: {fileID: 0}
     - target: {fileID: 1248711663941218870, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -237.8196
       objectReference: {fileID: 0}
     - target: {fileID: 2437913136709044554, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2437913136709044554, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2437913136709044554, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 140.07306
       objectReference: {fileID: 0}
     - target: {fileID: 2437913136709044554, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -237.8196
       objectReference: {fileID: 0}
     - target: {fileID: 2494380327838115969, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2494380327838115969, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2494380327838115969, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 433.502
       objectReference: {fileID: 0}
     - target: {fileID: 2494380327838115969, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -237.8196
       objectReference: {fileID: 0}
     - target: {fileID: 3069862517052829553, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3069862517052829553, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3069862517052829553, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 726.93097
       objectReference: {fileID: 0}
     - target: {fileID: 3069862517052829553, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -237.8196
       objectReference: {fileID: 0}
     - target: {fileID: 3893689552057494555, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -24676,6 +24680,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coffe Machine Stand1
       objectReference: {fileID: 0}
+    - target: {fileID: 6463957236243978542, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
+      propertyPath: SteamParticle
+      value: 
+      objectReference: {fileID: 6004524597253031573, guid: 874fa157c5f0fb948bf3d54181f64b4f, type: 3}
     - target: {fileID: 9127399735750025267, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.35
