@@ -103,14 +103,13 @@ public class PlayerCtrl : MonoBehaviour
                 if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
                 {
                     UIManager.Instance.ShowCurrentMenuWindow();
+                    GameObject currentMenuWindow = GameObject.Find("currentMenu Window");
+                    currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(hitCollider.gameObject.GetComponent<CoffeeMachine>());
 
                 }
                 else
                 {
-                    Debug.Log("로스팅이 아직 안됨");
-
                     UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
-                    GameObject currentMenuWindow = GameObject.Find("current menu Window");
                     // currentMenuWindow.UpdateMenuPanel(); //커피데이터 넣기
                 }
             }
