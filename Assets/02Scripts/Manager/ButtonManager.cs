@@ -93,6 +93,8 @@ public class ButtonManager : MonoBehaviour
 
         //// 작업 완료 후 버튼 활성화
         StartCoroutine(EnableButtonAfterDelay(button, 3f));
+
+  
     }
 
 

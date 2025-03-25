@@ -50,5 +50,8 @@ TagManager:
   - name: Character
     uniqueID: 4125856229
     locked: 0
+  - name: Particle
+    uniqueID: 3010129925
+    locked: 0
   m_RenderingLayers:
   - Default
