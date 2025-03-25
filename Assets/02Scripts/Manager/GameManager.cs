@@ -13,13 +13,18 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if(Instance == null)
+        if(Instance == null) // 첫 번째 GameManager라면 유지
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
 
-        }else 
-            Destroy(gameObject);
+        }
+        else // 기존 GameManager가 있다면, 새 씬의 GameManager를 유지하고 기존 것을 삭제
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
         SceneManager.sceneLoaded += ChangeScene;
     }

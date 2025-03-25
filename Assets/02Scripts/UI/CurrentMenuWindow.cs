@@ -10,7 +10,7 @@ public class CurrentMenuWindow : MonoBehaviour
     public Slider mugProgressBar; 
     public TextMeshProUGUI remainingMugsText;  
 
-    public void UpdateMenuPanel(CoffeeMachine coffeeMachine) // 나중에 제너릭<T>로 토스터, 믹서기 등등 만들거임
+    public void UpdateMenuPanel(CoffeeMachine coffeeMachine) // 나중에 제너릭<T>로 토스터, 믹서기 등등 만들거임 //sell Coffee함수에서 호출, 처음 패널을 띄울때도 호출.
     {
         if (coffeeMachine != null && coffeeMachine.IsRoasting)
         {

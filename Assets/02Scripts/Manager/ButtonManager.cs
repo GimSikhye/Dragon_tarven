@@ -14,12 +14,27 @@ public class ButtonManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 시 호출
+
         }
         else
-            Destroy(gameObject);
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
 
     }
 
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        Debug.Log($"씬 로드됨: {scene.name}");
+        // 씬이 바뀔 때 GameManager가 다시 찾아지도록 설정
+        if (GameManager.Instance == null)
+        {
+            Debug.LogError("GameManager 인스턴스를 찾을 수 없음!");
+        }
+    }
 
     public void LoadButton(string sceneName)
     {

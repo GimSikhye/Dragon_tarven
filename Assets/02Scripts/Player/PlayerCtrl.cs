@@ -30,7 +30,7 @@ public class PlayerCtrl : MonoBehaviour
         {
             Instance = this;
             spriteRenderer = GetComponent<SpriteRenderer>();
-            animator = GetComponent<Animator>();    
+            animator = GetComponent<Animator>();
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -103,12 +103,15 @@ public class PlayerCtrl : MonoBehaviour
                 if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
                 {
                     UIManager.Instance.ShowCurrentMenuWindow();
+
                 }
                 else
                 {
                     Debug.Log("로스팅이 아직 안됨");
 
                     UIManager.Instance.ShowRoastingWindow(); // UIManager의 팝업 표시 함수 호출
+                    GameObject currentMenuWindow = GameObject.Find("current menu Window");
+                    // currentMenuWindow.UpdateMenuPanel(); //커피데이터 넣기
                 }
             }
             else
@@ -126,7 +129,7 @@ public class PlayerCtrl : MonoBehaviour
         worldPosition.z = 0;
         targetPosition = worldPosition; // 이동 목표 위치 저장
 
-        if(!isMoving) // 이동 중이 아닐 때만 이동 시작
+        if (!isMoving) // 이동 중이 아닐 때만 이동 시작
         {
             StartCoroutine(MoveToTarget());
         }
@@ -164,7 +167,7 @@ public class PlayerCtrl : MonoBehaviour
 
     }
 
-  
+
 
     // 터치 위치가 UI 위인지 판단함
     private bool IsTouchOverUI(Touch touch)
