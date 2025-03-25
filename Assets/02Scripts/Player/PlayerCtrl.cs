@@ -65,7 +65,6 @@ public class PlayerCtrl : MonoBehaviour
                 // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
                 if (startedOverUI)
                 {
-                    Debug.Log("터치 시작이 UI 위에서 이루어졌음");
                     startedOverUI = false; // 초기화
                     return;
                 }
@@ -75,12 +74,7 @@ public class PlayerCtrl : MonoBehaviour
                     Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
                     Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition);
 
-                    if (hitCollider == null || hitCollider.gameObject.layer != LayerMask.NameToLayer("Floor"))
-                    {
-                        Debug.Log("바닥으로만 이동할 수 있습니다.");
-                        return;
-                    }
-
+                    if (hitCollider == null || hitCollider.gameObject.layer != LayerMask.NameToLayer("Floor")) return;
                 }
                 // 이동 처리
                 OnMove(touch);
@@ -99,7 +93,6 @@ public class PlayerCtrl : MonoBehaviour
             if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
             {
                 CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
-                Debug.Log(hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting);
                 if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
                 {
                     UIManager.Instance.ShowCurrentMenuWindow();

@@ -95,14 +95,6 @@ public class UIManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
 
-        Debug.Log($"터치된 UI 개수: {results.Count}");
-
-        // 터치된 UI 오브젝트의 이름 출력
-        foreach (RaycastResult result in results)
-        {
-            Debug.Log($"터치된 UI 오브젝트 이름: {result.gameObject.name}");
-        }
-
         return results.Count > 0;
     }
 

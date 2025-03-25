@@ -8,6 +8,7 @@ public class ButtonManager : MonoBehaviour
     public static ButtonManager Instance;
     [SerializeField] private AudioClip click_clip;
 
+
     private void Awake()
     {
         if (Instance == null)
@@ -28,7 +29,6 @@ public class ButtonManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log($"씬 로드됨: {scene.name}");
         // 씬이 바뀔 때 GameManager가 다시 찾아지도록 설정
         if (GameManager.Instance == null)
         {
@@ -39,7 +39,6 @@ public class ButtonManager : MonoBehaviour
     public void LoadButton(string sceneName)
     {
         SoundManager.Instance.PlaySFX(click_clip, 0.6f);
-        Debug.Log("씬 이동");
         SceneManager.LoadScene(sceneName);
     }
 
@@ -57,6 +56,9 @@ public class ButtonManager : MonoBehaviour
 
     public void RoastingButton(GameObject button)
     {
+
+        button.GetComponent<Button>().interactable = false;
+
         // 현재 버튼이 속한 Menu Container 찾기
         GameObject menuContainer = button.transform.parent?.gameObject;
 
@@ -66,6 +68,8 @@ public class ButtonManager : MonoBehaviour
         if (index < 0 || index >= roastingWindow.coffeDataList.Count)
         { 
             Debug.LogError("유효하지 않은 커피 메뉴 선택!");
+            button.GetComponent<Button>().interactable = true; // 오류 발생 시 버튼 활성화
+
             return;
         }
 
@@ -75,14 +79,20 @@ public class ButtonManager : MonoBehaviour
         // 원두 소모 체크
         if (GameManager.Instance.CoffeeBean >= coffeeData.BeanUse)
         {
+            Debug.Log($"로스팅 시작 전 CoffeeBean: {GameManager.Instance.CoffeeBean}, 소모량: {coffeeData.BeanUse}");
             GameManager.Instance.CoffeeBean -= coffeeData.BeanUse;
+            Debug.Log($"로스팅 후 CoffeeBean: {GameManager.Instance.CoffeeBean}");
             CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
             Debug.Log($"{coffeeData.CoffeName} 로스팅 시작!");
+
         }
         else
         {
             Debug.LogError("커피콩이 부족합니다!");
         }
+
+        //// 작업 완료 후 버튼 활성화
+        StartCoroutine(EnableButtonAfterDelay(button, 3f));
     }
 
 
@@ -92,8 +102,11 @@ public class ButtonManager : MonoBehaviour
         Application.Quit();
     }
 
-
-
+    private IEnumerator EnableButtonAfterDelay(GameObject button, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        button.GetComponent<Button>().interactable = true;
+    }
 
 
 
