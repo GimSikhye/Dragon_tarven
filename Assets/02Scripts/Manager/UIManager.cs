@@ -1,6 +1,8 @@
 using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 enum Windows
@@ -81,4 +83,27 @@ public class UIManager : MonoBehaviour
         panels[(int)Windows.CurrentMenu].SetActive(true); 
 
     }
+
+
+
+    // 터치 위치가 UI 위인지 판단함
+    public bool IsTouchOverUI(Touch touch)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = touch.position;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        Debug.Log($"터치된 UI 개수: {results.Count}");
+
+        // 터치된 UI 오브젝트의 이름 출력
+        foreach (RaycastResult result in results)
+        {
+            Debug.Log($"터치된 UI 오브젝트 이름: {result.gameObject.name}");
+        }
+
+        return results.Count > 0;
+    }
+
 }

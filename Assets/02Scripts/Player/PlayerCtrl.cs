@@ -52,7 +52,7 @@ public class PlayerCtrl : MonoBehaviour
             // 터치 시작 시 UI 위인지 체크하고 기록
             if (touch.phase == TouchPhase.Began)
             {
-                startedOverUI = IsTouchOverUI(touch);
+                startedOverUI = UIManager.Instance.IsTouchOverUI(touch);
             }
             if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
@@ -166,17 +166,6 @@ public class PlayerCtrl : MonoBehaviour
 
     }
 
-
-
-    // 터치 위치가 UI 위인지 판단함
-    private bool IsTouchOverUI(Touch touch)
-    {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-        eventDataCurrentPosition.position = touch.position;
-        List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-        return results.Count > 0;
-    }
 
     private void ShowTouchFeedback(Vector2 screenPosition)
     {
