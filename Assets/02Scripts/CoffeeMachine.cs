@@ -43,7 +43,7 @@ public class CoffeeMachine : MonoBehaviour
     public static void SetLastTouchedMachine(CoffeeMachine machine)
     {
         LastTouchedMachine = machine;
-        Debug.Log(LastTouchedMachine.gameObject.name);
+        //Debug.Log(LastTouchedMachine.gameObject.name);
     }
 
     public bool HasCoffee()
