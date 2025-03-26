@@ -19,7 +19,7 @@ public class CustomerPool : MonoBehaviour
     {
         for (int i = 0; i < poolSize; i++)
         {
-            GameObject customer = Instantiate(Random.value > 0.5f ? customerPrefab1 : customerPrefab2, spawnPoint.position, Quaternion.identity); //customers 객체를 받아와서 거기에 parent
+            GameObject customer = Instantiate(Random.value > 0.5f ? customerPrefab1 : customerPrefab2, spawnPoint.position, Quaternion.identity, parent);
             customer.SetActive(false);
             customerPool.Enqueue(customer);
         }
@@ -35,6 +35,13 @@ public class CustomerPool : MonoBehaviour
             return customer;
         }
         return null;
+    }
+
+    private void OrderMenu()
+    {
+        //요리된 메뉴를 주문
+        // 말풍선 띄우기.(메뉴 Sprite)
+
     }
 
     public void ReturnCustomer(GameObject customer)

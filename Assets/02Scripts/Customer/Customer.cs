@@ -13,12 +13,6 @@ public class Customer : MonoBehaviour
     void Start()
     {
         aiPath = GetComponent<AIPath>(); // AIPath 컴포넌트 가져오기
-        if (aiPath == null)
-        {
-            Debug.LogError("AIPath 컴포넌트가 없습니다!");
-            return;
-        }
-        
         custerPool = FindAnyObjectByType<CustomerPool>();
         SetNextDestination(); // 첫 번째 목표 설정
     }

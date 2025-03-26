@@ -24,8 +24,7 @@ public class CoffeeMachine : MonoBehaviour
         particle.transform.position = transform.position;
     }
 
-    // 현재 로스팅 중일 때, isRosating = true;
-    // 팝업창 띄우지 말고, 남은 잔수 띄우는 팝업 띄우기.
+
     public void SellCoffee() // 손님한테 팔면.
     {
         // 현재 남은 잔수 표기
