@@ -100,4 +100,21 @@ public class Customer : MonoBehaviour
         }
 
     }
+
+    // 손님을 터치하면 주문이 완료되고 이동을 재개함
+    private void OnMouseDown()
+    {
+        if(isOrdering)
+        {
+            FinishOrder();
+        }
+    }
+
+    void FinishOrder()
+    {
+        isOrdering = false;
+        speechBalloon.SetActive(false);
+        aiPath.canMove = true;
+        SetNextDestination();
+    }
 }
