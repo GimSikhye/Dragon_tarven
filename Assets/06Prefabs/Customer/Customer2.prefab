@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4539124846647625765
 Transform:
   m_ObjectHideFlags: 0
@@ -74,8 +74,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 1797760537
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 9067339708817860939, guid: 200c2302fad5dde4593989778a351dd4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -216,6 +216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4abf62a0664ed40b554f3d1b52c6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speechBalloon: {fileID: 2812469311590096692}
+  orderMenuSprite: {fileID: 5790098905572146126}
 --- !u!114 &9019856612639703322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -398,10 +400,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: -616118877910459698, guid: 425a77c2a4770d0479423e4bb4304120, type: 3}
+  m_SortingLayerID: 1797760537
+  m_SortingLayer: 4
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -409,6 +411,6 @@ SpriteRenderer:
   m_Size: {x: 2.375, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
