@@ -84,6 +84,13 @@ public class UIManager : MonoBehaviour
 
     }
 
+    public void CloseWindow(string window)
+    {
+        GameObject windowPanel = GameObject.Find(window);
+        windowPanel.SetActive(false);
+
+    }
+
 
 
     // 터치 위치가 UI 위인지 판단함
