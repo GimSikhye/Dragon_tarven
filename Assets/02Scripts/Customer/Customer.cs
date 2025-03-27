@@ -49,11 +49,13 @@ public class Customer : MonoBehaviour
 
     void Update() 
     {
-        if (aiPath.reachedDestination && target != null)
+        if (aiPath.reachedDestination && target != null) //목적지에 도달하였다면
         {
-            if(currentIndex == 1 && !isOrdering)
+            if (currentIndex == 1 && !isOrdering)
             {
                 StartOrdering();
+                currentIndex++;
+
                 return;
             }
 
@@ -76,7 +78,6 @@ public class Customer : MonoBehaviour
     {
         isOrdering = true;
         aiPath.canMove = false; // 이동 중지
-        speechBalloon.SetActive(true);
 
         // 모든 커피머신에서 랜덤한 커피 선택
         CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
@@ -95,10 +96,12 @@ public class Customer : MonoBehaviour
             {
                 orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
                 randomCoffee = orderedFromMachine.CurrentCoffee;
+                speechBalloon.SetActive(true);
                 orderMenuSprite.sprite = randomCoffee.MenuIcon;
             }
             else
             {
+                LeaveStore();
                 Debug.Log("주문 가능한 커피가 없습니다!");
             }
         }
@@ -123,6 +126,14 @@ public class Customer : MonoBehaviour
             }
         }
 
+        isOrdering = false;
+        speechBalloon.SetActive(false);
+        aiPath.canMove = true;
+
+    }
+
+    void LeaveStore()
+    {
         isOrdering = false;
         speechBalloon.SetActive(false);
         aiPath.canMove = true;
