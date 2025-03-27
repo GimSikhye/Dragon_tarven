@@ -15,6 +15,9 @@ public class Customer : MonoBehaviour
     [Header("주문 관련")]
     [SerializeField] private GameObject speechBalloon;
     [SerializeField] private SpriteRenderer orderMenuSprite;
+    private CoffeeData randomCoffee; // 주문한 커피 저장
+    private CoffeeMachine orderedFromMachine; // 주문한 커피머신 저장
+
     private bool isOrdering = false; 
 
     void Start()
@@ -77,20 +80,21 @@ public class Customer : MonoBehaviour
 
         // 모든 커피머신에서 랜덤한 커피 선택
         CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
-        if(coffeeMachines.Length > 0 )
+        if (coffeeMachines.Length > 0)
         {
-            List<CoffeeData> availableCoffees = new List<CoffeeData>();
-            foreach(var machine in coffeeMachines)
+            List<CoffeeMachine> availableMachines = new List<CoffeeMachine>();
+            foreach (var machine in coffeeMachines)
             {
-                if(machine.CurrentCoffee != null)
+                if (machine.CurrentCoffee != null && machine.RemainingMugs > 0)
                 {
-                    availableCoffees.Add(machine.CurrentCoffee);
+                    availableMachines.Add(machine);
                 }
             }
 
-            if(availableCoffees.Count > 0)
+            if (availableMachines.Count > 0)
             {
-                CoffeeData randomCoffee = availableCoffees[Random.Range(0, availableCoffees.Count)];
+                orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
+                randomCoffee = orderedFromMachine.CurrentCoffee;
                 orderMenuSprite.sprite = randomCoffee.MenuIcon;
             }
             else
@@ -98,9 +102,7 @@ public class Customer : MonoBehaviour
                 Debug.Log("주문 가능한 커피가 없습니다!");
             }
         }
-
     }
-
     // 손님을 터치하면 주문이 완료되고 이동을 재개함
     private void OnMouseDown()
     {
@@ -112,9 +114,19 @@ public class Customer : MonoBehaviour
 
     void FinishOrder()
     {
+        if (randomCoffee != null)
+        {
+            if (orderedFromMachine != null)
+            {
+                orderedFromMachine.SellCoffee(); // 커피머신의 잔 수 감소
+                // currentMenu 업데이트하기
+            }
+        }
+
         isOrdering = false;
         speechBalloon.SetActive(false);
         aiPath.canMove = true;
+
         SetNextDestination();
     }
 }

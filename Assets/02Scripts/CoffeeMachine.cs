@@ -28,7 +28,7 @@ public class CoffeeMachine : MonoBehaviour
     public void SellCoffee() // 손님한테 팔면.
     {
         // 현재 남은 잔수 표기
-        if (remainingMugs > 0)
+        if (remainingMugs > 1)
         {//currentCoffee.sprite (파티클로 날아가게?) (instantiate)
             remainingMugs--;
             GameManager.Instance.Coin += currentCoffee.Price;
@@ -36,7 +36,9 @@ public class CoffeeMachine : MonoBehaviour
         }
         else
         {
+            GameManager.Instance.Coin += currentCoffee.Price;
             isRoasting = false;
+            currentCoffee = null;
             Debug.Log("더 이상 판매할 커피가 없습니다!");
         }
     }

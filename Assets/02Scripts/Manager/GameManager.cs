@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
         get { return coin; }
         set
         {
-            gem = value;
+            coin = value;
             PlayerPrefs.SetInt("Coin", coin); // 자동 저장
             UIManager.Instance.UpdateCoinUI(coin);
         }

@@ -57,7 +57,7 @@ public class CurrentMenuWindow : MonoBehaviour
         }
         else
         {
-            currentMenuPanel.SetActive(false);
+            currentMenuPanel.SetActive(false); 
         }
     }
 
