@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 9083462661331020164}
   - component: {fileID: 4186680339594780864}
   m_Layer: 5
-  m_Name: P_MenuContainer
+  m_Name: Panel_MenuContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 375834526874422378, guid: 7f5c3cfbad7939743b40a00264a643d1, type: 3}
+  m_Sprite: {fileID: 7741092410473218123, guid: 82e0474e23464624193d957c505effdd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 5834545026823397508}
   - component: {fileID: 2527881808283563317}
   m_Layer: 0
-  m_Name: P_CoffeMachineStand
+  m_Name: P_CoffeMachine
   m_TagString: stand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

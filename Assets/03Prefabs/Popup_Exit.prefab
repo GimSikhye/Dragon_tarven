@@ -526,7 +526,7 @@ GameObject:
   - component: {fileID: 7636624262209424586}
   - component: {fileID: 5536505264782019795}
   m_Layer: 5
-  m_Name: Exit window
+  m_Name: Popup_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

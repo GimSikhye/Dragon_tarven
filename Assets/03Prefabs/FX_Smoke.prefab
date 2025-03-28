@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5902868936566057155}
   - component: {fileID: 3032592216392389048}
   m_Layer: 0
-  m_Name: P_SteamParticle
+  m_Name: FX_Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
