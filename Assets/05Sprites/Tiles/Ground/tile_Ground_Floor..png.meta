@@ -1,19 +1,10 @@
 fileFormatVersion: 2
-guid: 693a1d23fac28934bbb7927daf88649f
+guid: 2314b292ea490ea44b98e7313ee23460
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5631176005112583423
-    second: tile_Ground_Floors-export_0
-  - first:
-      213: -1995575295444651734
-    second: tile_Ground_Floors-export_1
-  - first:
-      213: -4695039717846072413
-    second: tile_Ground_Floors-export_2
-  - first:
-      213: 1551493514874722735
-    second: tile_Ground_Floors-export_3
+      213: 8469414546896946489
+    second: tile_Ground_Floor._0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -60,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -81,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -122,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tile_Ground_Floors-export_0
+      name: tile_Ground_Floor._0
       rect:
         serializedVersion: 2
         x: 0
-        y: 50
-        width: 64
-        height: 37
+        y: 0
+        width: 32
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -137,74 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 10baf83324b0ad1b0800000000000000
-      internalID: -5631176005112583423
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_Ground_Floors-export_1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 50
-        width: 64
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a21f97087da4e44e0800000000000000
-      internalID: -1995575295444651734
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_Ground_Floors-export_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 1
-        width: 64
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 3a34f63804ed7deb0800000000000000
-      internalID: -4695039717846072413
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: tile_Ground_Floors-export_3
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 2
-        width: 64
-        height: 37
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: fa91e61b123088510800000000000000
-      internalID: 1551493514874722735
+      spriteID: 935815358a7698570800000000000000
+      internalID: 8469414546896946489
       vertices: []
       indices: 
       edges: []
@@ -223,10 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tile_Ground_Floors-export_0: -5631176005112583423
-      tile_Ground_Floors-export_1: -1995575295444651734
-      tile_Ground_Floors-export_2: -4695039717846072413
-      tile_Ground_Floors-export_3: 1551493514874722735
+      tile_Ground_Floor._0: 8469414546896946489
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

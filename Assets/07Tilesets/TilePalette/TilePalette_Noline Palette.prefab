@@ -1414,7 +1414,7 @@ GameObject:
   - component: {fileID: 2977019774133075083}
   - component: {fileID: 4626433480395325358}
   m_Layer: 0
-  m_Name: Noline Palette
+  m_Name: TilePalette_Noline Palette
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 1981275902394400302}
   - component: {fileID: 2757422029639023857}
   m_Layer: 0
-  m_Name: PinkFloor
+  m_Name: TilePalette_PinkFloor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
