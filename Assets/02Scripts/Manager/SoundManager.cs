@@ -26,6 +26,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(AudioClip clip, float volume)
     {
+        bgm_audioSource.Stop();
         bgm_audioSource.clip = clip;
         bgm_audioSource.volume = volume;
         bgm_audioSource.Play();

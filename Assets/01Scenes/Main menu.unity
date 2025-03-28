@@ -397,7 +397,7 @@ GameObject:
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
   m_Layer: 0
-  m_Name: Main Camera
+  m_Name: MainCamera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -828,7 +828,7 @@ GameObject:
   - component: {fileID: 863111271}
   - component: {fileID: 863111270}
   m_Layer: 5
-  m_Name: Quit_btn
+  m_Name: UI_QuitBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1109,7 +1109,7 @@ GameObject:
   - component: {fileID: 1026593623}
   - component: {fileID: 1026593622}
   m_Layer: 5
-  m_Name: Title_tmp
+  m_Name: UI_TitleText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1425,7 +1425,7 @@ GameObject:
   - component: {fileID: 1286100214}
   - component: {fileID: 1286100213}
   m_Layer: 0
-  m_Name: Deco
+  m_Name: Deco1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1743,7 +1743,7 @@ GameObject:
   - component: {fileID: 1500573540}
   - component: {fileID: 1500573539}
   m_Layer: 5
-  m_Name: Start_btn
+  m_Name: UI_StartBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
