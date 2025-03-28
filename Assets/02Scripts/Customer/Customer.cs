@@ -1,83 +1,82 @@
 using UnityEngine;
 using Pathfinding;
 using System.Collections.Generic;
-using NUnit.Framework; // A* Pathfinding 네임스페이스 추가
 
 public class Customer : MonoBehaviour
 {
-    private AIPath aiPath; // A* 경로 탐색을 위한 AIPath 컴포넌트
-    private CustomerPool custerPool;
-    private Transform target; // 이동할 목표 지점
-    GameObject pathParent;
-    Transform[] pathPoints;
-    private int currentIndex = 0;
+    [Header("길 찾기")]
+    private AIPath _aiPath; // A* 경로 탐색을 위한 AIPath 컴포넌트
+    private CustomerPool _custmorPool;
+    private Transform _target; // 이동할 목표 지점
+    private GameObject _pathParent;
+    private Transform[] _pathPoints;
+    private int _currentIndex = 0;
 
     [Header("주문 관련")]
-    [SerializeField] private GameObject speechBalloon;
-    [SerializeField] private SpriteRenderer orderMenuSprite;
-    private CoffeeData randomCoffee; // 주문한 커피 저장
-    private CoffeeMachine orderedFromMachine; // 주문한 커피머신 저장
-
-    private bool isOrdering = false; 
+    [SerializeField] private GameObject _speechBalloon;
+    [SerializeField] private SpriteRenderer _orderMenuSprite;
+    private CoffeeData _randomCoffee; // 주문한 커피 저장
+    private CoffeeMachine _orderedFromMachine; // 주문한 커피머신 저장
+    private bool _isOrdering = false;
 
     void Start()
     {
-        aiPath = GetComponent<AIPath>(); // AIPath 컴포넌트 가져오기
-        custerPool = FindAnyObjectByType<CustomerPool>();
+        _aiPath = GetComponent<AIPath>();
+        _custmorPool = FindAnyObjectByType<CustomerPool>();
         SetNextDestination(); // 첫 번째 목표 설정
     }
 
     void SetNextDestination()
     {
-        pathParent = GameObject.Find("PathPoints");
-        if (pathParent != null)
+        _pathParent = GameObject.Find("PathPoints");
+        if (_pathParent != null)
         {
-            pathPoints = new Transform[pathParent.transform.childCount];
-            for (int i = 0; i < pathPoints.Length; i++)
+            _pathPoints = new Transform[_pathParent.transform.childCount];
+            for (int i = 0; i < _pathPoints.Length; i++)
             {
-                pathPoints[i] = pathParent.transform.GetChild(i);
+                _pathPoints[i] = _pathParent.transform.GetChild(i);
             }
 
-            if (pathPoints.Length > 0)
+            if (_pathPoints.Length > 0)
             {
-                currentIndex = 0; // 시작 시 인덱스 초기화
-                target = pathPoints[0]; // 첫 번째 지점을 목표로 설정
-                aiPath.destination = target.position; // A* 이동 목표 설정
+                _currentIndex = 0; // 시작 시 인덱스 초기화
+                _target = _pathPoints[0]; // 첫 번째 지점을 목표로 설정
+                _aiPath.destination = _target.position; // A* 이동 목표 설정
             }
         }
     }
 
-    void Update() 
+    void Update()
     {
-        if (aiPath.reachedDestination && target != null) //목적지에 도달하였다면
+        if (_aiPath.reachedDestination && _target != null) //목적지에 도달하였다면
         {
-            if (currentIndex == 1 && !isOrdering)
+            if (_currentIndex == 1 && !_isOrdering)
             {
                 StartOrdering();
-                currentIndex++;
+                _currentIndex++;
 
                 return;
             }
 
-            currentIndex++;
+            _currentIndex++;
 
-            if (currentIndex >= pathPoints.Length)
+            if (_currentIndex >= _pathPoints.Length)
             {
                 // 경로를 다 돌았으면 오브젝트 비활성화 후 Pool로 반환
-                custerPool.ReturnCustomer(gameObject);
+                _custmorPool.ReturnCustomer(gameObject);
                 return;
             }
 
-            target = pathPoints[currentIndex];
-            aiPath.destination = target.position;
+            _target = _pathPoints[_currentIndex];
+            _aiPath.destination = _target.position;
         }
     }
 
     // 주문을 시작하는 함수
     void StartOrdering()
     {
-        isOrdering = true;
-        aiPath.canMove = false; // 이동 중지
+        _isOrdering = true;
+        _aiPath.canMove = false; // 이동 중지
 
         // 모든 커피머신에서 랜덤한 커피 선택
         CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
@@ -94,10 +93,10 @@ public class Customer : MonoBehaviour
 
             if (availableMachines.Count > 0)
             {
-                orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
-                randomCoffee = orderedFromMachine.CurrentCoffee;
-                speechBalloon.SetActive(true);
-                orderMenuSprite.sprite = randomCoffee.MenuIcon;
+                _orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
+                _randomCoffee = _orderedFromMachine.CurrentCoffee;
+                _speechBalloon.SetActive(true);
+                _orderMenuSprite.sprite = _randomCoffee.MenuIcon;
             }
             else
             {
@@ -109,7 +108,7 @@ public class Customer : MonoBehaviour
     // 손님을 터치하면 주문이 완료되고 이동을 재개함
     private void OnMouseDown()
     {
-        if(isOrdering)
+        if (_isOrdering)
         {
             FinishOrder();
         }
@@ -117,26 +116,26 @@ public class Customer : MonoBehaviour
 
     void FinishOrder()
     {
-        if (randomCoffee != null)
+        if (_randomCoffee != null)
         {
-            if (orderedFromMachine != null)
+            if (_orderedFromMachine != null)
             {
-                orderedFromMachine.SellCoffee(); // 커피머신의 잔 수 감소
+                _orderedFromMachine.SellCoffee(); // 커피머신의 잔 수 감소
                 // currentMenu 업데이트하기
             }
         }
 
-        isOrdering = false;
-        speechBalloon.SetActive(false);
-        aiPath.canMove = true;
+        _isOrdering = false;
+        _speechBalloon.SetActive(false);
+        _aiPath.canMove = true;
 
     }
 
     void LeaveStore()
     {
-        isOrdering = false;
-        speechBalloon.SetActive(false);
-        aiPath.canMove = true;
+        _isOrdering = false;
+        _speechBalloon.SetActive(false);
+        _aiPath.canMove = true;
 
         SetNextDestination();
     }

@@ -5,7 +5,7 @@ public class CoffeeData : ScriptableObject
 {
     [SerializeField]
     private string coffeeName;
-    public string CoffeName { get { return coffeeName; } }
+    public string CoffeeName { get { return coffeeName; } }
     [SerializeField]
     private int price;
     public int Price { get { return price; } }

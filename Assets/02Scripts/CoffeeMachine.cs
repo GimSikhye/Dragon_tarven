@@ -2,43 +2,42 @@ using UnityEngine;
 
 public class CoffeeMachine : MonoBehaviour
 {
-    public static CoffeeMachine LastTouchedMachine { get; private set; } // 마지막 터치한 커피머신 저장
-
+    public static CoffeeMachine LastTouchedMachine { get; private set; }
+    
     [Header("커피머신 상태 변수")]
-    [SerializeField] private CoffeeData currentCoffee; // 현재 로스팅 중인 커피
-    [SerializeField] private int remainingMugs; // 남은 커피 잔 수
-    [SerializeField] private bool isRoasting = false;
-    [SerializeField] GameObject SteamParticle;
+    [SerializeField] private CoffeeData _currentCoffee;
+    [SerializeField] private int _remainingMugs;
+    [SerializeField] private bool _isRoasting = false;
+    [SerializeField] private GameObject _steamParticle;
 
-    public bool IsRoasting => isRoasting;
-    public CoffeeData CurrentCoffee { get { return currentCoffee; } }
-    public int RemainingMugs => remainingMugs;
+    public bool IsRoasting => _isRoasting;
+    public CoffeeData CurrentCoffee => _currentCoffee;
+    public int RemainingMugs => _remainingMugs;
 
     public void RoastCoffee(CoffeeData coffee)
     {
-        isRoasting = true;
-        currentCoffee = coffee;
-        remainingMugs = coffee.MugQty;
-        Debug.Log($"{coffee.CoffeName} 커피를 로스팅 시작! 잔 수: {remainingMugs}");
-        GameObject particle = Instantiate(SteamParticle);
+        _isRoasting = true;
+        _currentCoffee = coffee;
+        _remainingMugs = coffee.MugQty;
+        Debug.Log($"{coffee.CoffeeName} 커피를 로스팅 시작! 잔 수: {_remainingMugs}");
+
+        GameObject particle = Instantiate(_steamParticle);
         particle.transform.position = transform.position;
     }
 
-
-    public void SellCoffee() // 손님한테 팔면.
+    public void SellCoffee()
     {
-        // 현재 남은 잔수 표기
-        if (remainingMugs > 1)
-        {//currentCoffee.sprite (파티클로 날아가게?) (instantiate)
-            remainingMugs--;
-            GameManager.Instance.Coin += currentCoffee.Price;
-            Debug.Log($"{currentCoffee.CoffeName} 판매! 남은 잔 수: {remainingMugs}");
+        if (_remainingMugs > 1)
+        {
+            _remainingMugs--;
+            GameManager.Instance.Coin += _currentCoffee.Price;
+            Debug.Log($"{_currentCoffee.CoffeeName} 판매! 남은 잔 수: {_remainingMugs}");
         }
         else
         {
-            GameManager.Instance.Coin += currentCoffee.Price;
-            isRoasting = false;
-            currentCoffee = null;
+            GameManager.Instance.Coin += _currentCoffee.Price;
+            _isRoasting = false;
+            _currentCoffee = null;
             Debug.Log("더 이상 판매할 커피가 없습니다!");
         }
     }
@@ -46,13 +45,10 @@ public class CoffeeMachine : MonoBehaviour
     public static void SetLastTouchedMachine(CoffeeMachine machine)
     {
         LastTouchedMachine = machine;
-        //Debug.Log(LastTouchedMachine.gameObject.name);
     }
 
     public bool HasCoffee()
     {
-        return remainingMugs <= 0 ? true : false;
+        return _remainingMugs > 0;
     }
-
-
 }

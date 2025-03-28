@@ -83,7 +83,7 @@ public class ButtonManager : MonoBehaviour
             GameManager.Instance.CoffeeBean -= coffeeData.BeanUse;
             Debug.Log($"로스팅 후 CoffeeBean: {GameManager.Instance.CoffeeBean}");
             CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
-            Debug.Log($"{coffeeData.CoffeName} 로스팅 시작!");
+            Debug.Log($"{coffeeData.CoffeeName} 로스팅 시작!");
 
         }
         else

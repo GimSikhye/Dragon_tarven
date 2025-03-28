@@ -50,7 +50,7 @@ public class CurrentMenuWindow : MonoBehaviour
         if (coffeeMachine != null && coffeeMachine.IsRoasting)
         {
             currentMenuPanel.SetActive(true);
-            menuNameText.text = coffeeMachine.CurrentCoffee.CoffeName;
+            menuNameText.text = coffeeMachine.CurrentCoffee.CoffeeName;
             menuIcon.sprite = coffeeMachine.CurrentCoffee.MenuIcon;
             remainingMugsText.text = $"{coffeeMachine.RemainingMugs}잔 남음";
             mugProgressBar.value = (float)coffeeMachine.RemainingMugs / coffeeMachine.CurrentCoffee.MugQty; // 스크롤바 value값 업데이트

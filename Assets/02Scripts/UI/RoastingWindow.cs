@@ -32,7 +32,7 @@ public class RoastingWindow : MonoBehaviour
             Image iconImg = container.transform.Find("icon_Img").GetComponent<Image>();
 
             // UI 업데이트
-            nameTmp.text = coffee.CoffeName;
+            nameTmp.text = coffee.CoffeeName;
             coinTmp.text = coffee.Price.ToString();
             mugQtyTmp.text = "X " + coffee.MugQty.ToString();
             beanUseTmp.text = "- " + coffee.BeanUse.ToString();
