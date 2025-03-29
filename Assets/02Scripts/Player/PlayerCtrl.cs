@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using DalbitCafe.UI;
 using DalbitCafe.Operations;
-namespace DablitCafe.Player
+namespace DalbitCafe.Player
 {
     public class PlayerCtrl : MonoBehaviour
     {

@@ -14,6 +14,8 @@ namespace DalbitCafe.Core
         [SerializeField] private int _gem;
         [SerializeField] private int _coin;
 
+
+
         void Awake()
         {
             if (Instance == null) // 첫 번째 GameManager라면 유지
@@ -43,6 +45,18 @@ namespace DalbitCafe.Core
             UIManager.Instance.UpdateCoinUI(_coin);
             UIManager.Instance.UpdateGemUI(_gem);
 
+        }
+
+
+        void Update()
+        {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                if (Input.GetKey(KeyCode.Escape))
+                {
+                    UIManager.Instance.ShowExitPopUp();
+                }
+            }
         }
 
 
@@ -96,16 +110,7 @@ namespace DalbitCafe.Core
             }
         }
 
-        void Update()
-        {
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                if (Input.GetKey(KeyCode.Escape))
-                {
-                    UIManager.Instance.ShowExitPopUp();
-                }
-            }
-        }
+
     }
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-namespace DablitCafe.Cameras
+namespace DalbitCafe.Cameras
 {
     public class CameraController : MonoBehaviour
     {
