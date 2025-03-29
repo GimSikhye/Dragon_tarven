@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DalbitCafe.Core
+namespace DalbitCafe.Deco
 {
     public class DecorationManager : MonoBehaviour
     {
