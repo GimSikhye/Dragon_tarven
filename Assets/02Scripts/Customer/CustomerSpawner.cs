@@ -1,23 +1,28 @@
 using System.Collections;
 using UnityEngine;
 
-public class CustomerSpawner : MonoBehaviour
+namespace DalbitCafe.Customer
 {
-    [SerializeField] private CustomerPool customerPool;
-    [SerializeField] private float minSpawnTime = 3f;
-    [SerializeField] private float maxSpawnTime = 6f;
 
-    private void Start()
+    public class CustomerSpawner : MonoBehaviour
     {
-        StartCoroutine(SpawnCustomers());
-    }
+        [SerializeField] private CustomerPool customerPool;
+        [SerializeField] private float minSpawnTime = 3f;
+        [SerializeField] private float maxSpawnTime = 6f;
 
-    private IEnumerator SpawnCustomers()
-    {
-        while (true)
+        private void Start()
         {
-            yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
-            GameObject customer = customerPool.SpawnCustomer();
+            StartCoroutine(SpawnCustomers());
+        }
+
+        private IEnumerator SpawnCustomers()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(Random.Range(minSpawnTime, maxSpawnTime));
+                GameObject customer = customerPool.SpawnCustomer();
+            }
         }
     }
+
 }

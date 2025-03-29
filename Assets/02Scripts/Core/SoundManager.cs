@@ -5,13 +5,12 @@ using UnityEngine.Rendering;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
-    [SerializeField] private AudioSource bgm_audioSource;
-    [SerializeField] private AudioSource sfx_audioSource;
-
+    [SerializeField] private AudioSource _bgmAudioSource;
+    [SerializeField] private AudioSource _sfxAudioSource;
 
     void Awake()
     {
-        if(Instance == null)
+        if (Instance == null)
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
@@ -26,25 +25,25 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(AudioClip clip, float volume)
     {
-        bgm_audioSource.Stop();
-        bgm_audioSource.clip = clip;
-        bgm_audioSource.volume = volume;
-        bgm_audioSource.Play();
+        _bgmAudioSource.Stop();
+        _bgmAudioSource.clip = clip;
+        _bgmAudioSource.volume = volume;
+        _bgmAudioSource.Play();
     }
 
     public void PlaySFX(AudioClip clip, float volume)
     {
-        sfx_audioSource.PlayOneShot(clip, volume);  
+        _sfxAudioSource.PlayOneShot(clip, volume);
     }
 
     public void SettingBGMVolume(float value) //슬라이더로 조절
     {
-        bgm_audioSource.volume = value;
+        _bgmAudioSource.volume = value;
     }
 
     public void SettingSFXVolume(float value)
     {
-        sfx_audioSource.volume = value;
+        _sfxAudioSource.volume = value;
     }
 
 
