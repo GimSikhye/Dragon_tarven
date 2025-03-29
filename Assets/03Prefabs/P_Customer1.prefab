@@ -303,8 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4abf62a0664ed40b554f3d1b52c6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speechBalloon: {fileID: 7111306673628132806}
-  orderMenuSprite: {fileID: 7031450481166342083}
+  _speechBalloon: {fileID: 7111306673628132806}
+  _orderMenuSprite: {fileID: 7031450481166342083}
 --- !u!114 &5303537669133222237
 MonoBehaviour:
   m_ObjectHideFlags: 0

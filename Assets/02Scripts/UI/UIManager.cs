@@ -63,6 +63,7 @@ namespace DalbitCafe.UI
 
         public void ShowMakeCoffeePopUp()
         {
+            Debug.Log("커피 만들기");
             _panels[(int)Windows.MakeCoffee].SetActive(true);
         }
 

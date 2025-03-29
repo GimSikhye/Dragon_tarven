@@ -1282,9 +1282,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
   - {fileID: 8300000, guid: 47f45ef7b5767674393cc401fc325705, type: 3}
   - {fileID: 8300000, guid: 1532c7e67c2d60c4c8780da14b7e8fcf, type: 3}
-  coffeeBean: 0
-  gem: 0
-  coin: 0
+  _coffeeBean: 0
+  _gem: 0
+  _coin: 0
 --- !u!1 &1218875186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1711,8 +1711,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b436669bf73da64bacce78a612781ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm_audioSource: {fileID: 1218875188}
-  sfx_audioSource: {fileID: 151675675}
+  _bgmAudioSource: {fileID: 1218875188}
+  _sfxAudioSource: {fileID: 151675675}
 --- !u!4 &1491988263
 Transform:
   m_ObjectHideFlags: 0
@@ -1822,7 +1822,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: Game scene
+          m_StringArgument: GameScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1500573540

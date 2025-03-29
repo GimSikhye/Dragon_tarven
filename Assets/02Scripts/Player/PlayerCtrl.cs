@@ -1,8 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Tilemaps;
 using UnityEngine.UI;
 using DalbitCafe.UI;
 using DalbitCafe.Operations;
@@ -63,7 +60,7 @@ namespace DalbitCafe.Player
                 }
                 else if (touch.phase == TouchPhase.Ended)
                 {
-                    CoffeMachine(touch);
+                    TouchCoffeeMachine(touch);
 
                     // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
                     if (startedOverUI)
@@ -85,28 +82,29 @@ namespace DalbitCafe.Player
             }
         }
 
-        private void CoffeMachine(Touch touch)
+        private void TouchCoffeeMachine(Touch touch)
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
-            Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition);
-
-            if (hitCollider != null && hitCollider.transform.CompareTag("Coffee Machine"))
+            int coffeeMachineLayer = LayerMask.GetMask("CoffeeMachine"); // CoffeeMachine 레이어 가져오기
+            Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition, coffeeMachineLayer);
+            if (hitCollider != null && hitCollider.transform.CompareTag("CoffeeMachine"))
             {
                 // 거리도 확인해서 가까울 경우만 팝업 표시
+                Debug.Log("커피머신");
                 if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
                 {
                     CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
                     if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
                     {
                         UIManager.Instance.ShowCurrentMenuPopUp();
-                        GameObject currentMenuWindow = GameObject.Find("currentMenu Window");
+                        GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
                         currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(hitCollider.gameObject.GetComponent<CoffeeMachine>());
 
                     }
                     else
                     {
-                        UIManager.Instance.ShowMakeCoffeePopUp(); // UIManager의 팝업 표시 함수 호출
-                                                                  // currentMenuWindow.UpdateMenuPanel(); //커피데이터 넣기
+                        UIManager.Instance.ShowMakeCoffeePopUp(); 
+                                                                  
                     }
                 }
                 else
@@ -119,7 +117,6 @@ namespace DalbitCafe.Player
 
         private void OnMove(Touch touch)
         {
-
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
             worldPosition.z = 0;
             targetPosition = worldPosition; // 이동 목표 위치 저장
