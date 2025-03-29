@@ -41,7 +41,7 @@ namespace DalbitCafe.Deco
             _player.SetActive(false); // 플레이어 비활성화
             _customers = new GameObject[_customerParent.childCount];
 
-            for (int i = 0; i < _customers.Length; i++)
+            for (int i = 0; i < _customers.Length; i++) //
             {
                 _customers[i] = _customerParent.GetChild(i).gameObject;
                 _customers[i].SetActive(false); // 손님들 비활성화
