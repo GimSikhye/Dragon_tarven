@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 enum Windows
 {
-    Roasting = 0,
+    MakeCoffee = 0,
     Exit,
     CurrentMenu
 }
@@ -16,12 +16,12 @@ public class UIManager : MonoBehaviour
     //enum으로 윈도우 창 이름 배열 관리하기
 
     public static UIManager Instance;
-    [SerializeField] private GameObject[] panels;
-    [SerializeField] private TextMeshProUGUI captionTmp;
+    [SerializeField] private GameObject[] _panels;
+    [SerializeField] private TextMeshProUGUI _captionText;
 
     [Header("재화량 텍스트")]
-    [SerializeField] private TextMeshProUGUI coffeeBeanText;
-    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI _coffeeBeanText;
+    [SerializeField] private TextMeshProUGUI _coinText;
     [SerializeField] private TextMeshProUGUI gemText;
 
     // 원두 개수 값이 바뀔때 갱신해주기.
@@ -39,18 +39,18 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        foreach (var panel in panels)
+        foreach (var panel in _panels)
             panel.SetActive(false);
     }
     // 모든 UI 비활성화
     public void UpdateCoffeeBeanUI(int value)
     {
-        coffeeBeanText.text = value.ToString();
+        _coffeeBeanText.text = value.ToString();
     }
 
     public void UpdateCoinUI(int value)
     {
-        coinText.text = value.ToString();
+        _coinText.text = value.ToString();
     }
 
     public void UpdateGemUI(int value)
@@ -60,27 +60,27 @@ public class UIManager : MonoBehaviour
 
     public void ShowRoastingWindow()
     {
-        panels[(int)Windows.Roasting].SetActive(true);
+        _panels[(int)Windows.MakeCoffee].SetActive(true);
     }
 
     public void ShowExitWindow()
     {
-        panels[(int)Windows.Exit].SetActive(true);
+        _panels[(int)Windows.Exit].SetActive(true);
     }
 
     public void ShowCapitonText()
     {
         Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(PlayerCtrl.Instance.transform.position);
 
-        captionTmp.rectTransform.position = playerScreenPos;
-        captionTmp.enabled = true;
-        captionTmp.text = "거리가 너무 멀어요!";
+        _captionText.rectTransform.position = playerScreenPos;
+        _captionText.enabled = true;
+        _captionText.text = "거리가 너무 멀어요!";
     }
 
     public void ShowCurrentMenuWindow()
     {
         Debug.Log("현재 메뉴창 띄움");
-        panels[(int)Windows.CurrentMenu].SetActive(true); 
+        _panels[(int)Windows.CurrentMenu].SetActive(true); 
 
     }
 

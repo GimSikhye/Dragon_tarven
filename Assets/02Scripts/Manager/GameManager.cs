@@ -83,11 +83,11 @@ public class GameManager : MonoBehaviour
     {
         switch (scene.name)
         {
-            case "Main menu":
+            case "MaiMenu":
                 Debug.Log("메인메뉴");
                 SoundManager.Instance.PlayBGM(bgm_clips[0], 0.5f);
                 break;
-            case "Game scene":
+            case "GameScene":
                 //Debug.Log("게임씬");
                 SoundManager.Instance.PlayBGM(bgm_clips[1], 0.5f);
                 break;
