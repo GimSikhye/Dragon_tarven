@@ -1,10 +1,11 @@
 using UnityEngine;
 
+// 배치 가능 여부 체크
 namespace DalbitCafe.Deco
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] private int _gridWidth = 10;  // 그리드의 가로 크기
+        [SerializeField] private int _gridWidth = 10;  // 맵 크기?
         [SerializeField] private int _gridHeight = 10; // 그리드의 세로 크기
         [SerializeField] private float _tileSize = 1f; // 타일 크기 (그리드 셀의 크기)
 
@@ -20,6 +21,7 @@ namespace DalbitCafe.Deco
         public bool CanPlaceItem(Vector2Int position, Vector2Int size)
         {
             // 그리드 밖으로 나가지 않도록 체크
+            // 왼쪽 바깥이거나, 아래쪽 넘어가거나, 현재위치+사이즈(영역차지하는크기)가 오른쪽을 넘어가거나, 현재위치+사이즈가 마지막높이를 넘어간다면
             if (position.x < 0 || position.y < 0 || position.x + size.x > _gridWidth || position.y + size.y > _gridHeight)
             {
                 return false;
@@ -48,7 +50,7 @@ namespace DalbitCafe.Deco
             {
                 for (int y = position.y; y < position.y + size.y; y++)
                 {
-                    _grid[x, y] = true;  // 해당 위치에 아이템 배치됨
+                    _grid[x, y] = true;  // 해당 위치에 아이템 배치됨 // 흠... 그리드에 배치되었는지만 체크하고, 그 위치에 게임오브젝트(스프라이트는 배치안하네)
                 }
             }
         }
@@ -62,6 +64,7 @@ namespace DalbitCafe.Deco
                 for (int y = position.y; y < position.y + size.y; y++)
                 {
                     _grid[x, y] = false;  // 해당 위치에서 아이템 제거
+                    // 여기도 이 위치에 안하네
                 }
             }
         }

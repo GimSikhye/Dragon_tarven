@@ -1,24 +1,22 @@
 using DalbitCafe.Customer;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
+// 배치모드 관리
 namespace DalbitCafe.Deco
 {
     public class DecorateManager : MonoBehaviour
     {
         public static DecorateManager Instance;
+
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
         private GameObject[] _customers;
+        [SerializeField] private GridManager _gridManager;
+        [SerializeField] private GameObject _decoEndBtn;
         [SerializeField] private GameObject _decorateUI; // 배치 UI 활성화/비활성화
 
         [SerializeField] private bool _isDecorateMode = false;
-        [SerializeField] private GridManager _gridManager;
 
-
-        private void Start()
-        {
-            // 필요시 초기화 코드 추가
-        }
 
         private void Awake()
         {
@@ -47,6 +45,7 @@ namespace DalbitCafe.Deco
                 _customers[i].SetActive(false); // 손님들 비활성화
             }
             _decorateUI.SetActive(true); // 배치 UI 활성화
+            _decoEndBtn.SetActive(true);
         }
 
         // 배치 모드 비활성화
@@ -61,6 +60,8 @@ namespace DalbitCafe.Deco
                 customer.SetActive(true); // 손님들 활성화
             }
             _decorateUI.SetActive(false); // 배치 UI 비활성화
+            _decoEndBtn.SetActive(false);
+
         }
 
         // 아이템 배치 기능 여부 체크

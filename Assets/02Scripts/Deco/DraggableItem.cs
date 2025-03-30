@@ -6,7 +6,7 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        private Vector3 _initialPosition;
+        private Vector3 _initialPosition; // 초기 위치
         private bool _isDragging = false;
         public Vector2Int _itemSize;  // 아이템 크기 (1x1, 2x1 등)
 
@@ -23,12 +23,12 @@ namespace DalbitCafe.Deco
                 Vector3 newPosition = Camera.main.ScreenToWorldPoint(eventData.position);
                 newPosition.z = 0;  // Z축은 고정
 
-                // 그리드에 맞춰 아이템 이동
+                // 그리드에 맞춰 아이템 이동 (반올림)
                 transform.position = new Vector3(Mathf.Round(newPosition.x), Mathf.Round(newPosition.y), 0);
 
-                // 배치 가능한지 확인
+                // 배치 가능한지 확인 
                 bool canPlace = DecorateManager.Instance.CanPlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
-                UpdateBorderColor(canPlace);
+                UpdateBorderColor(canPlace); 
             }
         }
 
@@ -40,7 +40,7 @@ namespace DalbitCafe.Deco
             {
                 DecorateManager.Instance.PlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
                 // 배치 완료 후 UI 숨기기
-                HideButtons();
+                //HideButtons();
             }
             else
             {
@@ -51,7 +51,7 @@ namespace DalbitCafe.Deco
 
         private void UpdateBorderColor(bool canPlace)
         {
-            // 초록색/빨간색 테두리 업데이트
+            // 초록색/빨간색 테두리 업데이트 //스프라이트 테두리에 맞게 테투리가 그려지게 하는방법 없나? 그리고 두께도 설정할수있게 하면 좋겠음
             if (canPlace)
             {
                 // 초록색
