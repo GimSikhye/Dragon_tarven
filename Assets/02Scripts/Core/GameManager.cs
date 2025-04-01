@@ -1,7 +1,12 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DalbitCafe.UI;
-
+enum Bgm
+{
+    Main = 0,
+    Game,
+    End
+}
 namespace DalbitCafe.Core
 {
     public class GameManager : MonoBehaviour
@@ -99,13 +104,12 @@ namespace DalbitCafe.Core
         {
             switch (scene.name)
             {
-                case "MaiMenu":
+                case "MainMenu":
                     Debug.Log("메인메뉴");
-                    SoundManager.Instance.PlayBGM(bgm_clips[0], 0.5f);
+                    SoundManager.Instance.PlayBGM(bgm_clips[(int)Bgm.Main], 0.5f);
                     break;
                 case "GameScene":
-                    //Debug.Log("게임씬");
-                    SoundManager.Instance.PlayBGM(bgm_clips[1], 0.5f);
+                    SoundManager.Instance.PlayBGM(bgm_clips[(int)Bgm.Game], 0.5f);
                     break;
             }
         }

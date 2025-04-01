@@ -1278,8 +1278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bgm_clips:
-  - {fileID: 8300000, guid: 475f4837af487ce4a9e68bb227455e4c, type: 3}
-  - {fileID: 8300000, guid: 90eae78e8ce85a849b5b0ca11b2de641, type: 3}
+  - {fileID: 8300000, guid: fafa429d8f8bdc54696573456082e1da, type: 3}
+  - {fileID: 8300000, guid: e1c3f259056f44f4988f33b05775c257, type: 3}
   - {fileID: 8300000, guid: 47f45ef7b5767674393cc401fc325705, type: 3}
   - {fileID: 8300000, guid: 1532c7e67c2d60c4c8780da14b7e8fcf, type: 3}
   _coffeeBean: 0
@@ -1814,7 +1814,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1484750682}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
+        m_TargetAssemblyTypeName: DalbitCafe.UI.ButtonManager, Assembly-CSharp
         m_MethodName: LoadButton
         m_Mode: 5
         m_Arguments:

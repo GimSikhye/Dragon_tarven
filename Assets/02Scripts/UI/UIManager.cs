@@ -1,4 +1,5 @@
 using DalbitCafe.Player;
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using TMPro;
@@ -63,8 +64,11 @@ namespace DalbitCafe.UI
 
         public void ShowMakeCoffeePopUp()
         {
-            Debug.Log("커피 만들기");
+
             _panels[(int)Windows.MakeCoffee].SetActive(true);
+            _panels[(int)Windows.MakeCoffee].transform.localScale = Vector3.zero;
+            _panels[(int)Windows.MakeCoffee].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+
         }
 
         public void ShowExitPopUp()
@@ -84,7 +88,16 @@ namespace DalbitCafe.UI
         public void ShowCurrentMenuPopUp()
         {
             Debug.Log("현재 메뉴창 띄움");
-            _panels[(int)Windows.CurrentMenu].SetActive(true);
+            GameObject window = _panels[(int)Windows.CurrentMenu];
+            window.SetActive(true);
+            window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+            int count = window.transform.childCount;
+
+            for(int i = 0; i< count; i++)
+            {
+                //window.transform.GetChild(i).GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+            }
+            _panels[(int)Windows.CurrentMenu].GetComponent<Image>().DOFade(1, 0.5f);
 
         }
 

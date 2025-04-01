@@ -19,7 +19,7 @@ namespace DalbitCafe.Core
             }
             else
             {
-                Destroy(Instance);
+                Destroy(Instance.gameObject);
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
             }

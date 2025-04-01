@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using DalbitCafe.Core;
 using DalbitCafe.Operations;
+using DG.Tweening;
 
 namespace DalbitCafe.UI
 {
@@ -44,18 +45,28 @@ namespace DalbitCafe.UI
         public void LoadButton(string sceneName)
         {
             SoundManager.Instance.PlaySFX(click_clip, 0.6f);
-            SceneManager.LoadScene(sceneName);
+
+            // 현재 클릭한 버튼 가져오기
+            GameObject currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+
+            if (currentButton != null)
+            {
+                currentButton.transform.DOScale(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() => SceneManager.LoadScene(sceneName));
+            }
         }
 
         public void CloseWindowButton(string windowName)
         {
+
             GameObject window = GameObject.Find(windowName);
             if (window == null)
             {
                 Debug.LogError("비활성화 활 윈도우를 찾지 못했습니다!");
                 return;
             }
-            window.SetActive(false);
+
+            window.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
+             .OnComplete(() => window.SetActive(false));
         }
 
 
@@ -115,6 +126,17 @@ namespace DalbitCafe.UI
             button.GetComponent<Button>().interactable = true;
         }
 
+
+        private void TouchButtonAni()
+        {
+            // 현재 클릭한 버튼 가져오기
+            GameObject currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
+
+            if (currentButton != null)
+            {
+                currentButton.transform.DOScale(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo);
+            }
+        }
 
     }
 
