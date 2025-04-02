@@ -100,7 +100,6 @@ GameObject:
   - component: {fileID: 34758096040818495}
   - component: {fileID: 5707260889737758403}
   - component: {fileID: 3318595695616406210}
-  - component: {fileID: 5297385486020727957}
   - component: {fileID: 8334003038923838875}
   m_Layer: 0
   m_Name: P_Customer2
@@ -216,31 +215,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speechBalloon: {fileID: 2812469311590096692}
   _orderMenuSprite: {fileID: 5790098905572146126}
---- !u!143 &5297385486020727957
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7793849564610333638}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Height: 0.94
-  m_Radius: 0.5
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: -0.19, z: 0}
 --- !u!195 &8334003038923838875
 NavMeshAgent:
   m_ObjectHideFlags: 0
