@@ -411,541 +411,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Player_Up0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: a5cc202fb07d41d40800000000000000
-      internalID: 5554300686759545946
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_UpRight0
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 4414d63f3d6d28120800000000000000
-      internalID: 2414728556034474308
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right0
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2f6d972d1c93a7c60800000000000000
-      internalID: 7816623607877588722
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_DownRight0
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 27b2e401c8d9ccf80800000000000000
-      internalID: -8084914006142342286
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Down0
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6b16363ad910f8050800000000000000
-      internalID: 5804860221266551222
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftDown0
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 471cc7822a00a7f10800000000000000
-      internalID: 2268126058798432628
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Left0
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: ecf81e3897bf81ab0800000000000000
-      internalID: -5036999683891687474
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftUp0
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 6602cf5d2859e53f0800000000000000
-      internalID: -910125685513904026
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Up1
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 160f73f1378a51480800000000000000
-      internalID: -8929045473793675167
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_UpRight1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: e4210be9e96839650800000000000000
-      internalID: 6238477924663562830
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right1
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 79b1955547163ffe0800000000000000
-      internalID: -1156473527028081769
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_DownRight1
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1c79f81963f225f70800000000000000
-      internalID: 9174447302323967937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Down1
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2bf0745d5962e9f00800000000000000
-      internalID: 1125379381859389362
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftDown1
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1a1c5162d980e4660800000000000000
-      internalID: 7371839111093928353
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Left1
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: db2ac8a74aae48d80800000000000000
-      internalID: -8249210625284332867
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftUp1
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 22282b24f73e4d240800000000000000
-      internalID: 4815724037285249570
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Up2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 9c735e59db4c200d0800000000000000
-      internalID: -3457985245324429367
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_UpRight2
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1467cd09fdacd2740800000000000000
-      internalID: 5128978612201748033
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Right2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 2d666c5bf36504e50800000000000000
-      internalID: 6791523069707314898
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_DownRight2
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 1addfd57537a905f0800000000000000
-      internalID: -789916411574100575
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Down2
-      rect:
-        serializedVersion: 2
-        x: 64
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 839ec54d9cc59fed0800000000000000
-      internalID: -2379768906167555784
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftDown2
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8aeb89dd82edd3400800000000000000
-      internalID: 305644616828894888
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_Left2
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 8698a5966cc470df0800000000000000
-      internalID: -214118042222032536
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Player_LeftUp2
-      rect:
-        serializedVersion: 2
-        x: 112
-        y: 163
-        width: 16
-        height: 1
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 5ac1a860b854d1cd0800000000000000
-      internalID: -2585834147628311387
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Customer1_Up0
+      name: Customer3_Up0
       rect:
         serializedVersion: 2
         x: 0
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -961,13 +433,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_UpRight0
+      name: Customer3_UpRight0
       rect:
         serializedVersion: 2
         x: 16
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -983,13 +455,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Right0
+      name: Customer3_Right0
       rect:
         serializedVersion: 2
         x: 32
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1005,13 +477,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_DownRight0
+      name: Customer3_DownRight0
       rect:
         serializedVersion: 2
         x: 48
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1027,13 +499,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Down0
+      name: Customer3_Down0
       rect:
         serializedVersion: 2
         x: 64
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1049,13 +521,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftDown0
+      name: Customer3_LeftDown0
       rect:
         serializedVersion: 2
         x: 80
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1071,13 +543,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Left0
+      name: Customer3_Left0
       rect:
         serializedVersion: 2
         x: 96
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1093,13 +565,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftUp0
+      name: Customer3_LeftUp0
       rect:
         serializedVersion: 2
         x: 112
         y: 144
         width: 16
-        height: 20
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1115,7 +587,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Up1
+      name: Customer3_Up1
       rect:
         serializedVersion: 2
         x: 0
@@ -1137,7 +609,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_UpRight1
+      name: Customer3_UpRight1
       rect:
         serializedVersion: 2
         x: 16
@@ -1159,7 +631,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Right1
+      name: Customer3_Right1
       rect:
         serializedVersion: 2
         x: 32
@@ -1181,7 +653,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_DownRight1
+      name: Customer3_DownRight1
       rect:
         serializedVersion: 2
         x: 48
@@ -1203,7 +675,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Down1
+      name: Customer3_Down1
       rect:
         serializedVersion: 2
         x: 64
@@ -1225,7 +697,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftDown1
+      name: Customer3_LeftDown1
       rect:
         serializedVersion: 2
         x: 80
@@ -1247,7 +719,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Left1
+      name: Customer3_Left1
       rect:
         serializedVersion: 2
         x: 96
@@ -1269,7 +741,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftUp1
+      name: Customer3_LeftUp1
       rect:
         serializedVersion: 2
         x: 112
@@ -1291,7 +763,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Up2
+      name: Customer3_Up2
       rect:
         serializedVersion: 2
         x: 0
@@ -1313,7 +785,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_UpRight2
+      name: Customer3_UpRight2
       rect:
         serializedVersion: 2
         x: 16
@@ -1335,7 +807,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Right2
+      name: Customer3_Right2
       rect:
         serializedVersion: 2
         x: 32
@@ -1357,7 +829,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_DownRight2
+      name: Customer3_DownRight2
       rect:
         serializedVersion: 2
         x: 48
@@ -1379,7 +851,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Down2
+      name: Customer3_Down2
       rect:
         serializedVersion: 2
         x: 64
@@ -1401,7 +873,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftDown2
+      name: Customer3_LeftDown2
       rect:
         serializedVersion: 2
         x: 80
@@ -1423,7 +895,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_Left2
+      name: Customer3_Left2
       rect:
         serializedVersion: 2
         x: 96
@@ -1445,7 +917,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer1_LeftUp2
+      name: Customer3_LeftUp2
       rect:
         serializedVersion: 2
         x: 112
@@ -1467,7 +939,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Up0
+      name: Customer4_Up0
       rect:
         serializedVersion: 2
         x: 0
@@ -1489,7 +961,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_UpRight0
+      name: Customer4_UpRight0
       rect:
         serializedVersion: 2
         x: 16
@@ -1511,7 +983,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Right0
+      name: Customer4_Right0
       rect:
         serializedVersion: 2
         x: 32
@@ -1533,7 +1005,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_DownRight0
+      name: Customer4_DownRight0
       rect:
         serializedVersion: 2
         x: 48
@@ -1555,7 +1027,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Down0
+      name: Customer4_Down0
       rect:
         serializedVersion: 2
         x: 64
@@ -1577,7 +1049,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftDown0
+      name: Customer4_LeftDown0
       rect:
         serializedVersion: 2
         x: 80
@@ -1599,7 +1071,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Left0
+      name: Customer4_Left0
       rect:
         serializedVersion: 2
         x: 96
@@ -1621,7 +1093,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftUp0
+      name: Customer4_LeftUp0
       rect:
         serializedVersion: 2
         x: 112
@@ -1643,7 +1115,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Up1
+      name: Customer4_Up1
       rect:
         serializedVersion: 2
         x: 0
@@ -1665,7 +1137,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_UpRight1
+      name: Customer4_UpRight1
       rect:
         serializedVersion: 2
         x: 16
@@ -1687,7 +1159,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Right1
+      name: Customer4_Right1
       rect:
         serializedVersion: 2
         x: 32
@@ -1709,7 +1181,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_DownRight1
+      name: Customer4_DownRight1
       rect:
         serializedVersion: 2
         x: 48
@@ -1731,7 +1203,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Down1
+      name: Customer4_Down1
       rect:
         serializedVersion: 2
         x: 64
@@ -1753,7 +1225,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftDown1
+      name: Customer4_LeftDown1
       rect:
         serializedVersion: 2
         x: 80
@@ -1775,7 +1247,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Left1
+      name: Customer4_Left1
       rect:
         serializedVersion: 2
         x: 96
@@ -1797,7 +1269,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftUp1
+      name: Customer4_LeftUp1
       rect:
         serializedVersion: 2
         x: 112
@@ -1819,7 +1291,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Up3
+      name: Customer4_Up3
       rect:
         serializedVersion: 2
         x: 0
@@ -1841,7 +1313,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_UpRight2
+      name: Customer4_UpRight2
       rect:
         serializedVersion: 2
         x: 16
@@ -1863,7 +1335,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Right2
+      name: Customer4_Right2
       rect:
         serializedVersion: 2
         x: 32
@@ -1885,7 +1357,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_DownRight2
+      name: Customer4_DownRight2
       rect:
         serializedVersion: 2
         x: 48
@@ -1907,7 +1379,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Down2
+      name: Customer4_Down2
       rect:
         serializedVersion: 2
         x: 64
@@ -1929,7 +1401,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftDown2
+      name: Customer4_LeftDown2
       rect:
         serializedVersion: 2
         x: 80
@@ -1951,7 +1423,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_Left2
+      name: Customer4_Left2
       rect:
         serializedVersion: 2
         x: 96
@@ -1973,7 +1445,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Customer2_LeftUp2
+      name: Customer4_LeftUp2
       rect:
         serializedVersion: 2
         x: 112
@@ -2009,54 +1481,54 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       1: -4871531732248455920
-      Customer1_Down0: 6046623275608860670
-      Customer1_Down1: -2298216017647605559
-      Customer1_Down2: 1508543048977820341
-      Customer1_DownRight0: -8527564442724020587
-      Customer1_DownRight1: -7025250049320907596
-      Customer1_DownRight2: 794618213534797419
-      Customer1_Left0: -8734128555168634486
-      Customer1_Left1: -6383814987320937140
-      Customer1_Left2: 7347338698923434759
-      Customer1_LeftDown0: 1408869818135702755
-      Customer1_LeftDown1: 4339810400250722761
-      Customer1_LeftDown2: -2452734956274390962
-      Customer1_LeftUp0: 866086912981252047
-      Customer1_LeftUp1: -5851069236004528113
-      Customer1_LeftUp2: 3541480090103695939
-      Customer1_Right0: 7400792001476597451
-      Customer1_Right1: 6279345569671006892
-      Customer1_Right2: 2174973545699553740
-      Customer1_Up0: 6396989588978632775
-      Customer1_Up1: 2552153717530130704
-      Customer1_Up2: 7057583873565921941
-      Customer1_UpRight0: 4231563231303591020
-      Customer1_UpRight1: 7074741479498802654
-      Customer1_UpRight2: 2125592803057769448
-      Customer2_Down0: 753877317691797494
-      Customer2_Down1: 5497369311495656864
-      Customer2_Down2: 2945151375013764024
-      Customer2_DownRight0: -109630665561108195
-      Customer2_DownRight1: -6821322843767666820
-      Customer2_DownRight2: 2780501898652255178
-      Customer2_Left0: -7562760845128292968
-      Customer2_Left1: 1903504555360657301
-      Customer2_Left2: -7662571426202723118
-      Customer2_LeftDown0: 7150588167059960457
-      Customer2_LeftDown1: 5012592327895361995
-      Customer2_LeftDown2: -619213138225017795
-      Customer2_LeftUp0: -1568536323721896422
-      Customer2_LeftUp1: 6400548867142685080
-      Customer2_LeftUp2: -3274840466366865838
-      Customer2_Right0: -1736497411315213830
-      Customer2_Right1: 5073013363320654238
-      Customer2_Right2: -7106271704611935847
-      Customer2_Up0: -8733201210518621926
-      Customer2_Up1: -380362419353694245
-      Customer2_Up3: 6733315936822877014
-      Customer2_UpRight0: 2688246280272161830
-      Customer2_UpRight1: -4871531732248455920
-      Customer2_UpRight2: 437893514989610912
+      Customer3_Down0: 6046623275608860670
+      Customer3_Down1: -2298216017647605559
+      Customer3_Down2: 1508543048977820341
+      Customer3_DownRight0: -8527564442724020587
+      Customer3_DownRight1: -7025250049320907596
+      Customer3_DownRight2: 794618213534797419
+      Customer3_Left0: -8734128555168634486
+      Customer3_Left1: -6383814987320937140
+      Customer3_Left2: 7347338698923434759
+      Customer3_LeftDown0: 1408869818135702755
+      Customer3_LeftDown1: 4339810400250722761
+      Customer3_LeftDown2: -2452734956274390962
+      Customer3_LeftUp0: 866086912981252047
+      Customer3_LeftUp1: -5851069236004528113
+      Customer3_LeftUp2: 3541480090103695939
+      Customer3_Right0: 7400792001476597451
+      Customer3_Right1: 6279345569671006892
+      Customer3_Right2: 2174973545699553740
+      Customer3_Up0: 6396989588978632775
+      Customer3_Up1: 2552153717530130704
+      Customer3_Up2: 7057583873565921941
+      Customer3_UpRight0: 4231563231303591020
+      Customer3_UpRight1: 7074741479498802654
+      Customer3_UpRight2: 2125592803057769448
+      Customer4_Down0: 753877317691797494
+      Customer4_Down1: 5497369311495656864
+      Customer4_Down2: 2945151375013764024
+      Customer4_DownRight0: -109630665561108195
+      Customer4_DownRight1: -6821322843767666820
+      Customer4_DownRight2: 2780501898652255178
+      Customer4_Left0: -7562760845128292968
+      Customer4_Left1: 1903504555360657301
+      Customer4_Left2: -7662571426202723118
+      Customer4_LeftDown0: 7150588167059960457
+      Customer4_LeftDown1: 5012592327895361995
+      Customer4_LeftDown2: -619213138225017795
+      Customer4_LeftUp0: -1568536323721896422
+      Customer4_LeftUp1: 6400548867142685080
+      Customer4_LeftUp2: -3274840466366865838
+      Customer4_Right0: -1736497411315213830
+      Customer4_Right1: 5073013363320654238
+      Customer4_Right2: -7106271704611935847
+      Customer4_Up0: -8733201210518621926
+      Customer4_Up1: -380362419353694245
+      Customer4_Up3: 6733315936822877014
+      Customer4_UpRight0: 2688246280272161830
+      Customer4_UpRight1: -4871531732248455920
+      Customer4_UpRight2: 437893514989610912
       Front_0: 5554300686759545946
       Player_Down0: 5804860221266551222
       Player_Down1: 1125379381859389362
