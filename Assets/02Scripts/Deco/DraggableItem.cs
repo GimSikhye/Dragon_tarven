@@ -12,6 +12,7 @@ namespace DalbitCafe.Deco
 
         public void OnBeginDrag(PointerEventData eventData)
         {
+            Debug.Log("드래그 시작");
             _initialPosition = transform.position;  // 드래그 시작 위치 저장(아이템의 초기 위치)
             _isDragging = true; // 드래그 중이다
         }
@@ -39,10 +40,10 @@ namespace DalbitCafe.Deco
             if (DecorateManager.Instance.CanPlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize))
             {
                 DecorateManager.Instance.PlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
-                // 배치 완료 후 UI 숨기기
+                // 배치 완료 후 꾸미기 UI 숨기기(무브, 보관함 뜨는 버튼들)
                 //HideButtons();
             }
-            else
+            else // 배치할 수 없다면(false)
             {
                 // 원래 위치로 돌아가게 처리
                 transform.position = _initialPosition;
