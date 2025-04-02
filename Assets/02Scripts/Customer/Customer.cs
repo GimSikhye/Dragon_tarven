@@ -8,7 +8,7 @@ namespace DalbitCafe.Customer
     public class Customer : MonoBehaviour
     {
         [Header("길 찾기")]
-        private NavMeshAgent _navMeshAgent; // NavMeshAgent로 대체
+        private NavMeshAgent _agent; // NavMeshAgent로 대체
         private CustomerPool _custmorPool;
         private Transform _target; // 이동할 목표 지점
 
@@ -21,9 +21,12 @@ namespace DalbitCafe.Customer
 
         void Start()
         {
-            _navMeshAgent = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트 가져오기
+            _agent = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트 가져오기
             _custmorPool = FindAnyObjectByType<CustomerPool>();
+            _agent.updateRotation = false;
+            _agent.updateUpAxis = false;
             SetDestination(); // 목표 설정
+
         }
 
         void SetDestination()
@@ -32,13 +35,13 @@ namespace DalbitCafe.Customer
 
             if (_target != null)
             {
-                _navMeshAgent.SetDestination(_target.position); // NavMeshAgent로 이동 목표 설정
+                _agent.SetDestination(_target.position); // NavMeshAgent로 이동 목표 설정
             }
         }
 
         void Update()
         {
-            if (!_navMeshAgent.pathPending && _navMeshAgent.remainingDistance <= _navMeshAgent.stoppingDistance)
+            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
             {
                 if (_target != null) //목적지에 도달하였다면
                 {
@@ -54,7 +57,7 @@ namespace DalbitCafe.Customer
         void StartOrdering()
         {
             _isOrdering = true;
-            _navMeshAgent.isStopped = true; // 이동 중지
+            _agent.isStopped = true; // 이동 중지
 
             // 모든 커피머신에서 랜덤한 커피 선택
             CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
@@ -106,14 +109,14 @@ namespace DalbitCafe.Customer
 
             _isOrdering = false;
             _speechBalloon.SetActive(false);
-            _navMeshAgent.isStopped = false; // 이동 재개
+            _agent.isStopped = false; // 이동 재개
         }
 
         void LeaveStore()
         {
             _isOrdering = false;
             _speechBalloon.SetActive(false);
-            _navMeshAgent.isStopped = false; // 이동 재개
+            _agent.isStopped = false; // 이동 재개
         }
     }
 }

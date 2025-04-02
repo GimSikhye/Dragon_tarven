@@ -66,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 64
+  spritePixelsToUnits: 128
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -141,7 +141,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: TidyTiles_128x128_0
+      name: tile_TidyTile_0
       rect:
         serializedVersion: 2
         x: 0
@@ -149,21 +149,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e0a338e8ba70686f0800000000000000
-      internalID: -682849860088284658
+      spriteID: 77e30340088cb864eaaf4fba760b5007
+      internalID: -394550
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_1
+      name: tile_TidyTile_1
       rect:
         serializedVersion: 2
         x: 128
@@ -171,21 +171,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 820fcd715dcf0d6d0800000000000000
-      internalID: -2967594162278567896
+      spriteID: 10e234035fb325b4d9a80fab632a8ce4
+      internalID: 2123430007
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_2
+      name: tile_TidyTile_2
       rect:
         serializedVersion: 2
         x: 256
@@ -193,21 +193,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: acba36fff5d4a79a0800000000000000
-      internalID: -6234585659439076406
+      spriteID: 8f67609a79c855746921060a2a55b8b2
+      internalID: 539161843
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_3
+      name: tile_TidyTile_3
       rect:
         serializedVersion: 2
         x: 384
@@ -215,43 +215,43 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b1c86dd093b6b2ca0800000000000000
-      internalID: -6040616582397916133
+      spriteID: 78304c248bbe6624ab40c7550b7faba2
+      internalID: -686871639
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_4
+      name: tile_TidyTile_4
       rect:
         serializedVersion: 2
         x: 0
-        y: 542
+        y: 512
         width: 128
-        height: 75
+        height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 1884dcd8ae74ea5c0800000000000000
-      internalID: -4202342329563133823
+      spriteID: 8d8a9a893adff1f48ba3daf599fc80c6
+      internalID: -1390960798
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_5
+      name: tile_TidyTile_5
       rect:
         serializedVersion: 2
         x: 128
@@ -259,21 +259,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a101bc8f43bf02820800000000000000
-      internalID: 2891587165702787098
+      spriteID: 6876b7702c80c8e478584903dc0ebec0
+      internalID: -47686126
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_6
+      name: tile_TidyTile_6
       rect:
         serializedVersion: 2
         x: 256
@@ -281,21 +281,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08719105421e5cc40af6d127323221e4
-      internalID: -1932295097
+      spriteID: ee3f6dfa5cad2a94dbaf1cdf07d05f8f
+      internalID: 1045178482
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_7
+      name: tile_TidyTile_7
       rect:
         serializedVersion: 2
         x: 384
@@ -303,21 +303,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d768f76731f76346b18380679e19f73
-      internalID: 752876819
+      spriteID: 3f8a1b9b159c1cb499503c2f27404f80
+      internalID: 311531417
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_8
+      name: tile_TidyTile_8
       rect:
         serializedVersion: 2
         x: 0
@@ -325,21 +325,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97f53f3a04974c54d9fcde5e541817e2
-      internalID: 931189193
+      spriteID: d68c99a69577c9b4eb559e5008ce9431
+      internalID: 557034582
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_9
+      name: tile_TidyTile_9
       rect:
         serializedVersion: 2
         x: 128
@@ -347,21 +347,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 41fd59c6afe8d274492f468ad6334ad6
-      internalID: 2066815143
+      spriteID: 3210e7dd5f0f56645b579698d5f69f48
+      internalID: -708804242
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_10
+      name: tile_TidyTile_10
       rect:
         serializedVersion: 2
         x: 256
@@ -369,21 +369,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22aa5762e9076e6469e24ae8c911c5af
-      internalID: 432202950
+      spriteID: 4e3bba770c67bc546a6d9131e2d75c61
+      internalID: 1635748180
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_11
+      name: tile_TidyTile_11
       rect:
         serializedVersion: 2
         x: 384
@@ -391,21 +391,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f6f43f548e8afdc4680e50992e7bc457
-      internalID: -1319676457
+      spriteID: f7002092685d9e647ad0a13eb22ae251
+      internalID: -1244136203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_12
+      name: tile_TidyTile_12
       rect:
         serializedVersion: 2
         x: 0
@@ -413,21 +413,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 82a5e70299e446c4097a02d8bb287c71
-      internalID: -560675118
+      spriteID: 195f53366504ed8428279de9c28e09b7
+      internalID: -21968379
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_13
+      name: tile_TidyTile_13
       rect:
         serializedVersion: 2
         x: 128
@@ -435,21 +435,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3d599d6f3eacf7548bfe771bc3c669aa
-      internalID: 781489520
+      spriteID: 4eb68a95c34b80b47869ad8a32851bd1
+      internalID: 1497470304
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_14
+      name: tile_TidyTile_14
       rect:
         serializedVersion: 2
         x: 256
@@ -457,21 +457,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4e11a729271e9fb46995be2b2444f7e7
-      internalID: -782817126
+      spriteID: 8e002d887c962c04ab8699ac5a614ceb
+      internalID: -1633913472
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_15
+      name: tile_TidyTile_15
       rect:
         serializedVersion: 2
         x: 384
@@ -479,21 +479,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 301cd68ba7e54664fa7829cfdadc9380
-      internalID: -1265015373
+      spriteID: baa2c2e2f651bf4418254f32fb74cc50
+      internalID: -706114062
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_16
+      name: tile_TidyTile_16
       rect:
         serializedVersion: 2
         x: 0
@@ -501,21 +501,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 80de8504027f8e045a53d4ac964dfaae
-      internalID: -1652353984
+      spriteID: 282b69a3c37ce674b84d9265dd9eac51
+      internalID: 1563191804
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_17
+      name: tile_TidyTile_17
       rect:
         serializedVersion: 2
         x: 128
@@ -523,21 +523,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 523553b3090ecd740b25e85ff3a2de13
-      internalID: 662803734
+      spriteID: 9434eb08eb201d644a3c13792e47e8b7
+      internalID: 1075023949
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_18
+      name: tile_TidyTile_18
       rect:
         serializedVersion: 2
         x: 256
@@ -545,21 +545,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e5fe207ec67ad7e40b4f0f49ac7e3c2d
-      internalID: -1654621664
+      spriteID: 9510f00a23d68914a980434e309c3376
+      internalID: -2096443874
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_19
+      name: tile_TidyTile_19
       rect:
         serializedVersion: 2
         x: 384
@@ -567,21 +567,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2a1d3a5f1099765499992d6b724a35a2
-      internalID: -1370782327
+      spriteID: 61e86df8e5884e44f809238385bae34e
+      internalID: -2001575077
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_20
+      name: tile_TidyTile_20
       rect:
         serializedVersion: 2
         x: 0
@@ -589,21 +589,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 93175e3302c15b7449b17931a497e019
-      internalID: 1343119195
+      spriteID: b92c34055df634f46861ddea82c6b697
+      internalID: -1160571492
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_21
+      name: tile_TidyTile_21
       rect:
         serializedVersion: 2
         x: 128
@@ -611,21 +611,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 951e8b40e9477794abfc5bf347bf2412
-      internalID: 1772691541
+      spriteID: 766d7e12f0762ec45997906494453e6f
+      internalID: 778286644
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_22
+      name: tile_TidyTile_22
       rect:
         serializedVersion: 2
         x: 256
@@ -633,21 +633,21 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c45d238a4c35cd74e8219e5141f6d13b
-      internalID: -944013014
+      spriteID: 3bf5c64cda57a8a459f85154402fc58c
+      internalID: 694528703
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TidyTiles_128x128_23
+      name: tile_TidyTile_23
       rect:
         serializedVersion: 2
         x: 384
@@ -655,15 +655,15 @@ TextureImporter:
         width: 128
         height: 128
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a613136f19a08a499fa034c68d774f2
-      internalID: 1277281455
+      spriteID: 686cd27fe7ef225469fc903a9d8c1690
+      internalID: 783392503
       vertices: []
       indices: 
       edges: []
@@ -682,30 +682,30 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      TidyTiles_128x128_0: -682849860088284658
-      TidyTiles_128x128_1: -2967594162278567896
-      TidyTiles_128x128_10: 432202950
-      TidyTiles_128x128_11: -1319676457
-      TidyTiles_128x128_12: -560675118
-      TidyTiles_128x128_13: 781489520
-      TidyTiles_128x128_14: -782817126
-      TidyTiles_128x128_15: -1265015373
-      TidyTiles_128x128_16: -1652353984
-      TidyTiles_128x128_17: 662803734
-      TidyTiles_128x128_18: -1654621664
-      TidyTiles_128x128_19: -1370782327
-      TidyTiles_128x128_2: -6234585659439076406
-      TidyTiles_128x128_20: 1343119195
-      TidyTiles_128x128_21: 1772691541
-      TidyTiles_128x128_22: -944013014
-      TidyTiles_128x128_23: 1277281455
-      TidyTiles_128x128_3: -6040616582397916133
-      TidyTiles_128x128_4: -4202342329563133823
-      TidyTiles_128x128_5: 2891587165702787098
-      TidyTiles_128x128_6: -1932295097
-      TidyTiles_128x128_7: 752876819
-      TidyTiles_128x128_8: 931189193
-      TidyTiles_128x128_9: 2066815143
+      tile_TidyTile_0: -394550
+      tile_TidyTile_1: 2123430007
+      tile_TidyTile_10: 1635748180
+      tile_TidyTile_11: -1244136203
+      tile_TidyTile_12: -21968379
+      tile_TidyTile_13: 1497470304
+      tile_TidyTile_14: -1633913472
+      tile_TidyTile_15: -706114062
+      tile_TidyTile_16: 1563191804
+      tile_TidyTile_17: 1075023949
+      tile_TidyTile_18: -2096443874
+      tile_TidyTile_19: -2001575077
+      tile_TidyTile_2: 539161843
+      tile_TidyTile_20: -1160571492
+      tile_TidyTile_21: 778286644
+      tile_TidyTile_22: 694528703
+      tile_TidyTile_23: 783392503
+      tile_TidyTile_3: -686871639
+      tile_TidyTile_4: -1390960798
+      tile_TidyTile_5: -47686126
+      tile_TidyTile_6: 1045178482
+      tile_TidyTile_7: 311531417
+      tile_TidyTile_8: 557034582
+      tile_TidyTile_9: -708804242
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
