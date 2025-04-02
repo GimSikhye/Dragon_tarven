@@ -188,6 +188,7 @@ GameObject:
   - component: {fileID: 7288401322610153425}
   - component: {fileID: 7958785047991038502}
   - component: {fileID: 413666377802955445}
+  - component: {fileID: 696951472737477086}
   m_Layer: 0
   m_Name: P_Customer1
   m_TagString: Untagged
@@ -302,6 +303,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speechBalloon: {fileID: 7111306673628132806}
   _orderMenuSprite: {fileID: 7031450481166342083}
+  _isOrdering: 0
 --- !u!195 &413666377802955445
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -311,16 +313,53 @@ NavMeshAgent:
   m_GameObject: {fileID: 8497240298204524245}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.31
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.5
-  m_BaseOffset: 0.75
+  m_Height: 0.83
+  m_BaseOffset: 0.65
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!70 &696951472737477086
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8497240298204524245}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 0

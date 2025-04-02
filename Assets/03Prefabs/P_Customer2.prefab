@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 5707260889737758403}
   - component: {fileID: 3318595695616406210}
   - component: {fileID: 8334003038923838875}
+  - component: {fileID: 8716400228302336792}
   m_Layer: 0
   m_Name: P_Customer2
   m_TagString: Untagged
@@ -215,6 +216,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speechBalloon: {fileID: 2812469311590096692}
   _orderMenuSprite: {fileID: 5790098905572146126}
+  _isOrdering: 0
 --- !u!195 &8334003038923838875
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -229,7 +231,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -237,6 +239,43 @@ NavMeshAgent:
   m_BaseOffset: 0.75
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!70 &8716400228302336792
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793849564610333638}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 1.5}
+  m_Direction: 0
 --- !u!1 &8200360053649552377
 GameObject:
   m_ObjectHideFlags: 0

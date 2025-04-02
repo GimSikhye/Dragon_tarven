@@ -5,11 +5,11 @@ namespace DalbitCafe.Deco
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] private int _gridWidth = 10;  // 맵 크기?
-        [SerializeField] private int _gridHeight = 10; // 그리드의 세로 크기
-        [SerializeField] private float _tileSize = 1f; // 타일 크기 (그리드 셀의 크기)
+        [SerializeField] private int _gridWidth = 10;  // 맵 가로 크기
+        [SerializeField] private int _gridHeight = 10; // 맵의 세로 크기(배치할 수 있는 공간)
+        [SerializeField] private float _tileSize = 0.5f; // 타일 크기 (그리드 셀의 크기)
 
-        private bool[,] _grid;  // 그리드 상태를 나타내는 2D 배열 (배치 여부)
+        private bool[,] _grid;  // 그리드 상태를 나타내는 2D 배열 (배치 여부) / Flase이면 배치할 수 있는 상태
 
         private void Start()
         {
@@ -24,7 +24,7 @@ namespace DalbitCafe.Deco
             // 왼쪽 바깥이거나, 아래쪽 넘어가거나, 현재위치+사이즈(영역차지하는크기)가 오른쪽을 넘어가거나, 현재위치+사이즈가 마지막높이를 넘어간다면
             if (position.x < 0 || position.y < 0 || position.x + size.x > _gridWidth || position.y + size.y > _gridHeight)
             {
-                return false;
+                return false; // 배치 불가
             }
 
             // 아이템이 차지하는 영역에 다른 아이템이 있는지 확인
@@ -64,7 +64,7 @@ namespace DalbitCafe.Deco
                 for (int y = position.y; y < position.y + size.y; y++)
                 {
                     _grid[x, y] = false;  // 해당 위치에서 아이템 제거
-                    // 여기도 이 위치에 안하네
+                    // 여기도 이 위치에 있는 데코아이템 삭제 안하네
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace DalbitCafe.Deco
             {
                 for (int y = 0; y < _gridHeight; y++)
                 {
-                    if (_grid[x, y])
+                    if (_grid[x, y]) // 해당 그리드에 아이템이 배치되어있다면 (true라면)
                     {
                         Gizmos.DrawCube(new Vector3(x * _tileSize, y * _tileSize, 0), new Vector3(_tileSize, _tileSize, 0.1f));
                     }

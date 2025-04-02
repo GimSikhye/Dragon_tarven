@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.AI;  // NavMeshAgent를 사용하기 위해 추가
 using DalbitCafe.Operations;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 namespace DalbitCafe.Customer
 {
@@ -9,55 +10,67 @@ namespace DalbitCafe.Customer
     {
         [Header("길 찾기")]
         private NavMeshAgent _agent; // NavMeshAgent로 대체
-        private CustomerPool _custmorPool;
-        private Transform _target; // 이동할 목표 지점
+        private Vector3 _targetDestination;  // 목적지 저장 변수
+        private Transform _cashDesk; // 이동할 목표 지점
+        private Transform _outside;
+        private CustomerPool _customerPool;
 
         [Header("주문 관련")]
         [SerializeField] private GameObject _speechBalloon;
         [SerializeField] private SpriteRenderer _orderMenuSprite;
         private CoffeeData _randomCoffee; // 주문한 커피 저장
         private CoffeeMachine _orderedFromMachine; // 주문한 커피머신 저장
-        private bool _isOrdering = false;
+        [SerializeField] private bool _isOrdering = false;
+
 
         void Start()
         {
             _agent = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트 가져오기
-            _custmorPool = FindAnyObjectByType<CustomerPool>();
+            _customerPool = FindAnyObjectByType<CustomerPool>();
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
-            SetDestination(); // 목표 설정
+            Intialize(); // 목표 설정
 
         }
 
-        void SetDestination()
+        public void MoveTo(Transform destination)
         {
-            _target = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
-
-            if (_target != null)
-            {
-                _agent.SetDestination(_target.position); // NavMeshAgent로 이동 목표 설정
-            }
+            _targetDestination = destination.position; // 목적지 저장
+            _agent.SetDestination(_targetDestination);
         }
 
-        void Update()
+        private void Intialize()
         {
-            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
+            _cashDesk = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
+            _outside = GameObject.Find("Outside")?.transform;
+
+            MoveTo(_cashDesk);
+
+        }
+
+        private void Update()
+        {
+            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance) // 목적지에 도착했을 때 실행
             {
-                if (_target != null) //목적지에 도달하였다면
+                if (_targetDestination == _cashDesk.position)
                 {
-                    if (!_isOrdering)
-                    {
-                        StartOrdering();
-                    }
+                    Debug.Log("계산대에 도착했습니다");
+                    StartOrdering();
+                }
+                else if (_targetDestination == _outside.position)
+                {
+                    Debug.Log("outside");
+
+                    _customerPool.ReturnCustomer(this.gameObject);
                 }
             }
         }
-
         // 주문을 시작하는 함수
         void StartOrdering()
         {
             _isOrdering = true;
             _agent.isStopped = true; // 이동 중지
+            Debug.Log("주문을 시작합니다.");
 
             // 모든 커피머신에서 랜덤한 커피 선택
             CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
@@ -103,20 +116,22 @@ namespace DalbitCafe.Customer
                 if (_orderedFromMachine != null)
                 {
                     _orderedFromMachine.SellCoffee(); // 커피머신의 잔 수 감소
-                    // currentMenu 업데이트하기
+                    _isOrdering = false;
+                    _speechBalloon.SetActive(false);
+                    LeaveStore();
+
                 }
             }
 
-            _isOrdering = false;
-            _speechBalloon.SetActive(false);
-            _agent.isStopped = false; // 이동 재개
+
         }
 
         void LeaveStore()
         {
-            _isOrdering = false;
-            _speechBalloon.SetActive(false);
             _agent.isStopped = false; // 이동 재개
+            _speechBalloon.SetActive(false);
+            MoveTo(_outside);
+
         }
     }
 }
