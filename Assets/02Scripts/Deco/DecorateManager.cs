@@ -8,9 +8,11 @@ namespace DalbitCafe.Deco
     {
         public static DecorateManager Instance;
 
+        [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
         private GameObject[] _customers;
+
         [SerializeField] private GridManager _gridManager;
         [SerializeField] private GameObject _decoEndBtn;
         [SerializeField] private GameObject _decorateUI; // 배치 UI 활성화/비활성화
@@ -45,10 +47,10 @@ namespace DalbitCafe.Deco
                 _customers[i].SetActive(false); // 손님들 비활성화
             }
             _decorateUI.SetActive(true); // 배치 UI 활성화
-            _decoEndBtn.SetActive(true);
+            _decoEndBtn.SetActive(true); // 꾸미기 끝내기 버튼 활성화
         }
 
-        // 배치 모드 비활성화
+        // 배치 모드 비활성화(꾸미기 끝내기 버튼)
         public void DeactivateDecorateMode()
         {
             if (!_isDecorateMode) return;
@@ -57,17 +59,17 @@ namespace DalbitCafe.Deco
             _player.SetActive(true); // 플레이어 활성화
             foreach (var customer in _customers)
             {
-                customer.SetActive(true); // 손님들 활성화
+                customer.SetActive(true); // 손님들 다시 활성화
             }
             _decorateUI.SetActive(false); // 배치 UI 비활성화
-            _decoEndBtn.SetActive(false);
+            _decoEndBtn.SetActive(false); // 끝내기 버튼 비활성화
 
         }
 
         // 아이템 배치 기능 여부 체크
         public bool CanPlaceItem(Vector2Int position, Vector2Int size)
         {
-            return _gridManager.CanPlaceItem(position, size);
+            return _gridManager.CanPlaceItem(position, size); //그리드 매니저의 스크립트
         }
 
         // 아이템 배치
