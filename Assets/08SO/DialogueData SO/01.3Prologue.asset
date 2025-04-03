@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CharacterSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
   CharacterName: "\uC131\uC774\uB984"
-  EventNum: 0
-  ChangeBG: {fileID: 0}
+  eventNum: 0
+  ChangeBG: {fileID: 21300000, guid: ec12b60d68c00bd44a6d3a85dd90af8e, type: 3}
   Lines:
   - "\uADF8\uB807\uAC8C \uC0DD\uAC01\uD588\uB358 \uC5B4\uB290 \uB0A0."
   - "\uC9D1\uC5D0 \uB3C4\uCC29\uD574 \uC6B0\uD3B8\uD568\uC744 \uD655\uC778\uD558\uB2E4\uAC00

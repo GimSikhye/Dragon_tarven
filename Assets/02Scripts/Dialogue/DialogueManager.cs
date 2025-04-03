@@ -51,11 +51,6 @@ namespace DalbitCafe.Dialogue
             _typingRoutine = StartCoroutine(Typing(_groups[_len].Lines[_textIndex]));
         }
 
-        private void Update()
-        {
-           
-        }
-
         private void NextTalk() // 다음 대사 출력
         {
             if (_isTyping) return; // 타이핑 중에는 스킵되지 않도록 방지
