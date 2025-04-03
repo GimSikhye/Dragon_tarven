@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e3d9118e8606e43bbe63bcf4f6852d, type: 3}
+  m_Name: 01.8.Prologue
+  m_EditorClassIdentifier: 
+  CharacterSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
+  CharacterName: "\uC131\uC774\uB984"
+  eventNum: 0
+  ChangeBG: {fileID: 21300000, guid: 08b3190ac07410e4e84309aff668be08, type: 3}
+  Lines:
+  - "\uC5B4\uB77C... \uC8FC\uC704 \uAC00\uAC8C\uB4E4\uC774 \uC5B4\uB514 \uAC14\uC9C0?"
+  - "\uC124\uB9C8 \uAFC8\uC778\uAC00?"
+  - "\uB108\uBB34 \uC878\uB824\uC11C \uC9D1\uC5D0 \uC624\uC790\uB9C8\uC790 \uACE8\uC544
+    \uB5A8\uC5B4\uC84C\uB2E4\uB358\uC9C0..."
+  - "\uAFC8\uC774\uB4E0 \uB098\uBC1C\uC774\uB4E0 \uC77C\uB2E8 \uCD94\uC6B0\uB2C8\uAE4C
+    \uCE74\uD398 \uC548\uC73C\uB85C \uB4E4\uC5B4\uAC00\uC57C\uC9C0..."
+  - "\uC774 \uCE74\uD398 \uB0B4\uBD80 \uBB54\uAC00 \uC775\uC219\uD55C\uB370..."

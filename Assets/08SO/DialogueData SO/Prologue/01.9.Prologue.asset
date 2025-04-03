@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e3d9118e8606e43bbe63bcf4f6852d, type: 3}
+  m_Name: 01.9.Prologue
+  m_EditorClassIdentifier: 
+  CharacterSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
+  CharacterName: "\uC131\uC774\uB984"
+  eventNum: 0
+  ChangeBG: {fileID: 21300000, guid: 0d51f64b74546b04995a7ce159dc2dc7, type: 3}
+  Lines:
+  - "\uC800 \uC624\uB77D\uC2E4 \uAC8C\uC784\uAE30\uB294 \uC778\uD14C\uB9AC\uC5B4\uC6A9
+    \uC778\uAC74\uAC00?..."
+  - "\uC544\uBB34\uD2BC \uC800 \uAC8C\uC784\uAE30\uB97C \uBCF4\uB2C8\uAE4C \uACE0\uB4F1\uD559\uC0DD
+    \uB54C\uAC00 \uB5A0\uC624\uB974\uB124."
+  - "\uACE0\uB4F1\uD559\uAD50 \uC57C\uC790 \uC2DC\uAC04 \uB54C \uD55C\uBC88\uC529
+    \uBAB0\uB798 \uBE60\uC838\uB098\uAC00\uC11C \uADFC\uCC98 \uAC8C\uC784\uBC29\uC5D0\uC11C
+    \uAC8C\uC784\uC744 \uD588\uC5C8\uB294\uB370..."
+  - "\uADF8 \uCE5C\uAD6C\uB294 \uC798 \uC9C0\uB0B4\uB824\uB098. \uB9C8\uCE58 \uC624\uB798\uC804
+    \uC77C\uCC98\uB7FC \uAE30\uC5B5\uC774 \uD76C\uBBF8\uD558\uB124."
+  - "\uADF8 \uCE5C\uAD6C \uC774\uB984\uC774 \uBB50\uC600\uC9C0....?"
