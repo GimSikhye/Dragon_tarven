@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 01.7.Prologue
   m_EditorClassIdentifier: 
   CharacterSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
-  CharacterName: "\uC131\uC774\uB984"
+  CharacterName: "\uC774\uB3C4\uD604"
   eventNum: 0
   ChangeBG: {fileID: 21300000, guid: 39e5af335b579a04780b3bc25b9a704f, type: 3}
   Lines:
