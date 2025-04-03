@@ -3,39 +3,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 namespace DalbitCafe.Dialogue
 {
+    enum EventNum
+    {
+        Prologue = 0,
+        FirstChapter,
+        SecondChapter,
+        ThirdChapter,
+        FourthChapter,
+        Ending
+    }
+
     public class EventManager : MonoBehaviour
     {
 
         [SerializeField] private SpriteRenderer ChangeSprite;
-        private AudioSource audioSource;
+        private AudioSource _audioSource;
         [SerializeField] private AudioClip explosion_sound;
         [SerializeField] private AudioClip shine_sound;
 
-
+        // 이미지가 안바뀌는디
         private void Awake()
         {
-            audioSource = GetComponent<AudioSource>();
+            _audioSource = GetComponent<AudioSource>();
         }
-        public void EventChange(DialogueData textso)
+        public void EventChange(DialogueData dialogueData)
         {
-            int EventNum = textso.EventNum;
-            if (EventNum == 0)
+            int eventNum = (int)dialogueData.eventNum;
+
+            if (eventNum == (int)EventNum.Prologue)
             {
-                Debug.Log("이벤트 없음");
-            }
-            if (EventNum == 1)
-            {
-                SpriteChange(textso.ChangeBG);
-                audioSource.PlayOneShot(explosion_sound, 0.3f);
-                audioSource.Play();
-            }
-            if (EventNum == 2)
-            {
-                audioSource.PlayOneShot(shine_sound, 0.4f);
+                Debug.Log("튜토리얼 스프라이트");
+                SpriteChange(dialogueData.ChangeBG);
 
             }
+            //if (eventNum == 1)
+            //{
+            //    SpriteChange(dialogueData.ChangeBG);
+            //    audioSource.PlayOneShot(explosion_sound, 0.3f);
+            //    audioSource.Play();
+            //}
+            //if (eventNum == 2)
+            //{
+            //    audioSource.PlayOneShot(shine_sound, 0.4f);
+
+            //}
 
 
         }
