@@ -17,7 +17,9 @@ namespace DalbitCafe.Customer
 
         [Header("주문 관련")]
         [SerializeField] private GameObject _speechBalloon;
-        [SerializeField] private SpriteRenderer _orderMenuSprite;
+        [SerializeField] private SpriteRenderer _orderMenuSpriteRenderer;
+        [SerializeField] private Sprite _angrySprite;
+
         private CoffeeData _randomCoffee; // 주문한 커피 저장
         private CoffeeMachine _orderedFromMachine; // 주문한 커피머신 저장
         [SerializeField] private bool _isOrdering = false;
@@ -60,7 +62,7 @@ namespace DalbitCafe.Customer
                 else if (_targetDestination == _outside.position)
                 {
                     Debug.Log("outside");
-
+                    _speechBalloon.SetActive(false);
                     _customerPool.ReturnCustomer(this.gameObject);
                 }
             }
@@ -90,10 +92,13 @@ namespace DalbitCafe.Customer
                     _orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
                     _randomCoffee = _orderedFromMachine.CurrentCoffee;
                     _speechBalloon.SetActive(true);
-                    _orderMenuSprite.sprite = _randomCoffee.MenuIcon;
+                    _orderMenuSpriteRenderer.sprite = _randomCoffee.MenuIcon;
                 }
                 else
                 {
+                    _speechBalloon.SetActive(true);
+                    _orderMenuSpriteRenderer.sprite = _angrySprite;
+
                     LeaveStore();
                     Debug.Log("주문 가능한 커피가 없습니다!");
                 }
@@ -129,7 +134,7 @@ namespace DalbitCafe.Customer
         void LeaveStore()
         {
             _agent.isStopped = false; // 이동 재개
-            _speechBalloon.SetActive(false);
+            //_speechBalloon.SetActive(false);
             MoveTo(_outside);
 
         }

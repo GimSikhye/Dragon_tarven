@@ -1,7 +1,7 @@
 using DalbitCafe.Deco;
 using UnityEngine.EventSystems;
 using UnityEngine;
-// 아이템마다 넣어야 이 스크립트들 하나? 흠....
+//
 namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler

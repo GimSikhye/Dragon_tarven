@@ -215,7 +215,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speechBalloon: {fileID: 2812469311590096692}
-  _orderMenuSprite: {fileID: 5790098905572146126}
+  _orderMenuSpriteRenderer: {fileID: 5790098905572146126}
+  _angrySprite: {fileID: 21300000, guid: 471f13939b3eb974bb12467e60ebc668, type: 3}
   _isOrdering: 0
 --- !u!195 &8334003038923838875
 NavMeshAgent:
