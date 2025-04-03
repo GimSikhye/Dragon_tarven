@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 7958785047991038502}
   - component: {fileID: 413666377802955445}
   - component: {fileID: 696951472737477086}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: P_Customer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -314,7 +314,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8497240298204524245}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.31
+  m_Radius: 0.1
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -323,7 +323,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 0.83
+  m_Height: 0.1
   m_BaseOffset: 0.65
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

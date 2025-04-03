@@ -21,18 +21,26 @@ namespace DalbitCafe.Customer
         [SerializeField] private Sprite _angrySprite;
 
         private CoffeeData _randomCoffee; // 주문한 커피 저장
-        private CoffeeMachine _orderedFromMachine; // 주문한 커피머신 저장
-        [SerializeField] private bool _isOrdering = false;
+        private CoffeeMachine _orderedMachine; // 주문한 커피머신 저장
+        [SerializeField] private bool _isOrdering = false; // 현재 주문중인지
 
 
-        void Start()
+        private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>(); // NavMeshAgent 컴포넌트 가져오기
+            _agent = GetComponent<NavMeshAgent>(); 
             _customerPool = FindAnyObjectByType<CustomerPool>();
+            // NavMesh 2d에서는 회전을 막아야 제대로 동작함
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
-            Intialize(); // 목표 설정
 
+            _cashDesk = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
+            _outside = GameObject.Find("Outside")?.transform;
+        }
+
+        private void OnEnable()
+        {
+            _speechBalloon.SetActive(false);
+            Initialize();
         }
 
         public void MoveTo(Transform destination)
@@ -41,13 +49,9 @@ namespace DalbitCafe.Customer
             _agent.SetDestination(_targetDestination);
         }
 
-        private void Intialize()
+        private void Initialize()
         {
-            _cashDesk = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
-            _outside = GameObject.Find("Outside")?.transform;
-
             MoveTo(_cashDesk);
-
         }
 
         private void Update()
@@ -75,32 +79,31 @@ namespace DalbitCafe.Customer
             Debug.Log("주문을 시작합니다.");
 
             // 모든 커피머신에서 랜덤한 커피 선택
-            CoffeeMachine[] coffeeMachines = FindObjectsOfType<CoffeeMachine>();
-            if (coffeeMachines.Length > 0)
+            CoffeeMachine[] machines = FindObjectsOfType<CoffeeMachine>();
+            if (machines.Length > 0)
             {
-                List<CoffeeMachine> availableMachines = new List<CoffeeMachine>();
-                foreach (var machine in coffeeMachines)
+                List<CoffeeMachine> roastingMachines = new List<CoffeeMachine>();
+                foreach (var machine in machines)
                 {
-                    if (machine.CurrentCoffee != null && machine.RemainingMugs > 0)
+                    if (machine.CurrentCoffee != null && machine.RemainingMugs > 0) // 로스팅 중인 머신들만 리스트에 추가  
                     {
-                        availableMachines.Add(machine);
+                        roastingMachines.Add(machine);
                     }
                 }
 
-                if (availableMachines.Count > 0)
+                if (roastingMachines.Count > 0) // 로스팅 중인 머신들이 한 대 이상이라면
                 {
-                    _orderedFromMachine = availableMachines[Random.Range(0, availableMachines.Count)];
-                    _randomCoffee = _orderedFromMachine.CurrentCoffee;
+                    _orderedMachine = roastingMachines[Random.Range(0, roastingMachines.Count)];
+                    _randomCoffee = _orderedMachine.CurrentCoffee;
                     _speechBalloon.SetActive(true);
                     _orderMenuSpriteRenderer.sprite = _randomCoffee.MenuIcon;
                 }
-                else
+                else // 로스팅 중인 머신이 없다면
                 {
                     _speechBalloon.SetActive(true);
                     _orderMenuSpriteRenderer.sprite = _angrySprite;
 
                     LeaveStore();
-                    Debug.Log("주문 가능한 커피가 없습니다!");
                 }
             }
         }
@@ -118,10 +121,9 @@ namespace DalbitCafe.Customer
         {
             if (_randomCoffee != null)
             {
-                if (_orderedFromMachine != null)
+                if (_orderedMachine != null)
                 {
-                    _orderedFromMachine.SellCoffee(); // 커피머신의 잔 수 감소
-                    _isOrdering = false;
+                    _orderedMachine.SellCoffee(); // 커피머신의 잔 수 감소
                     _speechBalloon.SetActive(false);
                     LeaveStore();
 
@@ -134,6 +136,7 @@ namespace DalbitCafe.Customer
         void LeaveStore()
         {
             _agent.isStopped = false; // 이동 재개
+            _isOrdering = false;
             //_speechBalloon.SetActive(false);
             MoveTo(_outside);
 
