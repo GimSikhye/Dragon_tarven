@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fdeda315ac333354f984866e16c5fea6
+guid: ec12b60d68c00bd44a6d3a85dd90af8e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8557283677515126280
-    second: spr_portrait_transparency_0
+      213: -3397017542600872523
+    second: spr_Background_mailbox.png_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +46,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_transparency_0
+      name: spr_Background_mailbox.png_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 2048
+        width: 600
+        height: 438
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f9667f65db6e3980800000000000000
-      internalID: -8557283677515126280
+      spriteID: 5bd218d0b8e5bd0d0800000000000000
+      internalID: -3397017542600872523
       vertices: []
       indices: 
       edges: []
@@ -138,7 +138,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_transparency_0: -8557283677515126280
+      spr_Background_mailbox.png_0: -3397017542600872523
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

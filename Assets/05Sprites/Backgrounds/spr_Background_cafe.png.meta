@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: fdeda315ac333354f984866e16c5fea6
+guid: 39e5af335b579a04780b3bc25b9a704f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8557283677515126280
-    second: spr_portrait_transparency_0
+      213: 125786801277292344
+    second: spr_Background_cafe_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_transparency_0
+      name: spr_Background_cafe_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1536
-        height: 2048
+        width: 1414
+        height: 756
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8f9667f65db6e3980800000000000000
-      internalID: -8557283677515126280
+      spriteID: 83fc097ed62eeb100800000000000000
+      internalID: 125786801277292344
       vertices: []
       indices: 
       edges: []
@@ -147,8 +147,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spr_portrait_transparency_0: -8557283677515126280
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
