@@ -14,12 +14,8 @@ namespace DalbitCafe.Core
         public static GameManager Instance;
         [SerializeField] private AudioClip[] bgm_clips;
 
-        [Header("재화")]
-        [SerializeField] private int _coffeeBean;
-        [SerializeField] private int _gem;
-        [SerializeField] private int _coin;
-
-
+        [Header("플레이어 데이터")]
+        public PlayerStats playerStats;
 
         void Awake()
         {
@@ -40,15 +36,12 @@ namespace DalbitCafe.Core
 
         private void Start()
         {
-            // 게임 시작 시 저장된 데이터 불러오기
-            _coffeeBean = PlayerPrefs.GetInt("CoffeeBean", 100);
-            _coin = PlayerPrefs.GetInt("Coin", 1000);
-            _gem = PlayerPrefs.GetInt("Gem", 0);
+            playerStats.LoadFromPrefs();
 
-            // UI 업데이트
-            UIManager.Instance.UpdateCoffeeBeanUI(_coffeeBean);
-            UIManager.Instance.UpdateCoinUI(_coin);
-            UIManager.Instance.UpdateGemUI(_gem);
+            //// UI 업데이트
+            //UIManager.Instance.UpdateCoffeeBeanUI(_coffeeBean);
+            //UIManager.Instance.UpdateCoinUI(_coin);
+            //UIManager.Instance.UpdateGemUI(_gem);
 
         }
 
