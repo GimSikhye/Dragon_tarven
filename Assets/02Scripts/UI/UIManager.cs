@@ -1,3 +1,4 @@
+using DalbitCafe.Core;
 using DalbitCafe.Player;
 using DG.Tweening;
 using System;
@@ -45,6 +46,13 @@ namespace DalbitCafe.UI
         {
             foreach (var panel in _panels)
                 panel.SetActive(false);
+
+            // 게임 시작 시 UI 갱신 (GameManager가 먼저 실행되므로 안전)
+            var stats = GameManager.Instance.playerStats;
+            UpdateCoffeeBeanUI(stats.coffeeBean);
+            UpdateCoinUI(stats.coin);
+            UpdateGemUI(stats.gem);
+
         }
         // 모든 UI 비활성화
         public void UpdateCoffeeBeanUI(int value)
@@ -60,6 +68,7 @@ namespace DalbitCafe.UI
         public void UpdateGemUI(int value)
         {
             gemText.text = value.ToString();
+            // 이때 닷트윈으로 해주어야함.
         }
 
         public void ShowMakeCoffeePopUp()

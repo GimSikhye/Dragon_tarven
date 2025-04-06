@@ -17,7 +17,7 @@ public class QuestManager : MonoBehaviour
                 {
                     quest.isCompleted = true;
                     RewardManager.Instance.GiveReward(quest);
-                    QuestUI.Instance.ShowQuestComplete(quest); // UI 업데이트
+                    QusetUI.Instance.ShowQuestComplete(quest); // UI 업데이트
                 }
             }
         }

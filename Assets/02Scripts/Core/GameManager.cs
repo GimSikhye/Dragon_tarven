@@ -38,10 +38,10 @@ namespace DalbitCafe.Core
         {
             playerStats.LoadFromPrefs();
 
-            //// UI 업데이트
-            //UIManager.Instance.UpdateCoffeeBeanUI(_coffeeBean);
-            //UIManager.Instance.UpdateCoinUI(_coin);
-            //UIManager.Instance.UpdateGemUI(_gem);
+            // UI 업데이트
+            UIManager.Instance.UpdateCoffeeBeanUI(playerStats.coffeeBean);
+            UIManager.Instance.UpdateCoinUI(playerStats.coin);
+            UIManager.Instance.UpdateGemUI(playerStats.gem);
 
         }
 
@@ -56,42 +56,6 @@ namespace DalbitCafe.Core
                 }
             }
         }
-
-
-        public int CoffeeBean
-        {
-            get { return _coffeeBean; }
-            set
-            {
-                _coffeeBean = value;
-                PlayerPrefs.SetInt("CoffeeBean", _coffeeBean); // 자동 저장
-                UIManager.Instance.UpdateCoffeeBeanUI(_coffeeBean);
-            }
-        }
-
-        public int Coin
-        {
-            get { return _coin; }
-            set
-            {
-                _coin = value;
-                PlayerPrefs.SetInt("Coin", _coin); // 자동 저장
-                UIManager.Instance.UpdateCoinUI(_coin);
-            }
-        }
-
-        public int Gem
-        {
-            get { return _gem; }
-            set
-            {
-                _gem = value;
-                PlayerPrefs.SetInt("Gem", _gem); // 자동 저장
-                UIManager.Instance.UpdateGemUI(_gem);
-
-            }
-        }
-
 
         private void ChangeScene(Scene scene, LoadSceneMode mode)
         {
