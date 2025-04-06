@@ -14,6 +14,7 @@ public class Monster : MonoBehaviour
         agent.updateUpAxis = false; // 캐릭터의 이동을 평면으로 제한하기 위해
     }
 
+
     void Update()
     {
         agent.SetDestination(target.position); // Agent에게 target의 현재 위치로 이동하도록 지시
