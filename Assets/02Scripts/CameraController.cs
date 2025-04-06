@@ -29,6 +29,7 @@ namespace DalbitCafe.Cameras
             HandlePinchZoom();
         }
 
+        
         private void HandleCameraDrag()
         {
             if (Input.touchCount == 1)
@@ -58,6 +59,7 @@ namespace DalbitCafe.Cameras
                 }
             }
         }
+
 
         private void HandlePinchZoom()
         {

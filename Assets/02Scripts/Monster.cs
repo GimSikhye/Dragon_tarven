@@ -12,6 +12,7 @@ public class Monster : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.updateRotation = false; // Agent 가 Target 을 향해 이동할 때 방향을 회전할지
         agent.updateUpAxis = false; // 캐릭터의 이동을 평면으로 제한하기 위해
+        
     }
 
 
@@ -19,4 +20,7 @@ public class Monster : MonoBehaviour
     {
         agent.SetDestination(target.position); // Agent에게 target의 현재 위치로 이동하도록 지시
     }
+
+
+
 }
