@@ -14,7 +14,8 @@ namespace DalbitCafe.UI
     {
         MakeCoffee = 0,
         Exit,
-        CurrentMenu
+        CurrentMenu,
+        Quest
     }
     public class UIManager : MonoBehaviour
     {
@@ -108,7 +109,7 @@ namespace DalbitCafe.UI
             window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             int count = window.transform.childCount;
 
-            for(int i = 0; i< count; i++)
+            for (int i = 0; i < count; i++) //??
             {
                 //window.transform.GetChild(i).GetComponent<Image>().color = new Color32(255, 255, 255, 0);
             }
@@ -116,10 +117,20 @@ namespace DalbitCafe.UI
 
         }
 
+        public void ShowQuestPopUp()
+        {
+            Debug.Log("Äù½ºÆ® ¸Þ´ºÃ¢ ¶ç¿ò");
+            GameObject window = _panels[(int)Windows.Quest];
+            window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
+  .OnComplete(() => window.SetActive(true));
+
+
+        }
+
         public void ShowExitPopUp(string window)
         {
             GameObject windowPanel = GameObject.Find(window);
-            windowPanel.SetActive(false);
+            windowPanel.SetActive(true);
 
         }
 

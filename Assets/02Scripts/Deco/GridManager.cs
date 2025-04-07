@@ -1,92 +1,114 @@
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-// 배치 가능 여부 체크
 namespace DalbitCafe.Deco
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField] private int _gridWidth = 10;  // 맵 가로 크기
-        [SerializeField] private int _gridHeight = 10; // 맵의 세로 크기(배치할 수 있는 공간)
-        [SerializeField] private float _tileSize = 0.5f; // 타일 크기 (그리드 셀의 크기)
+        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private float _tileSize = 0.5f;
 
-        private bool[,] _grid;  // 그리드 상태를 나타내는 2D 배열 (배치 여부) / Flase이면 배치할 수 있는 상태
+        private bool[,] _grid;
+        private int _gridWidth;
+        private int _gridHeight;
+        private Vector3Int _origin; // 타일맵 cellBounds.min 저장
 
         private void Start()
         {
-            // 그리드 초기화
+            tilemap.CompressBounds(); // 꼭 해주기 (불필요한 빈 타일 좌표 제거)
+
+            BoundsInt bounds = tilemap.cellBounds;
+            _origin = bounds.min; // 타일맵 시작점 저장
+            _gridWidth = bounds.size.x;
+            _gridHeight = bounds.size.y;
+
             _grid = new bool[_gridWidth, _gridHeight];
         }
 
-        // 그리드에서 특정 위치에 아이템을 배치할 수 있는지 체크
-        public bool CanPlaceItem(Vector2Int position, Vector2Int size)
+        /// <summary>
+        /// 배치 가능한지 확인
+        /// </summary>
+        public bool CanPlaceItem(Vector2Int worldCellPos, Vector2Int size)
         {
-            // 그리드 밖으로 나가지 않도록 체크
-            // 왼쪽 바깥이거나, 아래쪽 넘어가거나, 현재위치+사이즈(영역차지하는크기)가 오른쪽을 넘어가거나, 현재위치+사이즈가 마지막높이를 넘어간다면
-            if (position.x < 0 || position.y < 0 || position.x + size.x > _gridWidth || position.y + size.y > _gridHeight)
-            {
-                return false; // 배치 불가
-            }
+            Vector2Int localPos = WorldToGridIndex(worldCellPos);
 
-            // 아이템이 차지하는 영역에 다른 아이템이 있는지 확인
-            for (int x = position.x; x < position.x + size.x; x++)
+            if (!IsInsideGrid(localPos, size)) return false;
+
+            for (int x = 0; x < size.x; x++)
             {
-                for (int y = position.y; y < position.y + size.y; y++)
+                for (int y = 0; y < size.y; y++)
                 {
-                    if (_grid[x, y])
-                    {
-                        return false;  // 이미 배치된 곳이라면 불가능
-                    }
+                    if (_grid[localPos.x + x, localPos.y + y])
+                        return false;
                 }
             }
 
-            return true;  // 배치 가능
+            return true;
         }
 
-        // 그리드에 아이템 배치
-        public void PlaceItem(Vector2Int position, Vector2Int size)
+        /// <summary>
+        /// 실제 아이템 배치
+        /// </summary>
+        public void PlaceItem(Vector2Int worldCellPos, Vector2Int size)
         {
-            // 아이템이 차지하는 영역에 아이템 배치
-            for (int x = position.x; x < position.x + size.x; x++)
-            {
-                for (int y = position.y; y < position.y + size.y; y++)
-                {
-                    _grid[x, y] = true;  // 해당 위치에 아이템 배치됨 // 흠... 그리드에 배치되었는지만 체크하고, 그 위치에 게임오브젝트(스프라이트는 배치안하네)
-                }
-            }
-        }
+            Vector2Int localPos = WorldToGridIndex(worldCellPos);
 
-        // 그리드에서 아이템을 제거 (배치 취소)
-        public void RemoveItem(Vector2Int position, Vector2Int size)
-        {
-            // 아이템이 차지하는 영역에서 아이템을 제거
-            for (int x = position.x; x < position.x + size.x; x++)
+            for (int x = 0; x < size.x; x++)
             {
-                for (int y = position.y; y < position.y + size.y; y++)
+                for (int y = 0; y < size.y; y++)
                 {
-                    _grid[x, y] = false;  // 해당 위치에서 아이템 제거
-                    // 여기도 이 위치에 있는 데코아이템 삭제 안하네
+                    _grid[localPos.x + x, localPos.y + y] = true;
                 }
             }
         }
 
-        // 그리드 상태를 디버그하기 위한 함수 (원하는 경우)
+        public void RemoveItem(Vector2Int worldCellPos, Vector2Int size)
+        {
+            Vector2Int localPos = WorldToGridIndex(worldCellPos);
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    _grid[localPos.x + x, localPos.y + y] = false;
+                }
+            }
+        }
+
+        /// <summary>
+        /// 셀 위치를 배열 인덱스로 변환
+        /// </summary>
+        private Vector2Int WorldToGridIndex(Vector2Int worldCellPos)
+        {
+            return new Vector2Int(worldCellPos.x - _origin.x, worldCellPos.y - _origin.y);
+        }
+
+        /// <summary>
+        /// 타일맵 그리드 내부인지 확인
+        /// </summary>
+        private bool IsInsideGrid(Vector2Int index, Vector2Int size)
+        {
+            return index.x >= 0 && index.y >= 0 &&
+                   index.x + size.x <= _gridWidth &&
+                   index.y + size.y <= _gridHeight;
+        }
+
         private void OnDrawGizmos()
         {
             if (_grid == null) return;
 
-            // 그리드를 그려보기 위한 Gizmos
             Gizmos.color = Color.green;
             for (int x = 0; x < _gridWidth; x++)
             {
                 for (int y = 0; y < _gridHeight; y++)
                 {
-                    if (_grid[x, y]) // 해당 그리드에 아이템이 배치되어있다면 (true라면)
+                    if (_grid[x, y])
                     {
-                        Gizmos.DrawCube(new Vector3(x * _tileSize, y * _tileSize, 0), new Vector3(_tileSize, _tileSize, 0.1f));
+                        Vector3 worldPos = tilemap.CellToWorld(new Vector3Int(x + _origin.x, y + _origin.y, 0)) + Vector3.one * _tileSize / 2f;
+                        Gizmos.DrawCube(worldPos, new Vector3(_tileSize, _tileSize, 0.1f));
                     }
                 }
             }
         }
     }
 }
-

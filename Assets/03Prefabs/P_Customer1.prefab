@@ -301,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e4abf62a0664ed40b554f3d1b52c6a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinParticlePrefab: {fileID: 5750245716024373384, guid: 898629369b18cd544b559ed74d1735b3, type: 3}
   _speechBalloon: {fileID: 7111306673628132806}
   _orderMenuSpriteRenderer: {fileID: 7031450481166342083}
   _angrySprite: {fileID: 21300000, guid: 471f13939b3eb974bb12467e60ebc668, type: 3}

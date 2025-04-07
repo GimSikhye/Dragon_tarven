@@ -8,6 +8,8 @@ namespace DalbitCafe.Customer
 {
     public class Customer : MonoBehaviour
     {
+        [SerializeField] private ParticleSystem coinParticlePrefab;
+
         [Header("길 찾기")]
         private NavMeshAgent _agent; // NavMeshAgent로 대체
         private Vector3 _targetDestination;  // 목적지 저장 변수
@@ -124,6 +126,7 @@ namespace DalbitCafe.Customer
                 if (_orderedMachine != null)
                 {
                     _orderedMachine.SellCoffee(); // 커피머신의 잔 수 감소
+                    PlayCoinEffect();
                     _speechBalloon.SetActive(false);
                     LeaveStore();
 
@@ -140,6 +143,13 @@ namespace DalbitCafe.Customer
             //_speechBalloon.SetActive(false);
             MoveTo(_outside);
 
+        }
+
+        public void PlayCoinEffect()
+        {
+            ParticleSystem ps = Instantiate(coinParticlePrefab, transform.position, Quaternion.identity);
+            ps.Play();
+            Destroy(ps.gameObject, 2f); // 파티클 다 끝나면 제거
         }
     }
 }

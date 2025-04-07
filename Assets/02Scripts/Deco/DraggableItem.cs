@@ -1,15 +1,22 @@
 using DalbitCafe.Deco;
 using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 //
 namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        [SerializeField] private Tilemap tilemap;
+
         private Vector3 _initialPosition; // 초기 위치 
         private bool _isDragging = false; // 드래그 중인지
         public Vector2Int _itemSize;  // 아이템 크기 (1x1, 2x1 등)
 
+        private void OnEnable()
+        {
+            tilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
+        }
         public void OnBeginDrag(PointerEventData eventData)
         {
             Debug.Log("드래그 시작");
@@ -24,8 +31,12 @@ namespace DalbitCafe.Deco
                 Vector3 newPosition = Camera.main.ScreenToWorldPoint(eventData.position);
                 newPosition.z = 0;  // Z축은 고정
 
+                Vector3Int cellPosition = tilemap.WorldToCell(newPosition);
+                Vector3 worldCenter = tilemap.GetCellCenterWorld(cellPosition);
+
+                transform.position = worldCenter;
                 // 그리드에 맞춰 아이템 이동 (반올림)
-                transform.position = new Vector3(Mathf.Round(newPosition.x), Mathf.Round(newPosition.y), 0);
+                //transform.position = new Vector3(Mathf.Round(newPosition.x), Mathf.Round(newPosition.y), 0);
 
                 // 배치 가능한지 확인 ( 배치 가능확인여부에 따라 보더 색깔 달라짐)
                 bool canPlace = DecorateManager.Instance.CanPlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
