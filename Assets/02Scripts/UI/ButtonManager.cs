@@ -138,6 +138,11 @@ namespace DalbitCafe.UI
             }
         }
 
+        public void CameraShakeBtn()
+        {
+            FindObjectOfType<CameraShake>().Shake();
+        }
+
     }
 
 
