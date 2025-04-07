@@ -33,12 +33,12 @@ namespace DalbitCafe.Operations
             if (_remainingMugs > 1)
             {
                 _remainingMugs--;
-                GameManager.Instance.playerStats.coin += _currentCoffee.Price;
+                GameManager.Instance.playerStats.AddCoin(_currentCoffee.Price);
                 Debug.Log($"{_currentCoffee.CoffeeName} 판매! 남은 잔 수: {_remainingMugs}");
             }
             else
             {
-                GameManager.Instance.playerStats.coin += _currentCoffee.Price;
+                GameManager.Instance.playerStats.AddCoin( _currentCoffee.Price); 
                 _isRoasting = false;
                 _currentCoffee = null;
                 Debug.Log("더 이상 판매할 커피가 없습니다!");

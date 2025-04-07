@@ -29,6 +29,10 @@ namespace DalbitCafe.UI
         [SerializeField] private TextMeshProUGUI _coinText;
         [SerializeField] private TextMeshProUGUI gemText;
 
+        private int _currentCoffeeBean;
+        private int _currentCoin;
+        private int _currentGem;
+
         // 원두 개수 값이 바뀔때 갱신해주기.
         private void Awake()
         {
@@ -57,18 +61,20 @@ namespace DalbitCafe.UI
         // 모든 UI 비활성화
         public void UpdateCoffeeBeanUI(int value)
         {
-            _coffeeBeanText.text = value.ToString();
+            TextAnimationHelper.AnimateNumber(_coffeeBeanText, _currentCoffeeBean, value);
+            _currentCoffeeBean = value;
         }
 
         public void UpdateCoinUI(int value)
         {
-            _coinText.text = value.ToString();
+            TextAnimationHelper.AnimateNumber(_coinText, _currentCoin, value, 1.5f);
+            _currentCoin = value;
         }
 
         public void UpdateGemUI(int value)
         {
-            gemText.text = value.ToString();
-            // 이때 닷트윈으로 해주어야함.
+            TextAnimationHelper.AnimateNumber(gemText, _currentGem, value);
+            _currentGem = value;
         }
 
         public void ShowMakeCoffeePopUp()

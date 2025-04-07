@@ -96,7 +96,7 @@ namespace DalbitCafe.UI
             if (GameManager.Instance.playerStats.coffeeBean >= coffeeData.BeanUse)
             {
                 Debug.Log($"로스팅 시작 전 CoffeeBean: {GameManager.Instance.playerStats.coffeeBean}, 소모량: {coffeeData.BeanUse}");
-                GameManager.Instance.playerStats.coffeeBean -= coffeeData.BeanUse;
+                GameManager.Instance.playerStats.AddCoffeeBean(-coffeeData.BeanUse);
                 Debug.Log($"로스팅 후 CoffeeBean: {GameManager.Instance.playerStats.coffeeBean}");
                 CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
                 Debug.Log($"{coffeeData.CoffeeName} 로스팅 시작!");
