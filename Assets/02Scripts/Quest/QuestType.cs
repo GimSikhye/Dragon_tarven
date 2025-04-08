@@ -1,4 +1,4 @@
-public enum QusetType
+public enum QuestType
 {
     SellCoffee,
     PlaceFurniture,

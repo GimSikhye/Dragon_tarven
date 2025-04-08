@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// 판매/배치 등 조건 체크용 이벤트 수신
 public class QuestManager : MonoBehaviour
 {
     public static QuestManager Instance;
@@ -48,7 +49,8 @@ public class QuestManager : MonoBehaviour
         go.GetComponent<QuestUIItem>().Setup(quest);
     }
 
-    public void CheckQuestProgress(string itemId, QusetType type, int amount = 1)
+    
+    public void CheckQuestProgress(string itemId, QuestConditionType type, int amount = 1)
     {
         foreach (var quest in activeQuests.ToArray())
         {

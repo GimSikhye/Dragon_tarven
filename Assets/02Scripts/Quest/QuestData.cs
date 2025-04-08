@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "QuestData", menuName = "SO/QuestData")]
@@ -8,18 +7,13 @@ public class QuestData : ScriptableObject
     public string questTitle;
     public string description;
 
-    [System.Serializable]
-    public class QuestCondition
-    {
-        public QusetType type;
-        public string targetItemId;
-        public int requiredAmount;
-        [HideInInspector] public int currentAmount;
-        public int rewardGold;
-        public int rewardExp;
-    }
+    public QuestType questType; // 여기도 오타 주의!
+    public QuestCondition[] conditions; // <-- 조건들을 배열로 넣어줌
 
-    public List<QuestCondition> conditions = new();
-    public QuestData nextQuest; // 연계 퀘스트
+    public int rewardGold;
+    public int rewardExp;
+
     public bool isCompleted;
+
+    public QuestData nextQuest; // 연계 퀘스트
 }
