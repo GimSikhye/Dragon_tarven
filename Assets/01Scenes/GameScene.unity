@@ -11436,6 +11436,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 936024557}
+  storeFloorTile: {fileID: 11400000, guid: 21052a65ab577694aa86874a93cb6552, type: 2}
   _tileSize: 0.5
 --- !u!1 &2103274087
 GameObject:

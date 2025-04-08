@@ -6,6 +6,7 @@ namespace DalbitCafe.Deco
     public class GridManager : MonoBehaviour
     {
         [SerializeField] private Tilemap tilemap;
+        [SerializeField] private TileBase storeFloorTile; // 이 타일만 있는 곳에 배치 가능
         [SerializeField] private float _tileSize = 0.5f;
 
         private bool[,] _grid;
@@ -38,14 +39,22 @@ namespace DalbitCafe.Deco
             {
                 for (int y = 0; y < size.y; y++)
                 {
-                    if (_grid[localPos.x + x, localPos.y + y])
+                    int checkX = localPos.x + x;
+                    int checkY = localPos.y + y;
+
+                    // 배치된 타일이 있어야 함 (storeFloorTile과 같아야 함)
+                    Vector3Int cellPos = new Vector3Int(checkX + _origin.x, checkY + _origin.y, 0);
+                    if (tilemap.GetTile(cellPos) != storeFloorTile)
+                        return false;
+
+                    // 이미 다른 아이템이 배치되어 있다면 불가능
+                    if (_grid[checkX, checkY])
                         return false;
                 }
             }
 
             return true;
         }
-
         /// <summary>
         /// 실제 아이템 배치
         /// </summary>

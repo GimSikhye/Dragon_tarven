@@ -1,85 +1,90 @@
 using DalbitCafe.Deco;
-using UnityEngine.EventSystems;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
-//
+
 namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Tilemap tilemap;
 
-        private Vector3 _initialPosition; // 초기 위치 
-        private bool _isDragging = false; // 드래그 중인지
-        public Vector2Int _itemSize;  // 아이템 크기 (1x1, 2x1 등)
+        private Vector3 _initialPosition; // 드래그 시작 전 위치
+        private bool _isDragging = false;
+        public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
 
         private void OnEnable()
         {
             tilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
         }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             Debug.Log("드래그 시작");
-            _initialPosition = transform.position;  // 드래그 시작 위치 저장(아이템의 초기 위치)
-            _isDragging = true; // 드래그 중이다
+            _initialPosition = transform.position;
+            _isDragging = true;
         }
 
         public void OnDrag(PointerEventData eventData)
         {
             if (_isDragging)
             {
+                // 마우스 위치를 월드 좌표로 변환
                 Vector3 newPosition = Camera.main.ScreenToWorldPoint(eventData.position);
-                newPosition.z = 0;  // Z축은 고정
+                newPosition.z = 0;
 
+                // 셀 기준 위치 계산
                 Vector3Int cellPosition = tilemap.WorldToCell(newPosition);
                 Vector3 worldCenter = tilemap.GetCellCenterWorld(cellPosition);
 
+                // 셀 중심에 아이템 이동
                 transform.position = worldCenter;
-                // 그리드에 맞춰 아이템 이동 (반올림)
-                //transform.position = new Vector3(Mathf.Round(newPosition.x), Mathf.Round(newPosition.y), 0);
 
-                // 배치 가능한지 확인 ( 배치 가능확인여부에 따라 보더 색깔 달라짐)
-                bool canPlace = DecorateManager.Instance.CanPlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
-                UpdateBorderColor(canPlace); 
+                // 배치 가능 여부 확인
+                Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
+                bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
+
+                // 테두리 색상 갱신
+                UpdateBorderColor(canPlace);
             }
         }
 
         public void OnEndDrag(PointerEventData eventData)
         {
             _isDragging = false;
-            // 배치할 수 있으면 배치하고, 그리드 업데이트
-            if (DecorateManager.Instance.CanPlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize))
+
+            Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+            Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
+
+            if (DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize))
             {
-                DecorateManager.Instance.PlaceItem(new Vector2Int((int)transform.position.x, (int)transform.position.y), _itemSize);
-                // 배치 완료 후 꾸미기 UI 숨기기(무브, 보관함 뜨는 버튼들)
-                //HideButtons();
+                DecorateManager.Instance.PlaceItem(cell2D, _itemSize);
+                // 배치 완료 후 UI 숨기기 (예: Move/보관함 버튼 등)
+                // HideButtons();
             }
-            else // 배치할 수 없다면(false)
+            else
             {
-                // 원래 위치로 돌아가게 처리
+                // 원래 위치로 복귀
                 transform.position = _initialPosition;
             }
         }
 
         private void UpdateBorderColor(bool canPlace)
         {
-            // 초록색/빨간색 테두리 업데이트 //스프라이트 테두리에 맞게 테투리가 그려지게 하는방법 없나? 그리고 두께도 설정할수있게 하면 좋겠음
+            // 테두리 색상 처리 (스프라이트 테두리 등과 연동 가능)
             if (canPlace)
             {
-                // 초록색
                 // itemBorder.color = Color.green;
             }
             else
             {
-                // 빨간색
                 // itemBorder.color = Color.red;
             }
         }
 
         private void HideButtons()
         {
-            // 배치 완료 후 버튼 숨기기
+            // 꾸미기 완료 시 UI 버튼 숨기기 처리
         }
     }
-
 }
