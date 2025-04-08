@@ -79,10 +79,8 @@ public class QuestManager : MonoBehaviour
 
     public void CompleteQuest(QuestData quest)
     {
-        foreach (var condition in quest.conditions)
-        {
-            RewardManager.Instance.GiveReward(condition.rewardGold, condition.rewardExp);
-        }
+        RewardManager.Instance.GiveReward(quest.rewardGold, quest.rewardExp);
+
         RemoveQuest(quest);
     }
 }

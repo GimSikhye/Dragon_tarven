@@ -7,10 +7,10 @@ public class QuestData : ScriptableObject
     public string questTitle;
     public string description;
 
-    public QuestType questType; // 여기도 오타 주의!
+    public QuestType questType; 
     public QuestCondition[] conditions; // <-- 조건들을 배열로 넣어줌
 
-    public int rewardGold;
+    public int rewardGold; //퀘스트 전체를 완료했을 때 주는 보상
     public int rewardExp;
 
     public bool isCompleted;

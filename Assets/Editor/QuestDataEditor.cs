@@ -50,8 +50,7 @@ public class QuestDataEditor : Editor
             }
 
             condition.requiredAmount = EditorGUILayout.IntField("요구 수량", condition.requiredAmount);
-            condition.rewardGold = EditorGUILayout.IntField("보상 골드", condition.rewardGold);
-            condition.rewardExp = EditorGUILayout.IntField("보상 경험치", condition.rewardExp);
+
 
             if (GUILayout.Button("이 조건 삭제"))
             {
