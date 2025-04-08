@@ -1,21 +1,25 @@
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering.LookDev;
-// 퀘스트 데이터 정의 (조건, 보상 등)
-public enum QusetType {  SellCoffee, PlaceFurniture, UpgradeFurniture}
 
 [CreateAssetMenu(fileName = "QuestData", menuName = "SO/QuestData")]
 public class QuestData : ScriptableObject
 {
+    public Sprite icon;
     public string questTitle;
     public string description;
-    public QusetType questType;
 
-    public string targetItemId; // 커피 종류 ID 또는 가구 ID
-    public int requiredAmount;
+    [System.Serializable]
+    public class QuestCondition
+    {
+        public QusetType type;
+        public string targetItemId;
+        public int requiredAmount;
+        [HideInInspector] public int currentAmount;
+        public int rewardGold;
+        public int rewardExp;
+    }
 
-    public int rewardGold;
-    public int rewardExp;
-
+    public List<QuestCondition> conditions = new();
+    public QuestData nextQuest; // 연계 퀘스트
     public bool isCompleted;
-
 }

@@ -1,25 +1,86 @@
 using System.Collections.Generic;
 using UnityEngine;
-// 퀘스트 진행 관리, 조건 체크 및 완료 처리
+
 public class QuestManager : MonoBehaviour
 {
-    public List<QuestData> activeQuests;
+    public static QuestManager Instance;
 
-    public void CheckQuestProgress(string itemId, QusetType type, int amount = 0)
+    public Transform questListContent;
+    public GameObject questItemPrefab;
+    public List<QuestData> activeQuests = new();
+
+    private void Awake()
     {
-        foreach (var quest in activeQuests)
-        {
-            if (quest.questType == type && quest.targetItemId == itemId && !quest.isCompleted)
-            {
-                quest.requiredAmount -= amount;
+        Instance = this;
+    }
 
-                if (quest.requiredAmount <= 0) // 필요한 양이 0이 되었다면
-                {
-                    quest.isCompleted = true;
-                    RewardManager.Instance.GiveReward(quest);
-                    QusetUI.Instance.ShowQuestComplete(quest); // UI 업데이트
-                }
+    public void AddQuest(QuestData quest)
+    {
+        if (!activeQuests.Contains(quest))
+        {
+            activeQuests.Add(quest);
+            CreateQuestUI(quest);
+        }
+    }
+
+    public void RemoveQuest(QuestData quest)
+    {
+        activeQuests.Remove(quest);
+
+        foreach (Transform child in questListContent)
+        {
+            if (child.GetComponent<QuestUIItem>().quest == quest)
+            {
+                Destroy(child.gameObject);
+                break;
             }
         }
+
+        if (quest.nextQuest != null)
+        {
+            AddQuest(quest.nextQuest);
+        }
+    }
+
+    void CreateQuestUI(QuestData quest)
+    {
+        GameObject go = Instantiate(questItemPrefab, questListContent);
+        go.GetComponent<QuestUIItem>().Setup(quest);
+    }
+
+    public void CheckQuestProgress(string itemId, QusetType type, int amount = 1)
+    {
+        foreach (var quest in activeQuests.ToArray())
+        {
+            bool allComplete = true;
+
+            foreach (var condition in quest.conditions)
+            {
+                if (condition.type == type && condition.targetItemId == itemId && condition.currentAmount < condition.requiredAmount)
+                {
+                    condition.currentAmount += amount;
+                    if (condition.currentAmount > condition.requiredAmount)
+                        condition.currentAmount = condition.requiredAmount;
+                }
+
+                if (condition.currentAmount < condition.requiredAmount)
+                    allComplete = false;
+            }
+
+            if (allComplete && !quest.isCompleted)
+            {
+                quest.isCompleted = true;
+                QusetUI.Instance.ShowQuestComplete(quest);
+            }
+        }
+    }
+
+    public void CompleteQuest(QuestData quest)
+    {
+        foreach (var condition in quest.conditions)
+        {
+            RewardManager.Instance.GiveReward(condition.rewardGold, condition.rewardExp);
+        }
+        RemoveQuest(quest);
     }
 }

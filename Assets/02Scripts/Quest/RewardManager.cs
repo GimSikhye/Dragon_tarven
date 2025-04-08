@@ -1,7 +1,6 @@
-using DalbitCafe.Core;
 using UnityEngine;
+using DalbitCafe.Core;
 
-// 보상 지급 처리 담당
 public class RewardManager : MonoBehaviour
 {
     public static RewardManager Instance;
@@ -12,10 +11,10 @@ public class RewardManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
-    public void GiveReward(QuestData quest)
+    public void GiveReward(int gold, int exp)
     {
-        GameManager.Instance.playerStats.AddCoin(quest.rewardGold);
-        GameManager.Instance.playerStats.AddExp(quest.rewardExp);
-        Debug.Log($"퀘스트 완료! 보상 지금 {quest.rewardGold}G / {quest.rewardExp}EXP");
+        GameManager.Instance.playerStats.AddCoin(gold);
+        GameManager.Instance.playerStats.AddExp(exp);
+        Debug.Log($"보상 지급: {gold}G / {exp}EXP");
     }
 }
