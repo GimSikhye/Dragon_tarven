@@ -34,13 +34,9 @@ namespace DalbitCafe.UI
                     {
                         if (currentMenuPanel != null)
                         {
-                            Debug.Log("창 끔");
                             currentMenuPanel.SetActive(false);
                         }
-                        else
-                        {
-                            Debug.LogError("currentMenuPanel이 null입니다!");
-                        }
+
                     }
                 }
             }

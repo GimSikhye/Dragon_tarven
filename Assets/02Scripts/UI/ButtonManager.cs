@@ -21,8 +21,6 @@ namespace DalbitCafe.UI
             {
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
-                SceneManager.sceneLoaded += OnSceneLoaded; // 씬 로드 시 호출
-
             }
             else
             {
@@ -33,14 +31,6 @@ namespace DalbitCafe.UI
 
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-        {
-            // 씬이 바뀔 때 GameManager가 다시 찾아지도록 설정
-            if (GameManager.Instance == null)
-            {
-                Debug.LogError("GameManager 인스턴스를 찾을 수 없음!");
-            }
-        }
 
         public void LoadButton(string sceneName)
         {
@@ -59,11 +49,6 @@ namespace DalbitCafe.UI
         {
 
             GameObject window = GameObject.Find(windowName);
-            if (window == null)
-            {
-                Debug.LogError("비활성화 활 윈도우를 찾지 못했습니다!");
-                return;
-            }
 
             window.transform.DOScale(Vector3.zero, 0.3f).SetEase(Ease.InBack)
              .OnComplete(() => window.SetActive(false));
@@ -83,7 +68,6 @@ namespace DalbitCafe.UI
 
             if (index < 0 || index >= roastingWindow.coffeDataList.Count)
             {
-                Debug.LogError("유효하지 않은 커피 메뉴 선택!");
                 button.GetComponent<Button>().interactable = true; // 오류 발생 시 버튼 활성화
 
                 return;
@@ -95,16 +79,8 @@ namespace DalbitCafe.UI
             // 원두 소모 체크
             if (GameManager.Instance.playerStats.coffeeBean >= coffeeData.BeanUse)
             {
-                Debug.Log($"로스팅 시작 전 CoffeeBean: {GameManager.Instance.playerStats.coffeeBean}, 소모량: {coffeeData.BeanUse}");
                 GameManager.Instance.playerStats.AddCoffeeBean(-coffeeData.BeanUse);
-                Debug.Log($"로스팅 후 CoffeeBean: {GameManager.Instance.playerStats.coffeeBean}");
                 CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
-                Debug.Log($"{coffeeData.CoffeeName} 로스팅 시작!");
-
-            }
-            else
-            {
-                Debug.LogError("커피콩이 부족합니다!");
             }
 
             //// 작업 완료 후 버튼 활성화
@@ -112,7 +88,6 @@ namespace DalbitCafe.UI
 
 
         }
-
 
         public void QuitButton()
         {

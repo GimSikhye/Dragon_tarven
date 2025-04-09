@@ -56,12 +56,12 @@ public class QuestManager : MonoBehaviour
         go.GetComponent<QuestUIItem>().Setup(quest);
     }
 
-    
+
     public void CheckQuestProgress(string itemId, QuestConditionType type, int amount = 1)
     {
-        foreach (var quest in activeQuests.ToArray()) // 현재 진행 중인 퀘스트 리스트 activeQuests를 복사한 배열로 순회 // ToArray를 쓰는 이유는 도중에 퀘스트가 제거되어도 반복이 꼬이지 않게 하기 위해서.
+        foreach (var quest in activeQuests.ToArray())
         {
-            bool allComplete = true; // 퀘스트가 모든 조건을 충족했는지 여부
+            bool allComplete = true;
 
             foreach (var condition in quest.conditions)
             {
@@ -72,17 +72,28 @@ public class QuestManager : MonoBehaviour
                         condition.currentAmount = condition.requiredAmount;
                 }
 
-                if (condition.currentAmount < condition.requiredAmount) // 아직 덜 채운 조건이 있다면 퀘스트는 미완료로 간주
+                if (condition.currentAmount < condition.requiredAmount)
                     allComplete = false;
             }
 
-            if (allComplete && !quest.isCompleted) // 모든 조건 완료되었고, 아직 완료 표시가 안 된 퀘스트라면 완료 처리
+            foreach (Transform child in QuestManager.Instance.questListContent)
+            {
+                QuestUIItem uiItem = child.GetComponent<QuestUIItem>();
+                if (uiItem != null && uiItem.quest == quest)
+                {
+                    uiItem.UpdateProgress();
+                    break;
+                }
+            }
+
+            if (allComplete && !quest.isCompleted)
             {
                 quest.isCompleted = true;
                 QuestUI.Instance.ShowQuestComplete(quest);
             }
         }
     }
+
 
     public void CompleteQuest(QuestData quest)
     {

@@ -62,12 +62,10 @@ namespace DalbitCafe.Customer
             {
                 if (_targetDestination == _cashDesk.position)
                 {
-                    Debug.Log("계산대에 도착했습니다");
                     StartOrdering();
                 }
                 else if (_targetDestination == _outside.position)
                 {
-                    Debug.Log("outside");
                     _speechBalloon.SetActive(false);
                     _customerPool.ReturnCustomer(this.gameObject);
                 }
@@ -78,7 +76,6 @@ namespace DalbitCafe.Customer
         {
             _isOrdering = true;
             _agent.isStopped = true; // 이동 중지
-            Debug.Log("주문을 시작합니다.");
 
             // 모든 커피머신에서 랜덤한 커피 선택
             CoffeeMachine[] machines = FindObjectsOfType<CoffeeMachine>();

@@ -90,7 +90,6 @@ namespace DalbitCafe.Player
             if (hitCollider != null && hitCollider.transform.CompareTag("CoffeeMachine"))
             {
                 // 거리도 확인해서 가까울 경우만 팝업 표시
-                Debug.Log("커피머신");
                 if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
                 {
                     CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
@@ -109,7 +108,6 @@ namespace DalbitCafe.Player
                 }
                 else
                 {
-                    Debug.Log("거리가 너무 멀어요!!");
                     UIManager.Instance.ShowCapitonText();
                 }
             }

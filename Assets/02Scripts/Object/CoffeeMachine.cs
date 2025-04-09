@@ -29,8 +29,6 @@ namespace DalbitCafe.Operations
             _isRoasting = true;
             _currentCoffee = coffee;
             _remainingMugs = coffee.MugQty;
-            Debug.Log($"{coffee.CoffeeName} 커피를 로스팅 시작! 잔 수: {_remainingMugs}");
-
             GameObject particle = Instantiate(_steamParticle);
             particle.transform.position = transform.position;
         }
@@ -41,8 +39,6 @@ namespace DalbitCafe.Operations
             {
                 _remainingMugs--;
                 GameManager.Instance.playerStats.AddCoin(_currentCoffee.Price);
-                Debug.Log($"{_currentCoffee.CoffeeName} 판매! 남은 잔 수: {_remainingMugs}");
-
                 // 퀘스트 조건 업데이트
                 _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
@@ -52,7 +48,6 @@ namespace DalbitCafe.Operations
                 GameManager.Instance.playerStats.AddCoin( _currentCoffee.Price); 
                 _isRoasting = false;
                 _currentCoffee = null;
-                Debug.Log("더 이상 판매할 커피가 없습니다!");
             }
         }
 

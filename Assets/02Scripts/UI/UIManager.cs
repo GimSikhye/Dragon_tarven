@@ -103,7 +103,6 @@ namespace DalbitCafe.UI
 
         public void ShowCurrentMenuPopUp()
         {
-            Debug.Log("ÇöÀç ¸Þ´ºÃ¢ ¶ç¿ò");
             GameObject window = _panels[(int)Windows.CurrentMenu];
             window.SetActive(true);
             window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
@@ -119,7 +118,6 @@ namespace DalbitCafe.UI
 
         public void ShowQuestPopUp()
         {
-            Debug.Log("Äù½ºÆ® ¸Þ´ºÃ¢ ¶ç¿ò");
             GameObject window = _panels[(int)Windows.Quest];
             window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
   .OnComplete(() => window.SetActive(true));

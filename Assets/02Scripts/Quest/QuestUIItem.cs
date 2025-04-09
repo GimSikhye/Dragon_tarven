@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,19 +16,22 @@ public class QuestUIItem : MonoBehaviour
         UpdateProgress();
     }
 
-    public void UpdateProgress() // 전체 조건을 모두 합쳐서 진행도를 계산함.
+    public void UpdateProgress()
     {
-        int total = 0;
-        int current = 0;
+        int totalConditions = quest.conditions.Count();
+        int completedConditions = 0;
 
         foreach (var c in quest.conditions)
         {
-            total += c.requiredAmount;
-            current += c.currentAmount;
+            if (c.currentAmount >= c.requiredAmount)
+            {
+                completedConditions++;
+            }
         }
 
-        progressText.text = $"{current}/{total}";
+        progressText.text = $"{completedConditions}/{totalConditions}";
     }
+
 
     public void OnClick() // 해당 퀘스트 항목을 클릭했을 때, 퀘스트 상세 정보를 보여주는 패널을 열어주는 역할
     {

@@ -11,7 +11,7 @@ public class ResetPrefsBtn : MonoBehaviour
         {
             PlayerPrefs.DeleteAll();
             PlayerPrefs.Save();
-            Debug.Log("PlayerPrefs 초기화 완료");
         });
+
     }
 }

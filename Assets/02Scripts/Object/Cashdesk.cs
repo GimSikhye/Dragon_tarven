@@ -17,7 +17,6 @@ namespace DalbitCafe.Operations
         {
             if (collision.CompareTag("Player"))
             {
-                Debug.Log("플레이어");
                 //PlayerCtrl.Instance.SpriteRender.color = new Color(1, 1, 1, behind_transparency); //투명도 바꾸기
                 PlayerCtrl.Instance.SpriteRender.sortingLayerName = "Default";
             }

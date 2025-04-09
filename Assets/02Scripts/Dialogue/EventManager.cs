@@ -35,21 +35,10 @@ namespace DalbitCafe.Dialogue
 
             if (eventNum == (int)EventNum.Prologue)
             {
-                Debug.Log("튜토리얼 스프라이트");
                 SpriteChange(dialogueData.ChangeBG);
 
             }
-            //if (eventNum == 1)
-            //{
-            //    SpriteChange(dialogueData.ChangeBG);
-            //    audioSource.PlayOneShot(explosion_sound, 0.3f);
-            //    audioSource.Play();
-            //}
-            //if (eventNum == 2)
-            //{
-            //    audioSource.PlayOneShot(shine_sound, 0.4f);
 
-            //}
 
 
         }

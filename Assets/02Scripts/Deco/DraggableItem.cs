@@ -20,7 +20,6 @@ namespace DalbitCafe.Deco
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            Debug.Log("드래그 시작");
             _initialPosition = transform.position;
             _isDragging = true;
         }
