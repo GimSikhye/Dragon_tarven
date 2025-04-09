@@ -31,6 +31,6 @@ public class QuestUIItem : MonoBehaviour
 
     public void OnClick()
     {
-        QusetUI.Instance.ShowQuest(quest);
+        QuestUI.Instance.ShowQuest(quest);
     }
 }
