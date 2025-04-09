@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,10 @@ public class QuestUI : MonoBehaviour
     public Button completeButton;
 
     private QuestData currentQuest;
+    private List<TextMeshProUGUI> conditionTextList = new List<TextMeshProUGUI>();
+
+    public QuestData CurrentQuest => currentQuest;
+
 
     private void Awake()
     {
@@ -28,27 +33,43 @@ public class QuestUI : MonoBehaviour
         });
     }
 
-    public void ShowQuest(QuestData quest) // 특정 퀘스트를 선택했을 때, 퀘스트 정보를 UI에 보여주는 역할
+    public void ShowQuest(QuestData quest)
     {
-        currentQuest = quest; // 지금 표시 중인 퀘스트를 저장
+        currentQuest = quest;
 
         questTitleText.text = quest.questTitle;
         questDescText.text = quest.description;
 
-        foreach (Transform child in conditionParent) // 이전에 표시돼 있던 조건 UI 항목들을 싹 지움
+        foreach (Transform child in conditionParent)
             Destroy(child.gameObject);
+
+        conditionTextList.Clear();
 
         foreach (var cond in quest.conditions)
         {
             var go = Instantiate(conditionTextPrefab, conditionParent);
             var text = go.GetComponentInChildren<TextMeshProUGUI>();
+            conditionTextList.Add(text);
+        }
+
+        UpdateQuestInfo();
+
+        questPanel.SetActive(true);
+    }
+
+    public void UpdateQuestInfo()
+    {
+        if (currentQuest == null) return;
+
+        for (int i = 0; i < currentQuest.conditions.Count(); i++)
+        {
+            var cond = currentQuest.conditions[i];
+            var text = conditionTextList[i];
 
             string state = cond.currentAmount >= cond.requiredAmount ? "(완료)" : "";
 
-            // 타입별 한글 문장 구성
+            string displayName = GetDisplayName(cond.targetItemId);
             string conditionText = "";
-
-            string displayName = GetDisplayName(cond.targetItemId); // 한글 이름 변환 함수
 
             switch (cond.type)
             {
@@ -65,31 +86,31 @@ public class QuestUI : MonoBehaviour
 
             text.text = conditionText;
         }
-
-
-        questPanel.SetActive(true);
     }
 
-    private string GetDisplayName(string id)
+    public bool IsShowingQuest(QuestData quest)
     {
-        // 커피 & 가구 아이디에 따른 한글 이름 매핑
-        Dictionary<string, string> nameMap = new Dictionary<string, string>()
-    {
-        { "americano", "아메리카노" },
-        { "latte", "라떼" },
-        { "espresso", "에스프레소" },
-        { "chair_01", "의자1" },
-        { "table_01", "테이블1" },
-        { "counter_01", "카운터1" },
-    };
-
-        return nameMap.TryGetValue(id, out var name) ? name : id;
+        return currentQuest == quest;
     }
-
 
     public void ShowQuestComplete(QuestData quest)
     {
         currentQuest = quest;
         completePopup.SetActive(true);
+    }
+
+    private string GetDisplayName(string id)
+    {
+        Dictionary<string, string> nameMap = new Dictionary<string, string>()
+        {
+            { "americano", "아메리카노" },
+            { "latte", "라떼" },
+            { "espresso", "에스프레소" },
+            { "chair_01", "의자1" },
+            { "table_01", "테이블1" },
+            { "counter_01", "카운터1" },
+        };
+
+        return nameMap.TryGetValue(id, out var name) ? name : id;
     }
 }

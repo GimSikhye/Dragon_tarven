@@ -19,9 +19,9 @@ MonoBehaviour:
   conditions:
   - targetItemId: americano
     requiredAmount: 5
-    currentAmount: 0
+    currentAmount: 5
     type: 0
   rewardGold: 500
   rewardExp: 100
-  isCompleted: 0
+  isCompleted: 1
   nextQuest: {fileID: 11400000, guid: 5bfdd64f588c4924f8357a5ad10b91eb, type: 2}

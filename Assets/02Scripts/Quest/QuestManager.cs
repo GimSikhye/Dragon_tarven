@@ -20,6 +20,7 @@ public class QuestManager : MonoBehaviour
     private void Start()
     {
         AddQuest(quest1);
+        QuestManager.Instance.ResetQuestProgress(quest1);
     }
 
     public void AddQuest(QuestData quest)
@@ -76,24 +77,39 @@ public class QuestManager : MonoBehaviour
                     allComplete = false;
             }
 
-            foreach (Transform child in QuestManager.Instance.questListContent)
-            {
-                QuestUIItem uiItem = child.GetComponent<QuestUIItem>();
-                if (uiItem != null && uiItem.quest == quest)
-                {
-                    uiItem.UpdateProgress();
-                    break;
-                }
-            }
-
             if (allComplete && !quest.isCompleted)
             {
                 quest.isCompleted = true;
                 QuestUI.Instance.ShowQuestComplete(quest);
             }
+
+            // 현재 보고 있는 퀘스트와 같으면 자동 갱신
+            if (QuestUI.Instance != null && QuestUI.Instance.IsShowingQuest(quest))
+            {
+                QuestUI.Instance.UpdateQuestInfo();
+            }
+        }
+
+        // 리스트 UI도 갱신
+        foreach (Transform child in questListContent)
+        {
+            QuestUIItem uiItem = child.GetComponent<QuestUIItem>();
+            if (uiItem != null)
+            {
+                uiItem.UpdateProgress();
+            }
         }
     }
 
+    public void ResetQuestProgress(QuestData quest)
+    {
+        quest.isCompleted = false;
+
+        foreach (var cond in quest.conditions)
+        {
+            cond.currentAmount = 0;
+        }
+    }
 
     public void CompleteQuest(QuestData quest)
     {
