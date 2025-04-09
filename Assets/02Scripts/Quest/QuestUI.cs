@@ -41,7 +41,7 @@ public class QuestUI : MonoBehaviour
         foreach (var cond in quest.conditions)
         {
             var go = Instantiate(conditionTextPrefab, conditionParent);
-            var text = go.GetComponent<TextMeshProUGUI>();
+            var text = go.GetComponentInChildren<TextMeshProUGUI>();
 
             string state = cond.currentAmount >= cond.requiredAmount ? "(¿Ï·á)" : "";
 
