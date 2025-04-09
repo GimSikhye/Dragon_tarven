@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
+    public Image eventImage; // 이벤트 이미지 띄우기 용
+    public AudioSource audioSource; // 효과음 재생용
 
     public CanvasGroup leftGroup;
     public CanvasGroup centerGroup;
@@ -44,17 +46,18 @@ public class DialogueManager : MonoBehaviour
 
     public void OnClickNext()
     {
-        Debug.Log("버튼 클릭");
+        DialogueLine line = dialogueData.lines[currentLine];
+        DialogueEvent currentEvent = line.dialogueTexts[currentTextIndex];
+
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
-            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex];
+            dialogueText.text = currentEvent.text; // 문자열로 출력
             typingCoroutine = null;
             return;
         }
 
         currentTextIndex++;
-        DialogueLine line = dialogueData.lines[currentLine];
 
         if (currentTextIndex < line.dialogueTexts.Length)
         {
@@ -86,13 +89,30 @@ public class DialogueManager : MonoBehaviour
     void ShowLine()
     {
         DialogueLine line = dialogueData.lines[currentLine];
+        DialogueEvent currentEvent = line.dialogueTexts[currentTextIndex];
 
         nameArea.SetActive(!line.isNarration);
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
+        // 이미지 처리
+        if (eventImage != null)
+        {
+            eventImage.sprite = currentEvent.image;
+            eventImage.gameObject.SetActive(currentEvent.image != null);
+        }
+
+        // 효과음 처리
+        if (audioSource != null)
+        {
+            if (currentEvent.sfx != null)
+            {
+                audioSource.PlayOneShot(currentEvent.sfx);
+            }
+        }
+
         UpdateCharacters(line);
-        typingCoroutine = StartCoroutine(TypeText(line.dialogueTexts[currentTextIndex]));
+        typingCoroutine = StartCoroutine(TypeText(currentEvent.text));
 
         if (!line.isNarration)
         {
