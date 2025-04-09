@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a15e732519d3a6a4cacf3ee1c195259e
+guid: 51e9dfb6ef7c0e646b522853bc550fc4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8395651446386530371
-    second: spr_Icon_tr_0
+      213: 187683459738265880
+    second: spr_portrait_Jihoon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_Icon_tr_0
+      name: spr_portrait_Jihoon_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 288
         y: 0
-        width: 48
-        height: 48
+        width: 1045
+        height: 1846
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: db7e228dd77ac7b80800000000000000
-      internalID: -8395651446386530371
+      spriteID: 8196aebbc19ca9200800000000000000
+      internalID: 187683459738265880
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spr_Icon_tr_0: -8395651446386530371
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

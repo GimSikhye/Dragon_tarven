@@ -1,131 +1,140 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.SceneManagement;
-using UnityEngine.Audio;
-using DalbitCafe.Core;
 
-namespace DalbitCafe.Dialogue
+public class DialogueManager : MonoBehaviour
 {
-    public class DialogueManager : MonoBehaviour, IPointerClickHandler
+    [Header("UI Components")]
+    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI dialogueText;
+    public Image leftCharacterImage;
+    public Image centerCharacterImage;
+    public Image rightCharacterImage;
+
+    public CanvasGroup leftGroup;
+    public CanvasGroup centerGroup;
+    public CanvasGroup rightGroup;
+
+    [Header("Typing")]
+    public float typingSpeed = 0.05f;
+
+    [Header("Dialogue Data")]
+    public DialogueData dialogueData;
+
+    private int currentLine = 0;
+    private Coroutine typingCoroutine;
+    private CharacterInfo currentSpeaker;
+
+
+
+    void Start()
     {
-        private AudioSource _audioSource;
+        StartDialogue();
+    }
 
-        [Header("UI 출력")]
-        [SerializeField] private TextMeshProUGUI _nameText;
-        [SerializeField] private TextMeshProUGUI _dialogueText;
-        [SerializeField] private Image _characterPortrait;
+    public void StartDialogue()
+    {
+        currentLine = 0;
+        ShowLine();
+    }
 
-        [Header("Event")]
-        [SerializeField] private EventManager _eventManager;
-
-        [Header("타이핑 속도")]
-        [SerializeField] private float _typingSpeed = 0f;
-
-        [Header("대사 모음집")]
-        [SerializeField] private DialogueData[] _groups;
-
-        [Header("대사 효과음")]
-        [SerializeField] private AudioClip _typingSound;
-
-
-        [SerializeField] private int _len = 0; // 전체 so 랭스 (그룹의 수)
-        private int _textIndex = 0; // 개별 so의 랭스 (현재 출력되는 대사의 순서)
-
-        private bool _isTyping = false; // 현재 타이핑 중인지 
-        private bool _isEnd = false; // 모든 대사가 출력되었는지
-
-        [SerializeField] private string _sceneName;
-
-        private Coroutine _typingRoutine;
-
-        private void Awake()
+    public void OnClickNext()
+    {
+        if (typingCoroutine != null)
         {
-            _audioSource = GetComponent<AudioSource>();
-        }
-        private void Start()
-        {
-            _typingRoutine = StartCoroutine(Typing(_groups[_len].Lines[_textIndex]));
+            StopCoroutine(typingCoroutine);
+            dialogueText.text = dialogueData.lines[currentLine].dialogueText;
+            typingCoroutine = null;
+            return;
         }
 
-        private void NextTalk() // 다음 대사 출력
+        currentLine++;
+        if (currentLine < dialogueData.lines.Length)
         {
-            if (_isTyping) return; // 타이핑 중에는 스킵되지 않도록 방지
-
-            _textIndex++; //0 1 2 3 4 5
-
-            if (_textIndex == _groups[_len].Lines.Length) // 현재 그룹의 텍스트가 다 출력되었다면
-            {
-                _len++; // 다음 SO로 넘어감 //0 1 2 3 4 5
-
-                if (_len != _groups.Length) // 전체 대사가 끝나지 않았다면 다음 SO로 //Length가 2라면 0 1
-                {
-                    _textIndex = 0; // 다음 SO로 넘어가니 초기화
-                    _eventManager.EventChange(_groups[_len]);
-                    _typingRoutine = StartCoroutine(Typing(_groups[_len].Lines[_textIndex]));
-                }
-                else
-                {
-                    // 마지막 그룹까지 완전히 끝났다면
-                    _isEnd = true;
-                    // 엔딩 씬으로 이동
-                    EndTyping();
-                }
-            }
-            else
-            {
-                _typingRoutine = StartCoroutine(Typing(_groups[_len].Lines[_textIndex]));
-            }
+            ShowLine();
         }
-
-        IEnumerator Typing(string lineText)
+        else
         {
-            _characterPortrait.sprite = _groups[_len].CharacterSprite;
-            _nameText.text = _groups[_len].CharacterName;
-
-            _dialogueText.text = string.Empty; // 초기화
-            _isTyping = true;
-
-            for (int i = 0; i < lineText.Length; i++)
-            {
-                _dialogueText.text += lineText[i]; // 한 글자씩 출력
-
-                yield return new WaitForSeconds(_typingSpeed); // 텍스트 출력 속도 조정 (0.05초로 느리게)
-            }
-
-            _isTyping = false; // 타이핑 완료
-        }
-
-        private void EndTyping()
-        {
-            if (_isEnd) // 모든 대사가 끝난 경우에만 씬 전환
-            {
-                SceneManager.LoadScene(_sceneName);
-            }
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            if (!_isEnd) // 현재 출력중인 텍스트 전체 출력
-            {
-                if (_isTyping)
-                {
-                    // 현재 타이핑 중이면 즉시 모든 텍스트를 출력
-                    StopCoroutine(_typingRoutine);
-                    _dialogueText.text = _groups[_len].Lines[_textIndex];
-                    _isTyping = false;
-                }
-                else
-                {
-                    // 타이핑이 끝났으면 다음 대사로 넘어감
-                    NextTalk();
-                }
-            }
+            EndDialogue();
         }
     }
 
-}
+    public void OnClickSkip()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
 
+        EndDialogue();
+    }
+
+    void ShowLine()
+    {
+        DialogueLine line = dialogueData.lines[currentLine];
+
+        nameText.text = line.speaker.characterName;
+        dialogueText.text = "";
+
+        UpdateCharacters(line);
+        typingCoroutine = StartCoroutine(TypeText(line.dialogueText));
+        currentSpeaker = line.speaker;
+    }
+
+
+    IEnumerator TypeText(string text)
+    {
+        dialogueText.text = "";
+        foreach (char letter in text)
+        {
+            dialogueText.text += letter;
+            yield return new WaitForSeconds(typingSpeed);
+        }
+
+        typingCoroutine = null;
+    }
+
+    void UpdateCharacters(DialogueLine line)
+    {
+        if (currentSpeaker == null || line.speaker == currentSpeaker)
+        {
+            // 같은 캐릭터가 계속 말함 → 센터 유지
+            SetCharacter(centerCharacterImage, centerGroup, line.speaker.characterSprite, 1f);
+            SetCharacter(leftCharacterImage, leftGroup, null, 0f);
+            SetCharacter(rightCharacterImage, rightGroup, null, 0f);
+        }
+        else
+        {
+            // 기존 캐릭터는 왼쪽, 새 캐릭터는 오른쪽
+            SetCharacter(leftCharacterImage, leftGroup, currentSpeaker.characterSprite, 0.5f);
+            SetCharacter(centerCharacterImage, centerGroup, null, 0f);
+            SetCharacter(rightCharacterImage, rightGroup, line.speaker.characterSprite, 1f);
+        }
+    }
+
+
+
+    void SetCharacter(Image image, CanvasGroup group, Sprite sprite, float alpha)
+    {
+        image.sprite = sprite;
+        image.gameObject.SetActive(sprite != null);
+        group.alpha = alpha;
+    }
+
+    void EndDialogue()
+    {
+        dialogueText.text = "";
+        nameText.text = "";
+
+        // 캐릭터 이미지들 모두 비활성화
+        SetCharacter(leftCharacterImage, leftGroup, null, 0f);
+        SetCharacter(centerCharacterImage, centerGroup, null, 0f);
+        SetCharacter(rightCharacterImage, rightGroup, null, 0f);
+
+        // 필요한 종료 연출 or UI 비활성화
+        gameObject.SetActive(false); // 혹은 다이얼로그 패널만 비활성화
+    }
+
+}
