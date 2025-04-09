@@ -4,8 +4,9 @@ using UnityEngine;
 public class DialogueLine
 {
     public CharacterInfo speaker;
-    [TextArea] public string[] dialogueTexts;
-    public CharacterExpression expression = CharacterExpression.Default;
+    public string[] dialogueTexts;
+    public CharacterExpression expression;
+    public bool isNarration; // ¡ç Ãß°¡µÊ
 }
 
 

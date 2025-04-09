@@ -5,26 +5,28 @@ public enum CharacterExpression
 {
     Default,
     Smile,
-    Disappointed
+    Sad
 }
 
-
-[CreateAssetMenu(fileName = "New Character", menuName = "SO/Character Info")]
+[System.Serializable]
 public class CharacterInfo : ScriptableObject
 {
     public string characterName;
-
-    public Sprite defaultSprite;
-    public Sprite smileSprite;
-    public Sprite disappointedSprite;
+    public Sprite defaultExpression;
+    public Sprite smileExpression;
+    public Sprite sadExpression;
 
     public Sprite GetExpressionSprite(CharacterExpression expression)
     {
-        return expression switch
+        switch (expression)
         {
-            CharacterExpression.Smile => smileSprite,
-            CharacterExpression.Disappointed => disappointedSprite,
-            _ => defaultSprite
-        };
+            case CharacterExpression.Smile:
+                return smileExpression;
+            case CharacterExpression.Sad:
+                return sadExpression;
+            case CharacterExpression.Default:
+            default:
+                return defaultExpression;
+        }
     }
 }

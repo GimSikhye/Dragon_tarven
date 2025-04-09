@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 348450051}
   - component: {fileID: 348450050}
   m_Layer: 0
-  m_Name: DialogManager
+  m_Name: DialogueManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   leftCharacterImage: {fileID: 0}
   centerCharacterImage: {fileID: 0}
   rightCharacterImage: {fileID: 0}
+  nameArea: {fileID: 385236249}
   leftGroup: {fileID: 0}
   centerGroup: {fileID: 0}
   rightGroup: {fileID: 0}
@@ -1834,6 +1835,7 @@ MonoBehaviour:
   leftCharacterImage: {fileID: 0}
   centerCharacterImage: {fileID: 0}
   rightCharacterImage: {fileID: 0}
+  nameArea: {fileID: 0}
   leftGroup: {fileID: 0}
   centerGroup: {fileID: 0}
   rightGroup: {fileID: 0}

@@ -12,6 +12,8 @@ public class DialogueManager : MonoBehaviour
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
+    public GameObject nameArea; 
+
 
     public CanvasGroup leftGroup;
     public CanvasGroup centerGroup;
@@ -28,6 +30,9 @@ public class DialogueManager : MonoBehaviour
 
     private Coroutine typingCoroutine;
     private CharacterInfo currentSpeaker;
+
+    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default;
+
 
     void Start()
     {
@@ -76,14 +81,17 @@ public class DialogueManager : MonoBehaviour
     {
         DialogueLine line = dialogueData.lines[currentLine];
 
-        nameText.text = line.speaker.characterName;
+        nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
-        Sprite currentSprite = line.speaker.GetExpressionSprite(line.expression);
-        UpdateCharacters(line.speaker, currentSprite);
-
+        UpdateCharacters(line);
         typingCoroutine = StartCoroutine(TypeText(line.dialogueTexts[currentTextIndex]));
-        currentSpeaker = line.speaker;
+
+        if (!line.isNarration)
+        {
+            currentSpeaker = line.speaker;
+            currentSpeakerExpression = line.expression;
+        }
     }
 
 
@@ -100,9 +108,19 @@ public class DialogueManager : MonoBehaviour
         typingCoroutine = null;
     }
 
-    void UpdateCharacters(CharacterInfo newSpeaker, Sprite expressionSprite)
+    void UpdateCharacters(DialogueLine line)
     {
-        if (currentSpeaker == null || newSpeaker == currentSpeaker)
+        Sprite expressionSprite = line.speaker.GetExpressionSprite(line.expression);
+
+        if (line.isNarration)
+        {
+            SetCharacter(leftCharacterImage, leftGroup, null, 0f);
+            SetCharacter(centerCharacterImage, centerGroup, null, 0f);
+            SetCharacter(rightCharacterImage, rightGroup, null, 0f);
+            return;
+        }
+
+        if (currentSpeaker == null || line.speaker == currentSpeaker)
         {
             SetCharacter(centerCharacterImage, centerGroup, expressionSprite, 1f);
             SetCharacter(leftCharacterImage, leftGroup, null, 0f);
@@ -110,11 +128,13 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            SetCharacter(leftCharacterImage, leftGroup, currentSpeaker.GetExpressionSprite(CharacterExpression.Default), 0.5f);
+            SetCharacter(leftCharacterImage, leftGroup, currentSpeaker.GetExpressionSprite(currentSpeakerExpression), 0.5f);
             SetCharacter(centerCharacterImage, centerGroup, null, 0f);
             SetCharacter(rightCharacterImage, rightGroup, expressionSprite, 1f);
         }
     }
+
+
 
 
     void SetCharacter(Image image, CanvasGroup group, Sprite sprite, float alpha)
@@ -142,7 +162,7 @@ public class DialogueManager : MonoBehaviour
     {
         switch (expression)
         {
-            case CharacterExpression.Disappointed:
+            case CharacterExpression.Sad:
                 screenOverlay.DOFade(0.3f, 0.5f); // ¾îµÎ¿öÁü
                 break;
             default:
