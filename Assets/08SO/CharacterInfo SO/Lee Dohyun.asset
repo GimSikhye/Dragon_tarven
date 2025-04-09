@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Lee Dohyun
   m_EditorClassIdentifier: 
   characterName: "\uC774\uB3C4\uD604"
-  characterSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
+  smileSprite: {fileID: 0}
+  disappointedSprite: {fileID: 0}

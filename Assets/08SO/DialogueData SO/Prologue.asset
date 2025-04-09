@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
     dialogueTexts:
     - "\uC2DC\uD5D8\uC744 \uBA87 \uBC88 \uBCF8\uAC70\uC9C0? \uC5F4 \uBC88\uC740 \uB118\uC5C8\uC744
       \uAC70\uB2E4."
@@ -40,9 +41,17 @@ MonoBehaviour:
     - "\uBC1C\uC2E0\uC778\uB3C4 \uC5C6\uACE0, \uC8FC\uC18C\uB3C4 \uC5C6\uB2E4. \uC57D\uC2DD\uC73C\uB85C
       \uADF8\uB9B0 \uB4EF\uD55C \uB0A1\uC740 \uC9C0\uB3C4 \uD55C \uC7A5\uC774 \uB369\uADF8\uB7EC\uB2C8
       \uB4E4\uC5B4 \uC788\uC744 \uBFD0."
-    expression: 0
     isNarration: 1
   - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    dialogueTexts:
+    - "\uC774\uAC8C \uBB50\uC57C? \uC7A5\uB09C\uC73C\uB85C \uB204\uAC00 \uBCF4\uB0B8
+      \uAC74\uAC00?"
+    - "\uC544\uB2C8\uBA74 \uC0C8\uB85C \uAC1C\uC5C5\uD55C \uCE74\uD398\uC758 \uAD11\uACE0\uC77C\uB824\uB098...
+      \uC694\uC998\uC740 \uAD11\uACE0\uB3C4 \uC774\uB7F0 \uC2DD\uC73C\uB85C \uD558\uB098?"
+    isNarration: 0
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
     dialogueTexts:
     - "\uC2DC\uD5D8\uC744 \uBA87 \uBC88 \uBCF8\uAC70\uC9C0? \uC5F4 \uBC88\uC740 \uB118\uC5C8\uC744
       \uAC70\uB2E4."
@@ -63,5 +72,4 @@ MonoBehaviour:
       \uC18C\uC2DD\uC774 \uC624\uACA0\uC9C0...?"
     - "\uADF8\uB807\uAC8C \uC0DD\uAC01\uD588\uB358 \uC5B4\uB290 \uB0A0."
     - "\uADF8\uB807\uAC8C \uC0DD\uAC01\uD588\uB358 \uC5B4\uB290 \uB0A0."
-    expression: 0
     isNarration: 1

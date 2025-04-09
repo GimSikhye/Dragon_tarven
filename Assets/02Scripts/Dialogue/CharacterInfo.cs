@@ -5,28 +5,24 @@ public enum CharacterExpression
 {
     Default,
     Smile,
-    Sad
+    Disappointed
 }
 
 [System.Serializable]
 public class CharacterInfo : ScriptableObject
 {
     public string characterName;
-    public Sprite defaultExpression;
-    public Sprite smileExpression;
-    public Sprite sadExpression;
+    public Sprite defaultSprite;
+    public Sprite smileSprite;
+    public Sprite disappointedSprite;
 
     public Sprite GetExpressionSprite(CharacterExpression expression)
     {
-        switch (expression)
+        return expression switch
         {
-            case CharacterExpression.Smile:
-                return smileExpression;
-            case CharacterExpression.Sad:
-                return sadExpression;
-            case CharacterExpression.Default:
-            default:
-                return defaultExpression;
-        }
+            CharacterExpression.Smile => smileSprite,
+            CharacterExpression.Disappointed => disappointedSprite,
+            _ => defaultSprite,
+        };
     }
 }

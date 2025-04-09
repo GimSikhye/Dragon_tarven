@@ -2,18 +2,16 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using DG.Tweening;
-
+// 기능 추가+ 오토모드 / 로그 기능
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Components")]
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI dialogueText;
+    public GameObject nameArea; // 이름 출력 영역
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
-    public GameObject nameArea; 
-
 
     public CanvasGroup leftGroup;
     public CanvasGroup centerGroup;
@@ -27,12 +25,10 @@ public class DialogueManager : MonoBehaviour
 
     private int currentLine = 0;
     private int currentTextIndex = 0;
-
     private Coroutine typingCoroutine;
+
     private CharacterInfo currentSpeaker;
-
     private CharacterExpression currentSpeakerExpression = CharacterExpression.Default;
-
 
     void Start()
     {
@@ -48,6 +44,7 @@ public class DialogueManager : MonoBehaviour
 
     public void OnClickNext()
     {
+        Debug.Log("버튼 클릭");
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
@@ -57,30 +54,40 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentTextIndex++;
-        if (currentTextIndex < dialogueData.lines[currentLine].dialogueTexts.Length)
-        {
-            ShowLine();
-            return;
-        }
+        DialogueLine line = dialogueData.lines[currentLine];
 
-        currentLine++;
-        currentTextIndex = 0;
-
-        if (currentLine < dialogueData.lines.Length)
+        if (currentTextIndex < line.dialogueTexts.Length)
         {
-            ShowLine();
+            ShowLine(); // 다음 문장
         }
         else
         {
-            EndDialogue();
+            currentLine++;
+            currentTextIndex = 0;
+
+            if (currentLine < dialogueData.lines.Length)
+                ShowLine();
+            else
+                EndDialogue();
         }
     }
 
+    public void OnClickSkip()
+    {
+        if (typingCoroutine != null)
+        {
+            StopCoroutine(typingCoroutine);
+            typingCoroutine = null;
+        }
+
+        EndDialogue();
+    }
 
     void ShowLine()
     {
         DialogueLine line = dialogueData.lines[currentLine];
 
+        nameArea.SetActive(!line.isNarration);
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
@@ -93,8 +100,6 @@ public class DialogueManager : MonoBehaviour
             currentSpeakerExpression = line.expression;
         }
     }
-
-
 
     IEnumerator TypeText(string text)
     {
@@ -110,8 +115,6 @@ public class DialogueManager : MonoBehaviour
 
     void UpdateCharacters(DialogueLine line)
     {
-        Sprite expressionSprite = line.speaker.GetExpressionSprite(line.expression);
-
         if (line.isNarration)
         {
             SetCharacter(leftCharacterImage, leftGroup, null, 0f);
@@ -119,6 +122,8 @@ public class DialogueManager : MonoBehaviour
             SetCharacter(rightCharacterImage, rightGroup, null, 0f);
             return;
         }
+
+        Sprite expressionSprite = line.speaker.GetExpressionSprite(line.expression);
 
         if (currentSpeaker == null || line.speaker == currentSpeaker)
         {
@@ -134,44 +139,12 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-
-
-
     void SetCharacter(Image image, CanvasGroup group, Sprite sprite, float alpha)
     {
-        bool isNewSprite = image.sprite != sprite;
-
         image.sprite = sprite;
         image.gameObject.SetActive(sprite != null);
-
-        // 부드러운 페이드 인/아웃
-        group.DOFade(alpha, 0.3f);
-
-        // 감정 변화 시 팝업 효과
-        if (sprite != null && isNewSprite)
-        {
-            image.transform.localScale = Vector3.one * 0.8f;
-            image.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.OutBack);
-        }
+        group.alpha = alpha;
     }
-    public Image screenOverlay; // 검은 반투명 배경 이미지
-
-    // 사용법 : ApplyEmotionEffect(line.expression);
-
-    void ApplyEmotionEffect(CharacterExpression expression)
-    {
-        switch (expression)
-        {
-            case CharacterExpression.Sad:
-                screenOverlay.DOFade(0.3f, 0.5f); // 어두워짐
-                break;
-            default:
-                screenOverlay.DOFade(0f, 0.5f); // 원래 밝기
-                break;
-        }
-    }
-
-
 
     void EndDialogue()
     {
@@ -182,6 +155,6 @@ public class DialogueManager : MonoBehaviour
         SetCharacter(centerCharacterImage, centerGroup, null, 0f);
         SetCharacter(rightCharacterImage, rightGroup, null, 0f);
 
-        gameObject.SetActive(false); // or just hide dialogue panel
+        gameObject.SetActive(false);
     }
 }
