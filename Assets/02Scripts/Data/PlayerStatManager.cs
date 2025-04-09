@@ -6,10 +6,10 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Awake()
     {
-        InitializeStat("Gold", statsSO.defaultGold);
-        InitializeStat("Gem", statsSO.defaultGem);
-        InitializeStat("CoffeeBeans", statsSO.defaultCoffeeBeans);
-        InitializeStat("Exp", statsSO.defaultExp);
+        InitializeStat("Gold", statsSO.coin);
+        InitializeStat("Gem", statsSO.gem);
+        InitializeStat("CoffeeBeans", statsSO.coffeeBean);
+        InitializeStat("Exp", statsSO.exp);
     }
 
     void InitializeStat(string key, int defaultValue)

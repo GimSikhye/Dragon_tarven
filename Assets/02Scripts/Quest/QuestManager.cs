@@ -10,9 +10,16 @@ public class QuestManager : MonoBehaviour
     public GameObject questItemPrefab;
     public List<QuestData> activeQuests = new(); // 현재 진행중인 퀘스트 목록
 
+    public QuestData quest1;
+
     private void Awake()
     {
         Instance = this;
+    }
+
+    private void Start()
+    {
+        AddQuest(quest1);
     }
 
     public void AddQuest(QuestData quest)

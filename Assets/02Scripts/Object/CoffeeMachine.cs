@@ -44,7 +44,7 @@ namespace DalbitCafe.Operations
                 Debug.Log($"{_currentCoffee.CoffeeName} 판매! 남은 잔 수: {_remainingMugs}");
 
                 // 퀘스트 조건 업데이트
-                _questTracker?.OnCoffeeSold(_currentCoffee.CoffeeId);
+                _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
             }
             else
