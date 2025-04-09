@@ -16,6 +16,11 @@ public class QuestUI : MonoBehaviour
 
     public GameObject completePopup;
     public Button completeButton;
+    public TextMeshProUGUI completeQuestNameText;
+    public Transform rewardArea;
+    public GameObject rewardBorderPrefab;
+    public Sprite goldSprite;
+    public Sprite expSprite;
 
     private QuestData currentQuest;
     private List<TextMeshProUGUI> conditionTextList = new List<TextMeshProUGUI>();
@@ -97,6 +102,30 @@ public class QuestUI : MonoBehaviour
     {
         currentQuest = quest;
         completePopup.SetActive(true);
+
+        // 1. 퀘스트 이름 설정
+        completeQuestNameText.text = quest.questTitle;
+
+        // 2. 보상 UI 초기화
+        foreach (Transform child in rewardArea)
+            Destroy(child.gameObject);
+
+        // 3. 보상 종류별 생성
+        if (quest.rewardGold > 0)
+            CreateRewardUI(goldSprite, quest.rewardGold);
+
+        if (quest.rewardExp > 0)
+            CreateRewardUI(expSprite, quest.rewardExp);
+    }
+
+    private void CreateRewardUI(Sprite icon, int amount)
+    {
+        var go = Instantiate(rewardBorderPrefab, rewardArea);
+        var iconImg = go.transform.Find("UI_RewardIcon").GetComponent<Image>();
+        var amountText = go.transform.Find("UI_RewardAmountText").GetComponent<TextMeshProUGUI>();
+
+        iconImg.sprite = icon;
+        amountText.text = amount.ToString();
     }
 
     private string GetDisplayName(string id)

@@ -9,6 +9,7 @@ public class QuestUIItem : MonoBehaviour
     public TextMeshProUGUI progressText; // 현재 진행 상태 (2/3 같은 텍스트)
     public QuestData quest; // 이 항목이 나타내는 퀘스트 데이터
 
+
     public void Setup(QuestData questData)
     {
         quest = questData;
