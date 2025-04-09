@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_portrait_Jihoon_0: 187683459738265880
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

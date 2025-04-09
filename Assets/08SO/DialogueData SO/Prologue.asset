@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5567b85d78bee0459b5b89e85a8aebc, type: 3}
+  m_Name: Prologue
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    dialogueTexts:
+    - "\uC2DC\uD5D8\uC744 \uBA87 \uBC88 \uBCF8\uAC70\uC9C0? \uC5F4 \uBC88\uC740 \uB118\uC5C8\uC744
+      \uAC70\uB2E4."
+    - "\uCC98\uC74C\uC5D4 \uCD08\uC870\uD558\uACE0 \uBD88\uC548\uD588\uB294\uB370,
+      \uC774\uC81C\uB294 \uADF8\uB0E5 \uADF8\uB7EC\uB824\uB2C8 \uD55C\uB2E4."
+    - "'\uB5A8\uC5B4\uC9C0\uBA74 \uC5B4\uB5A1\uD558\uC9C0?' \uB77C\uB294 \uACE0\uBBFC\uB3C4
+      \uB5A8\uC5B4\uC9C0\uBA74 \uB610 \uBCF4\uBA74 \uB418\uC9C0\uB85C \uBCC0\uD55C\uC9C0
+      \uC624\uB798."
+    - "\uACF5\uBB34\uC6D0 \uC2DC\uD5D8 \uC900\uBE44 4\uB144\uCC28. \uC5B4\uCA4C\uB2E4
+      \uBCF4\uB2C8 \uADF8\uB807\uAC8C \uB410\uB2E4."
+    - "\uC190\uB2D8, \uACC4\uC0B0\uD558\uC2E4\uAC8C\uC694. 5,200\uC6D0\uC785\uB2C8\uB2E4."
+    - "'\uCE74\uD398 \uC54C\uBC14\uB3C4 1\uB144\uC774 \uB118\uC5C8\uB2E4. \uACF5\uBD80\uD558\uB824\uBA74
+      \uB3C8\uC774 \uD544\uC694\uD558\uACE0, \uB3C8 \uBC8C\uB824\uBA74 \uC77C\uC744
+      \uD574\uC57C \uD558\uB2C8\uAE4C."
+    - "\uC774\uC81C\uB294 \uACC4\uC0B0\uB300 \uC55E\uC5D0\uC11C\uB3C4, \uCEE4\uD53C
+      \uBA38\uC2E0 \uC55E\uC5D0\uC11C\uB3C4 \uBAB8\uC774 \uC790\uB3D9\uC73C\uB85C
+      \uC6C0\uC9C1\uC778\uB2E4."
+    - "\uC774\uB807\uAC8C \uC0B4\uB2E4 \uBCF4\uBA74 \uC5B4\uB290 \uB0A0 \uD569\uACA9
+      \uC18C\uC2DD\uC774 \uC624\uACA0\uC9C0...?"
+    - "\uADF8\uB807\uAC8C \uC0DD\uAC01\uD588\uB358 \uC5B4\uB290\uB0A0."
