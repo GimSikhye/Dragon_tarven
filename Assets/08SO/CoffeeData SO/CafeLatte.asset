@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd26127e1b770db42b55236fd27b013d, type: 3}
   m_Name: CafeLatte
   m_EditorClassIdentifier: 
+  coffeeId: latte
   coffeeName: "\uCE74\uD398\uB77C\uB5BC"
   price: 500
   mugQty: 20

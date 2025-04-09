@@ -13,10 +13,17 @@ namespace DalbitCafe.Operations
         [SerializeField] private bool _isRoasting = false;
         [SerializeField] private GameObject _steamParticle;
 
+        [SerializeField] private QuestTracker _questTracker;
+
         public bool IsRoasting => _isRoasting;
         public CoffeeData CurrentCoffee => _currentCoffee;
         public int RemainingMugs => _remainingMugs;
 
+        private void Awake()
+        {
+            if (_questTracker == null)
+                _questTracker = FindObjectOfType<QuestTracker>();
+        }
         public void RoastCoffee(CoffeeData coffee)
         {
             _isRoasting = true;
@@ -35,6 +42,10 @@ namespace DalbitCafe.Operations
                 _remainingMugs--;
                 GameManager.Instance.playerStats.AddCoin(_currentCoffee.Price);
                 Debug.Log($"{_currentCoffee.CoffeeName} 판매! 남은 잔 수: {_remainingMugs}");
+
+                // 퀘스트 조건 업데이트
+                _questTracker?.OnCoffeeSold(_currentCoffee.CoffeeId);
+
             }
             else
             {

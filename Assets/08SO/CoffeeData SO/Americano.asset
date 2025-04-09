@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd26127e1b770db42b55236fd27b013d, type: 3}
   m_Name: Americano
   m_EditorClassIdentifier: 
+  coffeeId: americano
   coffeeName: "\uC544\uBA54\uB9AC\uCE74\uB178"
   price: 250
   mugQty: 10
