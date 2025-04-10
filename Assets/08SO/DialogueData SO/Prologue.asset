@@ -46,7 +46,7 @@ MonoBehaviour:
         \uD574\uC57C \uD558\uB2C8\uAE4C."
       sfx: {fileID: 0}
       image: {fileID: 0}
-    - text: "\uC774\uC81C\uB294 \uAC8C\uC0B0\uB300 \uC55E\uC5D0\uC11C\uB3C4, \uCEE4\uD53C
+    - text: "\uC774\uC81C\uB294 \uACC4\uC0B0\uB300 \uC55E\uC5D0\uC11C\uB3C4, \uCEE4\uD53C
         \uBA38\uC2E0 \uC55E\uC5D0\uC11C\uB3C4 \uBAB8\uC774 \uC790\uB3D9\uC73C\uB85C
         \uC6C0\uC9C1\uC778\uB2E4."
       sfx: {fileID: 0}
@@ -182,7 +182,71 @@ MonoBehaviour:
       sfx: {fileID: 0}
       image: {fileID: 5601504758595467014, guid: 1115ca6a15687ef4a927ab12bc4425f7, type: 3}
     - text: "\uADF8 \uCE5C\uAD6C\uB294 \uC798 \uC9C0\uB0B4\uB824\uB098. \uB9C8\uCE58
-        \uC624\uB798\uC804 \uC77C\uCC98\uB7FC \uAE30\uC5B5\uC774 \uD76C\uBBF8\uC544\uD55F.
+        \uC624\uB798\uC804 \uC77C\uCC98\uB7FC \uAE30\uC5B5\uC774 \uD76C\uBBF8\uD558.
         \uADF8 \uCE5C\uAD6C\uAC00 \uC5B4\uB5BB\uAC8C \uC0DD\uACBC\uB354\uB77C...?"
       sfx: {fileID: 0}
       image: {fileID: 5601504758595467014, guid: 1115ca6a15687ef4a927ab12bc4425f7, type: 3}
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uBB38\uC774 \uC5F4\uB9AC\uBA70 \uCCAB \uBC88\uC9F8 \uC190\uB2D8\uC774
+        \uB4E4\uC5B4\uC628\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uACE0\uB4F1\uD559\uC0DD \uC2DC\uC808 \uCE5C\uAD6C\uC640 \uB2EE\uC740
+        \uC190\uB2D8. \uAD50\uBCF5\uC744 \uC785\uACE0 \uC788\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uC5B4\uB77C, \uC5EC\uC804\uD788 \uC5EC\uAE30 \uC788\uB124?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uB204\uAD70\uC9C0 \uBAA8\uB974\uACA0\uB2E4. \uD558\uC9C0\uB9CC \uCE5C\uC219\uD55C
+        \uB290\uB08C\uC774 \uB4E0\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uC800... \uCC98\uC74C \uBD59\uB294 \uAC83 \uAC19\uC740\uB370\uC694?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uC544\uB2C8, \uBB58 \uBBFF\uACE0 \uC8FC\uBB38\uBD80\uD130 \uD558\uC9C0?
+        \uC5EC\uAE30 \uC601\uC5C5\uD558\uB294 \uB370 \uB9DE\uB098?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB9AC\uACE0 \uC5B8\uC81C \uBD24\uB2E4\uACE0 \uBC18\uB9D0\uC774\uC9C0?
+        \uAD50\uBCF5 \uC785\uC740\uAC78 \uBCF4\uBA74 \uD559\uC0DD\uC77C \uD150\uB370..."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uC7A0\uAE50. \uB0B4 \uACE0\uB4F1\uD559\uAD50 \uC2DC\uC808 \uAD50\uBCF5\uC774\uC796\uC544..."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB9AC\uACE0 \uC774 \uC190\uB2D8, \uC5EC\uAE30\uC5D0 \uC5B4\uB5BB\uAC8C
+        \uC628\uAC70\uC9C0? "
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADFC\uBC29\uC5D0 \uC544\uBB34 \uAC74\uBB3C\uB3C4 \uC5C6\uC744 \uD150\uB370...."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADFC\uB370... \uC815\uC2E0\uC744 \uCC28\uB824\uBCF4\uB2C8 \uB098\uB294
+        \uC8FC\uBB38\uC744 \uBC1B\uACE0 \uCEE4\uD53C\uB97C \uB0B4\uB9AC\uACE0 \uC788\uC5C8\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uB9C8\uCE58 \uC6D0\uB798\uBD80\uD130 \uC774\uB7F0 \uC77C\uC744 \uD574\uC654\uB358
+        \uAC83\uCC98\uB7FC."
+      sfx: {fileID: 0}
+      image: {fileID: 0}

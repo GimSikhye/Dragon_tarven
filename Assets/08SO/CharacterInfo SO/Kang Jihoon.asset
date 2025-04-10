@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Kang Jihoon
   m_EditorClassIdentifier: 
   characterName: "\uAC15\uC9C0\uD6C8"
-  characterSprite: {fileID: 187683459738265880, guid: 51e9dfb6ef7c0e646b522853bc550fc4, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 51e9dfb6ef7c0e646b522853bc550fc4, type: 3}
+  smileSprite: {fileID: 0}
+  disappointedSprite: {fileID: 0}

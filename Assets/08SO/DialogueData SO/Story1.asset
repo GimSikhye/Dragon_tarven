@@ -1,0 +1,55 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5567b85d78bee0459b5b89e85a8aebc, type: 3}
+  m_Name: Story1
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uB108\uB3C4 \uC5EC\uAE30\uAE4C\uC9C0 \uC654\uAD6C\uB098."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uADF8 \uB9D0\uC744 \uB4E3\uB294 \uC21C\uAC04, \uAC00\uC2B4\uC774 \uBB18\uD558\uAC8C
+        \uCC0C\uB9BF\uD588\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uC5B4\uB514\uC11C \uB4E4\uC5B4\uBCF8 \uAC83 \uAC19\uC740 \uBAA9\uC18C\uB9AC.
+        \uD558\uC9C0\uB9CC \uAE30\uC5B5\uB098\uC9C0 \uC54A\uB294\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB0A0 \uBC24, \uB098\uB294 \uC624\uB798\uB41C \uAE30\uC5B5\uC744
+        \uB5A0\uC62C\uB838\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uC2DC\uD5D8 \uC900\uBE44\uD558\uBA74\uC11C \uBA40\uC5B4\uC9C4 \uCE5C\uAD6C\uB4E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uB9C8\uC9C0\uB9C9\uC73C\uB85C \uD568\uAED8 \uC6C3\uC5C8\uB358 \uC21C\uAC04."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB9AC\uACE0... \uB204\uAD70\uAC00 \uB0B4\uAC8C \uD588\uB358 \uB9D0."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uB10C \uC5B8\uC81C\uCBE4, \uB124 \uC790\uC2E0\uC744 \uC704\uD55C \uC2DC\uAC04\uC744
+        \uC4F8 \uAC70\uC57C?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
