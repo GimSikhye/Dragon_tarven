@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_Machine_Toaster_0: 938807784533602331
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

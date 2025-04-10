@@ -65,7 +65,7 @@ MonoBehaviour:
       sfx: {fileID: 0}
       image: {fileID: 0}
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
-    expression: 0
+    expression: 1
     isNarration: 0
     dialogueTexts:
     - text: "\uC774\uAC70, \uB124\uAC00 \uC608\uC804\uC5D0 \uC88B\uC544\uD588\uB358

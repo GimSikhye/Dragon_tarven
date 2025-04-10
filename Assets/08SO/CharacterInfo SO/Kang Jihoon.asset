@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterName: "\uAC15\uC9C0\uD6C8"
   defaultSprite: {fileID: 21300000, guid: 51e9dfb6ef7c0e646b522853bc550fc4, type: 3}
-  smileSprite: {fileID: 0}
+  smileSprite: {fileID: 21300000, guid: ec46a4bf73b7c5c478a18307b3b96b9a, type: 3}
   disappointedSprite: {fileID: 0}

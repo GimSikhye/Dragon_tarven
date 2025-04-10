@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Yoo Nayeon
   m_EditorClassIdentifier: 
   characterName: "\uC720\uB098\uC5F0"
-  characterSprite: {fileID: 0}
+  defaultSprite: {fileID: -8493031413478825113, guid: a6b1cf361b0d06f42996f22689d756f5, type: 3}
+  smileSprite: {fileID: 0}
+  disappointedSprite: {fileID: 0}

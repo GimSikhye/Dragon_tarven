@@ -5,9 +5,6 @@ TextureImporter:
   - first:
       213: 2036654927038617829
     second: spr_UI_StorageBoxBtn_0
-  - first:
-      213: 1578133631528180073
-    second: spr_UI_StorageBoxBtn_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,7 +37,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -112,6 +109,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -119,10 +129,10 @@ TextureImporter:
       name: spr_UI_StorageBoxBtn_0
       rect:
         serializedVersion: 2
-        x: 7
-        y: 32
-        width: 77
-        height: 62
+        x: 0
+        y: 2
+        width: 32
+        height: 27
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -133,28 +143,6 @@ TextureImporter:
       bones: []
       spriteID: 5e89f209dd6a34c10800000000000000
       internalID: 2036654927038617829
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_UI_StorageBoxBtn_1
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 10
-        width: 53
-        height: 20
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 96995533d28a6e510800000000000000
-      internalID: 1578133631528180073
       vertices: []
       indices: 
       edges: []
@@ -174,7 +162,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       spr_UI_StorageBoxBtn_0: 2036654927038617829
-      spr_UI_StorageBoxBtn_1: 1578133631528180073
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
