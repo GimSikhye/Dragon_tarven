@@ -22,9 +22,11 @@ namespace DalbitCafe.Player
         private SpriteRenderer spriteRenderer;
         public SpriteRenderer SpriteRender { get { return spriteRenderer; } }
         private Animator animator;
-        private bool startedOverUI = false; // 터치 시작 시 UI 위 여부 기록
+        private bool startedOverUI = false;
         private Vector3 targetPosition;
         private bool isMoving = false;
+
+        private bool canControl = true; //  조작 가능 여부
 
         public Vector3 savedPosition;
 
@@ -50,14 +52,13 @@ namespace DalbitCafe.Player
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            // 다이얼로그 씬에서는 비활성화
             if (scene.name == "DialogueScene")
             {
-                this.enabled = false;
+                canControl = false; //  조작만 막음
             }
             else
             {
-                this.enabled = true;
+                canControl = true;  //  다시 조작 허용
             }
         }
 
@@ -75,8 +76,10 @@ namespace DalbitCafe.Player
                 Destroy(gameObject);
             }
         }
+
         private void Update()
         {
+            if (!canControl) return; // 조작 제한
             OnTouch();
         }
 
@@ -86,11 +89,11 @@ namespace DalbitCafe.Player
             {
                 Touch touch = Input.GetTouch(0);
 
-                // 터치 시작 시 UI 위인지 체크하고 기록
                 if (touch.phase == TouchPhase.Began)
                 {
                     startedOverUI = UIManager.Instance.IsTouchOverUI(touch);
                 }
+
                 if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
                 {
                     ShowTouchFeedback(touch.position);
@@ -99,21 +102,17 @@ namespace DalbitCafe.Player
                 {
                     TouchCoffeeMachine(touch);
 
-                    // 터치 종료 시, UI에서 시작하지 않은 경우에만 이동 처리
                     if (startedOverUI)
                     {
-                        startedOverUI = false; // 초기화
+                        startedOverUI = false;
                         return;
                     }
 
-                    {
-                        // 터치 포지션이 위치한 곳의 layer가 floor가 아니라면 return
-                        Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                        Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition);
+                    Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    Collider2D hitCollider = Physics2D.OverlapPoint(touchPosition);
 
-                        if (hitCollider == null || hitCollider.gameObject.layer != LayerMask.NameToLayer("Floor")) return;
-                    }
-                    // 이동 처리
+                    if (hitCollider == null || hitCollider.gameObject.layer != LayerMask.NameToLayer("Floor")) return;
+
                     OnMove(touch);
                 }
             }
@@ -121,26 +120,25 @@ namespace DalbitCafe.Player
 
         private void TouchCoffeeMachine(Touch touch)
         {
-            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane)); //터치한 지점
-            int coffeeMachineLayer = LayerMask.GetMask("CoffeeMachine"); // CoffeeMachine 레이어 가져오기
+            Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
+            int coffeeMachineLayer = LayerMask.GetMask("CoffeeMachine");
             Collider2D hitCollider = Physics2D.OverlapPoint(worldPosition, coffeeMachineLayer);
+
             if (hitCollider != null && hitCollider.transform.CompareTag("CoffeeMachine"))
             {
-                // 거리도 확인해서 가까울 경우만 팝업 표시
                 if (Vector3.Distance(transform.position, hitCollider.transform.position) < interactionRange)
                 {
                     CoffeeMachine.SetLastTouchedMachine(hitCollider.GetComponent<CoffeeMachine>());
-                    if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting == true)
+
+                    if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting)
                     {
                         UIManager.Instance.ShowCurrentMenuPopUp();
                         GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
                         currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(hitCollider.gameObject.GetComponent<CoffeeMachine>());
-
                     }
                     else
                     {
-                        UIManager.Instance.ShowMakeCoffeePopUp(); 
-                                                                  
+                        UIManager.Instance.ShowMakeCoffeePopUp();
                     }
                 }
                 else
@@ -154,13 +152,12 @@ namespace DalbitCafe.Player
         {
             Vector3 worldPosition = Camera.main.ScreenToWorldPoint(new Vector3(touch.position.x, touch.position.y, Camera.main.nearClipPlane));
             worldPosition.z = 0;
-            targetPosition = worldPosition; // 이동 목표 위치 저장
+            targetPosition = worldPosition;
 
-            if (!isMoving) // 이동 중이 아닐 때만 이동 시작
+            if (!isMoving)
             {
                 StartCoroutine(MoveToTarget());
             }
-
         }
 
         private IEnumerator MoveToTarget()
@@ -171,13 +168,13 @@ namespace DalbitCafe.Player
             while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
             {
                 Vector3 direction = (targetPosition - transform.position).normalized;
-                SetAnimation(direction); // 이동 방향 애니메이션 설정
+                SetAnimation(direction);
 
                 transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
                 yield return null;
             }
 
-            transform.position = targetPosition; // 정확한 위치 보정
+            transform.position = targetPosition;
             isMoving = false;
             animator.SetBool("isMoving", false);
 
@@ -186,27 +183,15 @@ namespace DalbitCafe.Player
 
         private void SetAnimation(Vector3 direction)
         {
-
-            // 이동 방향을 Normalize하여 MoveX, MoveY 값 설정
             Vector3 normalizedDirection = direction.normalized;
             animator.SetFloat("MoveX", normalizedDirection.x);
             animator.SetFloat("MoveY", normalizedDirection.y);
-
         }
-
 
         private void ShowTouchFeedback(Vector2 screenPosition)
         {
-            // UI 요소이므로 localPosition을 사용하여 캔버스 내에서 좌표 설정
             touch_feedback.rectTransform.position = screenPosition;
             touch_feedback.enabled = true;
         }
-
-
-
-
     }
-
-
 }
-
