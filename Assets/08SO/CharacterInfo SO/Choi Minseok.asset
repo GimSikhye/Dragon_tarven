@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Choi Minseok
   m_EditorClassIdentifier: 
   characterName: "\uCD5C\uBBFC\uC11D"
-  defaultSprite: {fileID: -4940880841727317810, guid: 19784c95846655d4eac0b79a43af7c93, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 19784c95846655d4eac0b79a43af7c93, type: 3}
   smileSprite: {fileID: 0}
   disappointedSprite: {fileID: 0}

@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Seo Harin
   m_EditorClassIdentifier: 
   characterName: "\uC11C\uD558\uB9B0"
-  defaultSprite: {fileID: -5382571637327994797, guid: 3c2e5f121e908fc49b07cc37adeaad10, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 3c2e5f121e908fc49b07cc37adeaad10, type: 3}
   smileSprite: {fileID: 0}
   disappointedSprite: {fileID: 0}
