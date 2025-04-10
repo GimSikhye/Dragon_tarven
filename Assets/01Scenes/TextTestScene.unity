@@ -235,7 +235,7 @@ MonoBehaviour:
   centerGroup: {fileID: 1176876170}
   rightGroup: {fileID: 2122056836}
   typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: 34f7f5aa72e59024cb193e30a2f34d01, type: 2}
+  dialogueData: {fileID: 11400000, guid: dcbf2dbece115f54d90091b5e1d65d13, type: 2}
 --- !u!4 &348450051
 Transform:
   m_ObjectHideFlags: 0

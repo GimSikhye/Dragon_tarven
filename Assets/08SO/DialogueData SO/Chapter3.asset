@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5567b85d78bee0459b5b89e85a8aebc, type: 3}
+  m_Name: Chapter3
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 0}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uCE74\uD398\uB294 \uC810\uC810 \uD65C\uAE30\uB97C \uB760\uC5C8\uB2E4.
+        \uC190\uB2D8\uB4E4\uB3C4 \uC810\uC810 \uB9D0\uC744 \uAC78\uC5C8\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 8118d72be1e00a34dac80782db6ad8ff, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uC694\uC998 \uC5BC\uAD74 \uBCF4\uAE30 \uCC38 \uC5B4\uB835\uB124. \uC560\uB4E4
+        \uC0AC\uC774\uC5D0 \uB108 \uD76C\uADC0\uD3EC\uCF13\uBAAC\uC774\uB77C\uB294
+        \uB9D0 \uB3C4\uB294\uAC70 \uC54C\uC9C0?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 3cbb27e9daf3fe847b247cb2d4184951, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts: []
+  - speaker: {fileID: 11400000, guid: 371093bda2cb08545885454509949f90, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uB10C \uC815\uB9D0 \uC774 \uAE38\uC774 \uB9DE\uB2E4\uACE0 \uC0DD\uAC01\uD574?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 371093bda2cb08545885454509949f90, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "...\uC544\uB2C8, \uCEE4\uD53C \uB9C8\uC2DC\uB7EC \uC640\uC11C \uC65C
+        \uC774\uB807\uAC8C \uC9C1\uC124\uC801\uC774\uC57C?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADFC\uB370 \uC774 \uB9D0\uB4E4\uC774 \uD558\uB098\uAC19\uC774 \uAC00\uC2B4\uC5D0
+        \uBC15\uD78C\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uC2DC\uD5D8 \uC900\uBE44\uD558\uBA74\uC11C \uD3EC\uAE30\uD588\uB358
+        \uAC83\uB4E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uB0B4 \uCDE8\uBBF8\uB4E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB9AC\uACE0 \uBA40\uC5B4\uC9C4 \uCE5C\uAD6C\uB4E4..."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "'\uD569\uACA9\uB9CC \uD558\uBA74 \uAD1C\uCC2E\uC544\uC9C8 \uAC70\uC57C'\uB77C\uACE0
+        \uC2A4\uC2A4\uB85C\uB97C \uC18D\uC600\uB358 \uC21C\uAC04\uB4E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+    - text: "\uADF8\uB9AC\uACE0 \uAC00\uC7A5 \uAE30\uC5B5\uC5D0 \uB0A8\uB294 \uD55C
+        \uB9C8\uB514."
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    expression: 0
+    isNarration: 0
+    dialogueTexts:
+    - text: "\uB10C \uC5B8\uC81C\uCBE4, \uB124 \uC790\uC2E0\uC744 \uC704\uD55C \uC2DC\uAC04\uC744
+        \uC4F8 \uAC70\uC57C?"
+      sfx: {fileID: 0}
+      image: {fileID: 0}
+  - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
+    expression: 0
+    isNarration: 1
+    dialogueTexts:
+    - text: "\uB098\uB294 \uADF8 \uC9C8\uBB38\uC5D0 \uB300\uB2F5\uD560 \uC218 \uC5C6\uC5C8\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: 0}

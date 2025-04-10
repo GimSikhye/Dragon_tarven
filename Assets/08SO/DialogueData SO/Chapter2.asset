@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5567b85d78bee0459b5b89e85a8aebc, type: 3}
-  m_Name: Stroy2
+  m_Name: Chapter2
   m_EditorClassIdentifier: 
   lines:
   - speaker: {fileID: 0}
@@ -25,8 +25,8 @@ MonoBehaviour:
       sfx: {fileID: 0}
       image: {fileID: 0}
     - text: "\uBA70\uCE60\uB3D9\uC548 \uC6B4\uC601\uD558\uBA70 \uB290\uB080 \uC810\uC740,
-        \uC774 \uCE74\uD398\uB294 \uBC24\uC5D0\uB9CC \uC6B4\uC601\uD558\uB294 \uAC83\u3131
-        \u314F\u314C\uB2E4."
+        \uC774 \uCE74\uD398\uB294 \uBC24\uC5D0\uB9CC \uC6B4\uC601\uD558\uB294 \uAC83
+        \uAC19\uB2E4."
       sfx: {fileID: 0}
       image: {fileID: 0}
     - text: "\uC190\uB2D8\uB4E4\uC740 \uB300\uCCB4 \uC5B4\uB514\uC11C \uCC3E\uC544\uC624\uB294
@@ -50,7 +50,7 @@ MonoBehaviour:
         \uC790\uAE30\uAC00 \uD558\uACE0 \uC2F6\uC740 \uB9D0\uB9CC \uD558\uACE0 \uB3D9\uBB38\uC11C\uB2F5\uC774\uB2E4."
       sfx: {fileID: 0}
       image: {fileID: 0}
-    - text: "\uC544\uB9C8 \uB2F5\uC774 \uC5BB\uAE34 \uD798\uB4E4 \uAC83\uC774\uB2E4..."
+    - text: "\uC544\uB9C8 \uB2F5\uC744 \uC5BB\uAE34 \uD798\uB4E4 \uAC83\uC774\uB2E4..."
       sfx: {fileID: 0}
       image: {fileID: 0}
     - text: "\uC774\uC0C1\uD55C \uAC74, \uB2E4\uB4E4 \uCC98\uC74C \uBCF4\uB294 \uC0AC\uB78C\uB4E4\uC778\uB370
@@ -96,7 +96,7 @@ MonoBehaviour:
       image: {fileID: 0}
   - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
     expression: 0
-    isNarration: 0
+    isNarration: 1
     dialogueTexts:
     - text: ...!
       sfx: {fileID: 0}
