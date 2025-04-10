@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: b4811bb4f88aa14418a44c316ec8d1da
+guid: 1115ca6a15687ef4a927ab12bc4425f7
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5998816678195272434
-    second: spr_mailbox_0
+      213: 5601504758595467014
+    second: spr_gameMachine_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_mailbox_0
+      name: spr_gameMachine_0
       rect:
         serializedVersion: 2
         x: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e056b77a30cefbca0800000000000000
-      internalID: -5998816678195272434
+      spriteID: 6073ebf56ea8cbd40800000000000000
+      internalID: 5601504758595467014
       vertices: []
       indices: 
       edges: []
@@ -160,8 +160,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      spr_mailbox_0: -5998816678195272434
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
