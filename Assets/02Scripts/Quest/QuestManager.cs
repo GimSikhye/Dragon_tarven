@@ -11,6 +11,8 @@ public class QuestManager : MonoBehaviour
     public List<QuestData> activeQuests = new(); // 현재 진행중인 퀘스트 목록
 
     public QuestData quest1;
+    public DialogueManager dialougManager;
+    public DialogueData storyDialogueSO;
 
     private void Awake()
     {

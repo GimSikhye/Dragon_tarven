@@ -2,18 +2,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-// 기능 추가+ 오토모드 / 로그 기능
+using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+
 public class DialogueManager : MonoBehaviour
 {
     [Header("UI Components")]
+    [FormerlySerializedAs("nameText")]
     public TextMeshProUGUI nameText;
+    [FormerlySerializedAs("dialogueText")]
     public TextMeshProUGUI dialogueText;
-    public GameObject nameArea; // 이름 출력 영역
+    [FormerlySerializedAs("nameArea")]
+    public GameObject nameArea;
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
-    public Image eventImage; // 이벤트 이미지 띄우기 용
-    public AudioSource audioSource; // 효과음 재생용
 
     public CanvasGroup leftGroup;
     public CanvasGroup centerGroup;
@@ -32,6 +35,13 @@ public class DialogueManager : MonoBehaviour
     private CharacterInfo currentSpeaker;
     private CharacterExpression currentSpeakerExpression = CharacterExpression.Default;
 
+    public GameObject imageEffectObject;
+    public Image effectImage;
+    public AudioSource sfxSource;
+
+    [FormerlySerializedAs("isStoryDialogue")]
+    public bool isStoryDialogue = false;
+
     void Start()
     {
         StartDialogue();
@@ -46,22 +56,22 @@ public class DialogueManager : MonoBehaviour
 
     public void OnClickNext()
     {
-        DialogueLine line = dialogueData.lines[currentLine];
-        DialogueEvent currentEvent = line.dialogueTexts[currentTextIndex];
+        Debug.Log("버튼 클릭");
 
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
-            dialogueText.text = currentEvent.text; // 문자열로 출력
+            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex].text;
             typingCoroutine = null;
             return;
         }
 
         currentTextIndex++;
+        DialogueLine line = dialogueData.lines[currentLine];
 
         if (currentTextIndex < line.dialogueTexts.Length)
         {
-            ShowLine(); // 다음 문장
+            ShowLine();
         }
         else
         {
@@ -89,35 +99,33 @@ public class DialogueManager : MonoBehaviour
     void ShowLine()
     {
         DialogueLine line = dialogueData.lines[currentLine];
-        DialogueEvent currentEvent = line.dialogueTexts[currentTextIndex];
 
         nameArea.SetActive(!line.isNarration);
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
-        // 이미지 처리
-        if (eventImage != null)
-        {
-            eventImage.sprite = currentEvent.image;
-            eventImage.gameObject.SetActive(currentEvent.image != null);
-        }
-
-        // 효과음 처리
-        if (audioSource != null)
-        {
-            if (currentEvent.sfx != null)
-            {
-                audioSource.PlayOneShot(currentEvent.sfx);
-            }
-        }
-
         UpdateCharacters(line);
-        typingCoroutine = StartCoroutine(TypeText(currentEvent.text));
+        typingCoroutine = StartCoroutine(TypeText(line.dialogueTexts[currentTextIndex].text));
 
         if (!line.isNarration)
         {
             currentSpeaker = line.speaker;
             currentSpeakerExpression = line.expression;
+        }
+
+        if (line.dialogueTexts[currentTextIndex].sfx != null)
+        {
+            sfxSource.PlayOneShot(line.dialogueTexts[currentTextIndex].sfx);
+        }
+
+        if (line.dialogueTexts[currentTextIndex].image != null)
+        {
+            effectImage.sprite = line.dialogueTexts[currentTextIndex].image;
+            imageEffectObject.SetActive(true);
+        }
+        else
+        {
+            imageEffectObject.SetActive(false);
         }
     }
 
@@ -175,6 +183,16 @@ public class DialogueManager : MonoBehaviour
         SetCharacter(centerCharacterImage, centerGroup, null, 0f);
         SetCharacter(rightCharacterImage, rightGroup, null, 0f);
 
-        gameObject.SetActive(false);
+        imageEffectObject.SetActive(false);
+
+        if (isStoryDialogue)
+        {
+            // 게임 씬으로 복귀 처리
+            SceneManager.LoadScene("GameScene");
+        }
+        else
+        {
+            gameObject.SetActive(false);
+        }
     }
 }
