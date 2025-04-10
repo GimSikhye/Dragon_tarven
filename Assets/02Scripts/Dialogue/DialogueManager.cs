@@ -65,8 +65,6 @@ public class DialogueManager : MonoBehaviour
 
     public void OnClickNext()
     {
-        Debug.Log("버튼 클릭");
-
         if (typingCoroutine != null)
         {
             StopCoroutine(typingCoroutine);
@@ -153,11 +151,11 @@ public class DialogueManager : MonoBehaviour
         if (line.dialogueTexts[currentTextIndex].image != null)
         {
             effectImage.sprite = line.dialogueTexts[currentTextIndex].image;
-            imageEffectObject.SetActive(true);
+            //imageEffectObject?.SetActive(true);
         }
         else
         {
-            imageEffectObject.SetActive(false);
+            //imageEffectObject?.SetActive(false);
         }
     }
 
@@ -214,8 +212,8 @@ public class DialogueManager : MonoBehaviour
         SetCharacter(centerCharacterImage, centerGroup, null, 0f);
         SetCharacter(rightCharacterImage, rightGroup, null, 0f);
 
-        imageEffectObject.SetActive(false);
-
         SceneManager.LoadScene("GameScene");
+
+        //imageEffectObject?.SetActive(false);
     }
 }

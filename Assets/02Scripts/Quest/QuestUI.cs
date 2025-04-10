@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class QuestUI : MonoBehaviour
@@ -35,6 +36,7 @@ public class QuestUI : MonoBehaviour
         {
             QuestManager.Instance.CompleteQuest(currentQuest);
             completePopup.SetActive(false);
+            SceneManager.LoadScene("DialogueScene");
         });
     }
 

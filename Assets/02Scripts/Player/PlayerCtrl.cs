@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using DalbitCafe.UI;
 using DalbitCafe.Operations;
+using UnityEngine.SceneManagement;
+
 namespace DalbitCafe.Player
 {
     public class PlayerCtrl : MonoBehaviour
@@ -23,6 +25,41 @@ namespace DalbitCafe.Player
         private bool startedOverUI = false; // 터치 시작 시 UI 위 여부 기록
         private Vector3 targetPosition;
         private bool isMoving = false;
+
+        public Vector3 savedPosition;
+
+        public void SavePosition()
+        {
+            savedPosition = transform.position;
+        }
+
+        public void RestorePosition()
+        {
+            transform.position = savedPosition;
+        }
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
+
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        {
+            // 다이얼로그 씬에서는 비활성화
+            if (scene.name == "DialogueScene")
+            {
+                this.enabled = false;
+            }
+            else
+            {
+                this.enabled = true;
+            }
+        }
 
         private void Awake()
         {

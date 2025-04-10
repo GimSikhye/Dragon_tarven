@@ -44,7 +44,7 @@ namespace DalbitCafe.Core
             UIManager.Instance.UpdateGemUI(playerStats.gem);
 
         }
-
+        
 
         void Update()
         {
