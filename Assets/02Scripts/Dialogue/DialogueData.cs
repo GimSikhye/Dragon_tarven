@@ -13,7 +13,6 @@ public class DialogueLine // 각 대사 라인 데이터
 {
     public CharacterInfo speaker;
     public CharacterExpression expression = CharacterExpression.Default;
-    [TextArea]
     public bool isNarration; // 나레이션 여부 (true이면 캐릭터 이름 및 이미지 숨김)
     public DialogueEvent[] dialogueTexts; // 한 캐릭터가 여러 문장
 
