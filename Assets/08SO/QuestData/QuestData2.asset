@@ -24,4 +24,6 @@ MonoBehaviour:
   rewardGold: 1000
   rewardExp: 200
   isCompleted: 0
-  nextQuest: {fileID: 0}
+  isStoryQuest: 1
+  storyDialogue: {fileID: 11400000, guid: dcbf2dbece115f54d90091b5e1d65d13, type: 2}
+  nextQuest: {fileID: 11400000, guid: d4b36176d9e7ef84f82fabfae5f29339, type: 2}

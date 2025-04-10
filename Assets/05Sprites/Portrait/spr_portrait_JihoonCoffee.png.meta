@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 3c2e5f121e908fc49b07cc37adeaad10
+guid: ec46a4bf73b7c5c478a18307b3b96b9a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5382571637327994797
-    second: spr_portrait_harin_0
+      213: -4298398140896267278
+    second: spr_portrait_jihoonCoffee_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -139,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_harin_0
+      name: spr_portrait_jihoonCoffee_0
       rect:
         serializedVersion: 2
-        x: 239
+        x: 288
         y: 0
-        width: 1079
-        height: 1934
+        width: 910
+        height: 1846
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 350e8fa2d934d45b0800000000000000
-      internalID: -5382571637327994797
+      spriteID: 2f3bdac2aa50954c0800000000000000
+      internalID: -4298398140896267278
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_harin_0: -5382571637327994797
+      spr_portrait_jihoonCoffee_0: -4298398140896267278
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

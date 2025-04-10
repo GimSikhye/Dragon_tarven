@@ -15,5 +15,9 @@ public class QuestData : ScriptableObject
 
     public bool isCompleted;
 
+    // 스토리 퀘스트 여부 및 연결된 대사
+    public bool isStoryQuest;
+    public DialogueData storyDialogue;
+
     public QuestData nextQuest; // 연계 퀘스트
 }

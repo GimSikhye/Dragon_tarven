@@ -45,7 +45,7 @@ MonoBehaviour:
     - text: "\uADF8\uB9AC\uACE0... \uB204\uAD70\uAC00 \uB0B4\uAC8C \uD588\uB358 \uB9D0."
       sfx: {fileID: 0}
       image: {fileID: 0}
-  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+  - speaker: {fileID: 11400000, guid: 90e14dd5fd4fd98468984c7dac275956, type: 2}
     expression: 0
     isNarration: 0
     dialogueTexts:

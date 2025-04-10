@@ -7,6 +7,8 @@ using UnityEngine.Serialization;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager Instance;
+
     [Header("UI Components")]
     [FormerlySerializedAs("nameText")]
     public TextMeshProUGUI nameText;
@@ -42,9 +44,10 @@ public class DialogueManager : MonoBehaviour
     [FormerlySerializedAs("isStoryDialogue")]
     public bool isStoryDialogue = false;
 
-    void Start()
+    private void Awake()
     {
-        StartDialogue();
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
     }
 
     public void StartDialogue()
@@ -52,6 +55,12 @@ public class DialogueManager : MonoBehaviour
         currentLine = 0;
         currentTextIndex = 0;
         ShowLine();
+    }
+
+    public void LoadDialogue(DialogueData newDialogue)
+    {
+        dialogueData = newDialogue;
+        gameObject.SetActive(true);
     }
 
     public void OnClickNext()
@@ -67,22 +76,31 @@ public class DialogueManager : MonoBehaviour
         }
 
         currentTextIndex++;
+
+        // 텍스트 인덱스가 범위를 벗어나면 다음 라인으로
+        if (currentLine >= dialogueData.lines.Length)
+        {
+            EndDialogue();
+            return;
+        }
+
         DialogueLine line = dialogueData.lines[currentLine];
 
-        if (currentTextIndex < line.dialogueTexts.Length)
-        {
-            ShowLine();
-        }
-        else
+        if (currentTextIndex >= line.dialogueTexts.Length)
         {
             currentLine++;
             currentTextIndex = 0;
 
-            if (currentLine < dialogueData.lines.Length)
-                ShowLine();
-            else
+            if (currentLine >= dialogueData.lines.Length)
+            {
                 EndDialogue();
+                return;
+            }
+
+            line = dialogueData.lines[currentLine];
         }
+
+        ShowLine();
     }
 
     public void OnClickSkip()
@@ -98,7 +116,21 @@ public class DialogueManager : MonoBehaviour
 
     void ShowLine()
     {
+        if (dialogueData == null || dialogueData.lines == null || currentLine >= dialogueData.lines.Length)
+        {
+            Debug.LogError("잘못된 대화 데이터입니다.");
+            EndDialogue();
+            return;
+        }
+
         DialogueLine line = dialogueData.lines[currentLine];
+
+        if (currentTextIndex >= line.dialogueTexts.Length)
+        {
+            Debug.LogError("대화 텍스트 인덱스 범위를 초과했습니다.");
+            EndDialogue();
+            return;
+        }
 
         nameArea.SetActive(!line.isNarration);
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
@@ -137,7 +169,6 @@ public class DialogueManager : MonoBehaviour
             dialogueText.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
-
         typingCoroutine = null;
     }
 
@@ -185,14 +216,6 @@ public class DialogueManager : MonoBehaviour
 
         imageEffectObject.SetActive(false);
 
-        if (isStoryDialogue)
-        {
-            // 게임 씬으로 복귀 처리
-            SceneManager.LoadScene("GameScene");
-        }
-        else
-        {
-            gameObject.SetActive(false);
-        }
+        SceneManager.LoadScene("GameScene");
     }
 }

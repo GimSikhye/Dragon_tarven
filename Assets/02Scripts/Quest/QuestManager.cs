@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // 판매/배치 등 조건 체크용 이벤트 수신
 public class QuestManager : MonoBehaviour
@@ -12,7 +13,6 @@ public class QuestManager : MonoBehaviour
 
     public QuestData quest1;
     public DialogueManager dialougManager;
-    public DialogueData storyDialogueSO;
 
     private void Awake()
     {
@@ -83,7 +83,15 @@ public class QuestManager : MonoBehaviour
             {
                 quest.isCompleted = true;
                 QuestUI.Instance.ShowQuestComplete(quest);
+
+                // QuestManager 등에서 퀘스트 완료 처리 시
+                if (quest.isStoryQuest && quest.storyDialogue != null)
+                {
+                    PlayerPrefs.SetString("NextDialogue", quest.storyDialogue.name); // Dialogue 이름 저장
+                    SceneManager.LoadScene("DialogueScene");
+                }
             }
+
 
             // 현재 보고 있는 퀘스트와 같으면 자동 갱신
             if (QuestUI.Instance != null && QuestUI.Instance.IsShowingQuest(quest))

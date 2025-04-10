@@ -39,9 +39,26 @@ namespace DalbitCafe.UI
             // 현재 클릭한 버튼 가져오기
             GameObject currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
 
+
             if (currentButton != null)
             {
-                currentButton.transform.DOScale(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() => SceneManager.LoadScene(sceneName));
+
+                if (!PlayerPrefs.HasKey("HasSeenPrologue"))
+                {
+                    // 프로로그 한 번도 안 봤다면
+                    currentButton.transform.DOScale(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() =>
+                    {
+                        PlayerPrefs.SetString("NextDialogue", "Prologue");
+                        PlayerPrefs.SetInt("HasSeenPrologue", 1);
+                        SceneManager.LoadScene("DialogueScene");
+                    });
+
+                }
+                else
+                {
+                    // 이미 봤다면 바로 GameScene으로
+                    currentButton.transform.DOScale(1.2f, 0.2f).SetLoops(2, LoopType.Yoyo).OnComplete(() => SceneManager.LoadScene(sceneName));
+                }
             }
         }
 

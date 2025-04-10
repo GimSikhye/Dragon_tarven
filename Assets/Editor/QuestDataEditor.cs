@@ -16,6 +16,7 @@ public class QuestDataEditor : Editor
         quest.description = EditorGUILayout.TextField("퀘스트 설명", quest.description);
 
         quest.questType = (QuestType)EditorGUILayout.EnumPopup("퀘스트 타입", quest.questType);
+        quest.isStoryQuest = EditorGUILayout.Toggle("스토리 퀘스트 여부", quest.isStoryQuest);
 
         EditorGUILayout.Space();
         EditorGUILayout.LabelField("퀘스트 조건 목록", EditorStyles.boldLabel);
@@ -76,6 +77,14 @@ public class QuestDataEditor : Editor
         quest.rewardExp = EditorGUILayout.IntField("퀘스트 보상 경험치", quest.rewardExp);
         quest.nextQuest = (QuestData)EditorGUILayout.ObjectField("다음 퀘스트", quest.nextQuest, typeof(QuestData), false);
         quest.isCompleted = EditorGUILayout.Toggle("완료됨", quest.isCompleted);
+
+        EditorGUILayout.Space();
+        quest.isStoryQuest = EditorGUILayout.Toggle("스토리 퀘스트인가요?", quest.isStoryQuest);
+
+        if (quest.isStoryQuest)
+        {
+            quest.storyDialogue = (DialogueData)EditorGUILayout.ObjectField("Dialogue Data", quest.storyDialogue, typeof(DialogueData), false);
+        }
 
         if (GUI.changed)
         {

@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -233,7 +233,7 @@ MonoBehaviour:
   centerGroup: {fileID: 1176876170}
   rightGroup: {fileID: 2122056836}
   typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: 19f3247578d40454580405f2e5bdd563, type: 2}
+  dialogueData: {fileID: 11400000, guid: e0563f7281298fc4a889cc4ec579284f, type: 2}
   imageEffectObject: {fileID: 0}
   effectImage: {fileID: 53503322}
   sfxSource: {fileID: 1838131660}
@@ -1196,8 +1196,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 76, y: 96}
-  m_SizeDelta: {x: 500, y: 650}
+  m_AnchoredPosition: {x: 17.5116, y: -84.3528}
+  m_SizeDelta: {x: 535.2341, y: 867.2944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1176876168
 MonoBehaviour:
@@ -1913,8 +1913,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 238, y: 96}
-  m_SizeDelta: {x: 500, y: 650}
+  m_AnchoredPosition: {x: 56.908936, y: -84.35279}
+  m_SizeDelta: {x: 535.2341, y: 867.2944}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1893096230
 MonoBehaviour:
@@ -2001,8 +2001,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 656, y: 96}
-  m_SizeDelta: {x: 500, y: 650}
+  m_AnchoredPosition: {x: 638.383, y: -84.35279}
+  m_SizeDelta: {x: 535.2341, y: 867.2944}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2122056834
 MonoBehaviour:
