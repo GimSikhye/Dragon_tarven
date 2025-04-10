@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ecc79eb08ad395b43bd895090bdd0e4c
+guid: a1891b66d826a344b856536a076e73b2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5818962666566430916
-    second: spr_portrait_jihoonAdult_0
+      213: -6596220319111162438
+    second: spr_Machine_Showcase_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_jihoonAdult_0
+      name: spr_Machine_Showcase_0
       rect:
         serializedVersion: 2
-        x: 327
-        y: 0
-        width: 885
-        height: 1905
+        x: 3
+        y: 1
+        width: 58
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3f4c02f844ee3fa0800000000000000
-      internalID: -5818962666566430916
+      spriteID: ab55a2b61948574a0800000000000000
+      internalID: -6596220319111162438
       vertices: []
       indices: 
       edges: []
