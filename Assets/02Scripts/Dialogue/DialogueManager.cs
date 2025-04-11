@@ -50,6 +50,27 @@ public class DialogueManager : MonoBehaviour
         else Destroy(gameObject);
     }
 
+    private void Start()
+    {
+        string nextDialogueName = PlayerPrefs.GetString("NextDialogue", "");
+
+        if (!string.IsNullOrEmpty(nextDialogueName))
+        {
+            DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
+            if (data != null)
+            {
+                LoadDialogue(data);
+            }
+            else
+            {
+                Debug.LogWarning("해당 이름의 DialogueData를 찾을 수 없습니다: " + nextDialogueName);
+            }
+
+            // 한번 로드하고 나면 재진입 시 대화가 또 실행되지 않도록 삭제
+            PlayerPrefs.DeleteKey("NextDialogue");
+        }
+    }
+
     public void StartDialogue()
     {
         currentLine = 0;
@@ -61,7 +82,10 @@ public class DialogueManager : MonoBehaviour
     {
         dialogueData = newDialogue;
         gameObject.SetActive(true);
+
+        StartDialogue(); // 첫 문장 자동 실행
     }
+
 
     public void OnClickNext()
     {
