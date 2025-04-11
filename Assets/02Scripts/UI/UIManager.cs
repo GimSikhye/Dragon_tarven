@@ -34,6 +34,24 @@ namespace DalbitCafe.UI
         private int _currentCoin;
         private int _currentGem;
 
+        public Slider expSlider;
+        public TextMeshProUGUI levelText;
+
+        public void UpdateExpUI(int exp, int maxExp, int level)
+        {
+            if (expSlider != null)
+            {
+                expSlider.maxValue = maxExp;
+                expSlider.value = exp;
+            }
+
+            if (levelText != null)
+            {
+                levelText.text = $"Lv {level}";
+            }
+        }
+
+
         // 원두 개수 값이 바뀔때 갱신해주기.
         private void Awake()
         {
@@ -124,6 +142,8 @@ namespace DalbitCafe.UI
 
 
         }
+
+
 
         public void ShowExitPopUp(string window)
         {

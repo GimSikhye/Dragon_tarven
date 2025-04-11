@@ -1,5 +1,4 @@
 using DalbitCafe.UI;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "PlayerStats", menuName = "SO/PlayerStats")]
@@ -9,19 +8,14 @@ public class PlayerStats : ScriptableObject
     public int coin = 0;
     public int gem = 0;
     public int exp = 0;
-
-
-    public int defaultGold = 1500;
-    public int defaultGem = 0;
-    public int defaultCoffeeBeans = 200;
-    public int defaultExp = 0;
+    public int level = 1;
+    public int maxExp = 100;
 
     public void AddCoin(int amount)
     {
         coin += amount;
         PlayerPrefs.SetInt("Coin", coin);
         UIManager.Instance.UpdateCoinUI(coin);
-
     }
 
     public void AddGem(int amount)
@@ -29,7 +23,6 @@ public class PlayerStats : ScriptableObject
         gem += amount;
         PlayerPrefs.SetInt("Gem", gem);
         UIManager.Instance.UpdateGemUI(gem);
-
     }
 
     public void AddCoffeeBean(int amount)
@@ -42,8 +35,23 @@ public class PlayerStats : ScriptableObject
     public void AddExp(int amount)
     {
         exp += amount;
-        PlayerPrefs.SetInt("Exp", exp);
 
+        while (exp >= maxExp)
+        {
+            exp -= maxExp;
+            level++;
+            maxExp = CalculateMaxExp(level);
+        }
+
+        PlayerPrefs.SetInt("Exp", exp);
+        PlayerPrefs.SetInt("Level", level);
+
+        UIManager.Instance.UpdateExpUI(exp, maxExp, level);
+    }
+
+    private int CalculateMaxExp(int currentLevel)
+    {
+        return 100 + (currentLevel - 1) * 20; // 간단한 경험치 곡선
     }
 
     public void LoadFromPrefs()
@@ -52,11 +60,12 @@ public class PlayerStats : ScriptableObject
         coin = PlayerPrefs.GetInt("Coin", 1000);
         gem = PlayerPrefs.GetInt("Gem", 0);
         exp = PlayerPrefs.GetInt("Exp", 0);
+        level = PlayerPrefs.GetInt("Level", 1);
+        maxExp = CalculateMaxExp(level);
 
-        UIManager.Instance.UpdateCoffeeBeanUI(coin);
-        UIManager.Instance.UpdateCoffeeBeanUI(gem);
+        UIManager.Instance.UpdateCoinUI(coin);
+        UIManager.Instance.UpdateGemUI(gem);
         UIManager.Instance.UpdateCoffeeBeanUI(coffeeBean);
-
-
+        UIManager.Instance.UpdateExpUI(exp, maxExp, level);
     }
 }
