@@ -88,7 +88,6 @@ public class QuestManager : MonoBehaviour
                 if (quest.isStoryQuest && quest.storyDialogue != null)
                 {
                     PlayerPrefs.SetString("NextDialogue", quest.storyDialogue.name); // Dialogue 이름 저장
-                    //SceneManager.LoadScene("DialogueScene");
                 }
             }
 
