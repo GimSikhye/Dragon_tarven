@@ -1,19 +1,21 @@
 using UnityEngine;
-using UnityEngine.AI;  // NavMeshAgent를 사용하기 위해 추가
+using UnityEngine.AI;
 using DalbitCafe.Operations;
 using System.Collections.Generic;
-using UnityEngine.UI;
 
 namespace DalbitCafe.Customer
 {
     public class Customer : MonoBehaviour
     {
+        [Header("파티클 관련")]
         [SerializeField] private ParticleSystem coinParticlePrefab;
+        [SerializeField] private int particlePoolSize = 5;
+        private Queue<ParticleSystem> coinParticlePool = new Queue<ParticleSystem>();
 
         [Header("길 찾기")]
-        private NavMeshAgent _agent; // NavMeshAgent로 대체
-        private Vector3 _targetDestination;  // 목적지 저장 변수
-        private Transform _cashDesk; // 이동할 목표 지점
+        private NavMeshAgent _agent;
+        private Vector3 _targetDestination;
+        private Transform _cashDesk;
         private Transform _outside;
         private CustomerPool _customerPool;
 
@@ -22,23 +24,40 @@ namespace DalbitCafe.Customer
         [SerializeField] private SpriteRenderer _orderMenuSpriteRenderer;
         [SerializeField] private Sprite _angrySprite;
 
-        private CoffeeData _randomCoffee; // 주문한 커피 저장
-        private CoffeeMachine _orderedMachine; // 주문한 커피머신 저장
-        [SerializeField] private bool _isOrdering = false; // 현재 주문중인지
-        private Animator _animator; 
+        private CoffeeData _randomCoffee;
+        private CoffeeMachine _orderedMachine;
+        [SerializeField] private bool _isOrdering = false;
+        private Animator _animator;
+
+        // Animator 파라미터 해시
+        private static readonly int MoveXHash = Animator.StringToHash("MoveX");
+        private static readonly int MoveYHash = Animator.StringToHash("MoveY");
+        private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
 
         private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>(); 
+            _agent = GetComponent<NavMeshAgent>();
             _customerPool = FindAnyObjectByType<CustomerPool>();
-            // NavMesh 2d에서는 회전을 막아야 제대로 동작함
+
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
-            _cashDesk = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
+            _cashDesk = GameObject.Find("Cashdesk")?.transform;
             _outside = GameObject.Find("Outside")?.transform;
 
             _animator = GetComponent<Animator>();
+
+            InitializeParticlePool();
+        }
+
+        private void InitializeParticlePool()
+        {
+            for (int i = 0; i < particlePoolSize; i++)
+            {
+                ParticleSystem ps = Instantiate(coinParticlePrefab);
+                ps.gameObject.SetActive(false);
+                coinParticlePool.Enqueue(ps);
+            }
         }
 
         private void OnEnable()
@@ -49,7 +68,7 @@ namespace DalbitCafe.Customer
 
         public void MoveTo(Transform destination)
         {
-            _targetDestination = destination.position; // 목적지 저장
+            _targetDestination = destination.position;
             _agent.SetDestination(_targetDestination);
         }
 
@@ -60,114 +79,105 @@ namespace DalbitCafe.Customer
 
         private void Update()
         {
-            // 이동 방향을 기반으로 애니메이션 방향 업데이트
-            Vector3 velocity = _agent.velocity;
+            float remaining = _agent.remainingDistance;
 
-            if (velocity.magnitude > 0.1f)
+            bool isMoving = !_agent.pathPending && remaining > _agent.stoppingDistance;
+
+            _animator.SetBool(IsMovingHash, isMoving);
+
+            if (isMoving)
             {
-                // 속도 방향을 정규화
-                Vector3 direction = velocity.normalized;
+                Vector3 direction = _agent.desiredVelocity.normalized;
+                _animator.SetFloat(MoveXHash, direction.x);
+                _animator.SetFloat(MoveYHash, direction.y);
+            }
 
-                _animator.SetFloat("MoveX", direction.x);
-                _animator.SetFloat("MoveY", direction.y);
-                _animator.SetBool("isMoving", true);
+            if (!_agent.pathPending && remaining <= _agent.stoppingDistance)
+            {
+                if (_targetDestination == _cashDesk.position)
+                    StartOrdering();
+                else if (_targetDestination == _outside.position)
+                    ReturnToPool();
+            }
+        }
+
+        private void StartOrdering()
+        {
+            _isOrdering = true;
+            _agent.isStopped = true;
+
+            CoffeeMachine[] machines = FindObjectsOfType<CoffeeMachine>();
+            List<CoffeeMachine> roastingMachines = new List<CoffeeMachine>();
+
+            foreach (var machine in machines)
+            {
+                if (machine.CurrentCoffee != null && machine.RemainingMugs > 0)
+                    roastingMachines.Add(machine);
+            }
+
+            _speechBalloon.SetActive(true);
+
+            if (roastingMachines.Count > 0)
+            {
+                _orderedMachine = roastingMachines[Random.Range(0, roastingMachines.Count)];
+                _randomCoffee = _orderedMachine.CurrentCoffee;
+                _orderMenuSpriteRenderer.sprite = _randomCoffee.MenuIcon;
             }
             else
             {
-                _animator.SetBool("isMoving", false);
-            }
-
-            // 목적지 도착 체크
-            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
-            {
-                if (_targetDestination == _cashDesk.position)
-                {
-                    StartOrdering();
-                }
-                else if (_targetDestination == _outside.position)
-                {
-                    _speechBalloon.SetActive(false);
-                    _customerPool.ReturnCustomer(this.gameObject);
-                }
+                _orderMenuSpriteRenderer.sprite = _angrySprite;
+                LeaveStore();
             }
         }
 
-        // 주문을 시작하는 함수
-        void StartOrdering()
-        {
-            _isOrdering = true;
-            _agent.isStopped = true; // 이동 중지
-
-            // 모든 커피머신에서 랜덤한 커피 선택
-            CoffeeMachine[] machines = FindObjectsOfType<CoffeeMachine>();
-            if (machines.Length > 0)
-            {
-                List<CoffeeMachine> roastingMachines = new List<CoffeeMachine>();
-                foreach (var machine in machines)
-                {
-                    if (machine.CurrentCoffee != null && machine.RemainingMugs > 0) // 로스팅 중인 머신들만 리스트에 추가  
-                    {
-                        roastingMachines.Add(machine);
-                    }
-                }
-
-                if (roastingMachines.Count > 0) // 로스팅 중인 머신들이 한 대 이상이라면
-                {
-                    _orderedMachine = roastingMachines[Random.Range(0, roastingMachines.Count)];
-                    _randomCoffee = _orderedMachine.CurrentCoffee;
-                    _speechBalloon.SetActive(true);
-                    _orderMenuSpriteRenderer.sprite = _randomCoffee.MenuIcon;
-                }
-                else // 로스팅 중인 머신이 없다면
-                {
-                    _speechBalloon.SetActive(true);
-                    _orderMenuSpriteRenderer.sprite = _angrySprite;
-
-                    LeaveStore();
-                }
-            }
-        }
-
-        // 손님을 터치하면 주문이 완료되고 이동을 재개함
         private void OnMouseDown()
         {
             if (_isOrdering)
-            {
                 FinishOrder();
-            }
         }
 
-        void FinishOrder()
+        private void FinishOrder()
         {
-            if (_randomCoffee != null)
+            if (_randomCoffee != null && _orderedMachine != null)
             {
-                if (_orderedMachine != null)
-                {
-                    _orderedMachine.SellCoffee(); // 커피머신의 잔 수 감소
-                    PlayCoinEffect();
-                    _speechBalloon.SetActive(false);
-                    LeaveStore();
-
-                }
+                _orderedMachine.SellCoffee();
+                PlayCoinEffect();
+                _speechBalloon.SetActive(false);
+                LeaveStore();
             }
-
-
         }
 
-        void LeaveStore()
+        private void LeaveStore()
         {
-            _agent.isStopped = false; // 이동 재개
+            _agent.isStopped = false;
             _isOrdering = false;
-            //_speechBalloon.SetActive(false);
             MoveTo(_outside);
+        }
 
+        private void ReturnToPool()
+        {
+            _speechBalloon.SetActive(false);
+            _customerPool.ReturnCustomer(this.gameObject);
         }
 
         public void PlayCoinEffect()
         {
-            ParticleSystem ps = Instantiate(coinParticlePrefab, transform.position, Quaternion.identity);
-            ps.Play();
-            Destroy(ps.gameObject, 2f); // 파티클 다 끝나면 제거
+            if (coinParticlePool.Count > 0)
+            {
+                ParticleSystem ps = coinParticlePool.Dequeue();
+                ps.transform.position = transform.position;
+                ps.gameObject.SetActive(true);
+                ps.Play();
+                StartCoroutine(ReturnParticleToPool(ps, 2f));
+            }
+        }
+
+        private System.Collections.IEnumerator ReturnParticleToPool(ParticleSystem ps, float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            ps.Stop();
+            ps.gameObject.SetActive(false);
+            coinParticlePool.Enqueue(ps);
         }
     }
 }

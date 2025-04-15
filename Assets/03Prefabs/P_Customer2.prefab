@@ -215,6 +215,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinParticlePrefab: {fileID: 5750245716024373384, guid: 898629369b18cd544b559ed74d1735b3, type: 3}
+  particlePoolSize: 1
   _speechBalloon: {fileID: 2812469311590096692}
   _orderMenuSpriteRenderer: {fileID: 5790098905572146126}
   _angrySprite: {fileID: 21300000, guid: 471f13939b3eb974bb12467e60ebc668, type: 3}
