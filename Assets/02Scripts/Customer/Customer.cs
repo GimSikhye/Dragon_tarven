@@ -25,7 +25,7 @@ namespace DalbitCafe.Customer
         private CoffeeData _randomCoffee; // 주문한 커피 저장
         private CoffeeMachine _orderedMachine; // 주문한 커피머신 저장
         [SerializeField] private bool _isOrdering = false; // 현재 주문중인지
-
+        private Animator _animator; 
 
         private void Awake()
         {
@@ -37,6 +37,8 @@ namespace DalbitCafe.Customer
 
             _cashDesk = GameObject.Find("Cashdesk")?.transform; // "Destination" 게임 오브젝트를 찾아 목표로 설정
             _outside = GameObject.Find("Outside")?.transform;
+
+            _animator = GetComponent<Animator>();
         }
 
         private void OnEnable()
@@ -58,7 +60,25 @@ namespace DalbitCafe.Customer
 
         private void Update()
         {
-            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance) // 목적지에 도착했을 때 실행
+            // 이동 방향을 기반으로 애니메이션 방향 업데이트
+            Vector3 velocity = _agent.velocity;
+
+            if (velocity.magnitude > 0.1f)
+            {
+                // 속도 방향을 정규화
+                Vector3 direction = velocity.normalized;
+
+                _animator.SetFloat("MoveX", direction.x);
+                _animator.SetFloat("MoveY", direction.y);
+                _animator.SetBool("isMoving", true);
+            }
+            else
+            {
+                _animator.SetBool("isMoving", false);
+            }
+
+            // 목적지 도착 체크
+            if (!_agent.pathPending && _agent.remainingDistance <= _agent.stoppingDistance)
             {
                 if (_targetDestination == _cashDesk.position)
                 {
@@ -71,6 +91,7 @@ namespace DalbitCafe.Customer
                 }
             }
         }
+
         // 주문을 시작하는 함수
         void StartOrdering()
         {
