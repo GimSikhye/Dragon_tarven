@@ -1867,7 +1867,7 @@ GameObject:
   - component: {fileID: 134760346}
   m_Layer: 5
   m_Name: PopUp_Setting
-  m_TagString: Untagged
+  m_TagString: UIPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31290,6 +31290,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5822358432264284171, guid: 09264d136e83ed74db05855a7f74afe9, type: 3}
+      propertyPath: m_TagString
+      value: UIPanel
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -36704,7 +36708,7 @@ GameObject:
   - component: {fileID: 1379463222}
   - component: {fileID: 1379463221}
   m_Layer: 0
-  m_Name: Canvas_PopUp
+  m_Name: UIPanels
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41653,6 +41657,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6527155210756486899, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: m_TagString
+      value: UIPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 7784401449140317618, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -41793,6 +41801,10 @@ PrefabInstance:
     - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
+      propertyPath: m_TagString
+      value: UIPanel
       objectReference: {fileID: 0}
     - target: {fileID: 394000285701788136, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_Pivot.x
@@ -41989,6 +42001,10 @@ PrefabInstance:
     - target: {fileID: 2644586622640902262, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2644586622640902262, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_TagString
+      value: UIPanel
       objectReference: {fileID: 0}
     - target: {fileID: 3525657309600208518, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchorMax.y

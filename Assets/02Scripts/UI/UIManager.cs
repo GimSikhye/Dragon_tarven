@@ -13,6 +13,8 @@ public enum Windows
     Exit = 1,
     CurrentMenu = 2,
     Quest = 3,
+    QuestComplete = 4,
+    Setting = 5
     // 필요한 만큼 아래에 계속 추가 가능
 }
 
@@ -27,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coinAmountText;
     [SerializeField] private TextMeshProUGUI gemAmountText;
 
+    // 닷트윈 UI 애니메이션을 위한 재화 이전값
     private int _currentCoffeeBean;
     private int _currentCoin;
     private int _currentGem;
@@ -65,8 +68,8 @@ public class UIManager : MonoBehaviour
 
         // GameScene의 UI 요소 다시 연결
         _panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
-            ?.Where(t => t.CompareTag("UIPanel"))  // 패널에 Tag 달아두면 깔끔
-            .Select(t => t.gameObject).ToArray(); //Where은 뭐지 Select는?
+            ?.Where(t => t.CompareTag("UIPanel"))  
+            .Select(t => t.gameObject).ToArray(); 
 
         _captionText = GameObject.Find("UI_CaptionText")?.GetComponent<TextMeshProUGUI>();
 
@@ -106,7 +109,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGemUI(int value)
     {
-        TextAnimationHelper.AnimateNumber(gemAmountText, _currentGem, value);
+        TextAnimationHelper.AnimateNumber(gemAmountText, _currentGem, value); // to int
         _currentGem = value;
     }
 
@@ -114,6 +117,7 @@ public class UIManager : MonoBehaviour
     {
         var panel = _panels[(int)Windows.MakeCoffee];
         panel.SetActive(true);
+        // 애니메이션
         panel.transform.localScale = Vector3.zero;
         panel.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
     }
