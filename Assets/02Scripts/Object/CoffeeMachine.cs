@@ -38,14 +38,14 @@ namespace DalbitCafe.Operations
             if (_remainingMugs > 1)
             {
                 _remainingMugs--;
-                GameManager.Instance.playerStats.AddCoin(_currentCoffee.Price);
+                GameManager.Instance.PlayerStatsManager.AddCoin(_currentCoffee.Price);
                 // 퀘스트 조건 업데이트
                 _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
             }
             else
             {
-                GameManager.Instance.playerStats.AddCoin( _currentCoffee.Price); 
+                GameManager.Instance.PlayerStatsManager.AddCoin( _currentCoffee.Price); 
                 _isRoasting = false;
                 _currentCoffee = null;
             }

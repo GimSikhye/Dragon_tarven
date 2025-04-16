@@ -91,7 +91,7 @@ namespace DalbitCafe.Player
 
                 if (touch.phase == TouchPhase.Began)
                 {
-                    startedOverUI = UIManager.Instance.IsTouchOverUI(touch);
+                    startedOverUI = GameManager.Instance.UIManager.IsTouchOverUI(touch);
                 }
 
                 if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
@@ -132,18 +132,18 @@ namespace DalbitCafe.Player
 
                     if (hitCollider.gameObject.GetComponent<CoffeeMachine>().IsRoasting)
                     {
-                        UIManager.Instance.ShowCurrentMenuPopUp();
+                        GameManager.Instance.UIManager.ShowCurrentMenuPopUp();
                         GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
                         currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(hitCollider.gameObject.GetComponent<CoffeeMachine>());
                     }
                     else
                     {
-                        UIManager.Instance.ShowMakeCoffeePopUp();
+                        GameManager.Instance.UIManager.ShowMakeCoffeePopUp();
                     }
                 }
                 else
                 {
-                    UIManager.Instance.ShowCapitonText();
+                    GameManager.Instance.UIManager.ShowCapitonText();
                 }
             }
         }

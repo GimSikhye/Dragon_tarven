@@ -11,8 +11,6 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private RewardManager _rewardManager;
     [SerializeField] private ButtonManager _buttonManager;
 
-    [SerializeField] private AudioClip[] _bgmClips;
-
     private void Start()
     {
         _playerStatsManager.Load();
