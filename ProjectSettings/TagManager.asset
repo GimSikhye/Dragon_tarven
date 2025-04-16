@@ -9,6 +9,7 @@ TagManager:
   - CoffeeMachine
   - Coffee Machine
   - AllowedPath
+  - UIPanel
   layers:
   - Default
   - TransparentFX
