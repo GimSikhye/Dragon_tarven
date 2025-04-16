@@ -9,9 +9,8 @@ enum Bgm
 }
 namespace DalbitCafe.Core
 {
-    public class GameManager : MonoBehaviour
+    public class GameManager : MonoSingleton<GameManager>
     {
-        public static GameManager Instance;
         [SerializeField] private AudioClip[] bgm_clips;
 
         [Header("플레이어 데이터")]
@@ -19,18 +18,6 @@ namespace DalbitCafe.Core
 
         void Awake()
         {
-            if (Instance == null) // 첫 번째 GameManager라면 유지
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else // 기존 GameManager가 있다면, 새 씬의 GameManager를 유지하고 기존 것을 삭제
-            {
-                Destroy(Instance.gameObject);
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-
             SceneManager.sceneLoaded += ChangeScene;
         }
 

@@ -210,7 +210,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Isometric Assets 4_0: 8628773720672196342
+      Isometric Assets 4_1: 6438284002837191812
+      Isometric Assets 4_2: 5065085175138927363
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
