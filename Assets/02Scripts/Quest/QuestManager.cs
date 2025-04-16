@@ -122,7 +122,7 @@ public class QuestManager : MonoBehaviour
 
     public void CompleteQuest(QuestData quest)
     {
-        RewardManager.Instance.GiveReward(quest.rewardGold, quest.rewardExp); // 보상을 지급
+        GameManager.Instance.RewardManager.GiveReward(quest.rewardGold, quest.rewardExp); // 보상을 지급
 
         RemoveQuest(quest); // 퀘스트 제거
     }

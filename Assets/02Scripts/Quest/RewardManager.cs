@@ -1,18 +1,10 @@
 using UnityEngine;
-using DalbitCafe.Core;
 
 public class RewardManager : MonoBehaviour
 {
-    public static RewardManager Instance;
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
-
     public void GiveReward(int gold, int exp)
     {
-        GameManager.Instance.playerStats.AddCoin(gold);
-        GameManager.Instance.playerStats.AddExp(exp);
+        GameManager.Instance.PlayerStatsManager.AddCoin(gold);
+        GameManager.Instance.PlayerStatsManager.AddExp(exp);
     }
 }

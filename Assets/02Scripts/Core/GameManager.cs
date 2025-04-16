@@ -1,64 +1,64 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
+using DalbitCafe.Core;
 using DalbitCafe.UI;
-enum Bgm
+using UnityEngine.SceneManagement;
+using UnityEngine;
+
+public class GameManager : MonoSingleton<GameManager>
 {
-    Main = 0,
-    Game,
-    End
-}
-namespace DalbitCafe.Core
-{
-    public class GameManager : MonoSingleton<GameManager>
+    [SerializeField] private UIManager _uiManager;
+    [SerializeField] private SoundManager _soundManager;
+    [SerializeField] private PlayerStatsManager _playerStatsManager;
+    [SerializeField] private RewardManager _rewardManager;
+    [SerializeField] private ButtonManager _buttonManager;
+
+    [SerializeField] private AudioClip[] _bgmClips;
+
+    private void Start()
     {
-        [SerializeField] private AudioClip[] bgm_clips;
-
-        [Header("플레이어 데이터")]
-        public PlayerStats playerStats;
-
-        void Awake()
-        {
-            SceneManager.sceneLoaded += ChangeScene;
-        }
-
-        private void Start()
-        {
-            playerStats.LoadFromPrefs();
-
-            // UI 업데이트
-            UIManager.Instance.UpdateCoffeeBeanUI(playerStats.coffeeBean);
-            UIManager.Instance.UpdateCoinUI(playerStats.coin);
-            UIManager.Instance.UpdateGemUI(playerStats.gem);
-
-        }
-        
-
-        void Update()
-        {
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                if (Input.GetKey(KeyCode.Escape))
-                {
-                    UIManager.Instance.ShowExitPopUp();
-                }
-            }
-        }
-
-        private void ChangeScene(Scene scene, LoadSceneMode mode)
-        {
-            switch (scene.name)
-            {
-                case "MainMenu":
-                    Debug.Log("메인메뉴");
-                    SoundManager.Instance.PlayBGM(bgm_clips[(int)Bgm.Main], 0.5f);
-                    break;
-                case "GameScene":
-                    SoundManager.Instance.PlayBGM(bgm_clips[(int)Bgm.Game], 0.5f);
-                    break;
-            }
-        }
-
-
+        _playerStatsManager.Load();
+        UpdateAllUI();
     }
 
+    private void Update()
+    {
+#if UNITY_ANDROID
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            _uiManager.ShowExitPopUp();
+        }
+#endif
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        _soundManager.PlaySceneBGM(scene);
+    }
+
+
+    private void UpdateAllUI()
+    {
+        var stats = _playerStatsManager;
+
+        _uiManager.UpdateCoffeeBeanUI(stats.CoffeeBeans);
+        _uiManager.UpdateCoinUI(stats.Coin);
+        _uiManager.UpdateGemUI(stats.Gem);
+        _uiManager.UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
+    }
+
+    // 외부에서 접근 가능하도록 프로퍼티 제공
+    public UIManager UIManager => _uiManager;
+    public SoundManager SoundManager => _soundManager;
+    public PlayerStatsManager PlayerStatsManager => _playerStatsManager;
+    public RewardManager RewardManager => _rewardManager;
+    public ButtonManager ButtonManager => _buttonManager;
 }

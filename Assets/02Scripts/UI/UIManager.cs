@@ -1,170 +1,134 @@
-using DalbitCafe.Core;
 using DalbitCafe.Player;
 using DG.Tweening;
-using System;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine;
+using UnityEditor.PackageManager.UI;
 using UnityEngine.EventSystems;
+using UnityEngine;
 using UnityEngine.UI;
 
-namespace DalbitCafe.UI
+public class UIManager : MonoBehaviour
 {
-    enum Windows
+    [SerializeField] private GameObject[] _panels;
+    [SerializeField] private TextMeshProUGUI _captionText;
+
+    [Header("재화량 텍스트")]
+    [SerializeField] private TextMeshProUGUI _coffeeBeanText;
+    [SerializeField] private TextMeshProUGUI _coinText;
+    [SerializeField] private TextMeshProUGUI gemText;
+
+    private int _currentCoffeeBean;
+    private int _currentCoin;
+    private int _currentGem;
+
+    public Slider expSlider;
+    public TextMeshProUGUI levelText;
+
+    public void UpdateExpUI(int exp, int maxExp, int level)
+    {
+        if (expSlider != null)
+        {
+            expSlider.maxValue = maxExp;
+            expSlider.value = exp;
+        }
+
+        if (levelText != null)
+        {
+            levelText.text = $"Lv {level}";
+        }
+    }
+
+    private void Start()
+    {
+        foreach (var panel in _panels)
+            panel.SetActive(false);
+
+        var stats = GameManager.Instance.PlayerStatsManager;
+        UpdateCoffeeBeanUI(stats.CoffeeBeans);
+        UpdateCoinUI(stats.Coin);
+        UpdateGemUI(stats.Gem);
+    }
+
+    public void UpdateCoffeeBeanUI(int value)
+    {
+        TextAnimationHelper.AnimateNumber(_coffeeBeanText, _currentCoffeeBean, value);
+        _currentCoffeeBean = value;
+    }
+
+    public void UpdateCoinUI(int value)
+    {
+        TextAnimationHelper.AnimateNumber(_coinText, _currentCoin, value, 1.5f);
+        _currentCoin = value;
+    }
+
+    public void UpdateGemUI(int value)
+    {
+        TextAnimationHelper.AnimateNumber(gemText, _currentGem, value);
+        _currentGem = value;
+    }
+
+    public void ShowMakeCoffeePopUp()
+    {
+        var panel = _panels[(int)Windows.MakeCoffee];
+        panel.SetActive(true);
+        panel.transform.localScale = Vector3.zero;
+        panel.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
+    }
+
+    public void ShowExitPopUp()
+    {
+        _panels[(int)Windows.Exit].SetActive(true);
+    }
+
+    public void ShowCapitonText()
+    {
+        Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<PlayerCtrl>().transform.position);
+        _captionText.rectTransform.position = playerScreenPos;
+        _captionText.enabled = true;
+        _captionText.text = "거리가 너무 멀어요!";
+    }
+
+    public void ShowCurrentMenuPopUp()
+    {
+        GameObject window = _panels[(int)Windows.CurrentMenu];
+        window.SetActive(true);
+        window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        window.GetComponent<Image>().DOFade(1, 0.5f);
+    }
+
+    public void ShowQuestPopUp()
+    {
+        GameObject window = _panels[(int)Windows.Quest];
+        window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
+            .OnComplete(() => window.SetActive(true));
+    }
+
+    public void ShowExitPopUp(string window)
+    {
+        GameObject windowPanel = GameObject.Find(window);
+        windowPanel.SetActive(true);
+    }
+
+    public bool IsTouchOverUI(Touch touch)
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+        {
+            position = touch.position
+        };
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+
+        return results.Count > 0;
+    }
+
+    public enum Windows
     {
         MakeCoffee = 0,
-        Exit,
-        CurrentMenu,
-        Quest
-    }
-    public class UIManager : MonoBehaviour
-    {
-        //enum으로 윈도우 창 이름 배열 관리하기
-
-        public static UIManager Instance;
-        [SerializeField] private GameObject[] _panels;
-        [SerializeField] private TextMeshProUGUI _captionText;
-
-        [Header("재화량 텍스트")]
-        [SerializeField] private TextMeshProUGUI _coffeeBeanText;
-        [SerializeField] private TextMeshProUGUI _coinText;
-        [SerializeField] private TextMeshProUGUI gemText;
-
-        private int _currentCoffeeBean;
-        private int _currentCoin;
-        private int _currentGem;
-
-        public Slider expSlider;
-        public TextMeshProUGUI levelText;
-
-        public void UpdateExpUI(int exp, int maxExp, int level)
-        {
-            if (expSlider != null)
-            {
-                expSlider.maxValue = maxExp;
-                expSlider.value = exp;
-            }
-
-            if (levelText != null)
-            {
-                levelText.text = $"Lv {level}";
-            }
-        }
-
-
-        // 원두 개수 값이 바뀔때 갱신해주기.
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
-        }
-        private void Start()
-        {
-            foreach (var panel in _panels)
-                panel.SetActive(false);
-
-            // 게임 시작 시 UI 갱신 (GameManager가 먼저 실행되므로 안전)
-            var stats = GameManager.Instance.playerStats;
-            UpdateCoffeeBeanUI(stats.coffeeBean);
-            UpdateCoinUI(stats.coin);
-            UpdateGemUI(stats.gem);
-
-        }
-        // 모든 UI 비활성화
-        public void UpdateCoffeeBeanUI(int value)
-        {
-            TextAnimationHelper.AnimateNumber(_coffeeBeanText, _currentCoffeeBean, value);
-            _currentCoffeeBean = value;
-        }
-
-        public void UpdateCoinUI(int value)
-        {
-            TextAnimationHelper.AnimateNumber(_coinText, _currentCoin, value, 1.5f);
-            _currentCoin = value;
-        }
-
-        public void UpdateGemUI(int value)
-        {
-            TextAnimationHelper.AnimateNumber(gemText, _currentGem, value);
-            _currentGem = value;
-        }
-
-        public void ShowMakeCoffeePopUp()
-        {
-
-            _panels[(int)Windows.MakeCoffee].SetActive(true);
-            _panels[(int)Windows.MakeCoffee].transform.localScale = Vector3.zero;
-            _panels[(int)Windows.MakeCoffee].transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
-
-        }
-
-        public void ShowExitPopUp()
-        {
-            _panels[(int)Windows.Exit].SetActive(true);
-        }
-
-        public void ShowCapitonText()
-        {
-            Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(PlayerCtrl.Instance.transform.position);
-
-            _captionText.rectTransform.position = playerScreenPos;
-            _captionText.enabled = true;
-            _captionText.text = "거리가 너무 멀어요!";
-        }
-
-        public void ShowCurrentMenuPopUp()
-        {
-            GameObject window = _panels[(int)Windows.CurrentMenu];
-            window.SetActive(true);
-            window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-            int count = window.transform.childCount;
-
-            for (int i = 0; i < count; i++) //??
-            {
-                //window.transform.GetChild(i).GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-            }
-            _panels[(int)Windows.CurrentMenu].GetComponent<Image>().DOFade(1, 0.5f);
-
-        }
-
-        public void ShowQuestPopUp()
-        {
-            GameObject window = _panels[(int)Windows.Quest];
-            window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
-  .OnComplete(() => window.SetActive(true));
-
-
-        }
-
-
-
-        public void ShowExitPopUp(string window)
-        {
-            GameObject windowPanel = GameObject.Find(window);
-            windowPanel.SetActive(true);
-
-        }
-
-        // 터치 위치가 UI 위인지 판단함
-        public bool IsTouchOverUI(Touch touch)
-        {
-            PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-            eventDataCurrentPosition.position = touch.position;
-
-            List<RaycastResult> results = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-
-            return results.Count > 0;
-        }
-
+        Exit = 1,
+        CurrentMenu = 2,
+        Quest = 3,
+        // 필요한 만큼 아래에 계속 추가 가능
     }
 
 }
-

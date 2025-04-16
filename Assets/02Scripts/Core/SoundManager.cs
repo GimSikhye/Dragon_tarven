@@ -1,16 +1,17 @@
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
+using UnityEngine.SceneManagement;
 
 namespace DalbitCafe.Core
 {
     public class SoundManager : MonoBehaviour
     {
         public static SoundManager Instance;
+
         [SerializeField] private AudioSource _bgmAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
+        [SerializeField] private AudioClip[] _bgmClips; // BGM 클립 배열
 
-        void Awake()
+        private void Awake()
         {
             if (Instance == null)
             {
@@ -22,6 +23,27 @@ namespace DalbitCafe.Core
                 Destroy(Instance.gameObject);
                 Instance = this;
                 DontDestroyOnLoad(gameObject);
+            }
+        }
+
+        public void PlaySceneBGM(Scene scene)
+        {
+            AudioClip clipToPlay = null;
+            float volume = 0.5f;
+
+            switch (scene.name)
+            {
+                case "MainMenu":
+                    clipToPlay = _bgmClips[(int)Bgm.Main];
+                    break;
+                case "GameScene":
+                    clipToPlay = _bgmClips[(int)Bgm.Game];
+                    break;
+            }
+
+            if (clipToPlay != null)
+            {
+                PlayBGM(clipToPlay, volume);
             }
         }
 
@@ -38,7 +60,7 @@ namespace DalbitCafe.Core
             _sfxAudioSource.PlayOneShot(clip, volume);
         }
 
-        public void SettingBGMVolume(float value) //슬라이더로 조절
+        public void SettingBGMVolume(float value)
         {
             _bgmAudioSource.volume = value;
         }
@@ -47,8 +69,11 @@ namespace DalbitCafe.Core
         {
             _sfxAudioSource.volume = value;
         }
-
-
     }
 
+    public enum Bgm
+    {
+        Main,
+        Game
+    }
 }
