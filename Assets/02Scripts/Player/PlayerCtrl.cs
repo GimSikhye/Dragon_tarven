@@ -192,6 +192,7 @@ namespace DalbitCafe.Player
         {
             touch_feedback.rectTransform.position = screenPosition;
             touch_feedback.enabled = true;
+           
         }
     }
 }

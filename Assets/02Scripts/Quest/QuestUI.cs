@@ -25,9 +25,7 @@ public class QuestUI : MonoBehaviour
 
     private QuestData currentQuest;
     private List<TextMeshProUGUI> conditionTextList = new List<TextMeshProUGUI>();
-
     public QuestData CurrentQuest => currentQuest;
-
 
     private void Awake()
     {

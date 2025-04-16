@@ -4,7 +4,6 @@ using DalbitCafe.Core;
 public class RewardManager : MonoBehaviour
 {
     public static RewardManager Instance;
-
     private void Awake()
     {
         if (Instance == null) Instance = this;

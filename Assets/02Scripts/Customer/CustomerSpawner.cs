@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace DalbitCafe.Customer
 {
-
     public class CustomerSpawner : MonoBehaviour
     {
         [SerializeField] private CustomerPool customerPool;
