@@ -2,68 +2,111 @@ using DalbitCafe.Player;
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.PackageManager.UI;
-using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+using System.Linq;
+public enum Windows
+{
+    MakeCoffee = 0,
+    Exit = 1,
+    CurrentMenu = 2,
+    Quest = 3,
+    // 필요한 만큼 아래에 계속 추가 가능
+}
+
 
 public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _panels;
-    [SerializeField] private TextMeshProUGUI _captionText;
+    [SerializeField] private TextMeshProUGUI _captionText; // 주의 문구
 
     [Header("재화량 텍스트")]
-    [SerializeField] private TextMeshProUGUI _coffeeBeanText;
-    [SerializeField] private TextMeshProUGUI _coinText;
-    [SerializeField] private TextMeshProUGUI gemText;
+    [SerializeField] private TextMeshProUGUI _coffeeBeanAmountText;
+    [SerializeField] private TextMeshProUGUI _coinAmountText;
+    [SerializeField] private TextMeshProUGUI gemAmountText;
 
     private int _currentCoffeeBean;
     private int _currentCoin;
     private int _currentGem;
 
     public Slider expSlider;
-    public TextMeshProUGUI levelText;
+    public TextMeshProUGUI currentLevelText;
 
     public void UpdateExpUI(int exp, int maxExp, int level)
     {
         if (expSlider != null)
         {
             expSlider.maxValue = maxExp;
-            expSlider.value = exp;
+            expSlider.value = exp; // 현재 경험치
         }
 
-        if (levelText != null)
+        if (currentLevelText != null)
         {
-            levelText.text = $"Lv {level}";
+            currentLevelText.text = $"Lv {level}";
         }
     }
 
-    private void Start()
+    void Awake()
     {
-        foreach (var panel in _panels)
-            panel.SetActive(false);
+        SceneManager.sceneLoaded += InitGameUI;
+    }
 
+    void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= InitGameUI;
+    }
+
+
+    private void InitGameUI(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name != "GameScene") return;
+
+        // GameScene의 UI 요소 다시 연결
+        _panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
+            ?.Where(t => t.CompareTag("UIPanel"))  // 패널에 Tag 달아두면 깔끔
+            .Select(t => t.gameObject).ToArray(); //Where은 뭐지 Select는?
+
+        _captionText = GameObject.Find("UI_CaptionText")?.GetComponent<TextMeshProUGUI>();
+
+        _coffeeBeanAmountText = GameObject.Find("UI_CoffeeBeanAmountText")?.GetComponent<TextMeshProUGUI>();
+        _coinAmountText = GameObject.Find("UI_CoinAmountText")?.GetComponent<TextMeshProUGUI>();
+        gemAmountText = GameObject.Find("UI_GemAmountText")?.GetComponent<TextMeshProUGUI>();
+
+        expSlider = GameObject.Find("UI_ExpSlider")?.GetComponent<Slider>();
+        currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
+
+        // 패널 숨기기 + 초기화
+        if (_panels != null)
+        {
+            foreach (var panel in _panels)
+                panel.SetActive(false);
+        }
+
+        // 데이터 바인딩
         var stats = GameManager.Instance.PlayerStatsManager;
         UpdateCoffeeBeanUI(stats.CoffeeBeans);
         UpdateCoinUI(stats.Coin);
         UpdateGemUI(stats.Gem);
     }
 
+
     public void UpdateCoffeeBeanUI(int value)
     {
-        TextAnimationHelper.AnimateNumber(_coffeeBeanText, _currentCoffeeBean, value);
+        TextAnimationHelper.AnimateNumber(_coffeeBeanAmountText, _currentCoffeeBean, value);
         _currentCoffeeBean = value;
     }
 
     public void UpdateCoinUI(int value)
     {
-        TextAnimationHelper.AnimateNumber(_coinText, _currentCoin, value, 1.5f);
+        TextAnimationHelper.AnimateNumber(_coinAmountText, _currentCoin, value, 1.5f);
         _currentCoin = value;
     }
 
     public void UpdateGemUI(int value)
     {
-        TextAnimationHelper.AnimateNumber(gemText, _currentGem, value);
+        TextAnimationHelper.AnimateNumber(gemAmountText, _currentGem, value);
         _currentGem = value;
     }
 
@@ -122,13 +165,5 @@ public class UIManager : MonoBehaviour
         return results.Count > 0;
     }
 
-    public enum Windows
-    {
-        MakeCoffee = 0,
-        Exit = 1,
-        CurrentMenu = 2,
-        Quest = 3,
-        // 필요한 만큼 아래에 계속 추가 가능
-    }
 
 }

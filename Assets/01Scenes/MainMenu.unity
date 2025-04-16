@@ -1567,11 +1567,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panels: []
   _captionText: {fileID: 0}
-  _coffeeBeanText: {fileID: 0}
-  _coinText: {fileID: 0}
-  gemText: {fileID: 0}
+  _coffeeBeanAmountText: {fileID: 0}
+  _coinAmountText: {fileID: 0}
+  gemAmountText: {fileID: 0}
   expSlider: {fileID: 0}
-  levelText: {fileID: 0}
+  currentLevelText: {fileID: 0}
 --- !u!4 &1113159477
 Transform:
   m_ObjectHideFlags: 0
@@ -1618,7 +1618,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1113159477}
-  - {fileID: 1299638784}
+  - {fileID: 1491988263}
   - {fileID: 1302904340}
   - {fileID: 1231860035}
   - {fileID: 2141067222}
@@ -1637,7 +1637,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 1113159476}
-  _soundManager: {fileID: 1299638783}
+  _soundManager: {fileID: 1491988262}
   _playerStatsManager: {fileID: 1302904339}
   _rewardManager: {fileID: 1231860034}
   _buttonManager: {fileID: 2141067221}
@@ -1814,53 +1814,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1173065614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1299638782
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1299638784}
-  - component: {fileID: 1299638783}
-  m_Layer: 0
-  m_Name: SoundManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1299638783
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299638782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b436669bf73da64bacce78a612781ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _bgmAudioSource: {fileID: 0}
-  _sfxAudioSource: {fileID: 0}
-  _bgmClips: []
---- !u!4 &1299638784
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299638782}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1173065614}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1302904338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1890,7 +1843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c318b8b33104d4fa129f6cadf7966a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsSO: {fileID: 0}
+  statsSO: {fileID: 11400000, guid: 75ccf8fbdadf67c45b358b3fd0cf9f44, type: 2}
 --- !u!4 &1302904340
 Transform:
   m_ObjectHideFlags: 0
@@ -2134,7 +2087,7 @@ Transform:
   m_Children:
   - {fileID: 1218875187}
   - {fileID: 151675674}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1173065614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1500573537
 GameObject:
@@ -2512,7 +2465,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b088f741b7595004282ec537caaa00cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  click_clip: {fileID: 0}
+  click_clip: {fileID: 8300000, guid: 2c5292ba5cf254919a6b9e2b18e04f49, type: 3}
 --- !u!4 &2141067222
 Transform:
   m_ObjectHideFlags: 0
@@ -2537,7 +2490,6 @@ SceneRoots:
   - {fileID: 941770624}
   - {fileID: 1935309430}
   - {fileID: 1484750683}
-  - {fileID: 1491988263}
   - {fileID: 1173065614}
   - {fileID: 1019311226}
   - {fileID: 1836750065}
