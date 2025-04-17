@@ -2606,8 +2606,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159.95287, y: 2.8}
-  m_SizeDelta: {x: 96.0944, y: 100}
+  m_AnchoredPosition: {x: -158.3, y: -1.9654007}
+  m_SizeDelta: {x: 96.0944, y: 98.534}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292083641
 MonoBehaviour:
@@ -2629,7 +2629,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5993810637190424455, guid: 7f98598f04be5d34983e915a29375d0d, type: 3}
+  m_Sprite: {fileID: 2689394650457839796, guid: b8f0abb302a6c764da776c55bcdcf575, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -32081,7 +32081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159.95287, y: 2.8}
+  m_AnchoredPosition: {x: -159.95287, y: 1.2323}
   m_SizeDelta: {x: 96.0944, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &588253023
@@ -32104,7 +32104,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2600103431567592458, guid: 53c99adb66d96b440b675ff6d2baf263, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af40f9fb8be3649448187587a753b395, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -33089,6 +33089,7 @@ MonoBehaviour:
   - {fileID: 1462586937}
   - {fileID: 5964223560215070233}
   _captionText: {fileID: 0}
+  touch_feedback: {fileID: 0}
   _coffeeBeanAmountText: {fileID: 0}
   _coinAmountText: {fileID: 0}
   gemAmountText: {fileID: 0}
@@ -33610,6 +33611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touch_feedback: {fileID: 1705647414}
   interactionRange: 3
+  moveSpeed: 3
   savedPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &915743439
 Animator:
@@ -36274,8 +36276,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -159.95287, y: 2.8}
-  m_SizeDelta: {x: 96.0944, y: 100}
+  m_AnchoredPosition: {x: -157.11925, y: 2.7999992}
+  m_SizeDelta: {x: 101.7616, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1281561433
 MonoBehaviour:
@@ -36297,7 +36299,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 7717009168347922525, guid: d1e15346a6a609347a3054610e8b58e5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5e0b7d7b633cc8f459d4cc588f0f03c8, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36574,10 +36576,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _buttonManager: {fileID: 0}
   _soundManager: {fileID: 0}
   _playerStatsManager: {fileID: 0}
+  _touchInputManager: {fileID: 0}
+  _dialogueManager: {fileID: 0}
+  _questManager: {fileID: 0}
   _rewardManager: {fileID: 0}
-  _buttonManager: {fileID: 0}
+  _gridManager: {fileID: 0}
+  _decorateManager: {fileID: 0}
 --- !u!4 &1342792674
 Transform:
   m_ObjectHideFlags: 0
