@@ -14,39 +14,39 @@ namespace DalbitCafe.Player
     {
 
         [Header("터치 UI")]
-        [SerializeField] private Image touch_feedback; // 터치 피드백
+        [SerializeField] private Image _touchFeedback; // 터치 피드백
 
         [Header("커피머신 로직")]
-        [SerializeField] private float interactionRange; // 상호작용
+        [SerializeField] private float _interactionRange; // 상호작용
 
         [Header("플레이어 이동")]
-        [SerializeField] private float moveSpeed = 3f;
+        [SerializeField] private float _moveSpeed = 3f;
 
-        private SpriteRenderer spriteRenderer;
-        public SpriteRenderer SpriteRender => spriteRenderer;
-        private Animator animator;
+        private SpriteRenderer _spriteRenderer;
+        public SpriteRenderer SpriteRender => _spriteRenderer;
+        private Animator _animator;
 
-        private bool startedOverUI = false; // 터치를 UI위에서 시작했는지
-        private Vector3 targetPosition;
-        private bool isMoving = false;
-        private bool canMoveControl = true;
+        private bool _startedOverUI = false; // 터치를 UI위에서 시작했는지
+        private Vector3 _targetPosition; // 이동할 위치
+        private bool _isMoving = false;
+        private bool _canMoveControl = true;
 
-        public Vector3 savedPosition;
+        public Vector3 _savedPosition;
 
         public void SavePosition()
         {
-            savedPosition = transform.position;
+            _savedPosition = transform.position;
         }
 
         public void RestorePosition() // 위치 복원
         {
-            transform.position = savedPosition;
+            transform.position = _savedPosition;
         }
 
         private void Start()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
+            _animator = GetComponent<Animator>();
         }
 
         private void OnEnable()
@@ -75,25 +75,25 @@ namespace DalbitCafe.Player
 
         private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
         {
-            canMoveControl = scene.name != "DialogueScene";
+            _canMoveControl = scene.name != "DialogueScene";
         }
 
         public void HandleTouchBegan(Vector2 screenPos)
         {
-            if (!canMoveControl) return;
-            startedOverUI = GameManager.Instance.UIManager.IsTouchOverUIPosition(screenPos);
+            if (!_canMoveControl) return;
+            _startedOverUI = GameManager.Instance.UIManager.IsTouchOverUIPosition(screenPos);
         }
 
         public void HandleTouchMoved(Vector2 screenPos)
         {
-            if (!canMoveControl) return;
+            if (!_canMoveControl) return;
         }
 
         public void HandleTouchEnded(Vector2 screenPos) // 터치를 똈을 때 움직임
         {
-            if (!canMoveControl || startedOverUI) 
+            if (!_canMoveControl || _startedOverUI) 
             {
-                startedOverUI = false;  // 리셋
+                _startedOverUI = false;  // 리셋
                 return;
             }
 
@@ -115,7 +115,7 @@ namespace DalbitCafe.Player
 
         private void TouchCoffeeMachine(CoffeeMachine machine)
         {
-            if (Vector3.Distance(transform.position, machine.transform.position) < interactionRange)
+            if (Vector3.Distance(transform.position, machine.transform.position) < _interactionRange)
             {
                 CoffeeMachine.SetLastTouchedMachine(machine);
 
@@ -137,9 +137,9 @@ namespace DalbitCafe.Player
         }
         private void OnMove(Vector3 targetPos)
         {
-            targetPosition = targetPos;
+            _targetPosition = targetPos;
 
-            if (!isMoving)
+            if (!_isMoving)
             {
                 StartCoroutine(MoveToTarget());
             }
@@ -147,31 +147,31 @@ namespace DalbitCafe.Player
 
         private IEnumerator MoveToTarget() // 그 지점으로 이동
         {
-            isMoving = true;
-            animator.SetBool("isMoving", true);
+            _isMoving = true;
+            _animator.SetBool("isMoving", true);
 
-            while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
+            while (Vector3.Distance(transform.position, _targetPosition) > 0.1f)
             {
-                Vector3 direction = (targetPosition - transform.position).normalized; // 애니메이션 용도
+                Vector3 direction = (_targetPosition - transform.position).normalized; // 애니메이션 용도
                 SetAnimation(direction);
 
-                transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
+                transform.position = Vector3.MoveTowards(transform.position, _targetPosition, _moveSpeed * Time.deltaTime);
                 yield return null;
             }
 
             // 다 이동했다면 
-            transform.position = targetPosition;
-            isMoving = false;
-            animator.SetBool("isMoving", false);
+            transform.position = _targetPosition;
+            _isMoving = false;
+            _animator.SetBool("isMoving", false);
 
-            touch_feedback.enabled = false; // 이것도 UIManager로 옮겨야함
+            _touchFeedback.enabled = false; // 이것도 UIManager로 옮겨야함
         }
 
         private void SetAnimation(Vector3 direction)
         {
             Vector3 normalizedDirection = direction.normalized;
-            animator.SetFloat("MoveX", normalizedDirection.x);
-            animator.SetFloat("MoveY", normalizedDirection.y);
+            _animator.SetFloat("MoveX", normalizedDirection.x);
+            _animator.SetFloat("MoveY", normalizedDirection.y);
         }
 
 
