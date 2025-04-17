@@ -5,36 +5,21 @@ namespace DalbitCafe.Core
 {
     public class SoundManager : MonoBehaviour
     {
-        public static SoundManager Instance;
 
         [SerializeField] private AudioSource _bgmAudioSource;
         [SerializeField] private AudioSource _sfxAudioSource;
         [SerializeField] private AudioClip[] _bgmClips; // BGM 클립 배열
 
-        private void Awake()
-        {
-            if (Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-            {
-                Destroy(Instance.gameObject);
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-        }
-
+        // 브금 볼륨'
         public void PlaySceneBGM(Scene scene)
         {
-            AudioClip clipToPlay = null;
-            float volume = 0.5f;
+            AudioClip clipToPlay = null; // 플레이 할 브금
+            float volume = _bgmAudioSource.volume;
 
             switch (scene.name)
             {
                 case "MainMenu":
-                    clipToPlay = _bgmClips[(int)Bgm.Main];
+                    clipToPlay = _bgmClips[(int)Bgm.Menu];
                     break;
                 case "GameScene":
                     clipToPlay = _bgmClips[(int)Bgm.Game];
@@ -55,9 +40,9 @@ namespace DalbitCafe.Core
             _bgmAudioSource.Play();
         }
 
-        public void PlaySFX(AudioClip clip, float volume)
+        public void PlaySFX(AudioClip clip)
         {
-            _sfxAudioSource.PlayOneShot(clip, volume);
+            _sfxAudioSource.PlayOneShot(clip, _sfxAudioSource.volume);
         }
 
         public void SettingBGMVolume(float value)
@@ -73,7 +58,7 @@ namespace DalbitCafe.Core
 
     public enum Bgm
     {
-        Main,
+        Menu,
         Game
     }
 }

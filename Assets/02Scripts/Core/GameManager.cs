@@ -2,19 +2,26 @@ using DalbitCafe.Core;
 using DalbitCafe.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using DalbitCafe.Deco;
+using DalbitCafe.Inputs;
 
 public class GameManager : MonoSingleton<GameManager>
 {
     [SerializeField] private UIManager _uiManager;
+    [SerializeField] private ButtonManager _buttonManager;
     [SerializeField] private SoundManager _soundManager;
     [SerializeField] private PlayerStatsManager _playerStatsManager;
+    [SerializeField] private TouchInputManager _touchInputManager;
+    [SerializeField] private DialogueManager _dialogueManager;
+    [SerializeField] private QuestManager _questManager;
     [SerializeField] private RewardManager _rewardManager;
-    [SerializeField] private ButtonManager _buttonManager;
+    [SerializeField] private GridManager _gridManager;
+    [SerializeField] private DecorateManager _decorateManager;
+
 
     private void Start()
     {
         _playerStatsManager.Load();
-        UpdateAllUI();
     }
 
     private void Update()
@@ -42,21 +49,15 @@ public class GameManager : MonoSingleton<GameManager>
         _soundManager.PlaySceneBGM(scene);
     }
 
-
-    private void UpdateAllUI()
-    {
-        var stats = _playerStatsManager;
-
-        _uiManager.UpdateCoffeeBeanUI(stats.CoffeeBeans);
-        _uiManager.UpdateCoinUI(stats.Coin);
-        _uiManager.UpdateGemUI(stats.Gem);
-        _uiManager.UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
-    }
-
     // 외부에서 접근 가능하도록 프로퍼티 제공
     public UIManager UIManager => _uiManager;
     public SoundManager SoundManager => _soundManager;
-    public PlayerStatsManager PlayerStatsManager => _playerStatsManager;
-    public RewardManager RewardManager => _rewardManager;
     public ButtonManager ButtonManager => _buttonManager;
+    public PlayerStatsManager PlayerStatsManager => _playerStatsManager;
+    public TouchInputManager TouchInputManager => _touchInputManager;
+    public DialogueManager DialogueManager => _dialogueManager;
+    public QuestManager QuestManager => _questManager;
+    public RewardManager RewardManager => _rewardManager;
+    public GridManager GridManager => _gridManager;
+    public DecorateManager DecorateManager => _decorateManager;
 }

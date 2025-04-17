@@ -30,7 +30,7 @@ namespace DalbitCafe.UI
                 if (touch.phase == TouchPhase.Began)
                 {
                     // UI 외부를 터치했을 때
-                    if (!GameManager.Instance.UIManager.IsTouchOverUI(touch))
+                    if (!GameManager.Instance.UIManager.IsTouchOverUIPosition(touch.position))
                     {
                         if (currentMenuPanel != null)
                         {

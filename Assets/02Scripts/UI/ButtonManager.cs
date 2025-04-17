@@ -13,7 +13,7 @@ public class ButtonManager : MonoBehaviour
 
     public void LoadButton(string sceneName)
     {
-        GameManager.Instance.SoundManager.PlaySFX(click_clip, 0.6f);
+        GameManager.Instance.SoundManager.PlaySFX(click_clip);
         GameObject currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
 
         if (currentButton != null)
@@ -69,7 +69,7 @@ public class ButtonManager : MonoBehaviour
 
     public void QuitButton()
     {
-        GameManager.Instance.SoundManager.PlaySFX(click_clip, 0.6f);
+        GameManager.Instance.SoundManager.PlaySFX(click_clip);
         Application.Quit();
     }
 

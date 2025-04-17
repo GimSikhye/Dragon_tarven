@@ -7,6 +7,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using System.Linq;
+using System;
 public enum Windows
 {
     MakeCoffee = 0,
@@ -23,6 +24,8 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject[] _panels;
     [SerializeField] private TextMeshProUGUI _captionText; // 주의 문구
+    [SerializeField] private Image touch_feedback;
+
 
     [Header("재화량 텍스트")]
     [SerializeField] private TextMeshProUGUI _coffeeBeanAmountText;
@@ -61,6 +64,18 @@ public class UIManager : MonoBehaviour
         SceneManager.sceneLoaded -= InitGameUI;
     }
 
+    private void OnEnable()
+    {
+        GameManager.Instance.TouchInputManager.OnTouchBegan += ShowTouchFeedback;
+        GameManager.Instance.TouchInputManager.OnTouchMoved += ShowTouchFeedback;
+    }
+
+    private void OnDisable()
+    {
+        GameManager.Instance.TouchInputManager.OnTouchBegan -= ShowTouchFeedback;
+        GameManager.Instance.TouchInputManager.OnTouchMoved -= ShowTouchFeedback;
+    }
+
 
     private void InitGameUI(Scene scene, LoadSceneMode mode)
     {
@@ -92,6 +107,7 @@ public class UIManager : MonoBehaviour
         UpdateCoffeeBeanUI(stats.CoffeeBeans);
         UpdateCoinUI(stats.Coin);
         UpdateGemUI(stats.Gem);
+        UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
     }
 
 
@@ -156,17 +172,23 @@ public class UIManager : MonoBehaviour
         windowPanel.SetActive(true);
     }
 
-    public bool IsTouchOverUI(Touch touch)
+    public bool IsTouchOverUIPosition(Vector2 screenPosition)
     {
-        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current)
+        PointerEventData eventData = new PointerEventData(EventSystem.current)
         {
-            position = touch.position
+            position = screenPosition
         };
 
         List<RaycastResult> results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        EventSystem.current.RaycastAll(eventData, results);
 
         return results.Count > 0;
+    }
+
+    private void ShowTouchFeedback(Vector2 screenPosition)
+    {
+        touch_feedback.rectTransform.position = screenPosition;
+        touch_feedback.enabled = true;
     }
 
 
