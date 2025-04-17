@@ -101,33 +101,29 @@ namespace DalbitCafe.Player
             Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
             worldPos.z = 0;
 
-            Collider2D hit = Physics2D.OverlapPoint(worldPos, LayerMask.GetMask("CoffeeMachine")); // 커피 머신 레이어마스크 필터링
-            if (hit != null && hit.CompareTag("CoffeeMachine")) // 콜라이더 한 물체의 태그가 커피머신이라면
+            // 커피머신 좌표 기반으로 찾기
+            var machine = GameManager.Instance.CoffeeMachineManager.GetMachineAtPosition(worldPos);
+            if (machine != null)
             {
-                TouchCoffeeMachine(hit.gameObject); // 해당 커피머신 넘겨주기
+                TouchCoffeeMachine(machine);
             }
-            else // 커피머신이 아니라면
+            else if (GameManager.Instance.FloorManager.IsFloor(worldPos)) 
             {
-                Collider2D floorCheck = Physics2D.OverlapPoint(worldPos, LayerMask.GetMask("Floor"));
-                if (floorCheck != null) //바닥타일맵인지 체크
-                {
-                    OnMove(worldPos); // 바닥 타일맵이면 이동가능
-                }
+                OnMove(worldPos);
             }
         }
 
-        private void TouchCoffeeMachine(GameObject machine)
+        private void TouchCoffeeMachine(CoffeeMachine machine)
         {
-            if (Vector3.Distance(transform.position, machine.transform.position) < interactionRange) // 플레이어 거리와 커피머신의 거리가 상호작용거리 내라면
+            if (Vector3.Distance(transform.position, machine.transform.position) < interactionRange)
             {
-                CoffeeMachine coffeeMachine = machine.GetComponent<CoffeeMachine>();
-                CoffeeMachine.SetLastTouchedMachine(coffeeMachine); // 마지막으로 터치한 커피머신으로 저장
+                CoffeeMachine.SetLastTouchedMachine(machine);
 
-                if (coffeeMachine.IsRoasting) // 해당 커피머신이 로스팅 중이라면
+                if (machine.IsRoasting)
                 {
                     GameManager.Instance.UIManager.ShowCurrentMenuPopUp();
-                    GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu"); // Find
-                    currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(coffeeMachine);
+                    GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
+                    currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(machine);
                 }
                 else
                 {
@@ -139,7 +135,6 @@ namespace DalbitCafe.Player
                 GameManager.Instance.UIManager.ShowCapitonText();
             }
         }
-
         private void OnMove(Vector3 targetPos)
         {
             targetPosition = targetPos;

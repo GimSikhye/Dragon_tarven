@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using DalbitCafe.Deco;
 using DalbitCafe.Inputs;
+using DalbitCafe.Operations;
+using DalbitCafe.Map;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -17,6 +19,8 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private RewardManager _rewardManager;
     [SerializeField] private GridManager _gridManager;
     [SerializeField] private DecorateManager _decorateManager;
+    [SerializeField] private CoffeeMachineManager _coffeeMachineManager;
+    [SerializeField] private FloorManager _floorManager;
 
 
     private void Start()
@@ -60,4 +64,6 @@ public class GameManager : MonoSingleton<GameManager>
     public RewardManager RewardManager => _rewardManager;
     public GridManager GridManager => _gridManager;
     public DecorateManager DecorateManager => _decorateManager;
+    public CoffeeMachineManager CoffeeMachineManager => _coffeeMachineManager;
+    public FloorManager FloorManager => _floorManager;
 }
