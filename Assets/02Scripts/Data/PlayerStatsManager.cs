@@ -1,3 +1,4 @@
+using DalbitCafe.Operations;
 using UnityEngine;
 
 public class PlayerStatsManager : MonoBehaviour
@@ -80,4 +81,15 @@ public class PlayerStatsManager : MonoBehaviour
     {
         return 100 + (currentLevel - 1) * 20;
     }
+
+    // 예시: PlayerStatsManager 안에 레벨업 함수 내에서
+    public void LevelUp()
+    {
+        Level++; // 레벨 증가
+
+        // 기타 레벨업 처리...
+
+        GameManager.Instance.CoffeeMachineManager.UpdateMachineActivation(Level);
+    }
+
 }

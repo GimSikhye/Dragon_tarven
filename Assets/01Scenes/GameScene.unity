@@ -33089,6 +33089,7 @@ MonoBehaviour:
   - {fileID: 1462586937}
   - {fileID: 5964223560215070233}
   _captionText: {fileID: 0}
+  touch_feedback: {fileID: 0}
   _coffeeBeanAmountText: {fileID: 0}
   _coinAmountText: {fileID: 0}
   gemAmountText: {fileID: 0}
@@ -33610,6 +33611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   touch_feedback: {fileID: 1705647414}
   interactionRange: 3
+  moveSpeed: 3
   savedPosition: {x: 0, y: 0, z: 0}
 --- !u!95 &915743439
 Animator:
@@ -36574,10 +36576,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _uiManager: {fileID: 0}
+  _buttonManager: {fileID: 0}
   _soundManager: {fileID: 0}
   _playerStatsManager: {fileID: 0}
+  _touchInputManager: {fileID: 0}
+  _dialogueManager: {fileID: 0}
+  _questManager: {fileID: 0}
   _rewardManager: {fileID: 0}
-  _buttonManager: {fileID: 0}
+  _gridManager: {fileID: 0}
+  _decorateManager: {fileID: 0}
+  _coffeeMachineManager: {fileID: 0}
 --- !u!4 &1342792674
 Transform:
   m_ObjectHideFlags: 0
@@ -37673,6 +37681,10 @@ PrefabInstance:
       propertyPath: _questTracker
       value: 
       objectReference: {fileID: 1670873343}
+    - target: {fileID: 6463957236243978542, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
+      propertyPath: unlockedLevel
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6463957236243978542, guid: ebe549f848ab98c4ab0c3a79531803a4, type: 3}
       propertyPath: _steamParticle
       value: 

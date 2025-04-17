@@ -14,6 +14,9 @@ namespace DalbitCafe.Operations
         [SerializeField] private GameObject _steamParticle;
 
         [SerializeField] private QuestTracker _questTracker;
+        [SerializeField] private int unlockedLevel = 1; // 몇 레벨에 활성화되는 머신인지
+
+        public int UnlockLevel => unlockedLevel;
 
         public bool IsRoasting => _isRoasting;
         public CoffeeData CurrentCoffee => _currentCoffee;
@@ -23,7 +26,15 @@ namespace DalbitCafe.Operations
         {
             if (_questTracker == null)
                 _questTracker = FindObjectOfType<QuestTracker>();
+
+            GameManager.Instance.CoffeeMachineManager.RegisterMachine(this);
         }
+
+        private void OnDestroy()
+        {
+            GameManager.Instance.CoffeeMachineManager.UnregisterMachine(this);
+        }
+
         public void RoastCoffee(CoffeeData coffee)
         {
             _isRoasting = true;
