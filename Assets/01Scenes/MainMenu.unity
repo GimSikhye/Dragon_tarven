@@ -1942,14 +1942,14 @@ MonoBehaviour:
   _buttonManager: {fileID: 2141067221}
   _soundManager: {fileID: 1491988262}
   _playerStatsManager: {fileID: 1302904339}
-  _touchInputManager: {fileID: 0}
+  _touchInputManager: {fileID: 179373042}
   _dialogueManager: {fileID: 647565688}
   _questManager: {fileID: 364676612}
   _rewardManager: {fileID: 1231860034}
   _gridManager: {fileID: 1059311054}
   _decorateManager: {fileID: 1035185896}
   _coffeeMachineManager: {fileID: 1640982787}
-  _floorManager: {fileID: 0}
+  _floorManager: {fileID: 1019162627}
 --- !u!1 &1218875186
 GameObject:
   m_ObjectHideFlags: 0
