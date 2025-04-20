@@ -108,15 +108,16 @@ namespace DalbitCafe.Player
             }
             else if (GameManager.Instance.FloorManager.IsFloor(worldPos)) 
             {
-                Debug.Log("무브");
                 OnMove(worldPos);
             }
         }
 
-        private void TouchCoffeeMachine(CoffeeMachine machine)
+        private void TouchCoffeeMachine(CoffeeMachine machine) // 여기 검사
         {
+            Debug.Log("거리 before");
             if (Vector3.Distance(transform.position, machine.transform.position) < _interactionRange)
             {
+                Debug.Log("거리 after");
                 CoffeeMachine.SetLastTouchedMachine(machine);
 
                 if (machine.IsRoasting)
@@ -127,6 +128,7 @@ namespace DalbitCafe.Player
                 }
                 else
                 {
+                    Debug.Log("현재 메뉴창");
                     GameManager.Instance.UIManager.ShowMakeCoffeePopUp();
                 }
             }

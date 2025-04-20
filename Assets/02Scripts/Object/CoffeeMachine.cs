@@ -37,9 +37,11 @@ namespace DalbitCafe.Operations
 
         public void RoastCoffee(CoffeeData coffee)
         {
+            if (_isRoasting) return;
             _isRoasting = true;
             _currentCoffee = coffee;
             _remainingMugs = coffee.MugQty;
+            GameManager.Instance.PlayerStatsManager.AddCoffeeBean(-coffee.BeanUse);
             GameObject particle = Instantiate(_steamParticle);
             particle.transform.position = transform.position;
         }
