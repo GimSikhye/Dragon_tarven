@@ -11,6 +11,39 @@ public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private AudioClip click_clip;
 
+    // Start에서 버튼 리스너를 추가하는 방법
+    private void Start()
+    {
+      
+        // MainMenu에 있는 버튼을 찾아서 람다로 이벤트 추가
+        Button[] mainMenuButtons = GameObject.Find("Canvas_MainMenu").GetComponentsInChildren<Button>();
+        foreach (Button button in mainMenuButtons)
+        {
+            if (button.name == "UI_StartBtn")
+            {
+                button.onClick.AddListener(() => LoadButton("GameScene"));
+            }
+            else if (button.name == "UI_QutiBtn")
+            {
+                button.onClick.AddListener(() => QuitButton());
+            }
+        }
+
+        Button[] gameSceneButtons = GameObject.Find("Canvas_GameScene").GetComponentsInChildren<Button>(true);
+        foreach (Button button in gameSceneButtons)
+        {
+            if (button.name == "UI_QuestBtn")
+            {
+                button.onClick.AddListener(() => LoadButton("GameScene"));
+            }
+            else if (button.name == "QuitButton")
+            {
+                button.onClick.AddListener(() => QuitButton());
+            }
+        }
+
+    }
+
     public void LoadButton(string sceneName)
     {
         GameManager.Instance.SoundManager.PlaySFX(click_clip);
@@ -78,6 +111,4 @@ public class ButtonManager : MonoBehaviour
         yield return new WaitForSeconds(delay);
         button.GetComponent<Button>().interactable = true;
     }
-
-
 }

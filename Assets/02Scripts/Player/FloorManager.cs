@@ -22,15 +22,7 @@ namespace DalbitCafe.Map
         {
             if (scene.name == "GameScene" && floorTilemap == null)
             {
-                floorTilemap = FindObjectOfType<Tilemap>();
-                if (floorTilemap == null)
-                {
-                    Debug.LogWarning("[FloorManager] GameScene에서 Tilemap을 찾지 못했습니다.");
-                }
-                else
-                {
-                    Debug.Log("[FloorManager] GameScene에서 floorTilemap 자동 연결 완료.");
-                }
+                floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
             }
         }
 

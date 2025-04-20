@@ -7,7 +7,6 @@ using DalbitCafe.Operations;
 using DalbitCafe.Inputs;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
-//코드읽기
 namespace DalbitCafe.Player
 {
     public class PlayerCtrl : MonoSingleton<PlayerCtrl>
@@ -109,6 +108,7 @@ namespace DalbitCafe.Player
             }
             else if (GameManager.Instance.FloorManager.IsFloor(worldPos)) 
             {
+                Debug.Log("무브");
                 OnMove(worldPos);
             }
         }
