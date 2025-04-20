@@ -22,7 +22,6 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private CoffeeMachineManager _coffeeMachineManager;
     [SerializeField] private FloorManager _floorManager;
 
-
     private void Start()
     {
         _playerStatsManager.Load();

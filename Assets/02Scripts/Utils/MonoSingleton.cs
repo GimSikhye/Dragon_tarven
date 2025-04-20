@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    private static T instance;
+    protected static T instance;
 
     public static T Instance
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 GameObject obj = GameObject.Find(typeof(T).Name);
-                if(obj == null)
+                if (obj == null)
                 {
                     obj = new GameObject(typeof(T).Name);
                     instance = obj.AddComponent<T>();
@@ -20,9 +20,19 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
                 {
                     instance = obj.GetComponent<T>();
                 }
-
             }
             return instance;
+        }
+    }
+
+    public static bool HasInstance => instance != null; // 가지고 있다면 true 
+
+    // 외부에서 미리 만든 instance를 할당하기 위해
+    public static void AssignInstance(T inst)
+    {
+        if (instance == null)
+        {
+            instance = inst;
         }
     }
 
@@ -35,8 +45,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(gameObject); // 중복 생성 시 제거
+            Destroy(gameObject); // 중복 생성 방지
         }
     }
-
 }
