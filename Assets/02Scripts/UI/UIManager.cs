@@ -240,7 +240,10 @@ public class UIManager : MonoBehaviour
                         case "close_btn":
                             panel.SetActive(false);
                             break;
-                            // 추가 케이스...
+                        // 추가 케이스...
+                        case "UI_closeBtn":
+                            panel.SetActive(false);
+                            break;
                     }
                 });
             }

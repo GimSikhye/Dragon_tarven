@@ -7,8 +7,6 @@ using UnityEngine.Serialization;
 
 public class DialogueManager : MonoBehaviour
 {
-    public static DialogueManager Instance;
-
     [Header("UI Components")]
     [FormerlySerializedAs("nameText")]
     public TextMeshProUGUI nameText;
@@ -16,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     [FormerlySerializedAs("nameArea")]
     public GameObject nameArea;
+
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
@@ -28,33 +27,26 @@ public class DialogueManager : MonoBehaviour
     public float typingSpeed = 0.05f;
 
     [Header("Dialogue Data")]
-    public DialogueData dialogueData;
+    public DialogueData dialogueData; // 대화 데이터
 
     private int currentLine = 0;
     private int currentTextIndex = 0;
     private Coroutine typingCoroutine;
 
-    private CharacterInfo currentSpeaker;
-    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default;
+    private CharacterInfo currentSpeaker; // 현재 말하는 캐릭터
+    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default; // 감정표현
 
     public GameObject imageEffectObject;
     public Image effectImage;
     public AudioSource sfxSource;
 
-    [FormerlySerializedAs("isStoryDialogue")]
     public bool isStoryDialogue = false;
-
-    private void Awake()
-    {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
-    }
 
     private void Start()
     {
-        string nextDialogueName = PlayerPrefs.GetString("NextDialogue", "");
+        string nextDialogueName = PlayerPrefs.GetString("NextDialogue", ""); // 초기화
 
-        if (!string.IsNullOrEmpty(nextDialogueName))
+        if (!string.IsNullOrEmpty(nextDialogueName)) // 비었다면
         {
             DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
             if (data != null)
