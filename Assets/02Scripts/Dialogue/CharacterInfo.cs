@@ -1,4 +1,3 @@
-
 using UnityEngine;
 
 public enum CharacterExpression
@@ -11,6 +10,7 @@ public enum CharacterExpression
 [System.Serializable]
 public class CharacterInfo : ScriptableObject
 {
+    // 감정표현 sprite들
     public string characterName;
     public Sprite defaultSprite;
     public Sprite smileSprite;

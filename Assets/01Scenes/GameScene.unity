@@ -1871,7 +1871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &134760345
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2311,7 +2311,7 @@ RectTransform:
   m_Father: {fileID: 654050326}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -2679,8 +2679,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1478582390}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 3.4399033}
   m_SizeDelta: {x: 36.7853, y: -35.9826}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -37144,7 +37144,7 @@ RectTransform:
   m_Father: {fileID: 1970606433}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -38856,8 +38856,8 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1284295424}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 3.4399033}
   m_SizeDelta: {x: 36.7853, y: -35.9826}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -40471,8 +40471,8 @@ MonoBehaviour:
   completeQuestNameText: {fileID: 7320602828924358828}
   rewardArea: {fileID: 7320602828924358827}
   rewardBorderPrefab: {fileID: 4277115520347213426, guid: 0bfadad24491be0448a0de8230e4b4c0, type: 3}
-  goldSprite: {fileID: -8395651446386530371, guid: a15e732519d3a6a4cacf3ee1c195259e, type: 3}
-  expSprite: {fileID: -4939141021139276860, guid: 6ba0165d8c6cc234bb0559914fad114b, type: 3}
+  goldSprite: {fileID: 21300000, guid: 5e0b7d7b633cc8f459d4cc588f0f03c8, type: 3}
+  expSprite: {fileID: 21300000, guid: 6ba0165d8c6cc234bb0559914fad114b, type: 3}
 --- !u!1 &2042380805
 GameObject:
   m_ObjectHideFlags: 0
@@ -41119,7 +41119,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_TagString
@@ -41219,19 +41219,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 285.32602
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -93.79007
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5611993910719503293, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_SizeDelta.x
@@ -41377,6 +41377,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4186195846109506425, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_Name
+      value: UI_QuestCatalog
+      objectReference: {fileID: 0}
     - target: {fileID: 5202174759601152550, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -41471,7 +41475,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5859600809937193730, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_Name
-      value: QuestCatlogContent
+      value: QuestCatalogContent
+      objectReference: {fileID: 0}
+    - target: {fileID: 5859600809937193730, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6097898473057686865, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_Horizontal

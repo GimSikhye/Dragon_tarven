@@ -32,7 +32,7 @@ public class QuestUI : MonoBehaviour
         Instance = this;
         completeButton.onClick.AddListener(() =>
         {
-            QuestManager.Instance.CompleteQuest(currentQuest);
+            GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
             completePopup.SetActive(false);
             SceneManager.LoadScene("DialogueScene");
         });

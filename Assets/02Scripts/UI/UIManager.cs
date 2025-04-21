@@ -24,7 +24,7 @@ public enum Windows
 // ui 참조 다 날라간거 이어줘야 함
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _panels;
+    [SerializeField] public GameObject[] panels;
     [SerializeField] private TextMeshProUGUI _captionText; // 주의 문구
     [SerializeField] private Image _touchFeedback;
 
@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
     // 프로필
     public Slider expSlider;
     public TextMeshProUGUI currentLevelText;
+
+    public Action<QuestData> OnQuestComplete;
 
     public void UpdateExpUI(int exp, int maxExp, int level)
     {
@@ -85,7 +87,7 @@ public class UIManager : MonoBehaviour
         if (scene.name != "GameScene") return;
 
         // GameScene의 UI 요소 다시 연결
-        _panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
+        panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
             ?.Where(t => t.CompareTag("UIPanel"))
             .Select(t => t.gameObject).ToArray();
 
@@ -99,9 +101,9 @@ public class UIManager : MonoBehaviour
         currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
 
         // 패널 숨기기 + 초기화
-        if (_panels != null)
+        if (panels != null)
         {
-            foreach (var panel in _panels)
+            foreach (var panel in panels)
                 panel.SetActive(false);
         }
         InitializeAllButtons();
@@ -136,7 +138,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowMakeCoffeePopUp()
     {
-        var panel = _panels[(int)Windows.MakeCoffee]; // 번호가 제대로 할당안됨
+        var panel = panels[(int)Windows.MakeCoffee]; // 번호가 제대로 할당안됨
         panel.SetActive(true);
         // 애니메이션
         panel.transform.localScale = Vector3.zero;
@@ -145,7 +147,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowExitPopUp()
     {
-        _panels[(int)Windows.Exit].SetActive(true);
+        panels[(int)Windows.Exit].SetActive(true);
     }
 
     public void ShowCapitonText()
@@ -158,7 +160,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowCurrentMenuPopUp()
     {
-        GameObject window = _panels[(int)Windows.CurrentMenu];
+        GameObject window = panels[(int)Windows.CurrentMenu];
         window.SetActive(true);
         window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
         window.GetComponent<Image>().DOFade(1, 0.5f);
@@ -166,7 +168,7 @@ public class UIManager : MonoBehaviour
 
     public void ShowQuestPopUp()
     {
-        GameObject window = _panels[(int)Windows.Quest];
+        GameObject window = panels[(int)Windows.Quest];
         window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
             .OnComplete(() => window.SetActive(true));
     }
@@ -200,7 +202,7 @@ public class UIManager : MonoBehaviour
     {
         Debug.Log("InitializeAllButtons 호출"); // 여기에 로그 추가
 
-        foreach (var panel in _panels)
+        foreach (var panel in panels)
         {
             var buttons = panel.GetComponentsInChildren<Button>(true);
             foreach (var btn in buttons)
@@ -243,6 +245,10 @@ public class UIManager : MonoBehaviour
                         // 추가 케이스...
                         case "UI_closeBtn":
                             panel.SetActive(false);
+                            break;
+                        case "UI_CompleteButton":
+                            Debug.Log("완료");
+                            //OnQuestComplete.Invoke(); 인자를 넘겨줘야 해서 X
                             break;
                     }
                 });

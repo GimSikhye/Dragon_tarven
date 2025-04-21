@@ -4,7 +4,6 @@ using UnityEngine;
 public class PlayerStatsManager : MonoBehaviour
 {
     public PlayerStats statsSO;
-
     public int CoffeeBeans { get; private set; }
     public int Coin { get; private set; }
     public int Gem { get; private set; }
@@ -14,19 +13,21 @@ public class PlayerStatsManager : MonoBehaviour
 
     void Awake()
     {
-        InitializeStat("Coin", statsSO.coin);
-        InitializeStat("Gem", statsSO.gem);
-        InitializeStat("CoffeeBean", statsSO.coffeeBean);
-        InitializeStat("Exp", statsSO.exp);
-        InitializeStat("Level", statsSO.level);
+        //InitializeStat("Coin", statsSO.coin);
+        InitializeStat("Coin", 100); // 일단 테스트로 항시 값 바꾸기
+        InitializeStat("Gem", 10);
+        InitializeStat("CoffeeBean", 1000);
+        InitializeStat("Exp", 100);
+        InitializeStat("Level", 1);
     }
+
 
     void InitializeStat(string key, int defaultValue)
     {
-        if (!PlayerPrefs.HasKey(key))
-        {
+        //if (!PlayerPrefs.HasKey(key))
+        //{
             PlayerPrefs.SetInt(key, defaultValue);
-        }
+        //}
     }
 
     public void Load()
@@ -37,6 +38,12 @@ public class PlayerStatsManager : MonoBehaviour
         Exp = PlayerPrefs.GetInt("Exp");
         Level = PlayerPrefs.GetInt("Level");
         MaxExp = CalculateMaxExp(Level);
+
+        GameManager.Instance.UIManager.UpdateCoinUI(Coin);
+        GameManager.Instance.UIManager.UpdateGemUI(Gem);
+        GameManager.Instance.UIManager.UpdateCoffeeBeanUI(CoffeeBeans);
+        GameManager.Instance.UIManager.UpdateExpUI(Exp, MaxExp, Level);
+
     }
 
     public void AddCoin(int amount)
@@ -68,7 +75,7 @@ public class PlayerStatsManager : MonoBehaviour
         {
             Exp -= MaxExp;
             Level++;
-            MaxExp = CalculateMaxExp(Level);
+            MaxExp = CalculateMaxExp(Level); // MaxExp 계산( 나중에 )
         }
 
         PlayerPrefs.SetInt("Exp", Exp);

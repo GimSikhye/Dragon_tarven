@@ -232,8 +232,8 @@ MonoBehaviour:
   leftGroup: {fileID: 1893096232}
   centerGroup: {fileID: 1176876170}
   rightGroup: {fileID: 2122056836}
-  typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: 19f3247578d40454580405f2e5bdd563, type: 2}
+  _typingSpeed: 0.05
+  dialogueData: {fileID: 11400000, guid: e0563f7281298fc4a889cc4ec579284f, type: 2}
   imageEffectObject: {fileID: 0}
   effectImage: {fileID: 53503322}
   sfxSource: {fileID: 1838131660}

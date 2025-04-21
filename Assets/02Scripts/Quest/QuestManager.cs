@@ -1,28 +1,49 @@
 using System.Collections.Generic;
+using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 판매/배치 등 조건 체크용 이벤트 수신
 public class QuestManager : MonoBehaviour
 {
-    public static QuestManager Instance;
 
     public Transform questListContent; // 퀘스트 UI를 생성할 때 필요한 부모 객체
-    public GameObject questItemPrefab;
+    public GameObject questItemPrefab; //QuestSelectButton
     public List<QuestData> activeQuests = new(); // 현재 진행중인 퀘스트 목록
 
     public QuestData quest1;
     public DialogueManager dialougManager;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
 
     private void Start()
     {
-        AddQuest(quest1);
-        QuestManager.Instance.ResetQuestProgress(quest1);
+        //AddQuest(quest1);
+        //ResetQuestProgress(quest1);
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += Init;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= Init;
+
+    }
+
+    private void Init(Scene scene, LoadSceneMode sceneMode)
+    {
+        if(scene.name == "GameScene")
+        {
+            questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton");
+            questListContent = GameManager.Instance.UIManager.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
+            dialougManager = GameManager.Instance.DialogueManager;
+            quest1 = Resources.Load<QuestData>("QuestData/QuestData1");
+            AddQuest(quest1); // 테스트
+            ResetQuestProgress(quest1);
+
+        }
     }
 
     public void AddQuest(QuestData quest)
@@ -55,7 +76,7 @@ public class QuestManager : MonoBehaviour
 
     void CreateQuestUI(QuestData quest)
     {
-        GameObject go = Instantiate(questItemPrefab, questListContent);
+        GameObject go = Instantiate(questItemPrefab, questListContent); // 여기서 null 남
         go.GetComponent<QuestUIItem>().Setup(quest);
     }
 

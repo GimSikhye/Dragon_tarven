@@ -7,6 +7,7 @@ using UnityEngine.Serialization;
 
 public class DialogueManager : MonoBehaviour
 {
+    // 이거 참조 씬 바뀔때로 바꾸기
     [Header("UI Components")]
     [FormerlySerializedAs("nameText")]
     public TextMeshProUGUI nameText;
@@ -19,41 +20,41 @@ public class DialogueManager : MonoBehaviour
     public Image centerCharacterImage;
     public Image rightCharacterImage;
 
-    public CanvasGroup leftGroup;
+    public CanvasGroup leftGroup; // 캐릭터 블라인드
     public CanvasGroup centerGroup;
     public CanvasGroup rightGroup;
 
     [Header("Typing")]
-    public float typingSpeed = 0.05f;
+    [SerializeField] private float _typingSpeed = 0.05f;
 
     [Header("Dialogue Data")]
     public DialogueData dialogueData; // 대화 데이터
 
-    private int currentLine = 0;
-    private int currentTextIndex = 0;
+    private int currentLine = 0; // 큰 단위(다이얼로그)
+    private int currentTextIndex = 0; // 작은 단위(대사)
     private Coroutine typingCoroutine;
 
     private CharacterInfo currentSpeaker; // 현재 말하는 캐릭터
-    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default; // 감정표현
+    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default; // 기본 감정표현
 
-    public GameObject imageEffectObject;
-    public Image effectImage;
+    [SerializeField] private GameObject imageEffectObject; // 용도?
+    [SerializeField] private Image effectImage;
     public AudioSource sfxSource;
 
     public bool isStoryDialogue = false;
 
-    private void Start()
+    private void Start() // 다음 퀘스트 가져오기
     {
-        string nextDialogueName = PlayerPrefs.GetString("NextDialogue", ""); // 초기화
+        string nextDialogueName = PlayerPrefs.GetString("NextDialogue", ""); // 가져오기. 기본 ""
 
-        if (!string.IsNullOrEmpty(nextDialogueName)) // 비었다면
+        if (!string.IsNullOrEmpty(nextDialogueName)) //  ""가 아니라면
         {
             DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
             if (data != null)
             {
                 LoadDialogue(data);
             }
-            else
+            else 
             {
                 Debug.LogWarning("해당 이름의 DialogueData를 찾을 수 없습니다: " + nextDialogueName);
             }
@@ -61,6 +62,11 @@ public class DialogueManager : MonoBehaviour
             // 한번 로드하고 나면 재진입 시 대화가 또 실행되지 않도록 삭제
             PlayerPrefs.DeleteKey("NextDialogue");
         }
+        else // 스토리 퀘스트가 아님
+        {
+
+        }
+
     }
 
     public void StartDialogue()
@@ -73,23 +79,39 @@ public class DialogueManager : MonoBehaviour
     public void LoadDialogue(DialogueData newDialogue)
     {
         dialogueData = newDialogue;
-        gameObject.SetActive(true);
+        gameObject.SetActive(true); // 스크립트가 붙어있는 오브젝트
 
         StartDialogue(); // 첫 문장 자동 실행
     }
 
 
-    public void OnClickNext()
+    public void OnClickNext() // 터치로 바꾸기
     {
         if (typingCoroutine != null)
         {
-            StopCoroutine(typingCoroutine);
-            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex].text;
+            StopCoroutine(typingCoroutine); // 타이핑 코루틴 멈추기 //dialgoueText요소의 text변수
+            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex].text; // lines: 다이얼로그 전체 묶음 // dialgoueText: DialogueEvent
             typingCoroutine = null;
             return;
         }
 
         currentTextIndex++;
+        DialogueLine line = dialogueData.lines[currentLine];
+
+        if (currentTextIndex >= line.dialogueTexts.Length) // dialogueText 개수 다 돌았다면
+        {
+            currentLine++;
+            currentTextIndex = 0; // 초기화
+
+            if (currentLine >= dialogueData.lines.Length)
+            {
+                EndDialogue(); // 다이얼로그 끝내기
+                return;
+            }
+
+            line = dialogueData.lines[currentLine];
+        }
+
 
         // 텍스트 인덱스가 범위를 벗어나면 다음 라인으로
         if (currentLine >= dialogueData.lines.Length)
@@ -98,22 +120,7 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        DialogueLine line = dialogueData.lines[currentLine];
-
-        if (currentTextIndex >= line.dialogueTexts.Length)
-        {
-            currentLine++;
-            currentTextIndex = 0;
-
-            if (currentLine >= dialogueData.lines.Length)
-            {
-                EndDialogue();
-                return;
-            }
-
-            line = dialogueData.lines[currentLine];
-        }
-
+  
         ShowLine();
     }
 
@@ -181,7 +188,7 @@ public class DialogueManager : MonoBehaviour
         foreach (char letter in text)
         {
             dialogueText.text += letter;
-            yield return new WaitForSeconds(typingSpeed);
+            yield return new WaitForSeconds(_typingSpeed);
         }
         typingCoroutine = null;
     }

@@ -518,10 +518,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panels: []
   _captionText: {fileID: 0}
-  touch_feedback: {fileID: 0}
+  _touchFeedback: {fileID: 0}
   _coffeeBeanAmountText: {fileID: 0}
   _coinAmountText: {fileID: 0}
-  gemAmountText: {fileID: 0}
+  _gemAmountText: {fileID: 0}
   expSlider: {fileID: 0}
   currentLevelText: {fileID: 0}
 --- !u!1 &5075938491096413900
@@ -885,8 +885,8 @@ Transform:
   - {fileID: 5106096717515082608}
   - {fileID: 990833503819301067}
   - {fileID: 7810815774064627317}
-  - {fileID: 540750447971714652}
   - {fileID: 4023232905697179283}
+  - {fileID: 540750447971714652}
   - {fileID: 2191113744509778241}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

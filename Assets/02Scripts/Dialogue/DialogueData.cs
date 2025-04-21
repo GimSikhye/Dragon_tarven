@@ -1,4 +1,5 @@
 using UnityEngine;
+
 [System.Serializable]
 public class DialogueEvent
 {
@@ -11,15 +12,15 @@ public class DialogueEvent
 [System.Serializable]
 public class DialogueLine // 각 대사 라인 데이터
 {
-    public CharacterInfo speaker;
+    public CharacterInfo speaker; // CharacterInfo SO
     public CharacterExpression expression = CharacterExpression.Default;
     public bool isNarration; // 나레이션 여부 (true이면 캐릭터 이름 및 이미지 숨김)
-    public DialogueEvent[] dialogueTexts; // 한 캐릭터가 여러 문장
 
+    public DialogueEvent[] dialogueTexts; // 대사 묶음(여러 문장)
 }
 
 [CreateAssetMenu(fileName = "New Dialogue", menuName = "SO/DialogueData")]
-public class DialogueData : ScriptableObject // 다이얼로그 전체 묶음
+public class DialogueData : ScriptableObject // 다이얼로그 전체 묶음(대사 묶음 모음) = 틀
 {
     public DialogueLine[] lines;
 }
