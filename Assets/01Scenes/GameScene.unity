@@ -42147,21 +42147,25 @@ PrefabInstance:
       propertyPath: m_TagString
       value: UIPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 3043488447025934768, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -4743953068557583031, guid: aa24990e8e3715142aeb45e277039cb3, type: 3}
     - target: {fileID: 3525657309600208518, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3525657309600208518, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3525657309600208518, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 384.60986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3525657309600208518, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -69.272995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3540868747893544099, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_SizeDelta.x
@@ -42346,6 +42350,18 @@ PrefabInstance:
     - target: {fileID: 8895616408461248422, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -122
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206665135005774033, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 772
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206665135005774033, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 218
+      objectReference: {fileID: 0}
+    - target: {fileID: 9206665135005774033, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 45.081
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
