@@ -36,6 +36,6 @@ public class QuestUIItem : MonoBehaviour
 
     public void OnClick() // 해당 퀘스트 항목을 클릭했을 때, 퀘스트 상세 정보를 보여주는 패널을 열어주는 역할
     {
-        QuestUI.Instance.ShowQuest(quest);
+        QuestUI.Instance.ShowQuestCondition(quest);
     }
 }

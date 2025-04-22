@@ -9,71 +9,64 @@ public class QuestUI : MonoBehaviour
 {
     public static QuestUI Instance;
 
+    [Header(("퀘스트 팝업"))]
     public GameObject questPanel;
-    public TextMeshProUGUI questTitleText;
-    public TextMeshProUGUI questDescText;
-    public Transform conditionParent;
-    public GameObject conditionTextPrefab;
+    public TextMeshProUGUI questTitleText; // 퀘스트 제목
+    public TextMeshProUGUI questDescText; // 퀘스트 설명
+    public Transform conditionParent; // 퀘스트 조건이 추가될 위치
+    public GameObject conditionTextPrefab; // 퀘스트 조건
 
+    [Header(("퀘스트 완료 팝업"))]
     public GameObject completePopup;
     public Button completeButton;
-    public TextMeshProUGUI completeQuestNameText;
-    public Transform rewardArea;
-    public GameObject rewardBorderPrefab;
+    public TextMeshProUGUI completeQuestNameText; // 퀘스트 이름
+    public Transform rewardArea; // 보상이 위치될 영역
+    public GameObject rewardBorderPrefab; // 보상 목록아이콘 프리팹
+
+    [Header("보상 스프라이트")]
     public Sprite goldSprite;
     public Sprite expSprite;
 
-    private QuestData currentQuest;
-    private List<TextMeshProUGUI> conditionTextList = new List<TextMeshProUGUI>();
-    public QuestData CurrentQuest => currentQuest;
+    private QuestData _currentQuest; // 현재 퀘스트
+    private List<TextMeshProUGUI> _conditionTextList = new List<TextMeshProUGUI>(); //  UI 텍스트 컴포넌트 참조를 저장하는 용도
+    public QuestData CurrentQuest => _currentQuest;
 
     private void Awake()
     {
         Instance = this;
-        //completeButton.onClick.AddListener(() =>
-        //{
-        //    completePopup.SetActive(false); // 왜 setactive false 안되지
-        //    GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
-        //    //SceneManager.LoadScene("DialogueScene");
-        //    Debug.Log("완료버튼 누름");
-        //});
-
-
     }
 
-    public void ShowQuest(QuestData quest)
+    public void ShowQuestCondition(QuestData quest) // 해당 퀘스트 조건을 새로 보여줄 때
     {
-        currentQuest = quest;
+        _currentQuest = quest;
 
         questTitleText.text = quest.questTitle;
         questDescText.text = quest.description;
 
-        foreach (Transform child in conditionParent)
+        foreach (Transform child in conditionParent) // 이전 퀘스트의 조건 UI를 다 지움(왜 안되징)
             Destroy(child.gameObject);
 
-        conditionTextList.Clear();
+        _conditionTextList.Clear(); // 조건 텍스트 리스트도 초기화
 
-        foreach (var cond in quest.conditions)
+        foreach (var cond in quest.conditions) // 해당 퀘스트의 조건들을 가져옴
         {
             var go = Instantiate(conditionTextPrefab, conditionParent);
             var text = go.GetComponentInChildren<TextMeshProUGUI>();
-            conditionTextList.Add(text);
+            _conditionTextList.Add(text); // 왜 tmp를 추가해주지?
         }
 
-        UpdateQuestInfo();
-
-        questPanel.SetActive(true);
+        UpdateQuestInfo(); ///// 이것도 봐야함
 
     }
 
-    public void UpdateQuestInfo()
+    public void UpdateQuestInfo() // 퀘스트 정보 업데이트
     {
-        if (currentQuest == null) return;
+        if (_currentQuest == null) return;
 
-        for (int i = 0; i < currentQuest.conditions.Count(); i++)
+        for (int i = 0; i < _currentQuest.conditions.Count(); i++)
         {
-            var cond = currentQuest.conditions[i];
-            var text = conditionTextList[i];
+            var cond = _currentQuest.conditions[i];
+            var text = _conditionTextList[i];
 
             string state = cond.currentAmount >= cond.requiredAmount ? "(완료)" : "";
 
@@ -99,12 +92,12 @@ public class QuestUI : MonoBehaviour
 
     public bool IsShowingQuest(QuestData quest)
     {
-        return currentQuest == quest;
+        return _currentQuest == quest;
     }
 
     public void ShowQuestComplete(QuestData quest)
     {
-        currentQuest = quest;
+        _currentQuest = quest;
         completePopup.SetActive(true);
 
         // 1. 퀘스트 이름 설정
@@ -124,7 +117,7 @@ public class QuestUI : MonoBehaviour
         completeButton.onClick.AddListener(() =>
         {
             completePopup.SetActive(false);
-            GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
+            GameManager.Instance.QuestManager.CompleteQuest(_currentQuest);
             Debug.Log("완료버튼 누름");
         });
 
