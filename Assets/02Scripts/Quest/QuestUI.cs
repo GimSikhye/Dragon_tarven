@@ -30,12 +30,15 @@ public class QuestUI : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        completeButton.onClick.AddListener(() =>
-        {
-            GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
-            completePopup.SetActive(false);
-            SceneManager.LoadScene("DialogueScene");
-        });
+        //completeButton.onClick.AddListener(() =>
+        //{
+        //    completePopup.SetActive(false); // 왜 setactive false 안되지
+        //    GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
+        //    //SceneManager.LoadScene("DialogueScene");
+        //    Debug.Log("완료버튼 누름");
+        //});
+
+
     }
 
     public void ShowQuest(QuestData quest)
@@ -60,6 +63,7 @@ public class QuestUI : MonoBehaviour
         UpdateQuestInfo();
 
         questPanel.SetActive(true);
+
     }
 
     public void UpdateQuestInfo()
@@ -116,6 +120,14 @@ public class QuestUI : MonoBehaviour
 
         if (quest.rewardExp > 0)
             CreateRewardUI(expSprite, quest.rewardExp);
+        completeButton.onClick.RemoveAllListeners(); // 중복 방지
+        completeButton.onClick.AddListener(() =>
+        {
+            completePopup.SetActive(false);
+            GameManager.Instance.QuestManager.CompleteQuest(currentQuest);
+            Debug.Log("완료버튼 누름");
+        });
+
     }
 
     private void CreateRewardUI(Sprite icon, int amount)
