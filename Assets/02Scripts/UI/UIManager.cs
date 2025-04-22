@@ -248,7 +248,6 @@ public class UIManager : MonoBehaviour
                             break;
                         case "UI_CompleteButton":
                             Debug.Log("완료");
-                            //OnQuestComplete.Invoke(); 인자를 넘겨줘야 해서 X
                             break;
                     }
                 });

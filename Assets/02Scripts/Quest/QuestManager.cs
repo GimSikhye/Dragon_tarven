@@ -103,7 +103,7 @@ public class QuestManager : MonoBehaviour
             if (allComplete && !quest.isCompleted)
             {
                 quest.isCompleted = true;
-                QuestUI.Instance.ShowQuestComplete(quest);
+                QuestUI.Instance.ShowQuestComplete(quest); //// 퀘스트 완료창
 
                 // QuestManager 등에서 퀘스트 완료 처리 시
                 if (quest.isStoryQuest && quest.storyDialogue != null)
@@ -144,7 +144,6 @@ public class QuestManager : MonoBehaviour
     public void CompleteQuest(QuestData quest)
     {
         GameManager.Instance.RewardManager.GiveReward(quest.rewardGold, quest.rewardExp); // 보상을 지급
-
         RemoveQuest(quest); // 퀘스트 제거
     }
 }
