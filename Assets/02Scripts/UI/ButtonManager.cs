@@ -6,23 +6,18 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class ButtonManager : MonoBehaviour
 {
     [SerializeField] private AudioClip click_clip;
 
-    // Start에서 버튼 리스너를 추가하는 방법
     private void OnEnable()
     {
-        //씬이 바뀔때
         SceneManager.sceneLoaded += ButtonInit;
     }
-
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= ButtonInit;
-
     }
 
     private void ButtonInit(Scene scene, LoadSceneMode mode)
@@ -46,18 +41,14 @@ public class ButtonManager : MonoBehaviour
         }
         else if (scene.name == "GameScene")
         {
-
-            Button[] gameSceneButtons = GameObject.Find("Canvas_GameScene").GetComponentsInChildren<Button>(true);
+            Button[] gameSceneButtons = GameObject.Find("Canvas_GameScene").GetComponentsInChildren<Button>(true); // 비활성화된 버튼들도 가져옴
             foreach (Button button in gameSceneButtons)
             {
                 if (button.name == "UI_QuestBtn")
                 {
                     button.onClick.AddListener(() => GameManager.Instance.UIManager.ShowQuestPopUp());
                 }
-                else if (button.name == "QuitButton")
-                {
-                    button.onClick.AddListener(() => QuitButton());
-                }
+
             }
         }
 

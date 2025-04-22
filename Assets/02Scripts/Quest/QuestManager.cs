@@ -103,7 +103,7 @@ public class QuestManager : MonoBehaviour
             if (allComplete && !quest.isCompleted)
             {
                 quest.isCompleted = true;
-                QuestUI.Instance.ShowQuestComplete(quest); //// 퀘스트 완료창
+                QuestUI.Instance.ShowQuestCompletePopup(quest); //// 퀘스트 완료창
 
                 // QuestManager 등에서 퀘스트 완료 처리 시
                 if (quest.isStoryQuest && quest.storyDialogue != null)

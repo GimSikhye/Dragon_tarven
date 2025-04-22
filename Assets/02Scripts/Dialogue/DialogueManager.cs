@@ -7,19 +7,22 @@ using UnityEngine.Serialization;
 
 public class DialogueManager : MonoBehaviour
 {
+    // 역전재판처럼 독백은 보라색글씨 등으로 해야하나?
     // 이거 참조 씬 바뀔때로 바꾸기
     [Header("UI Components")]
     [FormerlySerializedAs("nameText")]
-    public TextMeshProUGUI nameText;
+    public TextMeshProUGUI nameText; 
     [FormerlySerializedAs("dialogueText")]
     public TextMeshProUGUI dialogueText;
     [FormerlySerializedAs("nameArea")]
     public GameObject nameArea;
 
+    [Header("스탠딩 일러스트 위치")]
     public Image leftCharacterImage;
     public Image centerCharacterImage;
     public Image rightCharacterImage;
 
+    [Header("스탠딩 일러스트 블라인드")]
     public CanvasGroup leftGroup; // 캐릭터 블라인드
     public CanvasGroup centerGroup;
     public CanvasGroup rightGroup;

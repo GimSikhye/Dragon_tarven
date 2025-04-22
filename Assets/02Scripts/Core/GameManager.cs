@@ -22,6 +22,9 @@ public class GameManager : MonoSingleton<GameManager>
     [SerializeField] private CoffeeMachineManager _coffeeMachineManager;
     [SerializeField] private FloorManager _floorManager;
 
+    public Transform CashDesk;
+    public Transform OutSide;
+
     private void Start()
     {
         _playerStatsManager.Load();
@@ -50,6 +53,11 @@ public class GameManager : MonoSingleton<GameManager>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         _soundManager.PlaySceneBGM(scene);
+        if(scene.name == "GameScene")
+        {
+            CashDesk = GameObject.Find("Cashdesk").transform;
+            OutSide = GameObject.Find("Outside").transform;
+        }
     }
 
     // 외부에서 접근 가능하도록 프로퍼티 제공

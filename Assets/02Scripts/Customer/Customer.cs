@@ -10,13 +10,13 @@ namespace DalbitCafe.Customer
         [Header("파티클 관련")]
         [SerializeField] private ParticleSystem coinParticlePrefab;
         [SerializeField] private int particlePoolSize = 5;
-        private Queue<ParticleSystem> coinParticlePool = new Queue<ParticleSystem>();
+        private Queue<ParticleSystem> coinParticlePool = new Queue<ParticleSystem>(); // 여기서 queue가 쓰이는 이유
 
         [Header("길 찾기")]
         private NavMeshAgent _agent;
         private Vector3 _targetDestination;
         private Transform _cashDesk;
-        private Transform _outside;
+        private Transform _outside; // 바깥
         private CustomerPool _customerPool;
 
         [Header("주문 관련")]
@@ -25,8 +25,8 @@ namespace DalbitCafe.Customer
         [SerializeField] private Sprite _angrySprite;
 
         private CoffeeData _randomCoffee;
-        private CoffeeMachine _orderedMachine;
-        [SerializeField] private bool _isOrdering = false;
+        private CoffeeMachine _orderedMachine; // 주문된 머신
+        [SerializeField] private bool _isOrdering = false; // 주문 중인지
         private Animator _animator;
 
         // Animator 파라미터 해시
@@ -42,8 +42,8 @@ namespace DalbitCafe.Customer
             _agent.updateRotation = false;
             _agent.updateUpAxis = false;
 
-            _cashDesk = GameObject.Find("Cashdesk")?.transform;
-            _outside = GameObject.Find("Outside")?.transform;
+            _cashDesk = GameManager.Instance.CashDesk;
+            _outside = GameManager.Instance.OutSide;
 
             _animator = GetComponent<Animator>();
 
