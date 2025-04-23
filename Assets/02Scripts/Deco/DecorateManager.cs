@@ -16,6 +16,8 @@ namespace DalbitCafe.Deco
 
         [SerializeField] private bool _isDecorateMode = false;
 
+        [SerializeField] private DraggableItem targetItem;
+
         // 배치 모드 활성화
         public void ActivateDecorateMode()
         {
@@ -61,6 +63,13 @@ namespace DalbitCafe.Deco
         {
             _gridManager.PlaceItem(position, size); // 아이템 배치 처리
         }
+
+        public void OnRotateButtonPressed()
+        {
+            targetItem.RotateItem();
+        }
     }
 
+
 }
+

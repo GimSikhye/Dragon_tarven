@@ -34258,7 +34258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249901547915ac448991c4af539d9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tilemap: {fileID: 0}
+  floorTilemap: {fileID: 0}
   _itemSize: {x: 1, y: 1}
 --- !u!1 &936024553
 GameObject:
@@ -36072,6 +36072,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: floorTilemap
+      value: 
+      objectReference: {fileID: 936024557}
     - target: {fileID: 3764492586603111524, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.3696115

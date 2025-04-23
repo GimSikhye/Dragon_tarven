@@ -31,9 +31,9 @@ namespace DalbitCafe.Deco
         /// </summary>
         public bool CanPlaceItem(Vector2Int worldCellPos, Vector2Int size)
         {
-            Vector2Int localPos = WorldToGridIndex(worldCellPos);
+            Vector2Int localPos = WorldToGridIndex(worldCellPos); // 전달받은 셀 좌표를 로컬 인덱스로 변환 (WorldToGridIndex)
 
-            if (!IsInsideGrid(localPos, size)) return false;
+            if (!IsInsideGrid(localPos, size)) return false; // size 만큼 루프를 돌면서 그 셀에 타일이 있는지, 다른 아이템이 이미 있는지 확인
 
             for (int x = 0; x < size.x; x++)
             {

@@ -7,24 +7,27 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        [SerializeField] private Tilemap tilemap;
+        [SerializeField] private Tilemap floorTilemap;
 
         private Vector3 _initialPosition; // 드래그 시작 전 위치
-        private bool _isDragging = false;
+        private bool _isDragging = false; // 드래그 중인지 검사
         public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
+
+        // 아이템 회전
+        private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
 
         private void OnEnable()
         {
-            tilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
+            floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
         {
             _initialPosition = transform.position;
             _isDragging = true;
         }
 
-        public void OnDrag(PointerEventData eventData)
+        public void OnDrag(PointerEventData eventData) // 드래그 중일 때
         {
             if (_isDragging)
             {
@@ -33,15 +36,15 @@ namespace DalbitCafe.Deco
                 newPosition.z = 0;
 
                 // 셀 기준 위치 계산
-                Vector3Int cellPosition = tilemap.WorldToCell(newPosition);
-                Vector3 worldCenter = tilemap.GetCellCenterWorld(cellPosition);
+                Vector3Int cellPosition = floorTilemap.WorldToCell(newPosition); // 어느 셀에 해당하는지 계산
+                Vector3 worldCenter = floorTilemap.GetCellCenterWorld(cellPosition); 
 
                 // 셀 중심에 아이템 이동
                 transform.position = worldCenter;
 
                 // 배치 가능 여부 확인
-                Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
-                bool canPlace = GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize);
+                Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y); // 시작 셀 좌표
+                bool canPlace = GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize); // 이 셀부터 _itemSize 크기만큼 공간이 비어 있나요?"를 체크
 
                 // 테두리 색상 갱신
                 UpdateBorderColor(canPlace);
@@ -52,7 +55,7 @@ namespace DalbitCafe.Deco
         {
             _isDragging = false;
 
-            Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
+            Vector3Int cellPosition = floorTilemap.WorldToCell(transform.position);
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
 
             if (GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize))
@@ -84,6 +87,27 @@ namespace DalbitCafe.Deco
         private void HideButtons()
         {
             // 꾸미기 완료 시 UI 버튼 숨기기 처리
+        }
+
+        public void RotateItem()
+        {
+            Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap);
+
+            _rotationIndex = (_rotationIndex + 1) % 4;
+            transform.rotation = Quaternion.Euler(0, 0, _rotationIndex * -90f); // -90도는 시계방향
+
+            _itemSize = new Vector2Int(_itemSize.y, _itemSize.x);
+
+            Vector3 newCenter = GetItemCenterWorldPos(floorTilemap);
+            transform.position += oldCenter - newCenter;
+        }
+        private Vector3 GetItemCenterWorldPos(Tilemap tilemap)
+        {
+            Vector3Int cellPos = tilemap.WorldToCell(transform.position);
+            Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
+            Vector2 offset = new Vector2((_itemSize.x - 1) / 2f, (_itemSize.y - 1) / 2f);
+
+            return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0);
         }
     }
 }
