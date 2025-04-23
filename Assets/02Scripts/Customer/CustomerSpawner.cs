@@ -6,8 +6,8 @@ namespace DalbitCafe.Customer
     public class CustomerSpawner : MonoBehaviour
     {
         [SerializeField] private CustomerPool customerPool;
-        [SerializeField] private float minSpawnTime = 3f;
-        [SerializeField] private float maxSpawnTime = 6f;
+        [SerializeField] private float minSpawnTime = 5f;
+        [SerializeField] private float maxSpawnTime = 10f;
 
         private void Start()
         {

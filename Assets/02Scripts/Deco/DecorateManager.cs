@@ -5,8 +5,6 @@ namespace DalbitCafe.Deco
 {
     public class DecorateManager : MonoBehaviour
     {
-        public static DecorateManager Instance;
-
         [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
@@ -17,19 +15,6 @@ namespace DalbitCafe.Deco
         [SerializeField] private GameObject _decorateUI; // 배치 UI 활성화/비활성화
 
         [SerializeField] private bool _isDecorateMode = false;
-
-
-        private void Awake()
-        {
-            if(Instance == null)
-            {
-                Instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-                Destroy(gameObject);
-        }
-
 
         // 배치 모드 활성화
         public void ActivateDecorateMode()

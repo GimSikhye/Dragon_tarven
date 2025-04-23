@@ -66,11 +66,18 @@ public class UIManager : MonoBehaviour
         _coffeeProgressSlider.gameObject.SetActive(true);
         _sliderText.gameObject.SetActive(true);
 
+        // 1. 커피머신의 월드 위치 -> 스크린 위치로 변환
+        Vector3 worldPos = CoffeeMachine.LastTouchedMachine.transform.position + Vector3.up * 1.2f; // 약간 위로 띄움
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+        // 2. UI 위치 적용
+        _coffeeProgressSlider.transform.position = screenPos;
+        _sliderText.transform.position = screenPos + new Vector3(0, 25f, 0); // 텍스트는 슬라이더 위로 조금
+
         _coffeeProgressSlider.value = 0;
         _sliderText.text = "커피가 만들어지는 중...";
 
         float elapsed = 0f;
-
         while (elapsed < _coffeeMakeDuration)
         {
             elapsed += Time.deltaTime;
@@ -86,6 +93,7 @@ public class UIManager : MonoBehaviour
 
         CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
     }
+
 
     public void UpdateExpUI(int exp, int maxExp, int level)
     {

@@ -41,7 +41,7 @@ namespace DalbitCafe.Deco
 
                 // 배치 가능 여부 확인
                 Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
-                bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
+                bool canPlace = GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize);
 
                 // 테두리 색상 갱신
                 UpdateBorderColor(canPlace);
@@ -55,9 +55,9 @@ namespace DalbitCafe.Deco
             Vector3Int cellPosition = tilemap.WorldToCell(transform.position);
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
 
-            if (DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize))
+            if (GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize))
             {
-                DecorateManager.Instance.PlaceItem(cell2D, _itemSize);
+                GameManager.Instance.DecorateManager.PlaceItem(cell2D, _itemSize);
                 // 배치 완료 후 UI 숨기기 (예: Move/보관함 버튼 등)
                 // HideButtons();
             }
