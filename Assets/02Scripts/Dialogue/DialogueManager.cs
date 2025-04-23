@@ -33,9 +33,9 @@ public class DialogueManager : MonoBehaviour
     [Header("Dialogue Data")]
     public DialogueData dialogueData; // 대화 데이터
 
-    private int currentLine = 0; // 큰 단위(다이얼로그)
-    private int currentTextIndex = 0; // 작은 단위(대사)
-    private Coroutine typingCoroutine;
+    private int currentLine = 0; // 큰 단위(DialogueLine)
+    private int currentTextIndex = 0; // 작은 단위(dialogueTexts)
+    private Coroutine typingCoroutine; // 현재 타이핑 중인지 확인하는 용도
 
     private CharacterInfo currentSpeaker; // 현재 말하는 캐릭터
     private CharacterExpression currentSpeakerExpression = CharacterExpression.Default; // 기본 감정표현
@@ -44,9 +44,9 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] private Image effectImage;
     public AudioSource sfxSource;
 
-    public bool isStoryDialogue = false;
+    public bool isStoryDialogue = false; // 스토리 ?
 
-    private void Start() // 다음 퀘스트 가져오기
+    private void Start() // 다음 퀘스트 가져오기 (스토리 퀘스트라면)
     {
         string nextDialogueName = PlayerPrefs.GetString("NextDialogue", ""); // 가져오기. 기본 ""
 
@@ -55,19 +55,10 @@ public class DialogueManager : MonoBehaviour
             DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
             if (data != null)
             {
-                LoadDialogue(data);
+                LoadDialogue(data); // Load함수 로직
             }
-            else 
-            {
-                Debug.LogWarning("해당 이름의 DialogueData를 찾을 수 없습니다: " + nextDialogueName);
-            }
-
             // 한번 로드하고 나면 재진입 시 대화가 또 실행되지 않도록 삭제
             PlayerPrefs.DeleteKey("NextDialogue");
-        }
-        else // 스토리 퀘스트가 아님
-        {
-
         }
 
     }
@@ -82,18 +73,15 @@ public class DialogueManager : MonoBehaviour
     public void LoadDialogue(DialogueData newDialogue)
     {
         dialogueData = newDialogue;
-        gameObject.SetActive(true); // 스크립트가 붙어있는 오브젝트
-
         StartDialogue(); // 첫 문장 자동 실행
     }
 
-
-    public void OnClickNext() // 터치로 바꾸기
+    public void OnClickNext()
     {
-        if (typingCoroutine != null)
+        if (typingCoroutine != null) // 타이핑 중이라면
         {
-            StopCoroutine(typingCoroutine); // 타이핑 코루틴 멈추기 //dialgoueText요소의 text변수
-            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex].text; // lines: 다이얼로그 전체 묶음 // dialgoueText: DialogueEvent
+            StopCoroutine(typingCoroutine);
+            dialogueText.text = dialogueData.lines[currentLine].dialogueTexts[currentTextIndex].text;
             typingCoroutine = null;
             return;
         }
@@ -101,31 +89,23 @@ public class DialogueManager : MonoBehaviour
         currentTextIndex++;
         DialogueLine line = dialogueData.lines[currentLine];
 
-        if (currentTextIndex >= line.dialogueTexts.Length) // dialogueText 개수 다 돌았다면
+        if (currentTextIndex >= line.dialogueTexts.Length)
         {
             currentLine++;
-            currentTextIndex = 0; // 초기화
+            currentTextIndex = 0;
 
             if (currentLine >= dialogueData.lines.Length)
             {
-                EndDialogue(); // 다이얼로그 끝내기
+                EndDialogue();
                 return;
             }
 
-            line = dialogueData.lines[currentLine];
+            line = dialogueData.lines[currentLine]; // 다음 줄로 넘어갔으면 다음줄 데이터를 가져오기위해 저장
         }
 
-
-        // 텍스트 인덱스가 범위를 벗어나면 다음 라인으로
-        if (currentLine >= dialogueData.lines.Length)
-        {
-            EndDialogue();
-            return;
-        }
-
-  
         ShowLine();
     }
+
 
     public void OnClickSkip()
     {
@@ -140,13 +120,6 @@ public class DialogueManager : MonoBehaviour
 
     void ShowLine()
     {
-        if (dialogueData == null || dialogueData.lines == null || currentLine >= dialogueData.lines.Length)
-        {
-            Debug.LogError("잘못된 대화 데이터입니다.");
-            EndDialogue();
-            return;
-        }
-
         DialogueLine line = dialogueData.lines[currentLine];
 
         if (currentTextIndex >= line.dialogueTexts.Length)
@@ -156,38 +129,38 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        nameArea.SetActive(!line.isNarration);
+        nameArea.SetActive(!line.isNarration); // 나레이션이 아닌 경우 SetActive(true)
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
-        UpdateCharacters(line);
-        typingCoroutine = StartCoroutine(TypeText(line.dialogueTexts[currentTextIndex].text));
-
+        UpdateCharacters(line); // UpdateCharacters
+        typingCoroutine = StartCoroutine(TypeTextRoutine(line.dialogueTexts[currentTextIndex].text));
+        
         if (!line.isNarration)
         {
             currentSpeaker = line.speaker;
             currentSpeakerExpression = line.expression;
         }
 
-        if (line.dialogueTexts[currentTextIndex].sfx != null)
+        if (line.dialogueTexts[currentTextIndex].sfx != null) 
         {
-            sfxSource.PlayOneShot(line.dialogueTexts[currentTextIndex].sfx);
+            sfxSource.PlayOneShot(line.dialogueTexts[currentTextIndex].sfx); // 기본음량? 이것도 나중에 soundManager에서 볼륨조절 설정
         }
 
         if (line.dialogueTexts[currentTextIndex].image != null)
         {
             effectImage.sprite = line.dialogueTexts[currentTextIndex].image;
-            //imageEffectObject?.SetActive(true);
+            imageEffectObject?.SetActive(true);
         }
         else
         {
-            //imageEffectObject?.SetActive(false);
+            imageEffectObject?.SetActive(false);
         }
     }
 
-    IEnumerator TypeText(string text)
+    IEnumerator TypeTextRoutine(string text)
     {
-        dialogueText.text = "";
+        dialogueText.text = ""; // 이전 대사 제거
         foreach (char letter in text)
         {
             dialogueText.text += letter;
@@ -196,7 +169,7 @@ public class DialogueManager : MonoBehaviour
         typingCoroutine = null;
     }
 
-    void UpdateCharacters(DialogueLine line)
+    void UpdateCharacters(DialogueLine line) // 여기부터
     {
         if (line.isNarration)
         {
@@ -208,7 +181,7 @@ public class DialogueManager : MonoBehaviour
 
         Sprite expressionSprite = line.speaker.GetExpressionSprite(line.expression);
 
-        if (currentSpeaker == null || line.speaker == currentSpeaker)
+        if (currentSpeaker == null || line.speaker == currentSpeaker) // 처음 등장하는 대사거나, 이전 화자와 같다면
         {
             SetCharacter(centerCharacterImage, centerGroup, expressionSprite, 1f);
             SetCharacter(leftCharacterImage, leftGroup, null, 0f);
