@@ -10,6 +10,7 @@ using System.Linq;
 using System;
 using DalbitCafe.Operations;
 using DalbitCafe.UI;
+using System.Collections;
 public enum Windows
 {
     MakeCoffee = 0,
@@ -34,6 +35,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _coinAmountText;
     [SerializeField] private TextMeshProUGUI _gemAmountText;
 
+    [Header("커피 머신 UI")]
+    [SerializeField] private Slider _coffeeProgressSlider;
+    [SerializeField] private TextMeshProUGUI _sliderText;
+    [SerializeField] private float _coffeeMakeDuration = 1f;
+
     // 닷트윈 UI 애니메이션을 위한 재화 이전값
     private int _currentCoffeeBean;
     private int _currentCoin;
@@ -44,6 +50,42 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI currentLevelText;
 
     public Action<QuestData> OnQuestComplete;
+
+    private Coroutine _coffeeMakeCoroutine;
+
+    private void StartCoffeeMaking(CoffeeData coffeeData)
+    {
+        if (_coffeeMakeCoroutine != null)
+            StopCoroutine(_coffeeMakeCoroutine);
+
+        _coffeeMakeCoroutine = StartCoroutine(CoffeeMakingRoutine(coffeeData));
+    }
+
+    private IEnumerator CoffeeMakingRoutine(CoffeeData coffeeData)
+    {
+        _coffeeProgressSlider.gameObject.SetActive(true);
+        _sliderText.gameObject.SetActive(true);
+
+        _coffeeProgressSlider.value = 0;
+        _sliderText.text = "커피가 만들어지는 중...";
+
+        float elapsed = 0f;
+
+        while (elapsed < _coffeeMakeDuration)
+        {
+            elapsed += Time.deltaTime;
+            _coffeeProgressSlider.value = Mathf.Clamp01(elapsed / _coffeeMakeDuration);
+            yield return null;
+        }
+
+        _sliderText.text = "커피 완성!";
+        yield return new WaitForSeconds(0.5f);
+
+        _coffeeProgressSlider.gameObject.SetActive(false);
+        _sliderText.gameObject.SetActive(false);
+
+        CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
+    }
 
     public void UpdateExpUI(int exp, int maxExp, int level)
     {
@@ -99,6 +141,11 @@ public class UIManager : MonoBehaviour
 
         expSlider = GameObject.Find("UI_ExpSlider")?.GetComponent<Slider>();
         currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
+
+        _coffeeProgressSlider = GameObject.Find("UI_CoffeeProgressSlider")?.GetComponent<Slider>();
+        _sliderText = GameObject.Find("UI_CoffeeProgressText")?.GetComponent<TextMeshProUGUI>();
+        _coffeeProgressSlider.gameObject.SetActive(false);
+        _sliderText.gameObject.SetActive(false);
 
         // 패널 숨기기 + 초기화
         if (panels != null)
@@ -218,27 +265,27 @@ public class UIManager : MonoBehaviour
                     switch (btnName)
                     {
                         case "make_btn":
-
-                            // Panel_MenuContainer 오브젝트를 찾음 (버튼의 부모의 부모일 수 있음)
-                            Transform container = btn.transform.parent;
-
-                            RoastingWindow roastingWindow = panel.GetComponent<RoastingWindow>();
-                            if (roastingWindow == null) return;
-
-                            // 해당 container가 menuContainers 중 몇 번째인지 확인
-                            int index = roastingWindow.menuContainers.IndexOf(container.gameObject);
-
-                            if (index >= 0 && index < roastingWindow.coffeDataList.Count)
                             {
-                                CoffeeData dataToRoast = roastingWindow.coffeDataList[index];
-                                Debug.Log($"커피 만들기: {dataToRoast.CoffeeName}");
-                                CoffeeMachine.LastTouchedMachine.RoastCoffee(dataToRoast);
+                                Transform container = btn.transform.parent;
+                                RoastingWindow roastingWindow = panel.GetComponent<RoastingWindow>();
+                                if (roastingWindow == null) return;
+
+                                int index = roastingWindow.menuContainers.IndexOf(container.gameObject);
+                                if (index >= 0 && index < roastingWindow.coffeDataList.Count)
+                                {
+                                    CoffeeData dataToRoast = roastingWindow.coffeDataList[index];
+                                    Debug.Log($"커피 만들기: {dataToRoast.CoffeeName}");
+
+                                    // 기존 커피 굽기 로직 주석 처리하고 슬라이더 연출 시작
+                                    // CoffeeMachine.LastTouchedMachine.RoastCoffee(dataToRoast);
+                                    StartCoffeeMaking(dataToRoast);
+                                }
+                                else
+                                {
+                                    Debug.LogWarning("Menu container를 찾을 수 없거나 index가 유효하지 않음");
+                                }
+                                break;
                             }
-                            else
-                            {
-                                Debug.LogWarning("Menu container를 찾을 수 없거나 index가 유효하지 않음");
-                            }
-                            break;
                         case "close_btn":
                             panel.SetActive(false);
                             break;
