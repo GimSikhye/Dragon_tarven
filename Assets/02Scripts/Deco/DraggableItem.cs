@@ -16,11 +16,6 @@ namespace DalbitCafe.Deco
         // 아이템 회전
         private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
 
-        private void OnEnable()
-        {
-            floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
-        }
-
         public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
         {
             _initialPosition = transform.position;
@@ -32,11 +27,11 @@ namespace DalbitCafe.Deco
             if (_isDragging)
             {
                 // 마우스 위치를 월드 좌표로 변환
-                Vector3 newPosition = Camera.main.ScreenToWorldPoint(eventData.position);
-                newPosition.z = 0;
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
+                worldMousePosition.z = 0;
 
                 // 셀 기준 위치 계산
-                Vector3Int cellPosition = floorTilemap.WorldToCell(newPosition); // 어느 셀에 해당하는지 계산
+                Vector3Int cellPosition = floorTilemap.WorldToCell(worldMousePosition); // 어느 셀에 해당하는지 계산
                 Vector3 worldCenter = floorTilemap.GetCellCenterWorld(cellPosition); 
 
                 // 셀 중심에 아이템 이동

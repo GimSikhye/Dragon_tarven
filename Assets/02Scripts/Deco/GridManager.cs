@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 namespace DalbitCafe.Deco
-{
+{// 코드 먼저 (3개스크립트) 이해하고 회전 버튼 연결해야함
     public class GridManager : MonoBehaviour
     {
         [SerializeField] private Tilemap tilemap;
