@@ -249,8 +249,12 @@ public class UIManager : MonoBehaviour
 
     private void ShowTouchFeedback(Vector2 screenPosition)
     {
-        _touchFeedback.rectTransform.position = screenPosition;
-        _touchFeedback.enabled = true;
+        if(_touchFeedback != null)
+        {
+            _touchFeedback.rectTransform.position = screenPosition;
+            _touchFeedback.enabled = true;
+        }
+
     }
 
     private void InitializeAllButtons()

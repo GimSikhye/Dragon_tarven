@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 namespace DalbitCafe.Deco
@@ -16,14 +17,37 @@ namespace DalbitCafe.Deco
 
         private void Start()
         {
-            tilemap.CompressBounds(); // 꼭 해주기 (불필요한 빈 타일 좌표 제거)
+           
+        }
 
-            BoundsInt bounds = tilemap.cellBounds;
-            _origin = bounds.min; // 타일맵 시작점 저장
-            _gridWidth = bounds.size.x;
-            _gridHeight = bounds.size.y;
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += InitTile;
+        }
 
-            _grid = new bool[_gridWidth, _gridHeight];
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= InitTile;
+
+        }
+
+        private void InitTile(Scene scene, LoadSceneMode sceneMode)
+        {
+            if(scene.name == "GameScene")
+            {
+                GameObject tile = GameObject.Find("StoreFloor");
+                tilemap = tile.GetComponent<Tilemap>();
+                storeFloorTile = Resources.Load<TileBase>("spr_tile_floor");
+
+                tilemap.CompressBounds(); // 꼭 해주기 (불필요한 빈 타일 좌표 제거)
+
+                BoundsInt bounds = tilemap.cellBounds;
+                _origin = bounds.min; // 타일맵 시작점 저장
+                _gridWidth = bounds.size.x;
+                _gridHeight = bounds.size.y;
+
+                _grid = new bool[_gridWidth, _gridHeight];
+            }
         }
 
         /// <summary>

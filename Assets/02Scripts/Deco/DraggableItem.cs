@@ -18,7 +18,7 @@ namespace DalbitCafe.Deco
 
         public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
         {
-            _initialPosition = transform.position;
+            _initialPosition = transform.position; // 처음 위치 저장
             _isDragging = true;
         }
 
@@ -41,12 +41,12 @@ namespace DalbitCafe.Deco
                 Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y); // 시작 셀 좌표
                 bool canPlace = GameManager.Instance.DecorateManager.CanPlaceItem(cell2D, _itemSize); // 이 셀부터 _itemSize 크기만큼 공간이 비어 있나요?"를 체크
 
-                // 테두리 색상 갱신
-                UpdateBorderColor(canPlace);
+                // 테두리 색상 갱신(불가능하면 테두리 빨간색으로)
+                //UpdateBorderColor(canPlace);
             }
         }
 
-        public void OnEndDrag(PointerEventData eventData)
+        public void OnEndDrag(PointerEventData eventData) // 아이템을 놓았을 때
         {
             _isDragging = false;
 

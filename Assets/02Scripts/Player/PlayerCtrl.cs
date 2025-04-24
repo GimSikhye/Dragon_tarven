@@ -143,7 +143,7 @@ namespace DalbitCafe.Player
 
             if (!_isMoving)
             {
-                StartCoroutine(MoveToTarget());
+                StartCoroutine(MoveToTarget()); /// Animator
             }
         }
 
@@ -166,7 +166,8 @@ namespace DalbitCafe.Player
             _isMoving = false;
             _animator.SetBool("isMoving", false);
 
-            _touchFeedback.enabled = false; // 이것도 UIManager로 옮겨야함
+            if(_touchFeedback!=null)
+                _touchFeedback.enabled = false; // 이것도 UIManager로 옮겨야함
         }
 
         private void SetAnimation(Vector3 direction)

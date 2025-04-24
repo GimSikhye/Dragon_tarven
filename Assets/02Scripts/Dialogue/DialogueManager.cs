@@ -11,7 +11,7 @@ public class DialogueManager : MonoBehaviour
     // 이거 참조 씬 바뀔때로 바꾸기
     [Header("UI Components")]
     [FormerlySerializedAs("nameText")]
-    public TextMeshProUGUI nameText; 
+    public TextMeshProUGUI nameText;
     [FormerlySerializedAs("dialogueText")]
     public TextMeshProUGUI dialogueText;
     [FormerlySerializedAs("nameArea")]
@@ -50,16 +50,17 @@ public class DialogueManager : MonoBehaviour
     {
         string nextDialogueName = PlayerPrefs.GetString("NextDialogue", ""); // 가져오기. 기본 ""
 
-        if (!string.IsNullOrEmpty(nextDialogueName)) //  ""가 아니라면
-        {
-            DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
-            if (data != null)
-            {
-                LoadDialogue(data); // Load함수 로직
-            }
-            // 한번 로드하고 나면 재진입 시 대화가 또 실행되지 않도록 삭제
-            PlayerPrefs.DeleteKey("NextDialogue");
-        }
+        //if (!string.IsNullOrEmpty(nextDialogueName)) //  ""가 아니라면
+        //{
+        //    DialogueData data = Resources.Load<DialogueData>("Dialogues/" + nextDialogueName);
+        //    if (data != null)
+        //    {
+        //        LoadDialogue(data); // Load함수 로직
+        //    }
+        //    // 한번 로드하고 나면 재진입 시 대화가 또 실행되지 않도록 삭제
+        //    PlayerPrefs.DeleteKey("NextDialogue");
+        //}
+        // 오류는 나중에 고치기
 
     }
 
@@ -129,20 +130,22 @@ public class DialogueManager : MonoBehaviour
             return;
         }
 
-        nameArea.SetActive(!line.isNarration); // 나레이션이 아닌 경우 SetActive(true)
+
+        nameArea.SetActive(!line.isNarration); // 나레이션이 아닌 경우 SetActive(true) 
+
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
 
         UpdateCharacters(line); // UpdateCharacters
         typingCoroutine = StartCoroutine(TypeTextRoutine(line.dialogueTexts[currentTextIndex].text));
-        
+
         if (!line.isNarration)
         {
             currentSpeaker = line.speaker;
             currentSpeakerExpression = line.expression;
         }
 
-        if (line.dialogueTexts[currentTextIndex].sfx != null) 
+        if (line.dialogueTexts[currentTextIndex].sfx != null)
         {
             sfxSource.PlayOneShot(line.dialogueTexts[currentTextIndex].sfx); // 기본음량? 이것도 나중에 soundManager에서 볼륨조절 설정
         }

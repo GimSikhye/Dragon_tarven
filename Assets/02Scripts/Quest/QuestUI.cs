@@ -66,7 +66,7 @@ public class QuestUI : MonoBehaviour
         for (int i = 0; i < _currentQuest.conditions.Count(); i++)
         {
             QuestCondition cond = _currentQuest.conditions[i];
-            TextMeshProUGUI text = _conditionTextList[i];
+            TextMeshProUGUI text = _conditionTextList[i]; ////
 
             string state = cond.currentAmount >= cond.requiredAmount ? "(완료)" : ""; // 현재량이 퀘스트 필요량 충족한다면 (퀘스트 현재 상태를 나타냄)
 

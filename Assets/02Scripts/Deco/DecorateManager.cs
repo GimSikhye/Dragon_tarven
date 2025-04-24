@@ -1,5 +1,8 @@
 using DalbitCafe.Customer;
+using Unity.VisualScripting;
+using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 // 배치모드 관리
 namespace DalbitCafe.Deco
 {
@@ -18,6 +21,26 @@ namespace DalbitCafe.Deco
 
         [SerializeField] private DraggableItem targetItem;
 
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += InitElement;
+        }
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= InitElement;
+        }
+
+        private void InitElement(Scene scene, LoadSceneMode sceneMode)
+        {
+            if(scene.name == "GameScene")
+            {
+                _player = GameObject.Find("Player");
+                _customerParent = GameObject.Find("Customers").transform;
+                _gridManager = GameManager.Instance.GridManager;
+                targetItem = GameObject.FindObjectOfType(typeof(DraggableItem)).GetComponent<DraggableItem>();
+                //_decorateUI
+            }
+        }
         // 배치 모드 활성화
         public void ActivateDecorateMode()
         {
@@ -55,6 +78,7 @@ namespace DalbitCafe.Deco
         // 아이템 배치 기능 여부 체크
         public bool CanPlaceItem(Vector2Int position, Vector2Int size)
         {
+            Debug.Log(_gridManager.CanPlaceItem(position, size));
             return _gridManager.CanPlaceItem(position, size); //그리드 매니저의 스크립트
         }
 
