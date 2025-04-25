@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      "spr_coffeeshop \uBCF5\uC0AC_0": -1275681771883398072
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

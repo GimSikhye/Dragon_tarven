@@ -535,7 +535,23 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_signboard 1_0: 2079365487729473075
+      spr_signboard 1_1: -9106912528428615853
+      spr_signboard 1_10: 4130766756824830161
+      spr_signboard 1_11: 6851919275714241673
+      spr_signboard 1_12: 163275764853337804
+      spr_signboard 1_13: -4174066056240486921
+      spr_signboard 1_14: -6522221403545534343
+      spr_signboard 1_15: -7984461385111159848
+      spr_signboard 1_2: 4874810188665720687
+      spr_signboard 1_3: -2232717045725628907
+      spr_signboard 1_4: 5868277879549486734
+      spr_signboard 1_5: 4876278209605417427
+      spr_signboard 1_6: -8905758164923204183
+      spr_signboard 1_7: 7204509532000322815
+      spr_signboard 1_8: -8500598334334475603
+      spr_signboard 1_9: -8879579725690825758
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
