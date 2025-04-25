@@ -40,17 +40,14 @@ public enum ExteriorType
     Entrance // 입구
 }
 
-[CreateAssetMenu(menuName = "Inventory/ItemData")]
-public class ItemData : ScriptableObject
+[CreateAssetMenu(menuName = "SO/Inventory/ItemData")]
+public abstract class ItemData : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
-    public ItemCategory category;
-
-    [Header("세부 분류 (카테고리에 따라 달라짐)")]
-    public KitchenType? kitchenType;
-    public InteriorType? interiorType;
-    public ExteriorType? exteriorType;
-
+    public int price;
     public GameObject prefab; // 배치용 프리팹
+
+    public abstract ItemCategory Category { get; }
+
 }
