@@ -1,40 +1,28 @@
-//using System.Collections.Generic;
-//using System.Linq;
-//using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
-//[System.Serializable]
-//public class InventoryItem
-//{
-//    public ItemData itemData;
-//    public int quantity;
-//}
+public class Inventory : MonoBehaviour
+{
+    [SerializeField]
+    private List<InventoryItem> items = new List<InventoryItem>(); 
 
-//public class Inventory : MonoBehaviour
-//{
-//    public List<InventoryItem> items = new();
+    public List<InventoryItem> GetItemsByCategory(ItemCategory category) 
+    {
+        return items.Where(i => i.itemData.Category == category).ToList();
+    }
+    public void AddItem(ItemData itemData, int amount = 1)
+    {
+        var existingItem = items.FirstOrDefault(i => i.itemData == itemData);
 
-//    public void AddItem(ItemData data, int amount = 1)
-//    {
-//        var existing = items.Find(i => i.itemData == data);
-//        if (existing != null)
-//        {
-//            existing.quantity += amount;
-//        }
-//        else
-//        {
-//            items.Add(new InventoryItem { itemData = data, quantity = amount });
-//        }
-//    }
+        if (existingItem != null)
+        {
+            existingItem.quantity += amount;
+        }
+        else
+        {
+            items.Add(new InventoryItem { itemData = itemData, quantity = amount });
+        }
+    }
 
-//    public List<InventoryItem> GetItemsByCategory(ItemCategory category)
-//    {
-//        return items.Where(i => i.itemData.category == category).ToList();
-//    }
-
-//    public List<InventoryItem> GetItemsByKitchenType(KitchenType type)
-//    {
-//        return items.Where(i => i.itemData.category == ItemCategory.Kitchen && i.itemData.kitchenType == type).ToList();
-//    }
-
-//    // 인테리어, 익스테리어도 동일하게...
-//}
+}
