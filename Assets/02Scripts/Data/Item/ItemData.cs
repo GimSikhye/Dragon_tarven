@@ -16,5 +16,6 @@ public abstract class ItemData : ScriptableObject
     public GameObject prefab; // 배치용 프리팹
 
     public abstract ItemCategory Category { get; }
+    public virtual System.Enum SubCategory => null;
 
 }
