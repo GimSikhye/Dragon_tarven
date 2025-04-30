@@ -49,6 +49,10 @@ public class ButtonManager : MonoSingleton<ButtonManager>
                 {
                     button.onClick.AddListener(() => UIManager.Instance.ShowQuestPopUp());
                 }
+                if(button.name == "UI_StoargeBoxBtn")
+                {
+                    button.onClick.AddListener(() => UIManager.Instance.OpenInventory());
+                }
 
             }
         }

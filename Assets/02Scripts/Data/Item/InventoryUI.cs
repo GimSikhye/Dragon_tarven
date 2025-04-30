@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using DalbitCafe.Operations;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public class InventoryUI : MonoBehaviour
 {
@@ -61,7 +64,7 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject buttonObj = Instantiate(categoryButtonPrefab, categoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
-            Text buttonText = buttonObj.GetComponentInChildren<Text>();
+            TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
             buttonText.text = category.ToString();
 
             button.onClick.AddListener(() => SelectCategory(category));
@@ -85,8 +88,9 @@ public class InventoryUI : MonoBehaviour
         {
             GameObject buttonObj = Instantiate(subCategoryButtonPrefab, subCategoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
-            Text buttonText = buttonObj.GetComponentInChildren<Text>();
-            buttonText.text = subCategory.ToString();
+            TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+            buttonText.text = buttonText.text = ConvertToKoreanText(subCategory.ToString());
+
 
             button.onClick.AddListener(() => SelectSubCategory((System.Enum)subCategory));
         }
@@ -118,6 +122,44 @@ public class InventoryUI : MonoBehaviour
                 nameText.text = item.itemData.itemName;
                 quantityText.text = $"x{item.quantity}";
             }
+        }
+    }
+
+    private string ConvertToKoreanText(string enumName)
+    {
+        // 필요에 따라 Enum -> 한글 매핑
+        switch (enumName)
+        {
+            // 주방
+            case "RoastingMachine": return "로스팅머신";
+            case "CoffeeMachine": return "커피머신";
+            case "Workbench": return "작업대";
+            case "CookingMachine": return "쿠킹머신";
+            case "Showcase": return "쇼케이스";
+            case "Counter": return "계산대";
+            case "Mixer": return "믹서기";
+            //익스테리어
+            case "SecondFloorOnly": return "2층전용";
+            case "OutdoorDecoration": return "야외장식품";
+            case "WallExteriorDecoration": return "건물 외벽 장식";
+            case "Railing2F": return "2층 난간";
+            case "Stair2F": return "2층 계단";
+            case "WallExterior": return "건물 외벽";
+            case "Entrance": return "입구";
+            // 인테리어
+            case "Table": return "테이블";
+            case "Chair": return "의자";
+            case "Partition": return "파티션";
+            case "Decoration": return "장식품";
+            case "BeanContainer": return "원두통";
+            case "WallDecoration": return "벽장식";
+            case "Tile": return "타일";
+            case "WallPaper": return "벽지";
+
+
+            default: return enumName;
+ 
+
         }
     }
 
