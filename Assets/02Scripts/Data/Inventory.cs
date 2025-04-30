@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoSingleton<Inventory>
 {
     [SerializeField]
     private List<InventoryItem> items = new List<InventoryItem>(); 

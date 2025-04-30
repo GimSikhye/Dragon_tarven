@@ -268,6 +268,11 @@ public class UIManager : MonoSingleton<UIManager>
         _inventoryUI.Open();
     }
 
+    public void OpenStore()
+    {
+        StoreManager.Instance.Open();   
+    }
+
     private void InitializeAllButtons()
     {
         Debug.Log("InitializeAllButtons 호출"); // 여기에 로그 추가

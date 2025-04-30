@@ -65,7 +65,7 @@ public class InventoryUI : MonoBehaviour
             GameObject buttonObj = Instantiate(categoryButtonPrefab, categoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = ConvertCategoryToKorean(category);
+            buttonText.text = ConvertEnumToKorean(category.ToString());
 
 
 
@@ -92,7 +92,7 @@ public class InventoryUI : MonoBehaviour
             GameObject buttonObj = Instantiate(subCategoryButtonPrefab, subCategoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = buttonText.text = ConvertToKoreanText(subCategory.ToString());
+            buttonText.text = buttonText.text = ConvertEnumToKorean(subCategory.ToString());
 
 
             button.onClick.AddListener(() => SelectSubCategory((System.Enum)subCategory));
@@ -128,56 +128,48 @@ public class InventoryUI : MonoBehaviour
         }
     }
 
-    private string ConvertCategoryToKorean(ItemCategory category)
+
+    // 클래스 내 필드
+    public static readonly Dictionary<string, string> _enumKoreanMap = new()
+{
+    // 카테고리
+    { "Kitchen", "주방" },
+    { "Interior", "인테리어" },
+    { "Exterior", "익스테리어" },
+
+    // 주방 서브카테고리
+    { "RoastingMachine", "로스팅머신" },
+    { "CoffeeMachine", "커피머신" },
+    { "Workbench", "작업대" },
+    { "CookingMachine", "쿠킹머신" },
+    { "Showcase", "쇼케이스" },
+    { "Counter", "계산대" },
+    { "Mixer", "믹서기" },
+
+    // 인테리어
+    { "Table", "테이블" },
+    { "Chair", "의자" },
+    { "Partition", "파티션" },
+    { "Decoration", "장식품" },
+    { "BeanContainer", "원두통" },
+    { "WallDecoration", "벽장식" },
+    { "Tile", "타일" },
+    { "Wallpaper", "벽지" },
+
+    // 익스테리어
+    { "SecondFloorOnly", "2층전용" },
+    { "OutdoorDecoration", "야외장식품" },
+    { "WallExteriorDecoration", "건물 외벽 장식" },
+    { "Railing2F", "2층 난간" },
+    { "Stair2F", "2층 계단" },
+    { "WallExterior", "건물 외벽" },
+    { "Entrance", "입구" }
+};
+    private string ConvertEnumToKorean(string enumName)
     {
-        switch (category)
-        {
-            case ItemCategory.Kitchen: return "주방";
-            case ItemCategory.Interior: return "인테리어";
-            case ItemCategory.Exterior: return "익스테리어";
-            default: return category.ToString();
-        }
+        return _enumKoreanMap.TryGetValue(enumName, out var korean) ? korean : enumName;
     }
 
-
-    private string ConvertToKoreanText(string enumName)
-    {
-        // 필요에 따라 Enum -> 한글 매핑
-        switch (enumName)
-        {
-            // 주방
-            case "RoastingMachine": return "로스팅머신";
-            case "CoffeeMachine": return "커피머신";
-            case "Workbench": return "작업대";
-            case "CookingMachine": return "쿠킹머신";
-            case "Showcase": return "쇼케이스";
-            case "Counter": return "계산대";
-            case "Mixer": return "믹서기";
-
-            // 인테리어
-            case "Table": return "테이블";
-            case "Chair": return "의자";
-            case "Partition": return "파티션";
-            case "Decoration": return "장식품";
-            case "BeanContainer": return "원두통";
-            case "WallDecoration": return "벽장식";
-            case "Tile": return "타일";
-            case "WallPaper": return "벽지";
-
-            //익스테리어
-            case "SecondFloorOnly": return "2층전용";
-            case "OutdoorDecoration": return "야외장식품";
-            case "WallExteriorDecoration": return "건물 외벽 장식";
-            case "Railing2F": return "2층 난간";
-            case "Stair2F": return "2층 계단";
-            case "WallExterior": return "건물 외벽";
-            case "Entrance": return "입구";
-
-            default: return enumName;
- 
-
-        }
-    }
 
 
     private bool IsItemInSelectedSubCategory(ItemData itemData)
