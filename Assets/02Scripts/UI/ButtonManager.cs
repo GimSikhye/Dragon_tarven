@@ -6,8 +6,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
+using DalbitCafe.Core;
 
-public class ButtonManager : MonoBehaviour
+public class ButtonManager : MonoSingleton<ButtonManager>
 {
     [SerializeField] private AudioClip click_clip;
 
@@ -46,7 +47,7 @@ public class ButtonManager : MonoBehaviour
             {
                 if (button.name == "UI_QuestBtn")
                 {
-                    button.onClick.AddListener(() => GameManager.Instance.UIManager.ShowQuestPopUp());
+                    button.onClick.AddListener(() => UIManager.Instance.ShowQuestPopUp());
                 }
 
             }
@@ -56,7 +57,7 @@ public class ButtonManager : MonoBehaviour
 
     public void LoadButton(string sceneName)
     {
-        GameManager.Instance.SoundManager.PlaySFX(click_clip);
+        SoundManager.Instance.PlaySFX(click_clip);
         GameObject currentButton = UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject;
 
         if (currentButton != null)
@@ -101,9 +102,9 @@ public class ButtonManager : MonoBehaviour
 
         CoffeeData coffeeData = roastingWindow.coffeDataList[index];
 
-        if (GameManager.Instance.PlayerStatsManager.statsSO.coffeeBean >= coffeeData.BeanUse)
+        if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
         {
-            GameManager.Instance.PlayerStatsManager.AddCoffeeBean(-coffeeData.BeanUse);
+            PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
             CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
         }
 
@@ -112,7 +113,7 @@ public class ButtonManager : MonoBehaviour
 
     public void QuitButton()
     {
-        GameManager.Instance.SoundManager.PlaySFX(click_clip);
+        SoundManager.Instance.PlaySFX(click_clip);
         Application.Quit();
     }
 

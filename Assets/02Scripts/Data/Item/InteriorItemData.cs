@@ -5,7 +5,7 @@ public enum InteriorType
     Table, // 테이블
     Chair, // 의자
     Partition, // 파티션
-    Decoration, // 장식품 s
+    Decoration, // 장식품 
     BeanContainer, // 원두통
     WallDecoration, // 벽장식
     Tile, // 타일

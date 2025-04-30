@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
-public class DialogueManager : MonoBehaviour
+public class DialogueManager : MonoSingleton<DialogueManager>   
 {
     // 역전재판처럼 독백은 보라색글씨 등으로 해야하나?
     // 이거 참조 씬 바뀔때로 바꾸기

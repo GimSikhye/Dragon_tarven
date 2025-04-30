@@ -27,12 +27,12 @@ namespace DalbitCafe.Operations
             if (_questTracker == null)
                 _questTracker = FindObjectOfType<QuestTracker>();
 
-            GameManager.Instance.CoffeeMachineManager.RegisterMachine(this);
+            CoffeeMachineManager.Instance.RegisterMachine(this);
         }
 
         private void OnDestroy()
         {
-            GameManager.Instance.CoffeeMachineManager.UnregisterMachine(this);
+            CoffeeMachineManager.Instance.UnregisterMachine(this);
         }
 
         public void RoastCoffee(CoffeeData coffee)
@@ -41,7 +41,7 @@ namespace DalbitCafe.Operations
             _isRoasting = true;
             _currentCoffee = coffee;
             _remainingMugs = coffee.MugQty;
-            GameManager.Instance.PlayerStatsManager.AddCoffeeBean(-coffee.BeanUse);
+            PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse);
             GameObject particle = Instantiate(_steamParticle);
             particle.transform.position = transform.position;
         }
@@ -51,14 +51,14 @@ namespace DalbitCafe.Operations
             if (_remainingMugs > 1)
             {
                 _remainingMugs--;
-                GameManager.Instance.PlayerStatsManager.AddCoin(_currentCoffee.Price);
+                PlayerStatsManager.Instance.AddCoin(_currentCoffee.Price);
                 // 퀘스트 조건 업데이트
                 _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
             }
             else
             {
-                GameManager.Instance.PlayerStatsManager.AddCoin( _currentCoffee.Price); 
+                PlayerStatsManager.Instance.AddCoin( _currentCoffee.Price); 
                 _isRoasting = false;
                 _currentCoffee = null;
             }

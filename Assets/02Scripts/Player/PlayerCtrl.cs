@@ -7,6 +7,7 @@ using DalbitCafe.Operations;
 using DalbitCafe.Inputs;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.EnhancedTouch;
+using DalbitCafe.Map;
 namespace DalbitCafe.Player
 {
     public class PlayerCtrl : MonoSingleton<PlayerCtrl>
@@ -52,11 +53,11 @@ namespace DalbitCafe.Player
         {
             SceneManager.sceneLoaded += OnSceneLoaded; // 씬 바뀔 때
 
-            if (GameManager.Instance.TouchInputManager != null)
+            if (TouchInputManager.Instance != null)
             {
-                GameManager.Instance.TouchInputManager.OnTouchBegan += HandleTouchBegan;
-                GameManager.Instance.TouchInputManager.OnTouchMoved += HandleTouchMoved;
-                GameManager.Instance.TouchInputManager.OnTouchEnded += HandleTouchEnded;
+                TouchInputManager.Instance.OnTouchBegan += HandleTouchBegan;
+                TouchInputManager.Instance.OnTouchMoved += HandleTouchMoved;
+                TouchInputManager.Instance.OnTouchEnded += HandleTouchEnded;
             }
         }
 
@@ -64,11 +65,11 @@ namespace DalbitCafe.Player
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
 
-            if (GameManager.Instance.TouchInputManager != null)
+            if (TouchInputManager.Instance != null)
             {
-                GameManager.Instance.TouchInputManager.OnTouchBegan -= HandleTouchBegan;
-                GameManager.Instance.TouchInputManager.OnTouchMoved -= HandleTouchMoved;
-                GameManager.Instance.TouchInputManager.OnTouchEnded -= HandleTouchEnded;
+                TouchInputManager.Instance.OnTouchBegan -= HandleTouchBegan;
+                TouchInputManager.Instance.OnTouchMoved -= HandleTouchMoved;
+                TouchInputManager.Instance.OnTouchEnded -= HandleTouchEnded;
             }
         }
 
@@ -80,7 +81,7 @@ namespace DalbitCafe.Player
         public void HandleTouchBegan(Vector2 screenPos)
         {
             if (!_canMoveControl) return;
-            _startedOverUI = GameManager.Instance.UIManager.IsTouchOverUIPosition(screenPos);
+            _startedOverUI = UIManager.Instance.IsTouchOverUIPosition(screenPos);
         }
 
         public void HandleTouchMoved(Vector2 screenPos)
@@ -101,12 +102,12 @@ namespace DalbitCafe.Player
             worldPos.z = 0;
 
             // 커피머신 좌표 기반으로 찾기
-            var machine = GameManager.Instance.CoffeeMachineManager.GetMachineAtPosition(worldPos);
+            var machine = CoffeeMachineManager.Instance.GetMachineAtPosition(worldPos);
             if (machine != null)
             {
                 TouchCoffeeMachine(machine);
             }
-            else if (GameManager.Instance.FloorManager.IsFloor(worldPos)) 
+            else if (FloorManager.Instance.IsFloor(worldPos)) 
             {
                 OnMove(worldPos);
             }
@@ -122,19 +123,19 @@ namespace DalbitCafe.Player
 
                 if (machine.IsRoasting)
                 {
-                    GameManager.Instance.UIManager.ShowCurrentMenuPopUp();
+                    UIManager.Instance.ShowCurrentMenuPopUp();
                     GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
                     currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(machine);
                 }
                 else
                 {
                     Debug.Log("현재 메뉴창");
-                    GameManager.Instance.UIManager.ShowMakeCoffeePopUp();
+                    UIManager.Instance.ShowMakeCoffeePopUp();
                 }
             }
             else
             {
-                GameManager.Instance.UIManager.ShowCapitonText();
+                UIManager.Instance.ShowCapitonText();
             }
         }
         private void OnMove(Vector3 targetPos)

@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
+public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
 {
-    protected static T instance;
+    private static T instance;
 
     public static T Instance
     {
@@ -10,31 +10,14 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                GameObject obj = GameObject.Find(typeof(T).Name);
-                if (obj == null)
-                {
-                    obj = new GameObject(typeof(T).Name);
-                    instance = obj.AddComponent<T>();
-                }
-                else
-                {
-                    instance = obj.GetComponent<T>();
-                }
+                Debug.LogError($"[MonoSingleton] Instance of {typeof(T)} is not initialized. " +
+                               "Ensure it exists in the scene or is instantiated before use.");
             }
             return instance;
         }
     }
 
-    public static bool HasInstance => instance != null; // 가지고 있다면 true 
-
-    // 외부에서 미리 만든 instance를 할당하기 위해
-    public static void AssignInstance(T inst)
-    {
-        if (instance == null)
-        {
-            instance = inst;
-        }
-    }
+    public static bool HasInstance => instance != null;
 
     protected virtual void Awake()
     {
@@ -45,7 +28,7 @@ public class MonoSingleton<T> : MonoBehaviour where T : MonoBehaviour
         }
         else if (instance != this)
         {
-            Destroy(gameObject); // 중복 생성 방지
+            Destroy(gameObject); // 중복 방지
         }
     }
 }

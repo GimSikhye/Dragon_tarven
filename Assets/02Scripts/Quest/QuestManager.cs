@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 판매/배치 등 조건 체크용 이벤트 수신
-public class QuestManager : MonoBehaviour
+public class QuestManager : MonoSingleton<QuestManager> 
 {
 
     public Transform questListContent; // 퀘스트 UI를 생성할 때 필요한 부모 객체
@@ -37,8 +37,8 @@ public class QuestManager : MonoBehaviour
         if(scene.name == "GameScene")
         {
             questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton");
-            questListContent = GameManager.Instance.UIManager.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
-            dialougManager = GameManager.Instance.DialogueManager;
+            questListContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
+            dialougManager = DialogueManager.Instance;
             quest1 = Resources.Load<QuestData>("QuestData/QuestData1");
             AddQuest(quest1); // 테스트
             ResetQuestProgress(quest1);
@@ -143,7 +143,7 @@ public class QuestManager : MonoBehaviour
 
     public void CompleteQuest(QuestData quest)
     {
-        GameManager.Instance.RewardManager.GiveReward(quest.rewardGold, quest.rewardExp); // 보상을 지급
+        RewardManager.Instance.GiveReward(quest.rewardGold, quest.rewardExp); // 보상을 지급
         RemoveQuest(quest); // 퀘스트 제거
     }
 }

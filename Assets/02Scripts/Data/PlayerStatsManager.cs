@@ -1,7 +1,7 @@
 using DalbitCafe.Operations;
 using UnityEngine;
 
-public class PlayerStatsManager : MonoBehaviour
+public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 {
     public PlayerStats statsSO;
     public int CoffeeBeans { get; private set; }
@@ -11,8 +11,9 @@ public class PlayerStatsManager : MonoBehaviour
     public int Level { get; private set; }
     public int MaxExp { get; private set; }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         //InitializeStat("Coin", statsSO.coin);
         InitializeStat("Coin", 100); // 일단 테스트로 항시 값 바꾸기
         InitializeStat("Gem", 10);
@@ -39,10 +40,10 @@ public class PlayerStatsManager : MonoBehaviour
         Level = PlayerPrefs.GetInt("Level");
         MaxExp = CalculateMaxExp(Level);
 
-        GameManager.Instance.UIManager.UpdateCoinUI(Coin);
-        GameManager.Instance.UIManager.UpdateGemUI(Gem);
-        GameManager.Instance.UIManager.UpdateCoffeeBeanUI(CoffeeBeans);
-        GameManager.Instance.UIManager.UpdateExpUI(Exp, MaxExp, Level);
+        UIManager.Instance.UpdateCoinUI(Coin);
+        UIManager.Instance.UpdateGemUI(Gem);
+        UIManager.Instance.UpdateCoffeeBeanUI(CoffeeBeans);
+        UIManager.Instance.UpdateExpUI(Exp, MaxExp, Level);
 
     }
 
@@ -50,21 +51,21 @@ public class PlayerStatsManager : MonoBehaviour
     {
         Coin += amount;
         PlayerPrefs.SetInt("Coin", Coin);
-        GameManager.Instance.UIManager.UpdateCoinUI(Coin);
+        UIManager.Instance.UpdateCoinUI(Coin);
     }
 
     public void AddGem(int amount)
     {
         Gem += amount;
         PlayerPrefs.SetInt("Gem", Gem);
-        GameManager.Instance.UIManager.UpdateGemUI(Gem);
+        UIManager.Instance.UpdateGemUI(Gem);
     }
 
     public void AddCoffeeBean(int amount)
     {
         CoffeeBeans += amount;
         PlayerPrefs.SetInt("CoffeeBean", CoffeeBeans);
-        GameManager.Instance.UIManager.UpdateCoffeeBeanUI(CoffeeBeans);
+        UIManager.Instance.UpdateCoffeeBeanUI(CoffeeBeans);
     }
 
     public void AddExp(int amount)
@@ -81,7 +82,7 @@ public class PlayerStatsManager : MonoBehaviour
         PlayerPrefs.SetInt("Exp", Exp);
         PlayerPrefs.SetInt("Level", Level);
 
-        GameManager.Instance.UIManager.UpdateExpUI(Exp, MaxExp, Level);
+        UIManager.Instance.UpdateExpUI(Exp, MaxExp, Level);
     }
 
     private int CalculateMaxExp(int currentLevel)
@@ -96,7 +97,7 @@ public class PlayerStatsManager : MonoBehaviour
 
         // 기타 레벨업 처리...
 
-        GameManager.Instance.CoffeeMachineManager.UpdateMachineActivation(Level);
+      CoffeeMachineManager.Instance.UpdateMachineActivation(Level);
     }
 
 }

@@ -5,16 +5,16 @@ public class QuestTracker : MonoBehaviour
 {
     public void OnCoffeeSold(string coffeeId)
     {
-        GameManager.Instance.QuestManager.CheckQuestProgress(coffeeId, QuestConditionType.SellItem); 
+        QuestManager.Instance.CheckQuestProgress(coffeeId, QuestConditionType.SellItem); 
     }
 
     public void OnFurniturePlaced(string furnitureId)
     {
-        GameManager.Instance.QuestManager.CheckQuestProgress(furnitureId, QuestConditionType.PlaceFurniture); 
+        QuestManager.Instance.CheckQuestProgress(furnitureId, QuestConditionType.PlaceFurniture); 
     }
 
     public void OnFurnitureUpgraded(string furnitureId)
     {
-        GameManager.Instance.QuestManager.CheckQuestProgress(furnitureId, QuestConditionType.UpgradeInterior); 
+        QuestManager.Instance.CheckQuestProgress(furnitureId, QuestConditionType.UpgradeInterior); 
     }
 }

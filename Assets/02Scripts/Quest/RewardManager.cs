@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class RewardManager : MonoBehaviour
+public class RewardManager : MonoSingleton<RewardManager>   
 {
     public void GiveReward(int gold, int exp)
     {
-        GameManager.Instance.PlayerStatsManager.AddCoin(gold);
-        GameManager.Instance.PlayerStatsManager.AddExp(exp);
+        PlayerStatsManager.Instance.AddCoin(gold);
+        PlayerStatsManager.Instance.AddExp(exp);
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace DalbitCafe.Operations
 {
-    public class CoffeeMachineManager : MonoBehaviour
+    public class CoffeeMachineManager : MonoSingleton<CoffeeMachineManager>
     {
         private List<CoffeeMachine> machines = new List<CoffeeMachine>();
 

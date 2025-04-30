@@ -11,6 +11,7 @@ using System;
 using DalbitCafe.Operations;
 using DalbitCafe.UI;
 using System.Collections;
+using DalbitCafe.Inputs;
 public enum Windows
 {
     MakeCoffee = 0,
@@ -23,7 +24,7 @@ public enum Windows
 }
 
 // ui 참조 다 날라간거 이어줘야 함
-public class UIManager : MonoBehaviour
+public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] public GameObject[] panels;
     [SerializeField] private TextMeshProUGUI _captionText; // 주의 문구
@@ -109,8 +110,9 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         SceneManager.sceneLoaded += InitGameUI;
     }
 
@@ -121,14 +123,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.Instance.TouchInputManager.OnTouchBegan += ShowTouchFeedback;
-        GameManager.Instance.TouchInputManager.OnTouchMoved += ShowTouchFeedback;
+       TouchInputManager.Instance.OnTouchBegan += ShowTouchFeedback;
+       TouchInputManager.Instance.OnTouchMoved += ShowTouchFeedback;
     }
 
     private void OnDisable()
     {
-        GameManager.Instance.TouchInputManager.OnTouchBegan -= ShowTouchFeedback;
-        GameManager.Instance.TouchInputManager.OnTouchMoved -= ShowTouchFeedback;
+        TouchInputManager.Instance.OnTouchBegan -= ShowTouchFeedback;
+        TouchInputManager.Instance.OnTouchMoved -= ShowTouchFeedback;
     }
 
 
@@ -165,7 +167,7 @@ public class UIManager : MonoBehaviour
 
 
         // 데이터 바인딩
-        var stats = GameManager.Instance.PlayerStatsManager;
+        var stats = PlayerStatsManager.Instance;
         UpdateCoffeeBeanUI(stats.CoffeeBeans);
         UpdateCoinUI(stats.Coin);
         UpdateGemUI(stats.Gem);

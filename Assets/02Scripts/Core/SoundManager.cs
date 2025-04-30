@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 namespace DalbitCafe.Core
 {
-    public class SoundManager : MonoBehaviour
+    public class SoundManager : MonoSingleton<SoundManager> 
     {
 
         [SerializeField] private AudioSource _bgmAudioSource;

@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 // 배치모드 관리
 namespace DalbitCafe.Deco
 {
-    public class DecorateManager : MonoBehaviour
+    public class DecorateManager : MonoSingleton<DecorateManager>
     {
         [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
@@ -36,7 +36,7 @@ namespace DalbitCafe.Deco
             {
                 _player = GameObject.Find("Player");
                 _customerParent = GameObject.Find("Customers").transform;
-                _gridManager = GameManager.Instance.GridManager;
+                _gridManager = GridManager.Instance;
                 targetItem = GameObject.FindObjectOfType(typeof(DraggableItem)).GetComponent<DraggableItem>();
                 //_decorateUI
             }

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace DalbitCafe.Map
 {
-    public class FloorManager : MonoBehaviour
+    public class FloorManager : MonoSingleton<FloorManager>
     {
         [SerializeField] private Tilemap floorTilemap;
 

@@ -117,7 +117,7 @@ public class QuestUI : MonoBehaviour
         completeButton.onClick.AddListener(() =>
         {
             completePopup.SetActive(false);
-            GameManager.Instance.QuestManager.CompleteQuest(_currentQuest);
+            QuestManager.Instance.CompleteQuest(_currentQuest);
             // 완료 눌렀을떄, 스토리 퀘스트 연계 하는거 해주기
         });
 

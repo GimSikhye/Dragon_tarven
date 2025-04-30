@@ -12,6 +12,6 @@ public class GameManagerLoader : MonoBehaviour
         gmObj.name = "GameManager";
         DontDestroyOnLoad(gmObj);
 
-        GameManager.AssignInstance(gmObj.GetComponent<GameManager>());
+        //GameManager.AssignInstance(gmObj.GetComponent<GameManager>());
     }
 }
