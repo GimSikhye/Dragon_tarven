@@ -109,12 +109,18 @@ public class InventoryUI : MonoBehaviour
             if (IsItemInSelectedSubCategory(item.itemData))
             {
                 GameObject buttonObj = Instantiate(itemButtonPrefab, itemButtonParent);
-                Image iconImage = buttonObj.GetComponentInChildren<Image>();
+
+                Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
+                Text nameText = buttonObj.transform.Find("Name").GetComponent<Text>();
+                Text quantityText = buttonObj.transform.Find("Quantity").GetComponent<Text>();
+
                 iconImage.sprite = item.itemData.icon;
-                // 추가로 아이템 이름이나 수량 표시하고 싶으면 여기에서
+                nameText.text = item.itemData.itemName;
+                quantityText.text = $"x{item.quantity}";
             }
         }
     }
+
 
     private bool IsItemInSelectedSubCategory(ItemData itemData)
     {
