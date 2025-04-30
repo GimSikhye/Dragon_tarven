@@ -65,7 +65,10 @@ public class InventoryUI : MonoBehaviour
             GameObject buttonObj = Instantiate(categoryButtonPrefab, categoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = category.ToString();
+            buttonText.text = ConvertCategoryToKorean(category);
+
+
+
 
             button.onClick.AddListener(() => SelectCategory(category));
         }
@@ -115,8 +118,8 @@ public class InventoryUI : MonoBehaviour
                 GameObject buttonObj = Instantiate(itemButtonPrefab, itemButtonParent);
 
                 Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
-                Text nameText = buttonObj.transform.Find("Name").GetComponent<Text>();
-                Text quantityText = buttonObj.transform.Find("Quantity").GetComponent<Text>();
+                TextMeshProUGUI nameText = buttonObj.transform.Find("Name").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI quantityText = buttonObj.transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
 
                 iconImage.sprite = item.itemData.icon;
                 nameText.text = item.itemData.itemName;
@@ -124,6 +127,18 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
+
+    private string ConvertCategoryToKorean(ItemCategory category)
+    {
+        switch (category)
+        {
+            case ItemCategory.Kitchen: return "주방";
+            case ItemCategory.Interior: return "인테리어";
+            case ItemCategory.Exterior: return "익스테리어";
+            default: return category.ToString();
+        }
+    }
+
 
     private string ConvertToKoreanText(string enumName)
     {
@@ -138,14 +153,7 @@ public class InventoryUI : MonoBehaviour
             case "Showcase": return "쇼케이스";
             case "Counter": return "계산대";
             case "Mixer": return "믹서기";
-            //익스테리어
-            case "SecondFloorOnly": return "2층전용";
-            case "OutdoorDecoration": return "야외장식품";
-            case "WallExteriorDecoration": return "건물 외벽 장식";
-            case "Railing2F": return "2층 난간";
-            case "Stair2F": return "2층 계단";
-            case "WallExterior": return "건물 외벽";
-            case "Entrance": return "입구";
+
             // 인테리어
             case "Table": return "테이블";
             case "Chair": return "의자";
@@ -156,6 +164,14 @@ public class InventoryUI : MonoBehaviour
             case "Tile": return "타일";
             case "WallPaper": return "벽지";
 
+            //익스테리어
+            case "SecondFloorOnly": return "2층전용";
+            case "OutdoorDecoration": return "야외장식품";
+            case "WallExteriorDecoration": return "건물 외벽 장식";
+            case "Railing2F": return "2층 난간";
+            case "Stair2F": return "2층 계단";
+            case "WallExterior": return "건물 외벽";
+            case "Entrance": return "입구";
 
             default: return enumName;
  
