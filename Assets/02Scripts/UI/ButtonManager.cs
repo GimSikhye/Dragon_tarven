@@ -57,6 +57,7 @@ public class ButtonManager : MonoSingleton<ButtonManager>
                 {
                     button.onClick.AddListener(() => UIManager.Instance.OpenStore());
                 }
+
             }
         }
 

@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee84ca0237e320844b08c8862761826e, type: 3}
-  m_Name: CoffeeMachine
+  m_Script: {fileID: 11500000, guid: bdd149fc9b4c66343b277b0fca77a076, type: 3}
+  m_Name: coffeebean
   m_EditorClassIdentifier: 
-  itemName: "\uCEE4\uD53C\uBA38\uC2E0"
+  itemName: "\uCEE4\uD53C\uBA38"
   icon: {fileID: -8480838119780344923, guid: 19b12a31007d853448dcc98c96d11e61, type: 3}
-  price: 300
-  prefab: {fileID: 8497240298204524245, guid: cab2e402e462abb45b18b4dd74565ae8, type: 3}
-  kitchenType: 0
+  price: 1000
+  currency: 0
+  category: 0
+  itemData: {fileID: 11400000, guid: 65c9d48cce53a2d4d96464198b5ae336, type: 2}

@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class StoreManager : MonoSingleton<StoreManager>
+public class StoreManager : MonoBehaviour
 {
     [Header("패널 참조")]
-    [SerializeField] private GameObject storePanel;
+    [SerializeField] private GameObject storePanel; // 
     [SerializeField] private Transform categoryButtonParent;
     [SerializeField] private Transform subCategoryButtonParent;
     [SerializeField] private Transform itemButtonParent;

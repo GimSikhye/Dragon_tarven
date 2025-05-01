@@ -41,6 +41,7 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI _sliderText;
     [SerializeField] private float _coffeeMakeDuration = 1f;
     private InventoryUI _inventoryUI;
+    private StoreManager _storeManager;
 
     // 닷트윈 UI 애니메이션을 위한 재화 이전값
     private int _currentCoffeeBean;
@@ -159,7 +160,7 @@ public class UIManager : MonoSingleton<UIManager>
         _coffeeProgressSlider.gameObject.SetActive(false);
         _sliderText.gameObject.SetActive(false);
         _inventoryUI = GameObject.Find("InventoryUI").GetComponent<InventoryUI>();
-
+        _storeManager = GameObject.Find("StoreManager").GetComponent<StoreManager>();
 
         // 패널 숨기기 + 초기화
         if (panels != null)
@@ -270,7 +271,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void OpenStore()
     {
-        StoreManager.Instance.Open();   
+        _storeManager.Open();   
     }
 
     private void InitializeAllButtons()
