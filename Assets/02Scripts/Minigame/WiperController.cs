@@ -27,17 +27,17 @@ public class WiperController : MonoBehaviour
     void Update()
     {
         Moving();
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // 스페이스 키를 누르면, 이동 멈춤.
-            isMoving = false;
-            if (RectTransformUtility.RectangleContainsScreenPoint(safeZone, transform.position))
-            {
-                Debug.Log("점수 영역입니다");
-            }
+        //if (Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    // 스페이스 키를 누르면, 이동 멈춤.
+        //    isMoving = false;
+        //    if (RectTransformUtility.RectangleContainsScreenPoint(safeZone, transform.position))
+        //    {
+        //        Debug.Log("점수 영역입니다");
+        //    }
 
 
-        }
+        //}
     }
 
     private void Moving()
