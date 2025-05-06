@@ -5,11 +5,12 @@ public class WiperController : MonoBehaviour
 {
     // coordinate
     [SerializeField] RectTransform safeZone;
-    [SerializeField] Transform startPoint;
-    [SerializeField] Transform endPoint;
+    [SerializeField] RectTransform startPoint;
+    [SerializeField] RectTransform endPoint;
+    RectTransform rectTransform;
 
     private bool isMoving = true;
-    private Vector3 target;
+    private Vector2 target;
     public float baseSpeed = 5f;
 
     public int currentStage = 1;
@@ -20,8 +21,9 @@ public class WiperController : MonoBehaviour
 
     void Start()
     {
-        transform.position = startPoint.position;
-        target = endPoint.position;
+        rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = startPoint.anchoredPosition;
+        target = endPoint.anchoredPosition;
     }
 
     void Update()
@@ -45,11 +47,11 @@ public class WiperController : MonoBehaviour
         if (!isMoving) return;
 
         float speed = baseSpeed + (currentStage - 1) * 1.5f;
-        transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+        rectTransform.anchoredPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, target, speed * Time.deltaTime);
 
-        if (Vector2.Distance(transform.position, target) < 0.01f)
+        if (Vector2.Distance(rectTransform.anchoredPosition, target) < 0.01f)
         {
-            target = (target == startPoint.position) ? endPoint.position : startPoint.position;
+            target = (target == startPoint.anchoredPosition) ? endPoint.anchoredPosition : startPoint.anchoredPosition;
         }
  
 
