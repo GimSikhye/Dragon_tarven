@@ -8,6 +8,8 @@ namespace DalbitCafe.Deco
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Tilemap floorTilemap;
+        [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
 
         private Vector3 _initialPosition; // 드래그 시작 전 위치
         private bool _isDragging = false; // 드래그 중인지 검사
@@ -88,14 +90,26 @@ namespace DalbitCafe.Deco
         {
             Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap);
 
+            // 회전 인덱스 갱신 (시계방향)
             _rotationIndex = (_rotationIndex + 1) % 4;
-            transform.rotation = Quaternion.Euler(0, 0, _rotationIndex * -90f); // -90도는 시계방향
 
+            // 스프라이트 변경
+            if (directionSprites != null && directionSprites.Length == 4)
+            {
+                spriteRenderer.sprite = directionSprites[_rotationIndex];
+            }
+
+            // 아이템 회전 (단순 transform 회전이 아닌 스프라이트만 바꾸므로 생략 가능)
+            // transform.rotation = Quaternion.Euler(0, 0, _rotationIndex * -90f); // 이 줄은 이제 필요 없다면 지우세요.
+
+            // 사이즈 전환 (x <-> y)
             _itemSize = new Vector2Int(_itemSize.y, _itemSize.x);
 
+            // 회전 시 중심 위치 보정
             Vector3 newCenter = GetItemCenterWorldPos(floorTilemap);
             transform.position += oldCenter - newCenter;
         }
+
         private Vector3 GetItemCenterWorldPos(Tilemap tilemap)
         {
             Vector3Int cellPos = tilemap.WorldToCell(transform.position);

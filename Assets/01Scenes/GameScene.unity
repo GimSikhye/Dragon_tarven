@@ -36464,6 +36464,30 @@ PrefabInstance:
       propertyPath: floorTilemap
       value: 
       objectReference: {fileID: 936024557}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: spriteRenderer
+      value: 
+      objectReference: {fileID: 1005093080}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: directionSprites.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: 'directionSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ef9f5391c3108b4ebc83637278e1641, type: 3}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: 'directionSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 19536f3073c954149b9f967cfb60c7ea, type: 3}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: 'directionSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 24885bd73bf6d1c40a9e8a58b12a3531, type: 3}
+    - target: {fileID: 1712543965946956273, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: 'directionSprites.Array.data[3]'
+      value: 
+      objectReference: {fileID: 21300000, guid: 91c7f42fcad87b34b8a873622beb8ce5, type: 3}
     - target: {fileID: 2498446481068858297, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -36510,7 +36534,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4565708217875515349, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
       propertyPath: m_Name
-      value: P_Funiture_Table
+      value: P_Funiture_Chair
       objectReference: {fileID: 0}
     - target: {fileID: 4565708217875515349, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
       propertyPath: m_Layer
@@ -36521,6 +36545,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+--- !u!212 &1005093080 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2498446481068858297, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+  m_PrefabInstance: {fileID: 1005093079}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1013210373
 GameObject:
   m_ObjectHideFlags: 0
