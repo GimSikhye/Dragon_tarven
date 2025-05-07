@@ -8,6 +8,7 @@ using System;
 using System.Collections;
 using DalbitCafe.Core;
 
+
 public class ButtonManager : MonoSingleton<ButtonManager>
 {
     [SerializeField] private AudioClip click_clip;
@@ -56,6 +57,11 @@ public class ButtonManager : MonoSingleton<ButtonManager>
                 if (button.name == "UI_StoreBtn")
                 {
                     button.onClick.AddListener(() => UIManager.Instance.OpenStore());
+                }
+                if (button.name == "UI_DecoRotateBtn")
+                {
+                    button.onClick.AddListener(() => { button.interactable = false; Debug.Log("È¸Àü");  StartCoroutine(EnableButtonAfterDelay(button.gameObject, 1f)); }); 
+ 
                 }
 
             }

@@ -2548,7 +2548,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &242673121
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36464,6 +36464,10 @@ PrefabInstance:
       propertyPath: floorTilemap
       value: 
       objectReference: {fileID: 936024557}
+    - target: {fileID: 2498446481068858297, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0ef9f5391c3108b4ebc83637278e1641, type: 3}
     - target: {fileID: 3764492586603111524, guid: b8c190b531adaa24ab65e1d125df2a1e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.3696115
@@ -42716,11 +42720,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8108549330952801312, guid: 41cc020bfdef1cd4ea6e626d2c679690, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8108549330952801312, guid: 41cc020bfdef1cd4ea6e626d2c679690, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8108549330952801312, guid: 41cc020bfdef1cd4ea6e626d2c679690, type: 3}
       propertyPath: m_SizeDelta.x
@@ -42828,7 +42832,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9054796284644013792, guid: 41cc020bfdef1cd4ea6e626d2c679690, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9054796284644013792, guid: 41cc020bfdef1cd4ea6e626d2c679690, type: 3}
       propertyPath: m_TagString
@@ -43054,7 +43058,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6527155210756486899, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6527155210756486899, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_TagString
