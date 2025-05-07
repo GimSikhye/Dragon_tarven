@@ -119,6 +119,41 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &98129552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 98129553}
+  m_Layer: 5
+  m_Name: SafeZoneRect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &98129553
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 98129552}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1985913287}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &249086734
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,7 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f58a2e31c3ebdd438c1dce02ae5194a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeZone: {fileID: 1752638942}
+  safeZone: {fileID: 0}
   startPoint: {fileID: 1456758746}
   endPoint: {fileID: 1827631105}
   baseSpeed: 120
@@ -856,7 +891,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wiper: {fileID: 249086735}
-  stain: {fileID: 1752638942}
+  stainRect: {fileID: 98129553}
+  stainPrefab: {fileID: 1372327986860719980, guid: e74e299b8d69d7948b9b99fdd5fbab9f, type: 3}
   perfectRange: 30
   greatRange: 130
   goodRange: 200
@@ -865,81 +901,6 @@ MonoBehaviour:
   stageProgressText: {fileID: 808339968}
   currentStage: 1
   maxStage: 5
---- !u!1 &1752638941
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1752638942}
-  - component: {fileID: 1752638944}
-  - component: {fileID: 1752638943}
-  m_Layer: 5
-  m_Name: SafeZone
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1752638942
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752638941}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1985913287}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000019073486, y: 0}
-  m_SizeDelta: {x: 403.4684, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1752638943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752638941}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 436afdb9263b2774584a19d27af59776, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1752638944
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752638941}
-  m_CullTransparentMesh: 1
 --- !u!1 &1827631104
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,7 +966,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1752638942}
+  - {fileID: 98129553}
   - {fileID: 249086735}
   m_Father: {fileID: 1553342410}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1062,11 +1023,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1313425744675174657, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 481.7
+      value: 503
       objectReference: {fileID: 0}
     - target: {fileID: 1313425744675174657, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 138
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 1313425744675174657, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1102,7 +1063,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: ShapeModule.angle
-      value: 64.9
+      value: 50.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
+      propertyPath: ShapeModule.m_Scale.x
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
+      propertyPath: ShapeModule.m_Scale.y
+      value: 4.79
+      objectReference: {fileID: 0}
+    - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
+      propertyPath: ShapeModule.m_Scale.z
+      value: 12.69
       objectReference: {fileID: 0}
     - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: ShapeModule.arc.spread
@@ -1110,7 +1083,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: ShapeModule.radius.value
-      value: 21.7
+      value: 20.8
       objectReference: {fileID: 0}
     - target: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
       propertyPath: InitialModule.startSize.scalar

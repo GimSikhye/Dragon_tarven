@@ -1,10 +1,16 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class WiperJudge : MonoBehaviour
 {
     public RectTransform wiper;
-    public RectTransform stain;
+    public RectTransform stainRect;
+    public GameObject stainPrefab;
+    private GameObject stainInstance;
+    private RectTransform currentStainRect; // 货肺 积己等 倔疯侩
+
+
 
     public float perfectRange = 0.2f;
     public float greatRange = 0.4f;
@@ -30,6 +36,7 @@ public class WiperJudge : MonoBehaviour
     private void Start()
     {
         wiperController = wiper.GetComponent<WiperController>();
+        SpawnNewStain();
         UpdateStageText();
 
         resultText.enableVertexGradient = true;
@@ -49,7 +56,7 @@ public class WiperJudge : MonoBehaviour
 
     void EvaluateHit()
     {
-        float distance = Mathf.Abs(wiper.anchoredPosition.x - stain.anchoredPosition.x);
+        float distance = Mathf.Abs(wiper.anchoredPosition.x - stainRect.anchoredPosition.x);
         Debug.Log(distance);
         string result = "BAD"; currentColor = badColor;
         int score = 0;
@@ -65,8 +72,8 @@ public class WiperJudge : MonoBehaviour
 
         if(score > 0)
         {
-            Instantiate(cleanEffect, stain.position, Quaternion.identity);
-            Destroy(stain.gameObject);
+            Instantiate(cleanEffect, stainRect.anchoredPosition, Quaternion.identity);
+            Destroy(stainInstance);
         }
         Invoke(nameof(NextStage), 1.5f);
 
@@ -101,9 +108,13 @@ public class WiperJudge : MonoBehaviour
 
     void SpawnNewStain()
     {
-        float x = Random.Range(-2.5f, 2.5f);
-        Vector3 newPos = new Vector3(x, stain.position.y, 0);
-        stain = Instantiate(stain, newPos, Quaternion.identity); // new stain Position
+        float x = UnityEngine.Random.Range(-150f, 210f);
+        Vector2 newPos = new Vector3(x, stainRect.anchoredPosition.y);
+        stainInstance = Instantiate(stainPrefab, stainRect); // new stain Position
+
+        currentStainRect = stainInstance.GetComponent<RectTransform>();
+        currentStainRect.anchoredPosition = newPos;
+
     }
 
 }
