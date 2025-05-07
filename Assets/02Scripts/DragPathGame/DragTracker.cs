@@ -10,43 +10,38 @@ public class DragTracker : MonoBehaviour
 
     private Vector3 lastPoint;
     public float minDistance = 5f; // 최소 거리차
-    
+    public Camera lineCam;
+
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
             drawnPoints.Clear();
-            lineRenderer.positionCount = 0; // positionCount?
+            lineRenderer.positionCount = 0;
         }
 
         if (isDragging && Input.GetMouseButton(0))
         {
-            Vector2 localPos; // ScreenPointToLocalPointInRectangle 함수
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                dragArea, Input.mousePosition, null, out localPos); // pos 변환된 로컬 좌표 결과
+            Vector3 screenPos = Input.mousePosition;
+            screenPos.z = Mathf.Abs(lineCam.transform.position.z);
 
+            Vector3 worldPos = lineCam.ScreenToWorldPoint(screenPos);
 
-            Vector3 worldPos = dragArea.TransformPoint(localPos);
-
-
-            // 이전 점과 일정 거리 이상일 때만 추가
             if (lineRenderer.positionCount == 0 || Vector3.Distance(lastPoint, worldPos) >= minDistance)
             {
-                drawnPoints.Add(localPos);
+                drawnPoints.Add(worldPos); // localPos → worldPos
                 lastPoint = worldPos;
                 lineRenderer.positionCount++;
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, worldPos);
-
             }
-
         }
 
-        if(Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0))
         {
             isDragging = false;
-            FindObjectOfType<DragJudge>().Evaluate(drawnPoints); // 판정
+            FindObjectOfType<DragJudge>().Evaluate(drawnPoints);
         }
     }
 

@@ -36,13 +36,4 @@ public class DragJudge : MonoBehaviour
 
     }
 
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 }
