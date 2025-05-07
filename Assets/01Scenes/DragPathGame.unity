@@ -169,7 +169,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lineRenderer: {fileID: 633357672}
   drawnPoints: []
-  dragArea: {fileID: 1821025753}
   minDistance: 0.5
   lineCam: {fileID: 475344120}
 --- !u!1 &359882481
@@ -945,8 +944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1532206045}
-  hitRange: 50
-  loopCloseThreshold: 30
+  shapeMatchThreshold: 0.3
+  resampleCount: 32
 --- !u!1 &1532206043
 GameObject:
   m_ObjectHideFlags: 0

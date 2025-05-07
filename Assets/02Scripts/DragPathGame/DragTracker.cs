@@ -4,14 +4,11 @@ using UnityEngine;
 public class DragTracker : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public List<Vector3> drawnPoints = new(); // 그려진 것들
-    public RectTransform dragArea;
-    private bool isDragging = false;
-
-    private Vector3 lastPoint;
-    public float minDistance = 5f; // 최소 거리차
+    public List<Vector3> drawnPoints = new();
+    public float minDistance = 5f;
     public Camera lineCam;
-
+    private Vector3 lastPoint;
+    private bool isDragging = false;
 
     void Update()
     {
@@ -26,12 +23,11 @@ public class DragTracker : MonoBehaviour
         {
             Vector3 screenPos = Input.mousePosition;
             screenPos.z = Mathf.Abs(lineCam.transform.position.z);
-
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
+            Vector3 worldPos = lineCam.ScreenToWorldPoint(screenPos);
 
             if (lineRenderer.positionCount == 0 || Vector3.Distance(lastPoint, worldPos) >= minDistance)
             {
-                drawnPoints.Add(worldPos); // localPos → worldPos
+                drawnPoints.Add(worldPos);
                 lastPoint = worldPos;
                 lineRenderer.positionCount++;
                 lineRenderer.SetPosition(lineRenderer.positionCount - 1, worldPos);
@@ -44,5 +40,4 @@ public class DragTracker : MonoBehaviour
             FindObjectOfType<DragJudge>().Evaluate(drawnPoints);
         }
     }
-
 }

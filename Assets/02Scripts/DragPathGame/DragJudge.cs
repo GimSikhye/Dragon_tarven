@@ -1,46 +1,140 @@
-using System.Collections.Generic;
+Ôªøusing System.Collections.Generic;
 using UnityEngine;
 
 public class DragJudge : MonoBehaviour
 {
     public StainPatternGenerator generator;
-    public float hitRange = 50f;
-    public float loopCloseThreshold = 30f; // ∑Á«¡∞° ¥›«˚¥Ÿ∞Ì ¿Œ¡§«“ ∞≈∏Æ
-    
-    public void Evaluate(List<Vector3> drawn) // ±◊∑¡¡¯∞ÕµÈ¿ª ∆«¡§
-    {
-        List<Transform> targets = generator.currentPath; // ±‚±∫ ¡°µÈ
-        int hits = 0;
+    public float shapeMatchThreshold = 1.5f; // DTW Í±∞Î¶¨ Í∏∞Ï§ÄÍ∞í (Ïã§ÌóòÏ†ÅÏúºÎ°ú Ï°∞Ï†ï Í∞ÄÎä•)
+    public int resampleCount = 32;
 
-        // 1. ∞¢ ¡°µÈ¿Ã ¥Ÿ ∏¬æ“¥¬¡ˆ √º≈©
-        foreach(Transform node in targets)
+    public void Evaluate(List<Vector3> drawn)
+    {
+        if (drawn == null || drawn.Count < 2)
         {
-            foreach(Vector3 point in drawn)
+            Debug.LogWarning("Too few points drawn ‚Äî evaluation skipped.");
+            return;
+        }
+
+        List<Vector3> pattern = generator.GetCurrentPatternPoints();
+        if (pattern == null || pattern.Count < 2)
+        {
+            Debug.LogWarning("Pattern path too short ‚Äî evaluation skipped.");
+            return;
+        }
+
+        int sampleCount = Mathf.Min(resampleCount, drawn.Count, pattern.Count);
+        List<Vector3> patternNorm = NormalizeAndResample(pattern, sampleCount);
+        List<Vector3> drawnNorm = NormalizeAndResample(drawn, sampleCount);
+
+        float dtwDist = ComputeDTWDistance(drawnNorm, patternNorm);
+
+        bool isShapeMatch = dtwDist < shapeMatchThreshold;
+        string result = isShapeMatch ? "PERFECT" : "BAD";
+
+        Debug.Log($"Result: {result}, DTW Distance: {dtwDist:F5}, SampleCount: {sampleCount}");
+        Debug.Log($"Pattern normalized points: {string.Join(",", patternNorm)}");
+        Debug.Log($"Drawn normalized points: {string.Join(",", drawnNorm)}");
+    }
+
+    List<Vector3> NormalizeAndResample(List<Vector3> points, int count)
+    {
+        List<Vector3> resampled = Resample(points, count);
+        Vector3 center = GetCentroid(resampled);
+        float scale = GetMaxExtent(resampled, center);
+
+        for (int i = 0; i < resampled.Count; i++)
+        {
+            resampled[i] = (resampled[i] - center) / scale;
+        }
+
+        return resampled;
+    }
+
+    List<Vector3> Resample(List<Vector3> points, int count)
+    {
+        List<Vector3> result = new();
+        if (points.Count < 2)
+        {
+            for (int i = 0; i < count; i++) result.Add(points[0]);
+            return result;
+        }
+
+        float totalLength = 0f;
+        List<float> segmentLengths = new();
+        for (int i = 1; i < points.Count; i++)
+        {
+            float segLen = Vector3.Distance(points[i - 1], points[i]);
+            segmentLengths.Add(segLen);
+            totalLength += segLen;
+        }
+
+        float step = totalLength / (count - 1);
+        float distSoFar = 0f;
+        result.Add(points[0]);
+
+        int currSeg = 0;
+        while (result.Count < count && currSeg < segmentLengths.Count)
+        {
+            float segLen = segmentLengths[currSeg];
+            Vector3 p0 = points[currSeg];
+            Vector3 p1 = points[currSeg + 1];
+
+            while (distSoFar + step <= segLen)
             {
-                if(Vector3.Distance(point, node.position) < hitRange)
-                {
-                    hits++;
-                    break;
-                }
+                distSoFar += step;
+                float t = distSoFar / segLen;
+                result.Add(Vector3.Lerp(p0, p1, t));
+            }
+
+            distSoFar -= segLen;
+            currSeg++;
+        }
+
+        if (result.Count < count) result.Add(points[^1]);
+        return result;
+    }
+
+    Vector3 GetCentroid(List<Vector3> points)
+    {
+        Vector3 sum = Vector3.zero;
+        foreach (var p in points) sum += p;
+        return sum / points.Count;
+    }
+
+    float GetMaxExtent(List<Vector3> points, Vector3 center)
+    {
+        float max = 0f;
+        foreach (var p in points)
+        {
+            float dist = (p - center).magnitude;
+            if (dist > max) max = dist;
+        }
+        return max > 0f ? max : 1f;
+    }
+
+    float ComputeDTWDistance(List<Vector3> a, List<Vector3> b)
+    {
+        int n = a.Count;
+        int m = b.Count;
+        float[,] dtw = new float[n + 1, m + 1];
+
+        const float INF = float.PositiveInfinity;
+
+        for (int i = 0; i <= n; i++)
+            for (int j = 0; j <= m; j++)
+                dtw[i, j] = INF;
+
+        dtw[0, 0] = 0f;
+
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= m; j++)
+            {
+                float cost = Vector3.Distance(a[i - 1], b[j - 1]);
+                dtw[i, j] = cost + Mathf.Min(dtw[i - 1, j], dtw[i, j - 1], dtw[i - 1, j - 1]);
             }
         }
 
-        float accuracy = (float)hits / targets.Count; // ¡§»Æº∫
-
-        // 2. ∑Á«¡∞° ¥›«˚¥¬¡ˆ »Æ¿Œ ( ∏« √≥¿Ω¡° - ∏∂¡ˆ∏∑¡°)
-        bool loopClosed = drawn.Count > 2 && Vector3.Distance(drawn[0], drawn[drawn.Count - 1]) < loopCloseThreshold;
-
-        // 3. ∆«¡§ ∞·¡§
-        string result = "BAD";
-        if (accuracy >= 0.9f && loopClosed) result = "PERFECT";
-        else if (accuracy >= 0.7f) result = "GREAT";
-        else if (accuracy >= 0.4f) result = "GOOD";
-
-        Debug.Log($"Result: {result}, Accuracy: {accuracy}");
-        // ««µÂπÈ ¿Ã∆Â∆Æ »£√‚ etc.
-
-
-
+        return dtw[n, m];
     }
-
 }
