@@ -4,8 +4,8 @@ using UnityEngine;
 public class DragJudge : MonoBehaviour
 {
     public StainPatternGenerator generator;
-    public float hitRange = 0.5f;
-    public float loopCloseThreshold = 80f; // 루프가 닫혔다고 인정할 거리
+    public float hitRange = 50f;
+    public float loopCloseThreshold = 30f; // 루프가 닫혔다고 인정할 거리
     
     public void Evaluate(List<Vector3> drawn) // 그려진것들을 판정
     {

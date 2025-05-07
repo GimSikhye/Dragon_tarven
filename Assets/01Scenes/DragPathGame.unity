@@ -945,8 +945,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1532206045}
-  hitRange: 0.5
-  loopCloseThreshold: 80
+  hitRange: 50
+  loopCloseThreshold: 30
 --- !u!1 &1532206043
 GameObject:
   m_ObjectHideFlags: 0
