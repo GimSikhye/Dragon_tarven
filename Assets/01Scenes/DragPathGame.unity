@@ -467,7 +467,7 @@ LineRenderer:
     generateLightingData: 0
   m_MaskInteraction: 0
   m_UseWorldSpace: 0
-  m_Loop: 0
+  m_Loop: 1
   m_ApplyActiveColorSpace: 1
 --- !u!4 &548718811
 Transform:
@@ -945,7 +945,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   generator: {fileID: 1532206045}
-  hitRange: 1
+  hitRange: 0.5
+  loopCloseThreshold: 80
 --- !u!1 &1532206043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1130,7 +1131,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -2365720695526083543, guid: ffe47685ecbd9314783c7acad30439bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
