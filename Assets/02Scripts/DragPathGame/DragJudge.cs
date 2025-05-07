@@ -6,9 +6,9 @@ public class DragJudge : MonoBehaviour
     public StainPatternGenerator generator;
     public float hitRange = 50f;
     
-    public void Evaluate(List<Vector2> drawn)
+    public void Evaluate(List<Vector2> drawn) // 그려진것들을 판정
     {
-        List<Transform> targets = generator.currentPath;
+        List<Transform> targets = generator.currentPath; // 현재 currentPath
         int hits = 0;
 
         foreach(Transform node in targets)
