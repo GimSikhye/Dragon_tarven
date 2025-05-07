@@ -11,22 +11,24 @@ public class StainPatternGenerator : MonoBehaviour
     public void GeneratePattern(Vector3[] points)
     {
         foreach (Transform child in nodeParent) Destroy(child.gameObject);
-
         currentPath.Clear();
 
-        // 포인트 수에 따라 LineRenderer 초기화
         pathLineRenderer.positionCount = points.Length;
 
         for (int i = 0; i < points.Length; i++)
         {
-            Vector3 pos = points[i];
-            GameObject node = Instantiate(nodePrefab, nodeParent); // nodeParent 자식으로 생성
-            node.transform.localPosition = pos;
+            Vector3 localPos = points[i];
+
+            // 중요: 로컬 좌표를 부모(dragArea 또는 canvas)의 기준에서 월드 좌표로 변환
+            Vector3 worldPos = nodeParent.transform.TransformPoint(localPos);
+
+            GameObject node = Instantiate(nodePrefab, nodeParent);
+            node.transform.position = worldPos; // 이제 정확한 월드 위치로 배치
+
             currentPath.Add(node.transform);
 
-            // 연결선도 같이 그려줌
-            Vector3 worldPos = node.transform.position;
             pathLineRenderer.SetPosition(i, worldPos);
         }
     }
+
 }

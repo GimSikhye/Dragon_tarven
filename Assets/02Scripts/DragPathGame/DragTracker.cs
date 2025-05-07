@@ -4,7 +4,7 @@ using UnityEngine;
 public class DragTracker : MonoBehaviour
 {
     public LineRenderer lineRenderer;
-    public List<Vector2> drawnPoints = new(); // 그려진 것들
+    public List<Vector3> drawnPoints = new(); // 그려진 것들
     public RectTransform dragArea;
     private bool isDragging = false;
 
@@ -27,7 +27,7 @@ public class DragTracker : MonoBehaviour
             Vector3 screenPos = Input.mousePosition;
             screenPos.z = Mathf.Abs(lineCam.transform.position.z);
 
-            Vector3 worldPos = lineCam.ScreenToWorldPoint(screenPos);
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(screenPos);
 
             if (lineRenderer.positionCount == 0 || Vector3.Distance(lastPoint, worldPos) >= minDistance)
             {
