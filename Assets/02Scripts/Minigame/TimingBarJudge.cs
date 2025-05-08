@@ -1,41 +1,43 @@
 using UnityEngine;
 using TMPro;
-using System;
 
-public class WiperJudge : MonoBehaviour
+public class TimingBarJudge : MonoBehaviour
 {
-    public RectTransform wiper;
-    public RectTransform stainRect;
-    public GameObject stainPrefab;
-    private GameObject stainInstance;
-    private RectTransform currentStainRect; // 货肺 积己等 倔疯侩
-
-
-
-    public float perfectRange = 0.2f;
-    public float greatRange = 0.4f;
-    public float goodRange = 0.6f;
-
-    private readonly VertexGradient badColor = new VertexGradient(new Color32(0,255,82,255), new Color32(129, 255,85, 255), new Color32(54,255,18,255), new Color32(67,255,28,255));
-    private readonly VertexGradient greatColor = new VertexGradient(new Color32(255, 0, 220, 255), new Color32(255, 0, 220, 255), new Color32(0, 18, 163, 255), new Color32(255, 150, 217, 255));
-    private readonly VertexGradient goodColor = new VertexGradient(new Color32(0, 215, 255, 255), new Color32(85, 189, 255, 255), new Color32(18, 35, 255, 255), new Color32(0, 51, 255, 255));
-    private readonly VertexGradient perfectColor = new VertexGradient(new Color32(255, 0, 220, 255), new Color32(255, 0, 220, 255), new Color32(0, 105, 255, 255), new Color32(0, 255, 222, 255));
-    private VertexGradient currentColor;
-
+    
+    public RectTransform pointerRect;
+    public RectTransform areaRect;
+    public GameObject areaPrefab;
     public ParticleSystem cleanEffect;
+
     public TextMeshProUGUI resultText;
     public TextMeshProUGUI stageProgressText;
 
     public int currentStage = 1;
     public int maxStage = 5;
 
-    private WiperController wiperController;
+    private GameObject areaInstance;
+    private RectTransform currentAreaRect; // 货肺 积己等 倔疯侩
+
+    private PointerController wiperController;
+
+    // accuracy
+    public float perfectRange = 0.2f;
+    public float greatRange = 0.4f;
+    public float goodRange = 0.6f;
+
+    // accuracy text gradient color
+    private readonly VertexGradient badColor = new VertexGradient(new Color32(0,255,82,255), new Color32(129, 255,85, 255), new Color32(54,255,18,255), new Color32(67,255,28,255));
+    private readonly VertexGradient greatColor = new VertexGradient(new Color32(255, 0, 220, 255), new Color32(255, 0, 220, 255), new Color32(0, 18, 163, 255), new Color32(255, 150, 217, 255));
+    private readonly VertexGradient goodColor = new VertexGradient(new Color32(0, 215, 255, 255), new Color32(85, 189, 255, 255), new Color32(18, 35, 255, 255), new Color32(0, 51, 255, 255));
+    private readonly VertexGradient perfectColor = new VertexGradient(new Color32(255, 0, 220, 255), new Color32(255, 0, 220, 255), new Color32(0, 105, 255, 255), new Color32(0, 255, 222, 255));
+    private VertexGradient currentColor;
+
 
 
 
     private void Start()
     {
-        wiperController = wiper.GetComponent<WiperController>();
+        wiperController = pointerRect.GetComponent<PointerController>();
         SpawnNewStain();
         UpdateStageText();
 
@@ -56,7 +58,7 @@ public class WiperJudge : MonoBehaviour
 
     void EvaluateHit()
     {
-        float distance = Mathf.Abs(wiper.anchoredPosition.x - stainRect.anchoredPosition.x);
+        float distance = Mathf.Abs(pointerRect.anchoredPosition.x - areaRect.anchoredPosition.x);
         Debug.Log(distance);
         string result = "BAD"; currentColor = badColor;
         int score = 0;
@@ -74,7 +76,7 @@ public class WiperJudge : MonoBehaviour
         {
             //Instantiate(cleanEffect, stainRect.position, Quaternion.identity);
             Instantiate(cleanEffect, Vector2.zero, Quaternion.identity);
-            Destroy(stainInstance);
+            Destroy(areaInstance);
         }
         Invoke(nameof(NextStage), 1.5f);
 
@@ -110,11 +112,11 @@ public class WiperJudge : MonoBehaviour
     void SpawnNewStain()
     {
         float x = UnityEngine.Random.Range(-150f, 210f);
-        Vector2 newPos = new Vector3(x, stainRect.anchoredPosition.y);
-        stainInstance = Instantiate(stainPrefab, stainRect); // new stain Position
+        Vector2 newPos = new Vector3(x, areaRect.anchoredPosition.y);
+        areaInstance = Instantiate(areaPrefab, areaRect); // new stain Position
 
-        currentStainRect = stainInstance.GetComponent<RectTransform>();
-        currentStainRect.anchoredPosition = newPos;
+        currentAreaRect = areaInstance.GetComponent<RectTransform>();
+        currentAreaRect.anchoredPosition = newPos;
 
     }
 

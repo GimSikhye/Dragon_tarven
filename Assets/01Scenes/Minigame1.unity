@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 98129553}
   m_Layer: 5
-  m_Name: SafeZoneRect
+  m_Name: AreaRect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -242,10 +242,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f58a2e31c3ebdd438c1dce02ae5194a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  safeZone: {fileID: 0}
-  startPoint: {fileID: 1456758746}
-  endPoint: {fileID: 1827631105}
-  baseSpeed: 120
+  areaRect: {fileID: 98129553}
+  startPointRect: {fileID: 1456758746}
+  endPointRect: {fileID: 1827631105}
+  baseSpeed: 330
+  moveSpeed: 0
   currentStage: 1
   maxStage: 5
 --- !u!1 &763782699
@@ -667,7 +668,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1456758746}
   m_Layer: 5
-  m_Name: start
+  m_Name: StartPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -950,17 +951,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab72e21b1da6ee4b83c6e956813a82f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wiper: {fileID: 249086735}
-  stainRect: {fileID: 98129553}
-  stainPrefab: {fileID: 1372327986860719980, guid: e74e299b8d69d7948b9b99fdd5fbab9f, type: 3}
-  perfectRange: 30
-  greatRange: 130
-  goodRange: 200
+  pointerRect: {fileID: 249086735}
+  areaRect: {fileID: 98129553}
+  areaPrefab: {fileID: 1372327986860719980, guid: e74e299b8d69d7948b9b99fdd5fbab9f, type: 3}
   cleanEffect: {fileID: 4295815444916237728, guid: 22e1b10d5b60d9e41b8490e9db9f5315, type: 3}
   resultText: {fileID: 1493983300}
   stageProgressText: {fileID: 808339968}
   currentStage: 1
   maxStage: 5
+  perfectRange: 30
+  greatRange: 130
+  goodRange: 200
 --- !u!1 &1827631104
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,7 +972,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1827631105}
   m_Layer: 5
-  m_Name: end
+  m_Name: EndPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1144,7 +1145,7 @@ GameObject:
   - component: {fileID: 1985913289}
   - component: {fileID: 1985913288}
   m_Layer: 12
-  m_Name: Area
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

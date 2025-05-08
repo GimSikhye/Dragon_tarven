@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5355360801638733311}
   - component: {fileID: 5426426892096550249}
   m_Layer: 5
-  m_Name: SafeZone
+  m_Name: Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
