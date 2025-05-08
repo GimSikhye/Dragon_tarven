@@ -72,7 +72,8 @@ public class WiperJudge : MonoBehaviour
 
         if(score > 0)
         {
-            Instantiate(cleanEffect, stainRect.anchoredPosition, Quaternion.identity);
+            //Instantiate(cleanEffect, stainRect.position, Quaternion.identity);
+            Instantiate(cleanEffect, Vector2.zero, Quaternion.identity);
             Destroy(stainInstance);
         }
         Invoke(nameof(NextStage), 1.5f);
