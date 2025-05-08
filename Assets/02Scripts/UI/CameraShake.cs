@@ -1,13 +1,14 @@
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
 
 public class CameraShake : MonoBehaviour
 {
     [Header("Shake Settings")]
-    public float duration = 0.5f; //흔들리는 시간
-    public float strength = 0.3f; // 흔들리는 세기
-    public int vibrato = 10; //진동 횟수 (값에 클수록 자잘하게 흔들림)
-    public float randomness = 90f; // 흔들릴 '방향'의 랜덤 정도
+    public float duration = 0.5f; 
+    public float strength = 0.3f; 
+    public int vibrato = 10; // Number of vibrations
+    public float randomness = 90f; // The randomness of the 'direction' of shaking
 
     private Vector3 originalPos;
 
@@ -18,10 +19,10 @@ public class CameraShake : MonoBehaviour
 
     public void Shake()
     {
-        // 현재 실행 중인 tween이 있다면 정리
+        // If there is a tween currently running, delete
         transform.DOKill();
 
-        // ShakePosition으로 만들고, 끝나면 원래 위치로 복귀
+        // When finished, return to original position
         transform.DOShakePosition(duration, strength, vibrato, randomness, false, true)
             .OnComplete(() => transform.position = originalPos);
     }

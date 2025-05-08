@@ -202,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 620748677}
-        m_TargetAssemblyTypeName: DalbitCafe.UI.ButtonManager, Assembly-CSharp
-        m_MethodName: CameraShakeBtn
+      - m_Target: {fileID: 1888381603}
+        m_TargetAssemblyTypeName: CameraShake, Assembly-CSharp
+        m_MethodName: Shake
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

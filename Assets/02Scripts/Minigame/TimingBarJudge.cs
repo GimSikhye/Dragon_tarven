@@ -19,6 +19,7 @@ public class TimingBarJudge : MonoBehaviour
     private RectTransform currentAreaRect; // 새로 생성된 얼룩용
 
     private PointerController wiperController;
+    [SerializeField] private UIShake uiShake;
 
     // accuracy
     public float perfectRange = 0.2f;
@@ -76,6 +77,11 @@ public class TimingBarJudge : MonoBehaviour
         {
             //Instantiate(cleanEffect, stainRect.position, Quaternion.identity);
             Instantiate(cleanEffect, Vector2.zero, Quaternion.identity);
+        }
+        if(score == 0)
+        {
+            Debug.Log("0점");
+            uiShake.ShakeUI();
         }
 
         Destroy(areaInstance);
