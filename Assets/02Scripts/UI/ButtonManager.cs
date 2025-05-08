@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 using System;
 using System.Collections;
 using DalbitCafe.Core;
+using DalbitCafe.Deco;
+
 
 public class ButtonManager : MonoSingleton<ButtonManager>
 {
@@ -49,13 +51,26 @@ public class ButtonManager : MonoSingleton<ButtonManager>
                 {
                     button.onClick.AddListener(() => UIManager.Instance.ShowQuestPopUp());
                 }
-                if(button.name == "UI_StoargeBoxBtn")
+                if (button.name == "UI_StoargeBoxBtn")
                 {
                     button.onClick.AddListener(() => UIManager.Instance.OpenInventory());
                 }
                 if (button.name == "UI_StoreBtn")
                 {
                     button.onClick.AddListener(() => UIManager.Instance.OpenStore());
+                }
+                if (button.name == "UI_DecoRotateBtn")
+                {
+                    button.onClick.AddListener(() =>
+                    {
+                        button.interactable = false;
+                        GameObject.Find("P_Funiture_Chair").GetComponent<DraggableItem>().RotateItem();
+                        StartCoroutine(EnableButtonAfterDelay(button.gameObject, 0.5f));
+
+
+
+                    });
+
                 }
 
             }
