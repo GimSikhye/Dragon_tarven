@@ -1,5 +1,7 @@
 using UnityEngine;
 using TMPro;
+using DG;
+using DG.Tweening;
 
 public class TimingBarJudge : MonoBehaviour
 {
@@ -11,6 +13,7 @@ public class TimingBarJudge : MonoBehaviour
 
     public TextMeshProUGUI resultText;
     public TextMeshProUGUI stageProgressText;
+    [SerializeField] private GameObject startText;
 
     public int currentStage = 1;
     public int maxStage = 5;
@@ -38,6 +41,10 @@ public class TimingBarJudge : MonoBehaviour
 
     private void Start()
     {
+        startText.SetActive(true);
+        startText.transform.DOMoveX(5,0.5f).OnComplete(()=>startText.SetActive(false));
+  
+
         wiperController = pointerRect.GetComponent<PointerController>();
         SpawnNewArea();
         UpdateStageText();
