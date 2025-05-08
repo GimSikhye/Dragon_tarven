@@ -61,7 +61,7 @@ public class WiperJudge : MonoBehaviour
         string result = "BAD"; currentColor = badColor;
         int score = 0;
 
-        if(distance <= perfectRange) { result = "PERECT"; score = 10; currentColor = perfectColor; }
+        if(distance <= perfectRange) { result = "PERFECT"; score = 10; currentColor = perfectColor; }
         else if(distance <= greatRange) { result = "GREAT"; score = 5; currentColor = greatColor; }
         else if (distance <= goodRange) { result = "GOOD"; score = 3; currentColor = goodColor; }
 
