@@ -8,7 +8,7 @@ public class PointerController : MonoBehaviour
     [SerializeField] RectTransform startPointRect;
     [SerializeField] RectTransform endPointRect;
 
-    private RectTransform rectTransform;
+    private RectTransform pointerRect;
 
     public float baseSpeed = 150f;
     public float moveSpeed;
@@ -21,8 +21,8 @@ public class PointerController : MonoBehaviour
 
     void Start()
     {
-        rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = startPointRect.anchoredPosition;
+        pointerRect = GetComponent<RectTransform>();
+        pointerRect.anchoredPosition = startPointRect.anchoredPosition;
         target = endPointRect.anchoredPosition;
     }
 
@@ -37,9 +37,9 @@ public class PointerController : MonoBehaviour
         if (!isMoving) return; 
 
         moveSpeed = baseSpeed + (currentStage - 1) * 100f; // faster 
-        rectTransform.anchoredPosition = Vector2.MoveTowards(rectTransform.anchoredPosition, target, moveSpeed * Time.deltaTime);
+        pointerRect.anchoredPosition = Vector2.MoveTowards(pointerRect.anchoredPosition, target, moveSpeed * Time.deltaTime);
 
-        if (Vector2.Distance(rectTransform.anchoredPosition, target) < 0.01f)
+        if (Vector2.Distance(pointerRect.anchoredPosition, target) < 0.01f) // shuttle
         {
             target = (target == startPointRect.anchoredPosition) ? endPointRect.anchoredPosition : startPointRect.anchoredPosition;
         }

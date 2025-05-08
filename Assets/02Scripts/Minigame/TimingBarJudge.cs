@@ -3,9 +3,9 @@ using TMPro;
 
 public class TimingBarJudge : MonoBehaviour
 {
-    
+    // 판정 코드 보기
     public RectTransform pointerRect;
-    public RectTransform areaRect;
+    public RectTransform areaRect; // 얘가 갱신이 안됨
     public GameObject areaPrefab;
     public ParticleSystem cleanEffect;
 
@@ -38,7 +38,7 @@ public class TimingBarJudge : MonoBehaviour
     private void Start()
     {
         wiperController = pointerRect.GetComponent<PointerController>();
-        SpawnNewStain();
+        SpawnNewArea();
         UpdateStageText();
 
         resultText.enableVertexGradient = true;
@@ -58,7 +58,7 @@ public class TimingBarJudge : MonoBehaviour
 
     void EvaluateHit()
     {
-        float distance = Mathf.Abs(pointerRect.anchoredPosition.x - areaRect.anchoredPosition.x);
+        float distance = Mathf.Abs(pointerRect.anchoredPosition.x - currentAreaRect.anchoredPosition.x);
         Debug.Log(distance);
         string result = "BAD"; currentColor = badColor;
         int score = 0;
@@ -76,8 +76,9 @@ public class TimingBarJudge : MonoBehaviour
         {
             //Instantiate(cleanEffect, stainRect.position, Quaternion.identity);
             Instantiate(cleanEffect, Vector2.zero, Quaternion.identity);
-            Destroy(areaInstance);
         }
+
+        Destroy(areaInstance);
         Invoke(nameof(NextStage), 1.5f);
 
     }
@@ -98,7 +99,7 @@ public class TimingBarJudge : MonoBehaviour
         wiperController.currentStage = currentStage;
         wiperController.ResumeMovement();
 
-        SpawnNewStain();
+        SpawnNewArea();
         UpdateStageText();
 
 
@@ -109,14 +110,14 @@ public class TimingBarJudge : MonoBehaviour
         stageProgressText.text = $"{currentStage}/{maxStage}";
     }
 
-    void SpawnNewStain()
+    void SpawnNewArea()
     {
-        float x = UnityEngine.Random.Range(-150f, 210f);
+        float x = UnityEngine.Random.Range(-350f, 350f);
         Vector2 newPos = new Vector3(x, areaRect.anchoredPosition.y);
-        areaInstance = Instantiate(areaPrefab, areaRect); // new stain Position
+        areaInstance = Instantiate(areaPrefab, areaRect); // area Rect Child
 
         currentAreaRect = areaInstance.GetComponent<RectTransform>();
-        currentAreaRect.anchoredPosition = newPos;
+        currentAreaRect.anchoredPosition = newPos; // new area Position 
 
     }
 

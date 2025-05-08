@@ -959,9 +959,9 @@ MonoBehaviour:
   stageProgressText: {fileID: 808339968}
   currentStage: 1
   maxStage: 5
-  perfectRange: 30
-  greatRange: 130
-  goodRange: 200
+  perfectRange: 45
+  greatRange: 70
+  goodRange: 100
 --- !u!1 &1827631104
 GameObject:
   m_ObjectHideFlags: 0
