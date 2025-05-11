@@ -16,7 +16,6 @@ public enum InteriorType
 public class InteriorItemData : ItemData
 {
     public InteriorType interiorType;
-
     public override ItemCategory Category => ItemCategory.Interior;
     public override System.Enum SubCategory => interiorType;
 }

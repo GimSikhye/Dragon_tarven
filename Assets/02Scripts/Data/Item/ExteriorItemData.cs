@@ -16,4 +16,6 @@ public class ExteriorItemData : ItemData
 {
     public ExteriorType exteriorType; // 세부 타입
     public override ItemCategory Category => ItemCategory.Exterior;
+    public override System.Enum SubCategory => exteriorType;
+
 }

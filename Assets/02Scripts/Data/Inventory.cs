@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoSingleton<Inventory>
 {
     [SerializeField]
-    private List<InventoryItem> items = new List<InventoryItem>(); 
+    private List<InventoryItem> items = new List<InventoryItem>(); // 아이템 데이터와 그 아이템 수량
 
     public List<InventoryItem> GetItemsByCategory(ItemCategory category) 
     {

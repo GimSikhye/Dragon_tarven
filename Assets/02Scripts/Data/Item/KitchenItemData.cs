@@ -15,9 +15,9 @@ public enum KitchenType
 [CreateAssetMenu(menuName = "SO/Inventory/KitchenItem")]
 public class KitchenItemData : ItemData
 {
-    public KitchenType kitchenType;
+    public KitchenType kitchenType; // SO에서 설정
 
     public override ItemCategory Category => ItemCategory.Kitchen;
 
-    public override System.Enum SubCategory => kitchenType;
+    public override System.Enum SubCategory => kitchenType; 
 }

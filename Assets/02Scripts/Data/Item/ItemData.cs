@@ -18,4 +18,6 @@ public abstract class ItemData : ScriptableObject
     public abstract ItemCategory Category { get; }
     public virtual System.Enum SubCategory => null;
 
+
+
 }
