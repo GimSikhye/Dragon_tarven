@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 using DalbitCafe.UI;
 using DalbitCafe.Operations;
 using DalbitCafe.Inputs;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem.EnhancedTouch;
 using DalbitCafe.Map;
 namespace DalbitCafe.Player
 {
@@ -26,7 +24,8 @@ namespace DalbitCafe.Player
         public SpriteRenderer SpriteRender => _spriteRenderer;
         private Animator _animator;
 
-        private bool _startedOverUI = false; // 터치를 UI위에서 시작했는지
+        // 이동 관련 변수들
+        private bool _touchOnUI = false; // 터치를 UI위에서 시작했는지
         private Vector3 _targetPosition; // 이동할 위치
         private bool _isMoving = false;
         private bool _canMoveControl = true;
@@ -35,7 +34,7 @@ namespace DalbitCafe.Player
 
         public void SavePosition()
         {
-            _savedPosition = transform.position;
+            _savedPosition = transform.position; // 위치 저장
         }
 
         public void RestorePosition() // 위치 복원
@@ -55,7 +54,7 @@ namespace DalbitCafe.Player
 
             if (TouchInputManager.Instance != null)
             {
-                TouchInputManager.Instance.OnTouchBegan += HandleTouchBegan;
+                TouchInputManager.Instance.OnTouchBegan += HandleTouchBegan; // 터치 매니저의 역할?
                 TouchInputManager.Instance.OnTouchMoved += HandleTouchMoved;
                 TouchInputManager.Instance.OnTouchEnded += HandleTouchEnded;
             }
@@ -73,7 +72,7 @@ namespace DalbitCafe.Player
             }
         }
 
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) // 씬이 바뀔 때 DialgoueScene이 아니면 움직일 수 있음.
         {
             _canMoveControl = scene.name != "DialogueScene";
         }
@@ -81,7 +80,6 @@ namespace DalbitCafe.Player
         public void HandleTouchBegan(Vector2 screenPos)
         {
             if (!_canMoveControl) return;
-            _startedOverUI = UIManager.Instance.IsTouchOverUIPosition(screenPos);
         }
 
         public void HandleTouchMoved(Vector2 screenPos)
@@ -91,23 +89,24 @@ namespace DalbitCafe.Player
 
         public void HandleTouchEnded(Vector2 screenPos) // 터치를 똈을 때 움직임
         {
-            if (!_canMoveControl || _startedOverUI) 
+             _touchOnUI = UIManager.Instance.IsTouchOverUIPosition(screenPos); // ?
+
+            if (!_canMoveControl || _touchOnUI) 
             {
-                _startedOverUI = false;  // 리셋
+                _touchOnUI = false;  // 리셋
                 return;
             }
 
-
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane));
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane)); // camera.main.nearclipplane
             worldPos.z = 0;
 
             // 커피머신 좌표 기반으로 찾기
-            var machine = CoffeeMachineManager.Instance.GetMachineAtPosition(worldPos);
-            if (machine != null)
+            var machine = CoffeeMachineManager.Instance.GetMachineAtPosition(worldPos); // GetMachingAtPosition 터치한 곳에 머신이 있으면 머신을 가져옴
+            if (machine != null) // 터치한 곳이 머신이라면
             {
                 TouchCoffeeMachine(machine);
             }
-            else if (FloorManager.Instance.IsFloor(worldPos)) 
+            else if (FloorManager.Instance.IsFloor(worldPos))// 터치한 곳이 바닥이라면
             {
                 OnMove(worldPos);
             }
@@ -115,27 +114,24 @@ namespace DalbitCafe.Player
 
         private void TouchCoffeeMachine(CoffeeMachine machine) // 여기 검사
         {
-            Debug.Log("거리 before");
-            if (Vector3.Distance(transform.position, machine.transform.position) < _interactionRange)
+            if (Vector3.Distance(transform.position, machine.transform.position) <= _interactionRange)
             {
-                Debug.Log("거리 after");
-                CoffeeMachine.SetLastTouchedMachine(machine);
+                CoffeeMachine.SetLastTouchedMachine(machine); // 해당 머신을 마지막으로 터치한 머신으로 설정
 
                 if (machine.IsRoasting)
                 {
-                    UIManager.Instance.ShowCurrentMenuPopUp();
+                    UIManager.Instance.ShowCurrentMenuPopUp(); // 현재 만들고 있는 메뉴 팝업
                     GameObject currentMenuWindow = GameObject.Find("Panel_CurrentMenu");
                     currentMenuWindow.GetComponent<CurrentMenuWindow>().UpdateMenuPanel(machine);
                 }
                 else
                 {
-                    Debug.Log("현재 메뉴창");
                     UIManager.Instance.ShowMakeCoffeePopUp();
                 }
             }
             else
             {
-                UIManager.Instance.ShowCapitonText();
+                UIManager.Instance.ShowCapitonText(); // 너무 멀어요
             }
         }
         private void OnMove(Vector3 targetPos)
