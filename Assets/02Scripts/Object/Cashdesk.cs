@@ -13,21 +13,21 @@ namespace DalbitCafe.Operations
 
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
-        {
-            if (collision.CompareTag("Player"))
-            {
-                //PlayerCtrl.Instance.SpriteRender.color = new Color(1, 1, 1, behind_transparency); //투명도 바꾸기
-                PlayerCtrl.Instance.SpriteRender.sortingLayerName = "Default";
-            }
-        }
+        //private void OnTriggerEnter2D(Collider2D collision)
+        //{
+        //    if (collision.CompareTag("Player"))
+        //    {
+        //        //PlayerCtrl.Instance.SpriteRender.color = new Color(1, 1, 1, behind_transparency); //투명도 바꾸기
+        //        PlayerCtrl.Instance.SpriteRender.sortingLayerName = "Default";
+        //    }
+        //}
 
-        private void OnTriggerExit2D(Collider2D collision)
-        {
-            //PlayerCtrl.Instance.SpriteRender.color = new Color(1, 1, 1, 1); //투명도 바꾸기
-            PlayerCtrl.Instance.SpriteRender.sortingLayerName = "Character";
+        //private void OnTriggerExit2D(Collider2D collision)
+        //{
+        //    //PlayerCtrl.Instance.SpriteRender.color = new Color(1, 1, 1, 1); //투명도 바꾸기
+        //    PlayerCtrl.Instance.SpriteRender.sortingLayerName = "Character";
 
-        }
+        //}
     }
 
 }
