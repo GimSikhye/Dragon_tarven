@@ -17,7 +17,7 @@ namespace DalbitCafe.Inputs
                 Touch touch = Input.GetTouch(0);
 
                 // UI 위 터치는 무시
-                if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.fingerId))
+                if (EventSystem.current.IsPointerOverGameObject(touch.fingerId))
                     return;
 
                 switch (touch.phase)

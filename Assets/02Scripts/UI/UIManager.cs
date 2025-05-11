@@ -152,13 +152,14 @@ public class UIManager : MonoSingleton<UIManager>
         _coinAmountText = GameObject.Find("UI_CoinAmountText")?.GetComponent<TextMeshProUGUI>();
         _gemAmountText = GameObject.Find("UI_GemAmountText")?.GetComponent<TextMeshProUGUI>();
 
-        expSlider = GameObject.Find("UI_ExpSlider")?.GetComponent<Slider>();
+        expSlider = GameObject.Find("UI_expbar")?.GetComponent<Slider>();
         currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
 
         _coffeeProgressSlider = GameObject.Find("UI_CoffeeProgressSlider")?.GetComponent<Slider>();
-        _sliderText = GameObject.Find("UI_CoffeeProgressText")?.GetComponent<TextMeshProUGUI>();
-        _coffeeProgressSlider.gameObject.SetActive(false);
+        _sliderText = _coffeeProgressSlider.transform.Find("UI_CoffeeProgressText")?.GetComponent<TextMeshProUGUI>();
+        Debug.Log(_coffeeProgressSlider != null);
         _sliderText.gameObject.SetActive(false);
+        _coffeeProgressSlider.gameObject.SetActive(false);
         _inventoryUI = GameObject.Find("InventoryUI").GetComponent<InventoryUI>();
         _storeManager = GameObject.Find("StoreManager").GetComponent<StoreManager>();
 

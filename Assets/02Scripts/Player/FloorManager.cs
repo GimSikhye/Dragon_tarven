@@ -34,7 +34,7 @@ namespace DalbitCafe.Map
                 return false;
             }
 
-            Vector3Int cellPos = floorTilemap.WorldToCell(worldPos);
+            Vector3Int cellPos = floorTilemap.WorldToCell(worldPos); // ¿ùµå ÁÂÇ¥¸¦ Å¸ÀÏ¸ÊÀÇ ¼¿ ÁÂÇ¥·Î º¯È¯ÇØÁÜ
             return floorTilemap.HasTile(cellPos);
         }
     }

@@ -89,7 +89,7 @@ namespace DalbitCafe.Player
 
         public void HandleTouchEnded(Vector2 screenPos) // 터치를 똈을 때 움직임
         {
-             _touchOnUI = UIManager.Instance.IsTouchOverUIPosition(screenPos); // ?
+             _touchOnUI = UIManager.Instance.IsTouchOverUIPosition(screenPos); // 터치 UI 표시?
 
             if (!_canMoveControl || _touchOnUI) 
             {
@@ -106,7 +106,7 @@ namespace DalbitCafe.Player
             {
                 TouchCoffeeMachine(machine);
             }
-            else if (FloorManager.Instance.IsFloor(worldPos))// 터치한 곳이 바닥이라면
+            else if (FloorManager.Instance.IsFloor(worldPos))// 터치한 곳이 바닥이라면///////////////
             {
                 OnMove(worldPos);
             }
