@@ -21,7 +21,7 @@ public class Inventory : MonoSingleton<Inventory>
         }
         else
         {
-            items.Add(new InventoryItem { itemData = itemData, quantity = amount });
+            items.Add(new InventoryItem { itemData = itemData, quantity = amount }); // 아이템 리스트에 넣어줌
         }
     }
 

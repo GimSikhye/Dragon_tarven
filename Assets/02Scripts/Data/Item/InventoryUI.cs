@@ -5,9 +5,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
+[System.Serializable]
+public class SubCategoryIconEntry // 하위카테고리 아이콘 명단
+{
+    public string enumName;
+    public Sprite iconSprite;
+}
 public class InventoryUI : MonoBehaviour
 {
-    [Header("패널 참조")]
+    [Header("UI 요소")]
     [SerializeField] private GameObject inventoryPanel; 
     [SerializeField] private Transform categoryButtonParent; 
     [SerializeField] private Transform subCategoryButtonParent; // 하위 목록 버튼들 부모
@@ -18,6 +24,12 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject subCategoryButtonPrefab;
     [SerializeField] private GameObject itemButtonPrefab;
 
+    [Header("서브카테고리 아이콘 맵")]
+    [SerializeField] private List<SubCategoryIconEntry> subCategoryIcons; // SerializedField로 넣어줌
+    private Dictionary<string, Sprite> _subCategoryIconMap;
+
+ 
+
     private ItemCategory selectedCategory; // 선택된 카테고리
     private System.Enum selectedSubCategory; // 선택된 하위 목록
 
@@ -26,19 +38,26 @@ public class InventoryUI : MonoBehaviour
     private void Start()
     {
         inventory = FindObjectOfType<Inventory>();
-        inventoryPanel.SetActive(false); // 처음에는 꺼두기
+        inventoryPanel.SetActive(false);
+
+        _subCategoryIconMap = new Dictionary<string, Sprite>();
+        foreach(var entry in subCategoryIcons)
+        {
+            if (!_subCategoryIconMap.ContainsKey(entry.enumName)) // 해당 키가 없다면 요소 추가해줌
+                _subCategoryIconMap.Add(entry.enumName, entry.iconSprite);
+        }
     }
 
     public void Open()
     {
         inventoryPanel.SetActive(true);
-        ShowCategoryButtons(); // 
+        ShowCategoryButtons(); // (3개)
     }
 
     public void Close()
     {
         inventoryPanel.SetActive(false);
-        ClearAll();
+        ClearAll(); // 전부 지워주기
     }
 
     private void ClearAll()
@@ -65,9 +84,7 @@ public class InventoryUI : MonoBehaviour
             GameObject buttonObj = Instantiate(categoryButtonPrefab, categoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
             TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = ConvertEnumToKorean(category.ToString());
-
-
+            buttonText.text = ConvertEnumToKorean(category.ToString()); // ConvertEnumToKorean
 
 
             button.onClick.AddListener(() => SelectCategory(category));
@@ -80,19 +97,31 @@ public class InventoryUI : MonoBehaviour
         ShowSubCategories(category);
     }
 
-    private void ShowSubCategories(ItemCategory category)
+    private void ShowSubCategories(ItemCategory category) // 선택된 대분류 카테고리에 따라 하위 카테고리 버튼을 생성함
     {
         ClearChildren(subCategoryButtonParent);
         ClearChildren(itemButtonParent);
 
         System.Type subCategoryType = GetSubCategoryType(category);
 
-        foreach (var subCategory in System.Enum.GetValues(subCategoryType))
+        foreach (var subCategory in System.Enum.GetValues(subCategoryType)) // 해당 하위 enum들 각각에 대한 버튼을 생성
         {
             GameObject buttonObj = Instantiate(subCategoryButtonPrefab, subCategoryButtonParent);
             Button button = buttonObj.GetComponent<Button>();
-            TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
-            buttonText.text = buttonText.text = ConvertEnumToKorean(subCategory.ToString());
+            //TextMeshProUGUI buttonText = buttonObj.GetComponentInChildren<TextMeshProUGUI>();
+            //buttonText.text = ConvertEnumToKorean(subCategory.ToString()); // 한글로 바꿔줌
+
+            // 아이콘 이미지 찾기
+            Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
+            if(_subCategoryIconMap.TryGetValue(subCategory.ToString(), out var icon))
+            {
+                iconImage.sprite = icon;
+                iconImage.enabled = true;
+            }
+            else
+            {
+                iconImage.enabled = false; // 아이콘 없으면 숨기기
+            }
 
 
             button.onClick.AddListener(() => SelectSubCategory((System.Enum)subCategory));
@@ -109,7 +138,7 @@ public class InventoryUI : MonoBehaviour
     {
         ClearChildren(itemButtonParent);
 
-        List<InventoryItem> itemsInCategory = inventory.GetItemsByCategory(selectedCategory);
+        List<InventoryItem> itemsInCategory = inventory.GetItemsByCategory(selectedCategory); // 선택한 카테고리와 같은것들
 
         foreach (var item in itemsInCategory)
         {
@@ -171,8 +200,7 @@ public class InventoryUI : MonoBehaviour
     }
 
 
-
-    private bool IsItemInSelectedSubCategory(ItemData itemData)
+    private bool IsItemInSelectedSubCategory(ItemData itemData) //
     {
         switch (selectedCategory)
         {
