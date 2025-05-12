@@ -1894,7 +1894,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 897082830}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &120528267 stripped
 GameObject:
@@ -34449,10 +34449,6 @@ Transform:
   - {fileID: 915743437}
   - {fileID: 1230010099}
   - {fileID: 1653338843}
-  - {fileID: 1914078699}
-  - {fileID: 118700009}
-  - {fileID: 1177244309}
-  - {fileID: 1638526946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &915743435
@@ -37151,7 +37147,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 897082830}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1186605572 stripped
 MonoBehaviour:
@@ -40216,7 +40212,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 897082830}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1647943867
 GameObject:
@@ -41845,7 +41841,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 897082830}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1914078700
 MonoBehaviour:
@@ -42603,13 +42599,49 @@ MonoBehaviour:
   itemButtonPrefab: {fileID: 1605832144554156327, guid: 6e3bbe07b38da59449a7f4c4764c74a2, type: 3}
   subCategoryIcons:
   - enumName: RoastingMachine
-    iconSprite: {fileID: 0}
-  - enumName: 
-    iconSprite: {fileID: 0}
-  - enumName: 
-    iconSprite: {fileID: 0}
-  - enumName: 
-    iconSprite: {fileID: 0}
+    iconSprite: {fileID: 21300000, guid: 2c6abd2003348b94ab39d86cd7ca3d3c, type: 3}
+  - enumName: CoffeeMachine
+    iconSprite: {fileID: 21300000, guid: 5ac1990eb860cf747beb7fd536a19796, type: 3}
+  - enumName: Workbench
+    iconSprite: {fileID: 21300000, guid: d9b0200302b9306449ed088e4ec31439, type: 3}
+  - enumName: CookingMachine
+    iconSprite: {fileID: 21300000, guid: d0df81a0ad45def468382f4def070d3f, type: 3}
+  - enumName: Showcase
+    iconSprite: {fileID: 21300000, guid: e9819450f05c3314795d66ad7cbc2a17, type: 3}
+  - enumName: Counter
+    iconSprite: {fileID: 21300000, guid: 0efe2f3f21184b64dbe2e0cad8b8b811, type: 3}
+  - enumName: Mixer
+    iconSprite: {fileID: 21300000, guid: ae2c428ea66b83447bf2a08418d9be0c, type: 3}
+  - enumName: Table
+    iconSprite: {fileID: 21300000, guid: 4e22359d8de073c4593243c97dade45c, type: 3}
+  - enumName: Chair
+    iconSprite: {fileID: 21300000, guid: e6c62015c2512854981df28538c34d8d, type: 3}
+  - enumName: Partition
+    iconSprite: {fileID: 21300000, guid: b2140dbccf694eb48bca109a2d1b50aa, type: 3}
+  - enumName: Decoration
+    iconSprite: {fileID: 21300000, guid: a1eb1e2f47e26ee4e86942965e569b1e, type: 3}
+  - enumName: BeanContainer
+    iconSprite: {fileID: 21300000, guid: 5ee144a16a07adc4d80d1b7b3ecb4c4a, type: 3}
+  - enumName: Tile
+    iconSprite: {fileID: 21300000, guid: 121686075fe0e50498e90a21fc43d00f, type: 3}
+  - enumName: WallDecoration
+    iconSprite: {fileID: 21300000, guid: 1d6506f3906c31c44a247c86e5eff306, type: 3}
+  - enumName: Wallpaper
+    iconSprite: {fileID: 21300000, guid: ec71ed30db4a5f246b3eb327517cba25, type: 3}
+  - enumName: SecondFloorOnly
+    iconSprite: {fileID: 21300000, guid: b860b73a39f1c424f97fae530165992c, type: 3}
+  - enumName: OutdoorDecoration
+    iconSprite: {fileID: 21300000, guid: 28ba5a825b70f8a4aad0b1bfe37ed9d3, type: 3}
+  - enumName: WallExteriorDecoration
+    iconSprite: {fileID: 21300000, guid: e7c6b1fd59f5c9547a4f0b58160a3372, type: 3}
+  - enumName: Railing2F
+    iconSprite: {fileID: 21300000, guid: 1cfb89eaffae5994f8502e131459bcd0, type: 3}
+  - enumName: Stair2F
+    iconSprite: {fileID: 21300000, guid: aea16a5d0948b3744ae69f7a50b12254, type: 3}
+  - enumName: WallExterior
+    iconSprite: {fileID: 21300000, guid: f1887cb30afb5a94f87be22fc300b8c4, type: 3}
+  - enumName: Entrance
+    iconSprite: {fileID: 21300000, guid: 40b1be5806389534b873e44154ccbced, type: 3}
 --- !u!4 &2084740968
 Transform:
   m_ObjectHideFlags: 0
@@ -43322,6 +43354,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 513334155852884561, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_fontSize
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 513334155852884561, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 48
+      objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -43341,6 +43381,22 @@ PrefabInstance:
     - target: {fileID: 1187560583647778260, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070397505598430593, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1836.9468
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070397505598430593, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 184.0412
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070397505598430593, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 8.0764
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070397505598430593, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 530.6498
       objectReference: {fileID: 0}
     - target: {fileID: 2276344655167567658, guid: e24c8254a15016a4b9feef03de6e365e, type: 3}
       propertyPath: m_AnchorMax.y
@@ -43810,3 +43866,7 @@ SceneRoots:
   - {fileID: 551277108}
   - {fileID: 43372640}
   - {fileID: 1331332895}
+  - {fileID: 1914078699}
+  - {fileID: 118700009}
+  - {fileID: 1177244309}
+  - {fileID: 1638526946}
