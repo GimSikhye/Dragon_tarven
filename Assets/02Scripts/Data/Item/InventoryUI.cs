@@ -117,6 +117,7 @@ public class InventoryUI : MonoBehaviour
             {
                 iconImage.sprite = icon;
                 iconImage.enabled = true;
+                iconImage.preserveAspect = true;
             }
             else
             {
@@ -149,6 +150,7 @@ public class InventoryUI : MonoBehaviour
                 Debug.Log("아이템 보여주기");
 
                 Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
+                iconImage.preserveAspect = true;
                 TextMeshProUGUI nameText = buttonObj.transform.Find("Name").GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI quantityText = buttonObj.transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
 
