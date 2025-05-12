@@ -144,7 +144,9 @@ public class InventoryUI : MonoBehaviour
         {
             if (IsItemInSelectedSubCategory(item.itemData))
             {
+
                 GameObject buttonObj = Instantiate(itemButtonPrefab, itemButtonParent);
+                Debug.Log("아이템 보여주기");
 
                 Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
                 TextMeshProUGUI nameText = buttonObj.transform.Find("Name").GetComponent<TextMeshProUGUI>();
