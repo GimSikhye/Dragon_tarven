@@ -32,6 +32,7 @@ public class InventoryUI : MonoBehaviour
 
     private ItemCategory selectedCategory; // 선택된 카테고리
     private System.Enum selectedSubCategory; // 선택된 하위 목록
+    private Button prieviousButton; // 이전에 선택됐던 버튼
 
     private Inventory inventory;
 
@@ -87,7 +88,10 @@ public class InventoryUI : MonoBehaviour
             buttonText.text = ConvertEnumToKorean(category.ToString()); // ConvertEnumToKorean
 
 
-            button.onClick.AddListener(() => SelectCategory(category));
+            button.onClick.AddListener(() =>
+            {
+                SelectCategory(category);
+            });
         }
     }
 
@@ -113,7 +117,7 @@ public class InventoryUI : MonoBehaviour
 
             // 아이콘 이미지 찾기
             Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
-            if(_subCategoryIconMap.TryGetValue(subCategory.ToString(), out var icon))
+            if (_subCategoryIconMap.TryGetValue(subCategory.ToString(), out var icon))
             {
                 iconImage.sprite = icon;
                 iconImage.enabled = true;
@@ -125,12 +129,19 @@ public class InventoryUI : MonoBehaviour
             }
 
 
-            button.onClick.AddListener(() => SelectSubCategory((System.Enum)subCategory));
+            button.onClick.AddListener(() =>
+            {
+                button.GetComponent<Image>().enabled = true;
+                SelectSubCategory((System.Enum)subCategory);
+                prieviousButton = button; // 갱신
+            });
         }
     }
 
-    private void SelectSubCategory(System.Enum subCategory)
+    private void SelectSubCategory(System.Enum subCategory) // 
     {
+        if(prieviousButton != null) 
+            prieviousButton.GetComponent<Image>().enabled = false;  
         selectedSubCategory = subCategory;
         ShowItems();
     }
