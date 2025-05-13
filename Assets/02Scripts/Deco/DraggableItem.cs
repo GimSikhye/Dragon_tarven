@@ -102,6 +102,8 @@ namespace DalbitCafe.Deco
 
             // 사이즈 전환 (x <-> y)
             _itemSize = new Vector2Int(_itemSize.y, _itemSize.x); // 셀에서 차지하는 공간도 회전에 따라 바뀜(회전을 하면, 가로 ↔ 세로가 바뀌는 경우가 생기기 때문)
+            // 0도(↓), 180도(↑): 원래 사이즈 유지 // 90도(→), 270도(←): x ↔ y 교환 필요
+            // 그래서 회전할 때마다 x와 y를 한 번씩 교체해주면 결국 4회전 이후 원래대로 돌아오게 됩니다!
 
             // 회전 시 중심 위치 보정
             Vector3 newCenter = GetItemCenterWorldPos(floorTilemap);
@@ -119,6 +121,19 @@ namespace DalbitCafe.Deco
                                                                                                               // 그래서 offset × 셀 크기(tile size) 를 해줘야 정확한 거리를 얻을 수 있다.
                                                                                                               // return 좌하단 셀 중심 위치 + (아이템 중심까지 이동 거리);
 
+        }
+
+        // 디버깅 용도
+        void OnDrawGizmos()
+        {
+            for (int x = -2; x <= 2; x++)
+            {
+                for (int y = -2; y <= 2; y++)
+                {
+                    Vector3 worldPos = floorTilemap.GetCellCenterWorld(new Vector3Int(x, y, 0));
+                    UnityEditor.Handles.Label(worldPos, $"({x},{y})");
+                }
+            }
         }
     }
 }
