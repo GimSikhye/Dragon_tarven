@@ -8,15 +8,16 @@ namespace DalbitCafe.Deco
     public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Tilemap floorTilemap;
+
+        [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
+        private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
 
+        [Header("아이템 배치")]
         private Vector3 _initialPosition; // 드래그 시작 전 위치
         private bool _isDragging = false; // 드래그 중인지 검사
         public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
-
-        // 아이템 회전
-        private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
 
         public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
         {
@@ -88,22 +89,19 @@ namespace DalbitCafe.Deco
 
         public void RotateItem()
         {
-            Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap);
+            Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap); // floorTilemap의 중심을 가져옴?
 
             // 회전 인덱스 갱신 (시계방향)
             _rotationIndex = (_rotationIndex + 1) % 4;
 
-            // 스프라이트 변경
+            // 스프라이트 변경(회전)
             if (directionSprites != null && directionSprites.Length == 4)
             {
                 spriteRenderer.sprite = directionSprites[_rotationIndex];
             }
 
-            // 아이템 회전 (단순 transform 회전이 아닌 스프라이트만 바꾸므로 생략 가능)
-            // transform.rotation = Quaternion.Euler(0, 0, _rotationIndex * -90f); // 이 줄은 이제 필요 없다면 지우세요.
-
             // 사이즈 전환 (x <-> y)
-            _itemSize = new Vector2Int(_itemSize.y, _itemSize.x);
+            _itemSize = new Vector2Int(_itemSize.y, _itemSize.x); // 셀에서 차지하는 공간도 회전에 따라 바뀜(회전을 하면, 가로 ↔ 세로가 바뀌는 경우가 생기기 때문)
 
             // 회전 시 중심 위치 보정
             Vector3 newCenter = GetItemCenterWorldPos(floorTilemap);
@@ -112,11 +110,15 @@ namespace DalbitCafe.Deco
 
         private Vector3 GetItemCenterWorldPos(Tilemap tilemap)
         {
-            Vector3Int cellPos = tilemap.WorldToCell(transform.position);
-            Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
-            Vector2 offset = new Vector2((_itemSize.x - 1) / 2f, (_itemSize.y - 1) / 2f);
+            Vector3Int cellPos = tilemap.WorldToCell(transform.position); // 아이템의 위치를 cell 위치로 바꿈 (어디에 위치해 있는가)
+            Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos); // 좌하단 cell의 가운데
+            Vector2 offset = new Vector2((_itemSize.x - 1) / 2f, (_itemSize.y - 1) / 2f); // 아이템이 여러 칸 크기일 경우 아이템 설치 시 그 위치는 좌하단 위치가 됨. 
+            //  “여러 셀을 차지하는 아이템의 중심이 좌하단 기준으로부터 얼마나 떨어져 있는가”를 계산하는 공식 // 셀 단위 거리
 
-            return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0);
+            return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0); // Unity 월드에서는 셀의 크기가 1이 아닐 수 있다.
+                                                                                                              // 그래서 offset × 셀 크기(tile size) 를 해줘야 정확한 거리를 얻을 수 있다.
+                                                                                                              // return 좌하단 셀 중심 위치 + (아이템 중심까지 이동 거리);
+
         }
     }
 }

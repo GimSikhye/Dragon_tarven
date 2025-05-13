@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DalbitCafe.Operations;
 using TMPro;
@@ -127,21 +128,31 @@ public class InventoryUI : MonoBehaviour
             {
                 iconImage.enabled = false; // 아이콘 없으면 숨기기
             }
+            // 버튼 쿨타임 주기(한번에 중복 터치하지 못하도록)
 
-
+            var capturedButton = button;
             button.onClick.AddListener(() =>
             {
+                if (!button.interactable) return;
+                Debug.Log("서브카테고리 버튼 눌림");
+                button.interactable = false;
                 button.GetComponent<Image>().enabled = true;
                 SelectSubCategory((System.Enum)subCategory);
-                prieviousButton = button; // 갱신
+                prieviousButton = capturedButton; // 갱신
+
+                StartCoroutine(EnableButtonAfterDelay(button, 0.1f)); // 0.1초 후 다시 활성화
             });
         }
     }
 
     private void SelectSubCategory(System.Enum subCategory) // 
     {
-        if(prieviousButton != null) 
-            prieviousButton.GetComponent<Image>().enabled = false;  
+        if(prieviousButton != null)
+        {
+            Debug.Log("이전 버튼 비활성화");
+            prieviousButton.GetComponent<Image>().enabled = false;  // 이전에 눌렀던 버튼 색깔 없애기
+
+        }
         selectedSubCategory = subCategory;
         ShowItems();
     }
@@ -158,7 +169,6 @@ public class InventoryUI : MonoBehaviour
             {
 
                 GameObject buttonObj = Instantiate(itemButtonPrefab, itemButtonParent);
-                Debug.Log("아이템 보여주기");
 
                 Image iconImage = buttonObj.transform.Find("Icon").GetComponent<Image>();
                 iconImage.preserveAspect = true;
@@ -244,4 +254,11 @@ public class InventoryUI : MonoBehaviour
                 return null;
         }
     }
+
+    private IEnumerator EnableButtonAfterDelay(Button btn, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        btn.interactable = true;
+    }
+
 }
