@@ -1903,6 +1903,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Popup_InventoryPanel 1
       objectReference: {fileID: 0}
+    - target: {fileID: 82951597841047093, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
+      propertyPath: m_TagString
+      value: UIPanel
+      objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

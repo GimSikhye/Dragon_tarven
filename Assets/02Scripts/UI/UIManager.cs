@@ -270,6 +270,11 @@ public class UIManager : MonoSingleton<UIManager>
         _inventoryUI.Open();
     }
 
+    public void CloseInventory()
+    {
+        _inventoryUI.Close();
+    }
+
     public void OpenStore()
     {
         _storeManager.Open();   
@@ -281,6 +286,7 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (var panel in panels)
         {
+            Debug.Log(panel.name);
             var buttons = panel.GetComponentsInChildren<Button>(true);
             foreach (var btn in buttons)
             {
