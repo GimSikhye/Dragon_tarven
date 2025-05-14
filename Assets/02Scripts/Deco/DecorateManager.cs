@@ -19,7 +19,7 @@ namespace DalbitCafe.Deco
 
         [SerializeField] private bool _isDecorateMode = false;
 
-        [SerializeField] private DraggableItem targetItem;
+        public DraggableItem targetItem;
 
         private void OnEnable()
         {
@@ -37,8 +37,6 @@ namespace DalbitCafe.Deco
                 _player = GameObject.Find("Player");
                 _customerParent = GameObject.Find("Customers").transform;
                 _gridManager = GridManager.Instance;
-                targetItem = GameObject.FindObjectOfType(typeof(DraggableItem)).GetComponent<DraggableItem>();
-                //_decorateUI
             }
         }
         // 배치 모드 활성화

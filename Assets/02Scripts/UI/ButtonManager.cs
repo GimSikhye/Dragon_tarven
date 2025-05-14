@@ -64,14 +64,11 @@ public class ButtonManager : MonoSingleton<ButtonManager>
                     button.onClick.AddListener(() =>
                     {
                         button.interactable = false;
-                        GameObject.Find("P_Funiture_Chair").GetComponent<DraggableItem>().RotateItem();
+                        DecorateManager.Instance.OnRotateButtonPressed(); // targetItem 기반 회전
                         StartCoroutine(EnableButtonAfterDelay(button.gameObject, 0.5f));
-
-
-
                     });
-
                 }
+
 
             }
         }

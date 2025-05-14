@@ -5,7 +5,7 @@ using UnityEngine.Tilemaps;
 
 namespace DalbitCafe.Deco
 {
-    public class DraggableItem : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class DraggableItem : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         [SerializeField] private Tilemap floorTilemap;
 
@@ -13,16 +13,44 @@ namespace DalbitCafe.Deco
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
         private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
+        private RectTransform rotateUIParent;
 
         [Header("아이템 배치")]
         private Vector3 _initialPosition; // 드래그 시작 전 위치
         private bool _isDragging = false; // 드래그 중인지 검사
         public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
 
+        private void Start()
+        {
+            rotateUIParent = GameObject.Find("UI_DecoButtons").GetComponent<RectTransform>(); // 회전 버튼 부모 오브젝트 이름에 따라 변경
+            UpdateRotateUIPosition();
+        }
+
+        private void Update()
+        {
+            if(!_isDragging && DecorateManager.Instance.targetItem == this)
+            {
+                UpdateRotateUIPosition();
+            }
+        }
+
+        private void OnEnable()
+        {
+            floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();   
+        }
+
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            DecorateManager.Instance.targetItem = this;
+        }
+
         public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
         {
             _initialPosition = transform.position; // 처음 위치 저장
             _isDragging = true;
+
+            if(rotateUIParent != null) rotateUIParent.gameObject.SetActive(false);
+
         }
 
         public void OnDrag(PointerEventData eventData) // 드래그 중일 때
@@ -66,6 +94,13 @@ namespace DalbitCafe.Deco
             {
                 // 원래 위치로 복귀
                 transform.position = _initialPosition;
+            }
+
+            // UI 다시 활성화 + 위치 업데이트
+            if(rotateUIParent != null && DecorateManager.Instance.targetItem == this)
+            {
+                rotateUIParent.gameObject.SetActive(true);
+                UpdateRotateUIPosition();
             }
         }
 
@@ -118,9 +153,18 @@ namespace DalbitCafe.Deco
             //  “여러 셀을 차지하는 아이템의 중심이 좌하단 기준으로부터 얼마나 떨어져 있는가”를 계산하는 공식 // 셀 단위 거리
 
             return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0); // Unity 월드에서는 셀의 크기가 1이 아닐 수 있다.
-                                                                                                              // 그래서 offset × 셀 크기(tile size) 를 해줘야 정확한 거리를 얻을 수 있다.
-                                                                                                              // return 좌하단 셀 중심 위치 + (아이템 중심까지 이동 거리);
 
+        }
+
+        private void UpdateRotateUIPosition()
+        {
+            if (rotateUIParent == null) return;
+
+            // 월드 좌표-> 화면 좌표
+            Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position); 
+
+            // UI 위치 업데이트
+            rotateUIParent.position = screenPos;
         }
 
         // 디버깅 용도
@@ -135,5 +179,7 @@ namespace DalbitCafe.Deco
                 }
             }
         }
+
+
     }
 }
