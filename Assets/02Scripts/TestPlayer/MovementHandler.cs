@@ -21,13 +21,11 @@ public class MovementHandler : MonoBehaviour
     {
         animatorController = GetComponent<CharacterAnimatorController>();
         InputManager.OnTouchEnded += HandleTouch;
-
     }
 
     private void OnDestroy()
     {
         InputManager.OnTouchEnded -= HandleTouch;
-
     }
 
     private void Update()

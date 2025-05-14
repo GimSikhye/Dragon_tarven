@@ -22,7 +22,7 @@ namespace DalbitCafe.Map
         {
             if (scene.name == "GameScene" && floorTilemap == null)
             {
-                floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();
+                floorTilemap = GameObject.Find("1FFloor").GetComponent<Tilemap>();
             }
         }
 
