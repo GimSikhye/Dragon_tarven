@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public enum ExteriorType
+public enum ExteriorType // 익스테리어 타입의 서브카테고리들
 {
     SecondFloorOnly, // 2층전용
     OutdoorDecoration, // 야외장식품

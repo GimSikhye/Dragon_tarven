@@ -12,11 +12,11 @@ public abstract class ItemData : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
-    public int price;
+    public int price; // 되파는 가격
     public GameObject prefab; // 배치용 프리팹
 
     public abstract ItemCategory Category { get; }
-    public virtual System.Enum SubCategory => null;
+    public virtual System.Enum SubCategory => null; // default
 
 
 
