@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Purple Chair
   m_EditorClassIdentifier: 
   itemName: "\uBCF4\uB77C\uC0C9 \uC758\uC790"
-  icon: {fileID: 21300000, guid: 0ef9f5391c3108b4ebc83637278e1641, type: 3}
+  icon: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
   price: 100
   prefab: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
   interiorType: 1

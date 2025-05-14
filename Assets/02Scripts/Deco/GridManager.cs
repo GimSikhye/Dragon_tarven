@@ -6,7 +6,7 @@ namespace DalbitCafe.Deco
 {// 코드 먼저 (3개스크립트) 이해하고 회전 버튼 연결해야함
     public class GridManager : MonoSingleton<GridManager>
     {
-        [SerializeField] private Tilemap tilemap;
+        public Tilemap tilemap;
         [SerializeField] private TileBase storeFloorTile; // 이 타일만 있는 곳에 배치 가능
         [SerializeField] private float _tileSize = 0.5f;
 

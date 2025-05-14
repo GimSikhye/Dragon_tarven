@@ -25,4 +25,16 @@ public class Inventory : MonoSingleton<Inventory>
         }
     }
 
+    public void RemoveItem(InventoryItem item)
+    {
+        if(items.Contains(item))
+        {
+            items.Remove(item);
+        }
+        else
+        {
+            Debug.LogWarning("Iventory에서 제거하려하는 아이템이 존재하지 않음");
+        }
+    }
+
 }

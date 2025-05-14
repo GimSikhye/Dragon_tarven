@@ -5078,7 +5078,7 @@ TilemapCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 936024553}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -8075,6 +8075,10 @@ PrefabInstance:
       propertyPath: 'directionSprites.Array.data[3]'
       value: 
       objectReference: {fileID: 21300000, guid: 73c6102f18eec974198843fb17b86204, type: 3}
+    - target: {fileID: 4573046559606593623, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.953125
+      objectReference: {fileID: 0}
     - target: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
       propertyPath: m_Name
       value: P_Funiture_Chair (1)
@@ -12836,45 +12840,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: 'directionSprites.Array.data[0]'
-      value: 
-      objectReference: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
-    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: 'directionSprites.Array.data[1]'
-      value: 
-      objectReference: {fileID: 21300000, guid: be999b1fbdf0f4544b003452fa97dcf5, type: 3}
-    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: 'directionSprites.Array.data[2]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 2e2ced8649508474797f1cc096febbf7, type: 3}
-    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: 'directionSprites.Array.data[3]'
-      value: 
-      objectReference: {fileID: 21300000, guid: 496f26a9fe9f12f4eaa82005e5115282, type: 3}
     - target: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
       propertyPath: m_Name
       value: P_Funiture_Chair
       objectReference: {fileID: 0}
-    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_Size.x
-      value: 5.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_Size.y
-      value: 5.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
-    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 5694531760217714112, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}

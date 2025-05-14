@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DalbitCafe.Deco;
 using DalbitCafe.Operations;
 using TMPro;
 using UnityEngine;
@@ -24,6 +25,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject categoryButtonPrefab;
     [SerializeField] private GameObject subCategoryButtonPrefab;
     [SerializeField] private GameObject itemButtonPrefab;
+    private GameObject draggableItemPrefab;
 
     [Header("서브카테고리 아이콘 맵")]
     [SerializeField] private List<SubCategoryIconEntry> subCategoryIcons; // SerializedField로 넣어줌
@@ -174,10 +176,40 @@ public class InventoryUI : MonoBehaviour
                 iconImage.preserveAspect = true;
                 TextMeshProUGUI nameText = buttonObj.transform.Find("Name").GetComponent<TextMeshProUGUI>();
                 TextMeshProUGUI quantityText = buttonObj.transform.Find("Quantity").GetComponent<TextMeshProUGUI>();
+                Button mainButton = buttonObj.GetComponent<Button>();
+                Image fadeImage = buttonObj.transform.Find("FadeImage").GetComponent<Image>();  
 
+                // 숨겨진 버튼들 찾기
+                GameObject placeButtonObj = buttonObj.transform.Find("PlaceButton").gameObject;
+                GameObject sellBtuttonObj = buttonObj.transform.Find("SellButton").gameObject;
+
+                // 처음엔 숨기기
+                placeButtonObj.SetActive(false);    
+                sellBtuttonObj.SetActive(false);
+                fadeImage.enabled = false;
+
+                // 텍스트 & 이미지
                 iconImage.sprite = item.itemData.icon;
                 nameText.text = item.itemData.itemName;
                 quantityText.text = $"x{item.quantity}";
+
+                // 클릭 시 : 배치/판매 버튼 보이기 + 버튼 어둡게
+                mainButton.onClick.AddListener(() =>
+                {
+                    Debug.Log("아이템 버튼 눌림");
+                    fadeImage.enabled = true;
+                    //fadeImage.color = new Color(0, 0, 0, 0.7f);
+                    placeButtonObj.SetActive(true);
+                    sellBtuttonObj.SetActive(true);
+                });
+
+                // 배치하기 버튼 기능
+                placeButtonObj.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    HandlePlaceItem(item, buttonObj); // 이해
+                });
+
+                // 판매하기 기능은 나중에 추가 가능
             }
         }
     }
@@ -261,4 +293,71 @@ public class InventoryUI : MonoBehaviour
         btn.interactable = true;
     }
 
+    private void HandlePlaceItem(InventoryItem item, GameObject buttonObj)
+    {
+        // 수량 감소
+        item.quantity--;
+
+        // 수량 UI 갱신
+        TextMeshProUGUI qtyText = buttonObj.transform.Find("Quantity").GetComponent<TextMeshProUGUI>(); 
+        qtyText.text = $"x{item.quantity}";
+
+        // 수량 0이면 인벤토리에서 제거
+        if(item.quantity <=0)
+        {
+            inventory.RemoveItem(item);
+            Destroy(buttonObj);
+        }
+
+        // 인벤토리 닫기
+        Close();
+
+        // 아이템 배치 시도
+        PlaceDraggableItem(item.itemData);
+    }
+
+    private void PlaceDraggableItem(ItemData data)
+    {
+        draggableItemPrefab = data.prefab;   
+        // 프리팹 생성
+        GameObject go = Instantiate(draggableItemPrefab);
+
+        DraggableItem draagable = go.GetComponent<DraggableItem>();
+
+        // 위치 찾기 (0,0에서 가장 가까운 빈 공간)
+        Vector2Int position = FindNearestPlaceablePosition(draagable._itemSize);
+
+        // 좌표를 셀 중심으로 변환 
+        Vector3 worldPos = GridManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
+        go.transform.position = worldPos;
+
+        // 배치 처리
+        GridManager.Instance.PlaceItem(position, draagable._itemSize);   
+        
+    }
+
+    // 빈 셀 찾기(0, 0 기준 정렬)
+    private Vector2Int FindNearestPlaceablePosition(Vector2Int itemSize)
+    {
+        // 탐색 범위 설정
+        int searchRadius = 20; // 맵 사이즈
+
+        for(int r = 0; r <= searchRadius; r++)
+        {
+            for(int x = -r; x<=r; x++)
+            {
+                for(int y= -r; y<=r; y++)
+                {
+                    Vector2Int pos = new Vector2Int(x, y);
+                    if(DecorateManager.Instance.CanPlaceItem(pos, itemSize))
+                    {
+                        return pos;
+                    }
+                }
+            }
+        }
+
+        Debug.LogWarning("빈 공간을 찾을 수 없습니다.");
+        return Vector2Int.zero;
+    }
 }
