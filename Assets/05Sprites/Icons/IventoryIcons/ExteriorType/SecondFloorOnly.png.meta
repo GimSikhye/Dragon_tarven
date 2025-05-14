@@ -5,6 +5,9 @@ TextureImporter:
   - first:
       213: -7231455288211471542
     second: SecondFloorOnly_0
+  - first:
+      213: -2330937462504627491
+    second: SecondFloorOnly_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +113,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -142,10 +132,10 @@ TextureImporter:
       name: SecondFloorOnly_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 42
-        width: 512
-        height: 427
+        x: 25
+        y: 36
+        width: 468
+        height: 385
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,6 +146,28 @@ TextureImporter:
       bones: []
       spriteID: a430901bab5b4ab90800000000000000
       internalID: -7231455288211471542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SecondFloorOnly_1
+      rect:
+        serializedVersion: 2
+        x: 61
+        y: 298
+        width: 212
+        height: 184
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd2e2c94ab8d6afd0800000000000000
+      internalID: -2330937462504627491
       vertices: []
       indices: 
       edges: []
@@ -175,6 +187,7 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       SecondFloorOnly_0: -7231455288211471542
+      SecondFloorOnly_1: -2330937462504627491
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

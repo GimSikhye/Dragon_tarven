@@ -5,9 +5,6 @@ TextureImporter:
   - first:
       213: -2988977448947673822
     second: WallDecoration_0
-  - first:
-      213: 871623092674154047
-    second: WallDecoration_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -145,10 +129,10 @@ TextureImporter:
       name: WallDecoration_0
       rect:
         serializedVersion: 2
-        x: 31
-        y: 271
-        width: 450
-        height: 130
+        x: 40
+        y: 119
+        width: 432
+        height: 281
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,28 +143,6 @@ TextureImporter:
       bones: []
       spriteID: 22512d1b8d40586d0800000000000000
       internalID: -2988977448947673822
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: WallDecoration_1
-      rect:
-        serializedVersion: 2
-        x: 31
-        y: 111
-        width: 450
-        height: 130
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f3eced0b590a81c00800000000000000
-      internalID: 871623092674154047
       vertices: []
       indices: 
       edges: []
@@ -200,7 +162,6 @@ TextureImporter:
       entries: []
     nameFileIdTable:
       WallDecoration_0: -2988977448947673822
-      WallDecoration_1: 871623092674154047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

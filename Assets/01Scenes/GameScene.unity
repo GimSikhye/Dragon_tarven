@@ -1784,36 +1784,40 @@ PrefabInstance:
       value: Popup_InventoryPanel 1
       objectReference: {fileID: 0}
     - target: {fileID: 82951597841047093, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 82951597841047093, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_TagString
       value: UIPanel
       objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 163.3409
       objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 1187560583647778260, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -81.67045
       objectReference: {fileID: 0}
     - target: {fileID: 2607547133696712548, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5137831
       objectReference: {fileID: 0}
     - target: {fileID: 2607547133696712548, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4643277743013597164, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1825,19 +1829,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6398639623339769469, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6398639623339769469, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6398639623339769469, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 339.6901
       objectReference: {fileID: 0}
     - target: {fileID: 6398639623339769469, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -429.53162
       objectReference: {fileID: 0}
     - target: {fileID: 6435859230060231791, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_Pivot.x
@@ -1941,31 +1945,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6757844886081013329, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6757844886081013329, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6757844886081013329, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 190.7256
       objectReference: {fileID: 0}
     - target: {fileID: 6757844886081013329, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -90.449
       objectReference: {fileID: 0}
     - target: {fileID: 7398886060883669509, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7398886060883669509, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7398886060883669509, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: 8374879705395645792, guid: 9f00e3f6e75fa884ea32c53cf688b7c0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -42391,17 +42395,17 @@ MonoBehaviour:
   - enumName: CoffeeMachine
     iconSprite: {fileID: 21300000, guid: 5ac1990eb860cf747beb7fd536a19796, type: 3}
   - enumName: Workbench
-    iconSprite: {fileID: 21300000, guid: d9b0200302b9306449ed088e4ec31439, type: 3}
+    iconSprite: {fileID: 21300000, guid: db7e5f3d0e1a12f429c7f23598149d2d, type: 3}
   - enumName: CookingMachine
-    iconSprite: {fileID: 21300000, guid: d0df81a0ad45def468382f4def070d3f, type: 3}
+    iconSprite: {fileID: 21300000, guid: 3bd933793c86aef49b35983df06d1f44, type: 3}
   - enumName: Showcase
-    iconSprite: {fileID: 21300000, guid: e9819450f05c3314795d66ad7cbc2a17, type: 3}
+    iconSprite: {fileID: 21300000, guid: ff9739931fecb16459381ab28eb52748, type: 3}
   - enumName: Counter
-    iconSprite: {fileID: 21300000, guid: 0efe2f3f21184b64dbe2e0cad8b8b811, type: 3}
+    iconSprite: {fileID: 21300000, guid: b42f29f9fef167c43b9f6b006fc11abc, type: 3}
   - enumName: Mixer
-    iconSprite: {fileID: 21300000, guid: ae2c428ea66b83447bf2a08418d9be0c, type: 3}
+    iconSprite: {fileID: 21300000, guid: 35da446841ef04546a56fa931cf2aef9, type: 3}
   - enumName: Table
-    iconSprite: {fileID: 21300000, guid: 4e22359d8de073c4593243c97dade45c, type: 3}
+    iconSprite: {fileID: 21300000, guid: 5ae0bb7b3f7a9da41a51ae94d8e10bcc, type: 3}
   - enumName: Chair
     iconSprite: {fileID: 21300000, guid: e6c62015c2512854981df28538c34d8d, type: 3}
   - enumName: Partition
