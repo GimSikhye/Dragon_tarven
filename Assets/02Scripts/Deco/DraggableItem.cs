@@ -11,6 +11,7 @@ namespace DalbitCafe.Deco
 
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
+        [SerializeField] private int rotationCount = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
         [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
         private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
         private RectTransform rotateUIParent;
