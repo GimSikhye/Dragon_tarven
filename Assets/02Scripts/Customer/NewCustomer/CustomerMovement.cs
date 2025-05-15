@@ -17,12 +17,12 @@ public class CustomerMovement : MonoBehaviour
         Vector3 spawnPos = CustomerSpawner.Instance.GetRandomStreetPosition();
         transform.position = spawnPos;
         Vector3 opposite = CustomerSpawner.Instance.GetOppositeStreetPosition(spawnPos);
-        MoveTool(opposite, () => CustomerSpawner.Instance.TryEnterCustomer(this));
+        MoveTo(opposite, () => CustomerSpawner.Instance.TryEnterCustomer(this));
     }
 
     public void MoveToCounter(Action onDone)
     {
         Vector3 counterPos = CustomerSpawner.Instance.GetCounterPosition();
-        MoveTool(counterPos, onDone);
+        MoveTo(counterPos, onDone);
     }
 }
