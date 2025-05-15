@@ -7,20 +7,20 @@ using UnityEngine.UI;
 
 public class CharacterControls : MonoBehaviour
 {
-    [SerializeField] 
+    [SerializeField]
     Text animationState;
     [SerializeField]
     private List<GameObject> characterSkins = new List<GameObject>();
-    private int currentSkin = 0, currentAnimation = 0; // 현재 애니메이션
+    private int currentSkin = 0, currentAnimation = 0;
     [SerializeField]
     private int totalAnimationClips = 0;
     [SerializeField]
-    private List<CharacterAnimation> characterAnimations = new List<CharacterAnimation>(); // 스크립트
+    private List<CharacterAnimation> characterAnimations = new List<CharacterAnimation>();
     private void Reset()
     {
         characterSkins = new List<GameObject>();
         characterAnimations = new List<CharacterAnimation>();
-        foreach (Transform child in transform) // 오브젝트의 자식들
+        foreach (Transform child in transform)
         {
             characterSkins.Add(child.gameObject);
             characterAnimations.Add(child.GetComponent<CharacterAnimation>());
@@ -33,19 +33,19 @@ public class CharacterControls : MonoBehaviour
         }
 
         totalAnimationClips = 8;
-        //List<Renderer> allRenderers = new List<Renderer>();
-        //GetComponentsInChildren<Renderer>(true, allRenderers);
+        List<Renderer> allRenderers = new List<Renderer>();
+        GetComponentsInChildren<Renderer>(true, allRenderers);
     }
 
     private void Update()
     {
         #region Skin
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow)) // 다음 스킨
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             currentSkin++;
             SetSkin();
         }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow)) // 이전 스킨
+        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             currentSkin--;
             SetSkin();
@@ -53,12 +53,12 @@ public class CharacterControls : MonoBehaviour
         #endregion
 
         #region Animation
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)) // 다음 애니메이션
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             currentAnimation++;
             SetAnimation();
         }
-        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow)) // 이전 애니메이션
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
         {
             currentAnimation--;
             SetAnimation();
@@ -78,17 +78,17 @@ public class CharacterControls : MonoBehaviour
     private void SetSkin()
     {
         if (characterSkins.Count <= 0) return;
-        currentSkin = (int)Mathf.Repeat(currentSkin, characterSkins.Count); // 인덱스 유효하게 만들기
+        currentSkin = (int)Mathf.Repeat(currentSkin, characterSkins.Count);
         foreach (GameObject skin in characterSkins)
         {
-            if (skin.activeInHierarchy) // 현재 켜져있는 스킨 꺼줌
+            if (skin.activeInHierarchy)
                 skin.SetActive(false);
         }
-        characterSkins[currentSkin].SetActive(true); // 선택한 스킨 껴줌
+        characterSkins[currentSkin].SetActive(true);
     }
     private void SetAnimation()
     {
-        currentAnimation = (int)Mathf.Repeat(currentAnimation, totalAnimationClips); // 8
+        currentAnimation = (int)Mathf.Repeat(currentAnimation, totalAnimationClips);
         foreach (CharacterAnimation characterAnimation in characterAnimations)
         {
             characterAnimation.SetAnimation(currentAnimation);
