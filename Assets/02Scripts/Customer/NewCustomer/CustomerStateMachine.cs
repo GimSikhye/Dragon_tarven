@@ -40,7 +40,7 @@ public class CustomerStateMachine : MonoBehaviour
                 break;
 
             case CustomerState.MovingToSeat:
-                movement.MoveToSeat(() => SetState(CustomerState.Moving));
+                movement.MoveToSeat(() => SetState(CustomerState.Sitting));
                 break;
 
             case CustomerState.Sitting:
