@@ -7,7 +7,7 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        [SerializeField] private Tilemap floorTilemap;
+        private Tilemap floorTilemap;
 
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
@@ -169,19 +169,6 @@ namespace DalbitCafe.Deco
 
             // UI 위치 업데이트
             rotateUIParent.position = screenPos;
-        }
-
-        // 디버깅 용도
-        void OnDrawGizmos()
-        {
-            for (int x = -2; x <= 2; x++)
-            {
-                for (int y = -2; y <= 2; y++)
-                {
-                    Vector3 worldPos = floorTilemap.GetCellCenterWorld(new Vector3Int(x, y, 0));
-                    UnityEditor.Handles.Label(worldPos, $"({x},{y})");
-                }
-            }
         }
 
 
