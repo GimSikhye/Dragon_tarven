@@ -11,10 +11,13 @@ namespace DalbitCafe.Deco
 
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private int rotationCount = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
         [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
         private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
         private RectTransform rotateUIParent;
+
+        [Header("아이템 회전 제한")]
+        [SerializeField] private int rotationCount = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
+
 
         [Header("아이템 배치")]
         private Vector3 _initialPosition; // 드래그 시작 전 위치
@@ -37,7 +40,7 @@ namespace DalbitCafe.Deco
 
         private void OnEnable()
         {
-            floorTilemap = GameObject.Find("StoreFloor").GetComponent<Tilemap>();   
+            floorTilemap = GameObject.Find("1FFloor").GetComponent<Tilemap>();   
         }
 
         public void OnPointerClick(PointerEventData eventData)
@@ -127,11 +130,11 @@ namespace DalbitCafe.Deco
         {
             Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap); // floorTilemap의 중심을 가져옴?
 
-            // 회전 인덱스 갱신 (시계방향)
-            _rotationIndex = (_rotationIndex + 1) % 4;
+            // 회전 인덱스 갱신 (제한된 방향 수만큼)
+            _rotationIndex = (_rotationIndex + 1) % rotationCount;
 
             // 스프라이트 변경(회전)
-            if (directionSprites != null && directionSprites.Length == 4)
+            if (directionSprites != null && directionSprites.Length >= rotationCount)
             {
                 spriteRenderer.sprite = directionSprites[_rotationIndex];
             }

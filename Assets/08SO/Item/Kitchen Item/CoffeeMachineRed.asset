@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee84ca0237e320844b08c8862761826e, type: 3}
-  m_Name: CoffeeMachine 2
+  m_Name: CoffeeMachineRed
   m_EditorClassIdentifier: 
-  itemName: "\uCEE4\uD53C\uBA38\uC2E02"
-  icon: {fileID: -8480838119780344923, guid: 19b12a31007d853448dcc98c96d11e61, type: 3}
+  itemName: "\uCEE4\uD53C\uBA38\uC2E0(\uBE68\uAC15)"
+  icon: {fileID: 21300000, guid: 109f82d39d8b2294ab997bfe0e2c72fe, type: 3}
   price: 300
-  prefab: {fileID: 8497240298204524245, guid: cab2e402e462abb45b18b4dd74565ae8, type: 3}
-  kitchenType: 0
+  prefab: {fileID: 6689706440051736636, guid: 5d36417d9a57ce54d9048bb2e5841cc3, type: 3}
+  kitchenType: 1

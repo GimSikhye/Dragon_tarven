@@ -35,7 +35,7 @@ namespace DalbitCafe.Deco
         {
             if(scene.name == "GameScene")
             {
-                GameObject tile = GameObject.Find("StoreFloor");
+                GameObject tile = GameObject.Find("1FFloor");
                 tilemap = tile.GetComponent<Tilemap>();
                 storeFloorTile = Resources.Load<TileBase>("spr_tile_floor");
 

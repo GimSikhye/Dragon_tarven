@@ -9,14 +9,13 @@ public class InputManager : MonoBehaviour
     public static event Action<Vector3> OnTouchEnded; // 터치 끝 이벤트 (월드 좌표 기준)
 
     // 이동 시 UI 위인지 체크
-    private GraphicRaycaster uiRaycaster;
+    [SerializeField] private GraphicRaycaster uiRaycaster;
     private EventSystem eventSystem;
     private PointerEventData pointerEventData;
 
     void Awake()
     {
 
-        uiRaycaster = FindObjectOfType<GraphicRaycaster>();
         eventSystem = EventSystem.current;
     }
 
@@ -50,6 +49,10 @@ public class InputManager : MonoBehaviour
         List<RaycastResult> results = new List<RaycastResult>();
         uiRaycaster.Raycast(pointerEventData, results);
 
+        foreach (var result in results)
+        {
+            Debug.Log("Raycast hit: " + result.gameObject.name);
+        }
         return results.Count > 0;
     }
 }
