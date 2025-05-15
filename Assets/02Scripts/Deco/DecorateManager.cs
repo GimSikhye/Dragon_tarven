@@ -35,7 +35,7 @@ namespace DalbitCafe.Deco
             if(scene.name == "GameScene")
             {
                 _player = GameObject.Find("Player");
-                _customerParent = GameObject.Find("Customers").transform;
+                //_customerParent = GameObject.Find("Customers").transform;
                 _gridManager = GridManager.Instance;
             }
         }
