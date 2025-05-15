@@ -8886,6 +8886,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e55df2ce95930084691af8c2961f3798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiRaycaster: {fileID: 847150455}
 --- !u!4 &1331332895
 Transform:
   m_ObjectHideFlags: 0
