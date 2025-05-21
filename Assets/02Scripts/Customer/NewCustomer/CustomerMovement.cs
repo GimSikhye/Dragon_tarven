@@ -17,12 +17,18 @@ public class CustomerMovement : MonoBehaviour
 
     public void WalkRandomly()
     {
-        Vector3 spawnPos = CustomerSpawner.Instance.GetRandomStreetPosition();
+        Vector3 spawnPos = CustomerSpawner.Instance.GetRandomStreetPosition(); // 손님 위치 지정
         transform.position = spawnPos;
         Vector3 opposite = CustomerSpawner.Instance.GetOppositeStreetPosition(spawnPos);
-        MoveTo(opposite, () => CustomerSpawner.Instance.TryEnterCustomer(this));
+        MoveToEntrance(() => CustomerSpawner.Instance.TryEnterCustomer(this)); // 목적지: 입구 = 도착했다면
     }
 
+    public void MoveToEntrance(Action onDone)
+    {
+        Vector3 entrancePos = CustomerSpawner.Instance.GetEntrancePosition();
+        MoveTo(entrancePos, onDone);
+
+    }
     public void MoveToCounter(Action onDone)
     {
         Vector3 counterPos = CustomerSpawner.Instance.GetCounterPosition();
@@ -43,13 +49,14 @@ public class CustomerMovement : MonoBehaviour
 
     public void PlayIdleAnimation()
     {
-        animator.Play("Front_Idle_Stand");
+        animator.Play("Back_Idle_Stand");
+        //spriteRenderer.flipX = true;
     }
 
     public void Sit()
     {
         // 의자 방향에 따라서
-        animator.Play("Sit");
+        animator.Play("Front_Idle_Sit");
         //Front_Sit: 앉는 애니메이션
         //Front_Idle_Sit: 앉아있는 애니메이션
     }
@@ -57,7 +64,7 @@ public class CustomerMovement : MonoBehaviour
     private void MoveTo(Vector3 destination, Action callback)
     {
         target = destination;
-        onArrive = callback;
+        onArrive = callback; // 도착했다면
         isMoving = true;
     }
 
@@ -66,7 +73,7 @@ public class CustomerMovement : MonoBehaviour
         if (!isMoving) return;
 
         Vector3 dir = (target - transform.position).normalized;
-        transform.position += dir * moveSpeed * Time.deltaTime; //MoveToWard를 안쓰는 이유?
+        transform.position += dir * moveSpeed * Time.deltaTime; 
 
         if(Vector3.Distance(transform.position, target) < 0.1f)
         {
@@ -79,15 +86,16 @@ public class CustomerMovement : MonoBehaviour
 
     private void UpdateAnimation(Vector3 dir)
     {
-        if(Mathf.Abs(dir.x) > Mathf.Abs(dir.y))
+        if(dir.y > 0)
         {
-            animator.Play("Walk_Side");
-            spriteRenderer.flipX = dir.x < 0;
+            animator.Play("Back_Walk");
+            spriteRenderer.flipX = (dir.x > 0 ? false : true);
         }
         else
         {
-            if (dir.y > 0) animator.Play("Walk_Back");
-            else animator.Play("Walk_Front");
+            animator.Play("Front_Walk");
+            spriteRenderer.flipX = (dir.x > 0 ? true : false);
+
         }
     }
 }
