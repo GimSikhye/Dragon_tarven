@@ -19,7 +19,7 @@ public class CustomerStateMachine : MonoBehaviour
     public void Init()
     {
         movement = GetComponent<CustomerMovement>();
-        SetState(CustomerState.WalkingAround);
+        SetState(CustomerState.WalkingAround); // 생성될때 걷기
     }
 
     public void SetState(CustomerState newState)
@@ -27,27 +27,33 @@ public class CustomerStateMachine : MonoBehaviour
         switch(newState)
         {
             case CustomerState.WalkingAround:
-                movement.WalkRandomly();
+                Debug.Log("주위 걷는중");
+                movement.WalkRandomly(); // 랜덤한 자리로 걸음?
                 break;
 
-            case CustomerState.Entering:
-                movement.MoveToCounter(() => SetState(CustomerState.Ordering));
+            case CustomerState.Entering: // 가게에 들어섬
+                Debug.Log("가게에 들어가는중");
+                movement.MoveToCounter(() => SetState(CustomerState.Ordering)); // () => : SetState(CustomerState.Ordering)을 호출하는 익명함수
                 break;
 
             case CustomerState.Ordering:
                 movement.PlayIdleAnimation();
+                Debug.Log("주문 후 자리 이동");
                 Invoke(nameof(GoToSeat), 2f); // 2초 후 자리로 이동
                 break;
 
             case CustomerState.MovingToSeat:
-                movement.MoveToSeat(() => SetState(CustomerState.Moving));
+                Debug.Log("자리로 가는중");
+                movement.MoveToSeat(() => SetState(CustomerState.Sitting));
                 break;
 
             case CustomerState.Sitting:
+                Debug.Log("앉아있는중");
                 movement.Sit();
                 break;
 
             case CustomerState.Leaving:
+                Debug.Log("가게를 떠나는중");
                 movement.LeaveStore(() => Destroy(gameObject));
                 break;
         }
