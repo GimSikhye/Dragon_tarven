@@ -2752,7 +2752,7 @@ Transform:
   m_GameObject: {fileID: 415615521}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.73, y: -1.22, z: 0}
+  m_LocalPosition: {x: 8.3, y: -1.82, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9550,6 +9550,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 16afc2158d5666a418a7ba6351357911, type: 3}
+    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ff4d0719106fac4a9f2dcec3f52abf0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15181,6 +15185,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_Funiture_Chair
       objectReference: {fileID: 0}
+    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 3ff4d0719106fac4a9f2dcec3f52abf0, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

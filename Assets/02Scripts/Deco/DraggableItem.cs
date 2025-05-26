@@ -5,19 +5,21 @@ using UnityEngine.Tilemaps;
 
 namespace DalbitCafe.Deco
 {
-    public class DraggableItem : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
+    public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
         private Tilemap floorTilemap;
 
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
-        [SerializeField] private Sprite[] directionSprites; // 0: 아래, 1 : 오른쪽, 2 : 위, 3: 왼쪽(하, 우, 상, 좌
+        [SerializeField] private Sprite[] directionSprites; // 0: 오른쪽 아래, 1: 왼쪽 아래, 2: 왼쪽위, 3: 오른쪽 위
         private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
-        private RectTransform rotateUIParent;
 
         [Header("아이템 회전 제한")]
-        [SerializeField] private int rotationCount = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
+        [SerializeField] private int rotationLimit = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
 
+        
+        [Header("회전 버튼 위치")]        
+        private RectTransform rotateUIParent;
 
         [Header("아이템 배치")]
         private Vector3 _initialPosition; // 드래그 시작 전 위치
@@ -32,7 +34,7 @@ namespace DalbitCafe.Deco
 
         private void Update()
         {
-            if(!_isDragging && DecorateManager.Instance.targetItem == this)
+            if(!_isDragging && DecorateManager.Instance.targetItem == this) // 드래그 중이 아니고, 마지막으로 선택한 아이템이라면
             {
                 UpdateRotateUIPosition();
             }
@@ -43,8 +45,9 @@ namespace DalbitCafe.Deco
             floorTilemap = GameObject.Find("1FFloor").GetComponent<Tilemap>();   
         }
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnPointerDown(PointerEventData eventData) // 클릭했다면 타겟아이템을 이걸로
         {
+            Debug.Log("타겟 아이템 지정됨");
             DecorateManager.Instance.targetItem = this;
         }
 
@@ -131,10 +134,10 @@ namespace DalbitCafe.Deco
             Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap); // floorTilemap의 중심을 가져옴?
 
             // 회전 인덱스 갱신 (제한된 방향 수만큼)
-            _rotationIndex = (_rotationIndex + 1) % rotationCount;
+            _rotationIndex = (_rotationIndex + 1) % rotationLimit;
 
             // 스프라이트 변경(회전)
-            if (directionSprites != null && directionSprites.Length >= rotationCount)
+            if (directionSprites != null && directionSprites.Length >= rotationLimit)
             {
                 spriteRenderer.sprite = directionSprites[_rotationIndex];
             }

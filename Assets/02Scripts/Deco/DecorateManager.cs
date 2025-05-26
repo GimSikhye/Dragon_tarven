@@ -76,7 +76,7 @@ namespace DalbitCafe.Deco
         // 아이템 배치 기능 여부 체크
         public bool CanPlaceItem(Vector2Int position, Vector2Int size)
         {
-            Debug.Log(_gridManager.CanPlaceItem(position, size));
+            //Debug.Log(_gridManager.CanPlaceItem(position, size));
             return _gridManager.CanPlaceItem(position, size); //그리드 매니저의 스크립트
         }
 
