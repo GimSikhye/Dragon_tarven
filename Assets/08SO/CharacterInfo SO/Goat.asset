@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
-  m_Name: Seo Harin
+  m_Name: Goat
   m_EditorClassIdentifier: 
-  characterName: "\uC11C\uD558\uB9B0"
-  defaultSprite: {fileID: 21300000, guid: 3c2e5f121e908fc49b07cc37adeaad10, type: 3}
-  smileSprite: {fileID: 0}
-  disappointedSprite: {fileID: 0}
+  characterName: "\uCE74\uBA5C"
+  namePlateSprite: {fileID: 5542084413292705937, guid: ad9c892ef76f4c446a2823b0a1ae7fd6, type: 3}
+  characterSprite: {fileID: 21300000, guid: 08f60b8c38254b54c83477c2d20a86c1, type: 3}

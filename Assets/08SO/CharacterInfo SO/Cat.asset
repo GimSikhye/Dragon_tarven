@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
-  m_Name: Yoo Nayeon
+  m_Name: Cat
   m_EditorClassIdentifier: 
-  characterName: "\uC720\uB098\uC5F0"
-  defaultSprite: {fileID: 21300000, guid: a6b1cf361b0d06f42996f22689d756f5, type: 3}
-  smileSprite: {fileID: 0}
-  disappointedSprite: {fileID: 0}
+  characterName: "\uCF5C\uB9B0"
+  namePlateSprite: {fileID: -8019151108682691406, guid: c5779d3f810ed2d46a807c915087e7ca, type: 3}
+  characterSprite: {fileID: 21300000, guid: 1a92f255d64677a47b2ba25df1306c85, type: 3}

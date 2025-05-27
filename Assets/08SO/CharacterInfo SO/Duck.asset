@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
-  m_Name: Choi Minseok
+  m_Name: Duck
   m_EditorClassIdentifier: 
-  characterName: "\uCD5C\uBBFC\uC11D"
-  defaultSprite: {fileID: 21300000, guid: 19784c95846655d4eac0b79a43af7c93, type: 3}
-  smileSprite: {fileID: 0}
-  disappointedSprite: {fileID: 0}
+  characterName: "\uB374\uBC84"
+  namePlateSprite: {fileID: 5773531566540753150, guid: 01ffed47e38303d46b411a6f7fb8b10f, type: 3}
+  characterSprite: {fileID: 21300000, guid: 861f8276c7789994ba423c88637a219b, type: 3}

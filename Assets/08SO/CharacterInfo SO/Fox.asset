@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
-  m_Name: Kang Jihoon
+  m_Name: Fox
   m_EditorClassIdentifier: 
-  characterName: "\uAC15\uC9C0\uD6C8"
-  defaultSprite: {fileID: 21300000, guid: 51e9dfb6ef7c0e646b522853bc550fc4, type: 3}
-  smileSprite: {fileID: 21300000, guid: ec46a4bf73b7c5c478a18307b3b96b9a, type: 3}
-  disappointedSprite: {fileID: 0}
+  characterName: "\uD398\uC774"
+  namePlateSprite: {fileID: 6202527483111755225, guid: 4d2bad2b3d8172c4dbf8375a5ac6f20e, type: 3}
+  characterSprite: {fileID: 21300000, guid: 5353675da36996e4ea70afa98f45fa02, type: 3}
