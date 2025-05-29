@@ -8,7 +8,7 @@ namespace DalbitCafe.Deco
     {
 
         public Tilemap tilemap;
-        [SerializeField] private TileBase storeFloorTile; // 이 타일만 있는 곳에 배치 가능
+        public TileBase storeFloorTile; // 이 타일만 있는 곳에 배치 가능
         [SerializeField] private float _tileSize = 0.5f;
 
         private bool[,] _grid;
@@ -70,22 +70,40 @@ namespace DalbitCafe.Deco
 
         private void InitTile()
         {
-           
-                Debug.Log("GirdManager 초기화");
-                GameObject tile = GameObject.Find("1FFloor");
-                tilemap = tile.GetComponent<Tilemap>();
-                storeFloorTile = Resources.Load<TileBase>("spr_tile_floor");
+            Debug.Log("GirdManager 초기화");
 
-                tilemap.CompressBounds(); // 꼭 해주기 (불필요한 빈 타일 좌표 제거)
+            GameObject tileObj = GameObject.Find("1FFloor");
+            if (tileObj == null)
+            {
+                Debug.LogError("[GridManager] 1FFloor GameObject를 찾을 수 없습니다.");
+                return;
+            }
 
-                BoundsInt bounds = tilemap.cellBounds;
-                _origin = bounds.min; // 타일맵 시작점 저장
-                _gridWidth = bounds.size.x;
-                _gridHeight = bounds.size.y;
+            tilemap = tileObj.GetComponent<Tilemap>();
+            if (tilemap == null)
+            {
+                Debug.LogError("[GridManager] Tilemap 컴포넌트를 찾을 수 없습니다.");
+                return;
+            }
 
-                _grid = new bool[_gridWidth, _gridHeight];
-            
+            storeFloorTile = Resources.Load<TileBase>("spr_tile_floor");
+            if (storeFloorTile == null)
+            {
+                Debug.LogError("[GridManager] spr_tile_floor 타일을 Resources에서 불러오지 못했습니다.");
+                return;
+            }
+
+            tilemap.CompressBounds();
+            BoundsInt bounds = tilemap.cellBounds;
+            _origin = bounds.min;
+            _gridWidth = bounds.size.x;
+            _gridHeight = bounds.size.y;
+
+            _grid = new bool[_gridWidth, _gridHeight];
+
+            Debug.Log("[GridManager] 초기화 완료");
         }
+
 
         /// <summary>
         /// 배치 가능한지 확인

@@ -26,6 +26,8 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
     [SerializeField] private Tilemap tilemap; 
     private TileBase walkableTile;
     private GridManager gridManager;
+    public static bool IsInitialized { get; private set; } = false;
+
     private void OnEnable()
     {
         Debug.Log($"[{GetType().Name}] OnEnable 호출됨");
@@ -40,15 +42,31 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
 
     private IEnumerator WaitForGridManager()
     {
-        while (GridManager.Instance == null)
+        while (GridManager.Instance == null || !GridReady())
         {
             Debug.Log("GridManager 초기화 대기 중...");
             yield return null;
         }
 
         gridManager = GridManager.Instance;
-        walkableTile = tilemap.GetTile(tilemap.cellBounds.min); // 타일 직접 참조
+        tilemap = gridManager.tilemap;
+        walkableTile = gridManager.storeFloorTile;
+
+        if (walkableTile == null)
+        {
+            Debug.LogError("[PathfindingManager] walkableTile이 null입니다.");
+        }
+
         Debug.Log("PathfindingManager 초기화 완료");
+        IsInitialized = true; // 여기에!
+    }
+
+
+
+    private bool GridReady()
+    {
+        var gm = GridManager.Instance;
+        return gm.tilemap != null && gm.TilemapOrigin != null;
     }
     public List<Vector3> FindPath(Vector3 startWorld, Vector3 endWorld)
     {

@@ -74,7 +74,7 @@ public class CustomerMovement : MonoBehaviour
 
         if (path == null || path.Count == 0)
         {
-            Debug.LogWarning("경로 없음!");
+            Debug.LogWarning($"[Customer] 경로 없음! 시작: {transform.position} → 도착: {destination}");
             isMoving = false;
             return;
         }
@@ -82,6 +82,7 @@ public class CustomerMovement : MonoBehaviour
         pathIndex = 0;
         isMoving = true;
     }
+
 
 
 
