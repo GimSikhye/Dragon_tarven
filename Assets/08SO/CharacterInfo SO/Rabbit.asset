@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
   m_Name: Rabbit
   m_EditorClassIdentifier: 
-  characterName: "\uB2C8\uC544"
+  characterName: "\uB798\uBE48"
   namePlateSprite: {fileID: -6852894864861222613, guid: 7b7ef80245053fc44b15176042d08520, type: 3}
   characterSprite: {fileID: 21300000, guid: b7d970a5dc7e92143941d4c74daf0742, type: 3}
