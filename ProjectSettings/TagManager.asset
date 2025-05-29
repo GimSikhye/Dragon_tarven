@@ -47,6 +47,12 @@ TagManager:
   - name: SkyLayer
     uniqueID: 93649893
     locked: 0
+  - name: Floor
+    uniqueID: 13297521
+    locked: 0
+  - name: Wall
+    uniqueID: 2645167107
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

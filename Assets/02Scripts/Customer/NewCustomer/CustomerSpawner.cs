@@ -2,6 +2,7 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.Tilemaps;
 
 public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 {
@@ -15,6 +16,28 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 
     private bool isStoreBusy = false; // 가게가 바쁘면(손님이 계산을 하고 있으면 그때는 기다리는 타임이 없게 하기 위해서, 손닝미 들어가지 않게 하기)
     private float spawnInterval = 4f; // 생성 간격
+
+    [SerializeField] private Tilemap outdoorTilemap;
+    [SerializeField] private Tilemap storeTilemap;
+    [SerializeField] private TileBase outdoorWalkableTile;
+    [SerializeField] private TileBase storeWalkableTile;
+
+
+    void Start()
+    {
+        StartCoroutine(WaitThenSpawn());
+    }
+
+    private IEnumerator WaitThenSpawn()
+    {
+        while (!PathfindingManager.IsInitialized)
+        {
+            Debug.Log("[CustomerSpawner] PathfindingManager 초기화 대기 중...");
+            yield return null;
+        }
+
+        StartCoroutine(SpawnLoop());
+    }
 
     // 입장 시도
     public void TryEnterCustomer(CustomerMovement movement)
@@ -36,14 +59,33 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 
     public Vector3 GetEntrancePosition()
     {
+        Vector3Int entranceCell = outdoorTilemap.WorldToCell(entrance.position);
+        TileBase tile = outdoorTilemap.GetTile(entranceCell);
+        Debug.Log($"[디버그] 입구 위치 {entranceCell} 타일: {tile?.name}");
+
         return entrance.position;
     }
     public Vector3 GetRandomStreetPosition()
     {
-        Transform t = streetSpawns[Random.Range(0, streetSpawns.Length)]; // 반대방향도 넣기
-        Vector3 offset = new Vector3(0f, Random.Range(-1f, 1f), 0f);
-        return t.position + offset;
+        for (int i = 0; i < 30; i++) // 최대 30번 시도
+        {
+            Transform t = streetSpawns[Random.Range(0, streetSpawns.Length)];
+            Vector3 offset = new Vector3(0f, Random.Range(-1f, 1f), 0f);
+            Vector3 pos = t.position + offset;
+
+            Vector3Int cell = outdoorTilemap.WorldToCell(pos);
+            TileBase tile = outdoorTilemap.GetTile(cell);
+
+            if (tile == outdoorWalkableTile)
+            {
+                return pos;
+            }
+        }
+
+        Debug.LogWarning("GetRandomStreetPosition() 실패: walkable 타일 못 찾음, 기본 위치 반환");
+        return streetSpawns[0].position;
     }
+
 
     public Vector3 GetOppositeStreetPosition(Vector3 from) // opposite : 반대방향 return
     {
@@ -55,22 +97,17 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
         return counter.position;
     }
 
-    public Vector3 GetAvailableSeatPosition() // 가능한 좌석 위치
+    public Vector3 GetAvailableSeatPosition()
     {
-        foreach(var seat in seatPositions)
+        if (seatPositions == null || seatPositions.Count == 0)
         {
-            // 자리 비어있는지 체크 필요 (간단하게 비워두고 사용)
-            return seat.position;
+            Debug.LogError("[CustomerSpawner] 좌석 리스트가 비어 있습니다!");
+            return entrance.position; // fallback
         }
 
-        // 기본 좌석 반환
-        return seatPositions[0]. position;
+        return seatPositions[0].position;
     }
 
-    void Start()
-    {
-        StartCoroutine(SpawnLoop());
-    }
 
     private IEnumerator SpawnLoop()
     {
@@ -89,10 +126,14 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
     {
         GameObject prefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
         GameObject customer = Instantiate(prefab);
-        
+
+        var movement = customer.GetComponent<CustomerMovement>();
+        movement.SetTilemapData(outdoorTilemap, storeTilemap, outdoorWalkableTile, storeWalkableTile);
+
         var state = customer.GetComponent<CustomerStateMachine>();
         state.Init();
     }
+
 
     public void OnCustomerSeated()
     {

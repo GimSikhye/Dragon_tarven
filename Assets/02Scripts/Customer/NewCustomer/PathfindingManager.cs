@@ -14,6 +14,7 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
         public float F => G + H;
         public Node Parent;
 
+
         public Node(Vector2Int pos, float g, float h, Node parent)
         {
             Position = pos;
@@ -23,7 +24,9 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
         }
     }
 
-    [SerializeField] private Tilemap tilemap; 
+
+    private int maxIteration = 10000;
+    [SerializeField] private Tilemap tilemap;
     private TileBase walkableTile;
     private GridManager gridManager;
     public static bool IsInitialized { get; private set; } = false;
@@ -58,7 +61,7 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
         }
 
         Debug.Log("PathfindingManager 초기화 완료");
-        IsInitialized = true; // 여기에!
+        IsInitialized = true;
     }
 
 
@@ -68,33 +71,42 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
         var gm = GridManager.Instance;
         return gm.tilemap != null && gm.TilemapOrigin != null;
     }
-    public List<Vector3> FindPath(Vector3 startWorld, Vector3 endWorld)
+    public List<Vector3> FindPathInTilemap(Tilemap map, TileBase walkable, Vector3 startWorld, Vector3 endWorld)
     {
-        if (tilemap == null)
+        Debug.Log($"[A*] 탐색 시작! Start: {startWorld}, End: {endWorld}");
+
+        int iteration = 0;
+        if (map == null)
         {
-            Debug.LogError(" PathfindingManager 초기화 오류: tilemap이 null입니다. GameObject '1FFloor'가 존재하지 않거나 Tilemap 컴포넌트가 없습니다.");
+            Debug.LogError("타일맵이 null입니다.");
             return null;
         }
 
-        if (gridManager == null)
+        if (walkable == null)
         {
-            Debug.LogError(" PathfindingManager 초기화 오류: gridManager가 null입니다. GridManager.Instance가 올바르게 초기화되지 않았습니다.");
+            Debug.LogError("walkableTile이 null입니다.");
             return null;
         }
 
-        if (walkableTile == null)
-        {
-            Debug.LogError(" PathfindingManager 초기화 오류: walkableTile이 null입니다. 타일이 Resources에서 로드되지 않았거나 경로가 잘못되었습니다.");
-            return null;
-        }
+        Vector3Int startCell = map.WorldToCell(startWorld);
+        Vector3Int endCell = map.WorldToCell(endWorld);
 
-        Vector3Int startCell = tilemap.WorldToCell(startWorld);
-        Debug.Log(($"start Cell Null : { startCell == null}"));
-        Vector3Int endCell = tilemap.WorldToCell(endWorld);
-        Debug.Log(($"end Cell Null : {endCell == null}"));
+        LogSurroundingTiles(map, startCell, "시작 지점");
+        LogSurroundingTiles(map, endCell, "목표 지점");
+
+
+        Debug.LogWarning($"[A*] 시작 셀: {startCell}, 타일: {map.GetTile(startCell)?.name}");
+        Debug.LogWarning($"[A*] 끝 셀: {endCell}, 타일: {map.GetTile(endCell)?.name}");
+
+        if (map.GetTile(startCell) != walkable || map.GetTile(endCell) != walkable)
+        {
+            Debug.LogWarning($"[A*] 시작({startCell}) 또는 끝({endCell})에 walkable 타일이 없습니다.");
+            //return null;
+        }
 
         Vector2Int start = new(startCell.x, startCell.y);
         Vector2Int end = new(endCell.x, endCell.y);
+
 
         var openSet = new PriorityQueue<Node>();
         var closedSet = new HashSet<Vector2Int>();
@@ -104,10 +116,16 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
 
         while (openSet.Count > 0)
         {
+            if (++iteration > maxIteration)
+            {
+                Debug.LogError("[A*] 무한 루프 방지: 최대 탐색 횟수 초과");
+                break;
+            }
+
             Node current = openSet.Dequeue();
             if (current.Position == end)
             {
-                return ReconstructPath(current);
+                return ReconstructPath(current, map);
             }
 
             closedSet.Add(current.Position);
@@ -115,33 +133,13 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
             foreach (var dir in GetNeighbors())
             {
                 Vector2Int neighborPos = current.Position + dir;
-
+                Vector3Int cell = new(neighborPos.x, neighborPos.y, 0);
 
                 if (closedSet.Contains(neighborPos)) continue;
 
-                Vector3Int cell = new(neighborPos.x, neighborPos.y, 0);
-                var t = tilemap.GetTile(cell);
-
-                // 여기서 먼저 출력
-                Debug.Log($"[A*] 위치 {cell}: {(t == null ? "null" : t.name)} / 기준: {(walkableTile == null ? "null" : walkableTile.name)}");
-
-
-                if (tilemap.GetTile(cell) != walkableTile) continue;
-
-
-                Vector2Int localGridIndex = neighborPos - gridManager.TilemapOrigin;
-
-                if (!gridManager.IsInsideGrid(localGridIndex, Vector2Int.one))
-                {
-                    Debug.LogWarning($"[A*] {neighborPos} → Grid 밖: {localGridIndex}");
-                    continue;
-                }
-
-                if (gridManager.IsOccupied(localGridIndex))
-                {
-                    Debug.LogWarning($"[A*] {neighborPos} → 아이템에 막힘");
-                    continue;
-                }
+                TileBase currentTile = map.GetTile(cell);
+                Debug.Log($"[A*] 검사 중: {cell} / 타일: {(currentTile == null ? "null" : currentTile.name)}");
+                if (currentTile != walkable) continue;
 
                 float tentativeG = current.G + 1f;
                 Node neighbor = new(neighborPos, tentativeG, Heuristic(neighborPos, end), current);
@@ -151,6 +149,24 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
 
         return null;
     }
+
+    private List<Vector3> ReconstructPath(Node node, Tilemap map)
+    {
+        List<Vector3> path = new();
+        Node current = node;
+
+        while (current != null)
+        {
+            Vector3Int cell = new(current.Position.x, current.Position.y, 0);
+            Vector3 worldPos = map.GetCellCenterWorld(cell);
+            path.Add(worldPos);
+            current = current.Parent;
+        }
+
+        path.Reverse();
+        return path;
+    }
+
 
     private List<Vector3> ReconstructPath(Node node)
     {
@@ -178,6 +194,24 @@ public class PathfindingManager : MonoSingleton<PathfindingManager>
     {
         Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right
     };
+
+    private void LogSurroundingTiles(Tilemap map, Vector3Int center, string context)
+    {
+        Debug.Log($"[디버그] 주변 타일 검사 ({context})");
+
+        for (int y = 1; y >= -1; y--)
+        {
+            string row = "";
+            for (int x = -1; x <= 1; x++)
+            {
+                Vector3Int pos = new Vector3Int(center.x + x, center.y + y, 0);
+                var t = map.GetTile(pos);
+                row += t != null ? t.name.Substring(0, Mathf.Min(6, t.name.Length)) + "\t" : "null\t";
+            }
+            Debug.Log(row);
+        }
+    }
+
 
     private IEnumerable<Vector2Int> GetNeighbors() => directions;
 }
