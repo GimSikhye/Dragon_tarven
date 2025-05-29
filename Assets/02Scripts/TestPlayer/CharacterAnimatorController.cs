@@ -6,7 +6,7 @@ public class CharacterAnimatorController : MonoBehaviour
     private Animator animator;
     private SpriteRenderer spriteRenderer;
 
-    private string currentState = "Fonrt_Idle_Stand";
+    private string currentState = "Front_Idle_Stand";
     void Awake()
     {
         animator = GetComponent<Animator>();

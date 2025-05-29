@@ -2,6 +2,7 @@ using DalbitCafe.Customer;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 
 // 이동 + 경로 + Flip + 애니메이션
 // 기존 손님이 주문 중/ 자리 이동 중이면 새 손님x
@@ -14,6 +15,10 @@ public class CustomerMovement : MonoBehaviour
     private Vector3 target;
     private bool isMoving;
     private Action onArrive;
+    [SerializeField] private List<Vector3> path;
+    private int pathIndex;
+    private List<Vector3> debugPath;
+
 
     public void WalkRandomly()
     {
@@ -63,26 +68,44 @@ public class CustomerMovement : MonoBehaviour
 
     private void MoveTo(Vector3 destination, Action callback)
     {
-        target = destination;
-        onArrive = callback; // 도착했다면
+        onArrive = callback;
+        path = PathfindingManager.Instance.FindPath(transform.position, destination);
+        debugPath = path; // 경로 저장
+
+        if (path == null || path.Count == 0)
+        {
+            Debug.LogWarning("경로 없음!");
+            isMoving = false;
+            return;
+        }
+
+        pathIndex = 0;
         isMoving = true;
     }
 
+
+
     private void Update()
     {
-        if (!isMoving) return;
+        if (!isMoving || path == null || pathIndex >= path.Count) return;
 
-        Vector3 dir = (target - transform.position).normalized;
-        transform.position += dir * moveSpeed * Time.deltaTime; 
+        Vector3 next = path[pathIndex];
+        Vector3 dir = (next - transform.position).normalized;
+        transform.position += dir * moveSpeed * Time.deltaTime;
 
-        if(Vector3.Distance(transform.position, target) < 0.1f)
+        if (Vector3.Distance(transform.position, next) < 0.05f)
         {
-            isMoving = false;
-            onArrive?.Invoke();
+            pathIndex++;
+            if (pathIndex >= path.Count)
+            {
+                isMoving = false;
+                onArrive?.Invoke();
+            }
         }
 
         UpdateAnimation(dir);
     }
+
 
     private void UpdateAnimation(Vector3 dir)
     {
@@ -98,4 +121,17 @@ public class CustomerMovement : MonoBehaviour
 
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        if (debugPath == null || debugPath.Count < 2) return;
+
+        Gizmos.color = Color.cyan;
+        for (int i = 0; i < debugPath.Count - 1; i++)
+        {
+            Gizmos.DrawLine(debugPath[i], debugPath[i + 1]);
+            Gizmos.DrawSphere(debugPath[i], 0.05f);
+        }
+    }
+
 }
