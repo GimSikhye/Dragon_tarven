@@ -10,8 +10,8 @@ using UnityEngine.Tilemaps;
 public class CustomerMovement : MonoBehaviour
 {
      private float moveSpeed = 2f;
-     private Animator animator;
-     private SpriteRenderer spriteRenderer;
+     [SerializeField] private Animator animator;
+     [SerializeField] private SpriteRenderer spriteRenderer;
 
      private Tilemap outdoorTilemap;
      private Tilemap storeTilemap;
