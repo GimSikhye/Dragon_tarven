@@ -17,15 +17,14 @@ public class DialogueManager : MonoSingleton<DialogueManager>
     [FormerlySerializedAs("nameArea")]
     public GameObject nameArea;
 
+    [Header("Name Plate")]
+    public Image namePlateImage; // 이름 이미지
+
     [Header("스탠딩 일러스트 위치")]
-    public Image leftCharacterImage;
     public Image centerCharacterImage;
-    public Image rightCharacterImage;
 
     [Header("스탠딩 일러스트 블라인드")]
-    public CanvasGroup leftGroup; // 캐릭터 블라인드
     public CanvasGroup centerGroup;
-    public CanvasGroup rightGroup;
 
     [Header("Typing")]
     [SerializeField] private float _typingSpeed = 0.05f;
@@ -38,7 +37,6 @@ public class DialogueManager : MonoSingleton<DialogueManager>
     private Coroutine typingCoroutine; // 현재 타이핑 중인지 확인하는 용도
 
     private CharacterInfo currentSpeaker; // 현재 말하는 캐릭터
-    private CharacterExpression currentSpeakerExpression = CharacterExpression.Default; // 기본 감정표현
 
     [SerializeField] private GameObject imageEffectObject; // 용도?
     [SerializeField] private Image effectImage;
@@ -107,7 +105,6 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         ShowLine();
     }
 
-
     public void OnClickSkip()
     {
         if (typingCoroutine != null)
@@ -130,8 +127,28 @@ public class DialogueManager : MonoSingleton<DialogueManager>
             return;
         }
 
+        // 이름표와 텍스트 색상 설정
+        if (line.isNarration)
+        {
+            nameArea.SetActive(false);
+            namePlateImage.gameObject.SetActive(false);
+            dialogueText.color = Color.white;
+        }
+        else
+        {
+            nameArea.SetActive(true);
+            namePlateImage.sprite = line.speaker.namePlateSprite;
+            namePlateImage.gameObject.SetActive(true);
 
-        nameArea.SetActive(!line.isNarration); // 나레이션이 아닌 경우 SetActive(true) 
+            if (line.isInnerFeelings)
+            {
+                dialogueText.color = new Color32(161, 95, 255, 255); // 보라색
+            }
+            else
+            {
+                dialogueText.color = Color.white;
+            }
+        }
 
         nameText.text = line.isNarration ? "" : line.speaker.characterName;
         dialogueText.text = "";
@@ -142,7 +159,6 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         if (!line.isNarration)
         {
             currentSpeaker = line.speaker;
-            currentSpeakerExpression = line.expression;
         }
 
         if (line.dialogueTexts[currentTextIndex].sfx != null)
@@ -176,26 +192,13 @@ public class DialogueManager : MonoSingleton<DialogueManager>
     {
         if (line.isNarration)
         {
-            SetCharacter(leftCharacterImage, leftGroup, null, 0f);
             SetCharacter(centerCharacterImage, centerGroup, null, 0f);
-            SetCharacter(rightCharacterImage, rightGroup, null, 0f);
             return;
         }
 
-        Sprite expressionSprite = line.speaker.GetExpressionSprite(line.expression);
+        Sprite characterSprite = line.speaker.characterSprite;
 
-        if (currentSpeaker == null || line.speaker == currentSpeaker) // 처음 등장하는 대사거나, 이전 화자와 같다면
-        {
-            SetCharacter(centerCharacterImage, centerGroup, expressionSprite, 1f);
-            SetCharacter(leftCharacterImage, leftGroup, null, 0f);
-            SetCharacter(rightCharacterImage, rightGroup, null, 0f);
-        }
-        else
-        {
-            SetCharacter(leftCharacterImage, leftGroup, currentSpeaker.GetExpressionSprite(currentSpeakerExpression), 0.5f);
-            SetCharacter(centerCharacterImage, centerGroup, null, 0f);
-            SetCharacter(rightCharacterImage, rightGroup, expressionSprite, 1f);
-        }
+        SetCharacter(centerCharacterImage, centerGroup, characterSprite, 1f);
     }
 
     void SetCharacter(Image image, CanvasGroup group, Sprite sprite, float alpha)
@@ -210,9 +213,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         dialogueText.text = "";
         nameText.text = "";
 
-        SetCharacter(leftCharacterImage, leftGroup, null, 0f);
         SetCharacter(centerCharacterImage, centerGroup, null, 0f);
-        SetCharacter(rightCharacterImage, rightGroup, null, 0f);
 
         SceneManager.LoadScene("GameScene");
 

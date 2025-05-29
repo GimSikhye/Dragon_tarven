@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 812e6cb4d1c28f94690ea1b5b087eeaa, type: 3}
-  m_Name: Lee Dohyun
+  m_Name: Fox
   m_EditorClassIdentifier: 
-  characterName: "\uC774\uB3C4\uD604"
-  defaultSprite: {fileID: 21300000, guid: 14d248acb57cf754aa32db18d62be542, type: 3}
-  smileSprite: {fileID: 0}
-  disappointedSprite: {fileID: 0}
+  characterName: "\uB9AC\uC0AC"
+  namePlateSprite: {fileID: 6202527483111755225, guid: 4d2bad2b3d8172c4dbf8375a5ac6f20e, type: 3}
+  characterSprite: {fileID: 21300000, guid: 5353675da36996e4ea70afa98f45fa02, type: 3}
