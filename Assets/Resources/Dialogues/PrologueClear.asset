@@ -358,7 +358,7 @@ MonoBehaviour:
     dialogueTexts:
     - text: "[\uADF8\uB807\uAC8C \uB098\uB294 \uCE74\uD398\uC5D0 \uB4E4\uC5B4\uAC14\uB2E4.]
         (\uC790\uB3D9\uBB38 \uC5F4\uB9AC\uB294 \uC18C\uB9AC)\r\n"
-      sfx: {fileID: 0}
+      sfx: {fileID: 8300000, guid: 5a213c8b4bd8a8b4fabe8c220a75fcec, type: 3}
       image: {fileID: 0}
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
