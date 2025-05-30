@@ -155,7 +155,7 @@ public class UIManager : MonoSingleton<UIManager>
         expSlider = GameObject.Find("UI_expbar")?.GetComponent<Slider>();
         currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
 
-        _coffeeProgressSlider = GameObject.Find("UI_CoffeeProgressSlider")?.GetComponent<Slider>();
+        _coffeeProgressSlider = GameObject.Find("Canvas_GameScene").transform.Find("UI_CoffeeProgressSlider")?.GetComponent<Slider>();
         _sliderText = _coffeeProgressSlider.transform.Find("UI_CoffeeProgressText")?.GetComponent<TextMeshProUGUI>();
         Debug.Log(_coffeeProgressSlider != null);
         _sliderText.gameObject.SetActive(false);

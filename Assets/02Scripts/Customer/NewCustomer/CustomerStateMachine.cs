@@ -19,8 +19,10 @@ public class CustomerStateMachine : MonoBehaviour
     public void Init()
     {
         movement = GetComponent<CustomerMovement>();
+        Debug.Log("[CustomerStateMachine] Init 호출됨 - 상태: WalkingAround");
         SetState(CustomerState.WalkingAround); // 생성될때 걷기
     }
+
 
     public void SetState(CustomerState newState)
     {

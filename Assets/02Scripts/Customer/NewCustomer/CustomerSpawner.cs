@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
 using System.Linq;
 
-public class CustomerSpawner : MonoSingleton<CustomerSpawner>
+public class CustomerSpawner : MonoBehaviour
 {
     [SerializeField] private List<GameObject> customerPrefabs;
     [SerializeField] private Transform[] streetSpawns; // 좌우 거리 위치
@@ -23,6 +23,7 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
     [SerializeField] private Tilemap storeTilemap;
     [SerializeField] private TileBase outdoorWalkableTile;
     [SerializeField] private TileBase storeWalkableTile;
+    private PathfindingManager pathfinder;
 
     private DraggableItem assignedSeat;
 
@@ -33,39 +34,44 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 
     private IEnumerator WaitThenSpawn()
     {
-        while (!PathfindingManager.IsInitialized)
+        pathfinder = FindObjectOfType<PathfindingManager>();
+
+        while (pathfinder == null || !pathfinder.IsInitialized)
         {
             Debug.Log("[CustomerSpawner] PathfindingManager 초기화 대기 중...");
             yield return null;
+            pathfinder = FindObjectOfType<PathfindingManager>();
         }
 
-        // 좌석 수를 기준으로 maxCustomerCount 자동 결정
+        Debug.Log("[CustomerSpawner] 손님 생성 시작");
+
+        // 여기서 maxCustomerCount 설정!
         maxCustomerCount = FindObjectsOfType<DraggableItem>()
             .Count(item =>
                 item != null &&
                 item.TryGetComponent<ItemMeta>(out var meta) &&
                 meta.SubCategory.ToString() == "Chair");
 
-        Debug.Log($"[CustomerSpawner] 좌석 수 만큼 손님 수 설정됨: {maxCustomerCount}명");
+        Debug.Log($"[CustomerSpawner] 사용 가능한 의자 수: {maxCustomerCount}");
 
         StartCoroutine(SpawnLoop());
     }
 
 
+
     // 입장 시도
     public void TryEnterCustomer(CustomerMovement movement)
     {
-        if(isStoreBusy)
+        if (isStoreBusy)
         {
-            movement.LeaveStore(() => // 가게를 떠나면
+            movement.LeaveImmediately(() =>
             {
                 Destroy(movement.gameObject);
-                activeCustomers.Remove(movement.gameObject); // 리스트에서도 제거
-
+                activeCustomers.Remove(movement.gameObject);
             });
             return;
         }
-        // 아니라면 가게 들어가기
+
         isStoreBusy = true;
         movement.GetComponent<CustomerStateMachine>().SetState(CustomerState.Entering);
     }
@@ -113,13 +119,20 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
     public DraggableItem GetAvailableSeat()
     {
         var allItems = FindObjectsOfType<DraggableItem>();
+        foreach (var item in allItems)
+        {
+            if (item.TryGetComponent<ItemMeta>(out var meta))
+                Debug.Log($"[의자검사] {item.name} - {meta.SubCategory}");
+        }
+
         var availableChairs = allItems
-            .Where(item =>
-                item != null &&
-                item.TryGetComponent<ItemMeta>(out var meta) &&
-                meta.SubCategory.ToString() == "Chair" &&
-                !item.IsOccupied)
-            .ToList();
+     .Where(item =>
+         item != null &&
+         item.TryGetComponent<ItemMeta>(out var meta) &&
+         meta.SubCategory is InteriorType type && type == InteriorType.Chair &&
+         !item.IsOccupied)
+     .ToList();
+
 
         if (availableChairs.Count == 0)
         {
@@ -147,11 +160,14 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 
 
 
-private IEnumerator SpawnLoop()
+    private IEnumerator SpawnLoop()
     {
-        while(true)
+
+        while (true)
         {
-            if(activeCustomers.Count < maxCustomerCount) 
+            Debug.Log("[Spawner] SpawnLoop 실행");
+
+            if (activeCustomers.Count < maxCustomerCount)
             {
                 SpawnCustomer();
             }
@@ -163,14 +179,38 @@ private IEnumerator SpawnLoop()
     private void SpawnCustomer()
     {
         GameObject prefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
+        if (prefab == null)
+        {
+            Debug.LogError("[Spawner] customerPrefab이 null입니다!");
+            return;
+        }
+
         GameObject customer = Instantiate(prefab);
+        Debug.Log($"[Spawner] 손님 생성됨: {customer.name}");
 
         var movement = customer.GetComponent<CustomerMovement>();
-        movement.SetTilemapData(outdoorTilemap, storeTilemap, outdoorWalkableTile, storeWalkableTile);
+        if (movement == null)
+        {
+            Debug.LogError("[Spawner] CustomerMovement 컴포넌트 없음!");
+            return;
+        }
 
         var state = customer.GetComponent<CustomerStateMachine>();
+        if (state == null)
+        {
+            Debug.LogError("[Spawner] CustomerStateMachine 컴포넌트 없음!");
+            return;
+        }
+
+        movement.SetTilemapData(outdoorTilemap, storeTilemap, outdoorWalkableTile, storeWalkableTile);
+        movement.SetSpawner(this);
+        movement.SetPathfinder(pathfinder);
+
+        Debug.Log("[Spawner] Init 호출 전");
         state.Init();
+        Debug.Log("[Spawner] Init 호출 완료");
     }
+
 
 
     public void OnCustomerSeated()

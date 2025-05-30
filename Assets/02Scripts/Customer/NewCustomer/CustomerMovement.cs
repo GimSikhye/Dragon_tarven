@@ -13,13 +13,13 @@ public class CustomerMovement : MonoBehaviour
     private DraggableItem mySeat; // 이 손님의 좌석
 
     private float moveSpeed = 2f;
-     [SerializeField] private Animator animator;
-     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
-     private Tilemap outdoorTilemap;
-     private Tilemap storeTilemap;
-     private TileBase outdoorWalkableTile; // spr_tile_brick
-     private TileBase storeWalkableTile;   // spr_tile_floor
+    private Tilemap outdoorTilemap;
+    private Tilemap storeTilemap;
+    private TileBase outdoorWalkableTile; // spr_tile_brick
+    private TileBase storeWalkableTile;   // spr_tile_floor
 
 
     private Vector3 target;
@@ -28,21 +28,34 @@ public class CustomerMovement : MonoBehaviour
     [SerializeField] private List<Vector3> path;
     private int pathIndex;
     private List<Vector3> debugPath;
+    private CustomerSpawner spawner;
+    private PathfindingManager pathfinder;
+
+    public void SetSpawner(CustomerSpawner spawner)
+    {
+        this.spawner = spawner;
+    }
 
 
     public void WalkRandomly()
     {
-        Vector3 spawnPos = CustomerSpawner.Instance.GetRandomStreetPosition();
+        if (pathfinder == null)
+        {
+            Debug.LogError("[CustomerMovement] pathfinder가 null입니다! SetPathfinder() 호출 안됨!");
+            return;
+        }
+
+        Vector3 spawnPos = spawner.GetRandomStreetPosition();
         transform.position = spawnPos;
 
         Vector3Int spawnCell = outdoorTilemap.WorldToCell(spawnPos);
         TileBase tile = outdoorTilemap.GetTile(spawnCell);
         Debug.Log($"[디버그] 고객 스폰 위치 {spawnCell} 타일: {tile?.name}");
 
-        Vector3 entrance = CustomerSpawner.Instance.GetEntrancePosition();
+        Vector3 entrance = spawner.GetEntrancePosition();
 
         // path를 꼭 받아와야 A* 실행됩니다!
-        path = PathfindingManager.Instance.FindPathInTilemap(
+        path = pathfinder.FindPathInTilemap(
             outdoorTilemap, outdoorWalkableTile, transform.position, entrance);
 
         debugPath = path;
@@ -56,7 +69,7 @@ public class CustomerMovement : MonoBehaviour
 
         pathIndex = 0;
         isMoving = true;
-        onArrive = () => CustomerSpawner.Instance.TryEnterCustomer(this);
+        onArrive = () => spawner.TryEnterCustomer(this);
     }
 
     public void SetTilemapData(Tilemap outdoor, Tilemap store, TileBase outdoorTile, TileBase storeTile)
@@ -69,14 +82,14 @@ public class CustomerMovement : MonoBehaviour
 
     public void MoveToEntrance(Action onDone)
     {
-        Vector3 entrancePos = CustomerSpawner.Instance.GetEntrancePosition();
+        Vector3 entrancePos = spawner.GetEntrancePosition();
         MoveTo(outdoorTilemap, outdoorWalkableTile, entrancePos, onDone);
     }
 
     public void MoveToCounter(Action onDone)
     {
-        Vector3 target = CustomerSpawner.Instance.GetCounterPosition();
-        path = PathfindingManager.Instance.FindPathInTilemap(
+        Vector3 target = spawner.GetCounterPosition();
+        path = pathfinder.FindPathInTilemap(
             storeTilemap, storeWalkableTile, transform.position, target);
         debugPath = path;
         SetMovePath(onDone);
@@ -84,7 +97,7 @@ public class CustomerMovement : MonoBehaviour
 
     public void MoveToSeat(Action onDone)
     {
-        mySeat = CustomerSpawner.Instance.GetAvailableSeat();
+        mySeat = spawner.GetAvailableSeat();
         if (mySeat == null)
         {
             Debug.LogWarning("[CustomerMovement] 좌석 없음, 입구로 이동");
@@ -94,24 +107,30 @@ public class CustomerMovement : MonoBehaviour
 
         Vector3 seatPos = mySeat.transform.position;
 
-        path = PathfindingManager.Instance.FindPathInTilemap(
+        path = pathfinder.FindPathInTilemap(
             storeTilemap, storeWalkableTile, transform.position, seatPos);
         debugPath = path;
         SetMovePath(onDone);
     }
 
+    // 전달 필요
+    public void SetPathfinder(PathfindingManager manager)
+    {
+        this.pathfinder = manager;
+    }
+
 
     public void LeaveStore(Action onDone)
     {
-        Vector3 entrance = CustomerSpawner.Instance.GetEntrancePosition();
-        Vector3 exit = CustomerSpawner.Instance.GetRandomStreetPosition();
+        Vector3 entrance = spawner.GetEntrancePosition();
+        Vector3 exit = spawner.GetRandomStreetPosition();
 
         // 1단계: 가게 내부 → entrance
-        var toEntrance = PathfindingManager.Instance.FindPathInTilemap(
+        var toEntrance = pathfinder.FindPathInTilemap(
             storeTilemap, storeWalkableTile, transform.position, entrance);
 
         // 2단계: entrance → 거리 (Outdoor)
-        var toStreet = PathfindingManager.Instance.FindPathInTilemap(
+        var toStreet = pathfinder.FindPathInTilemap(
             outdoorTilemap, outdoorWalkableTile, entrance, exit);
 
         path = new List<Vector3>();
@@ -161,7 +180,7 @@ public class CustomerMovement : MonoBehaviour
                 break;
         }
 
-        CustomerSpawner.Instance.OnCustomerSeated(); // isStoreBusy = false 해주기
+        spawner.OnCustomerSeated(); // isStoreBusy = false 해주기
     }
     public void ReleaseSeat()
     {
@@ -176,7 +195,7 @@ public class CustomerMovement : MonoBehaviour
     private void MoveTo(Tilemap tilemap, TileBase walkable, Vector3 destination, Action callback)
     {
         onArrive = callback;
-        path = PathfindingManager.Instance.FindPathInTilemap(tilemap, walkable, transform.position, destination);
+        path = pathfinder.FindPathInTilemap(tilemap, walkable, transform.position, destination);
         debugPath = path;
 
         if (path == null || path.Count == 0)
@@ -215,9 +234,9 @@ public class CustomerMovement : MonoBehaviour
     // 입장 거절된 손님이 그냥 쭉 반대 방향으로 지나가기
     public void LeaveImmediately(Action onDone)
     {
-        Vector3 exit = CustomerSpawner.Instance.GetOppositeStreetPosition(transform.position);
+        Vector3 exit = spawner.GetOppositeStreetPosition(transform.position);
 
-        path = PathfindingManager.Instance.FindPathInTilemap(
+        path = pathfinder.FindPathInTilemap(
             outdoorTilemap, outdoorWalkableTile, transform.position, exit);
 
         debugPath = path;
@@ -236,7 +255,7 @@ public class CustomerMovement : MonoBehaviour
 
     private void UpdateAnimation(Vector3 dir)
     {
-        if(dir.y > 0)
+        if (dir.y > 0)
         {
             animator.Play("Back_Walk");
             spriteRenderer.flipX = (dir.x > 0 ? false : true);
