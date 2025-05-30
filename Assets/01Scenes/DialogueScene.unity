@@ -230,7 +230,7 @@ MonoBehaviour:
   centerCharacterImage: {fileID: 1176876168}
   centerGroup: {fileID: 1176876170}
   _typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: 19f3247578d40454580405f2e5bdd563, type: 2}
+  dialogueData: {fileID: 11400000, guid: 34f7f5aa72e59024cb193e30a2f34d01, type: 2}
   cameraShake: {fileID: 597974882}
   imageEffectObject: {fileID: 53503320}
   effectImage: {fileID: 53503322}
