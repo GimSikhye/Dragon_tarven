@@ -32,6 +32,8 @@ public class DialogueManager : MonoSingleton<DialogueManager>
     [Header("Dialogue Data")]
     public DialogueData dialogueData; // 대화 데이터
 
+    [SerializeField] private CameraShake cameraShake;
+
     private int currentLine = 0; // 큰 단위(DialogueLine)
     private int currentTextIndex = 0; // 작은 단위(dialogueTexts)
     private Coroutine typingCoroutine; // 현재 타이핑 중인지 확인하는 용도
@@ -154,6 +156,12 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         dialogueText.text = "";
 
         UpdateCharacters(line); // UpdateCharacters
+
+        if (line.doCameraShake && cameraShake != null)
+        {
+            cameraShake.Shake();
+        }
+
         typingCoroutine = StartCoroutine(TypeTextRoutine(line.dialogueTexts[currentTextIndex].text));
 
         if (!line.isNarration)
@@ -175,6 +183,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         {
             imageEffectObject?.SetActive(false);
         }
+
     }
 
     IEnumerator TypeTextRoutine(string text)

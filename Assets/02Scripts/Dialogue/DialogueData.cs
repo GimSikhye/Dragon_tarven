@@ -18,6 +18,8 @@ public class DialogueLine // 대사 묶음
     public bool isNarration; // 나레이션 여부 (true이면 캐릭터 이름 및 이미지 숨김)
     public bool isInnerFeelings; //속마음(이름은 안숨기고 글자만 보라색
 
+    public bool doCameraShake;
+
     public DialogueEvent[] dialogueTexts; // 대사 한줄씩
 }
 

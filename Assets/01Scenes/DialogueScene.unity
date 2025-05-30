@@ -230,7 +230,8 @@ MonoBehaviour:
   centerCharacterImage: {fileID: 1176876168}
   centerGroup: {fileID: 1176876170}
   _typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: ec811bd7aa5e92a43b8cb8ca682ade65, type: 2}
+  dialogueData: {fileID: 11400000, guid: 19f3247578d40454580405f2e5bdd563, type: 2}
+  cameraShake: {fileID: 597974882}
   imageEffectObject: {fileID: 53503320}
   effectImage: {fileID: 53503322}
   sfxSource: {fileID: 1838131660}
@@ -550,6 +551,7 @@ GameObject:
   - component: {fileID: 597974879}
   - component: {fileID: 597974878}
   - component: {fileID: 597974881}
+  - component: {fileID: 597974882}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -675,6 +677,22 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!114 &597974882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597974877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacd1c312c3b09d4285ae4aa077a9b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  strength: 0.3
+  vibrato: 10
+  randomness: 90
 --- !u!1 &600231497
 GameObject:
   m_ObjectHideFlags: 0
