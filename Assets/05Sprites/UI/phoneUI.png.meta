@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 506b6cd9347cb8d409e296eb66aaaa51
+guid: 37733500ca3770b4d8ba479c0e469508
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8303021339531488212
-    second: door-2_0
+      213: 2086746852370417070
+    second: phoneUI_0
+  - first:
+      213: 4625760780265048976
+    second: phoneUI_1
+  - first:
+      213: 106658315772776164
+    second: phoneUI_2
+  - first:
+      213: -8060645651242800579
+    second: phoneUI_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -46,12 +55,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 36
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -72,10 +81,10 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 1024
+    maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -110,7 +119,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
+    buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -126,13 +135,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: door-2_0
+      name: phoneUI_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 29
-        height: 72
+        x: 10
+        y: 288
+        width: 440
+        height: 239
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +150,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c24dcbe351eb5cc80800000000000000
-      internalID: -8303021339531488212
+      spriteID: ea504b7c43d95fc10800000000000000
+      internalID: 2086746852370417070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phoneUI_1
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 181
+        width: 438
+        height: 102
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09bc1abdbe0023040800000000000000
+      internalID: 4625760780265048976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phoneUI_2
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 91
+        width: 438
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ee4aff4c2dea7100800000000000000
+      internalID: 106658315772776164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: phoneUI_3
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 3
+        width: 438
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3a2061cc75d22090800000000000000
+      internalID: -8060645651242800579
       vertices: []
       indices: 
       edges: []
@@ -151,7 +226,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +236,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      door-2_0: -8303021339531488212
+      phoneUI_0: 2086746852370417070
+      phoneUI_1: 4625760780265048976
+      phoneUI_2: 106658315772776164
+      phoneUI_3: -8060645651242800579
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
