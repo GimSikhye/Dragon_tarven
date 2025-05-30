@@ -16,6 +16,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uC5B4\uB290\uB367 \uB098\uC774\uB3C4 25 \uAC00\uAE4C\uC774 \uB418\uC5C8\uB2E4."
       sfx: {fileID: 0}
@@ -28,6 +29,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 1
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uACFC\uB3D9\uAE30\uB4E4\uC774 \uAC19\uC774 \uC804\uACFC\uB97C \uC81C\uC548\uD588\uC744
         \uB54C, \uB098\uB3C4 \uCDE8\uC5C5 \uC798\uB418\uB294 \uD559\uACFC\uB85C \uAC19\uC774
@@ -37,6 +39,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 1
     isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uC9C0\uAE08 \uD6C4\uD68C\uD574\uBD24\uC790 \uBC14\uB00C\uB294 \uAC83\uC740
         \uC5C6\uAE34 \uD558\uC9C0\uB9CC \uC774\uB530\uAE08 \uC774\uB7F0 \uC0DD\uAC01\uC774
@@ -64,6 +67,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 1
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uCE74\uD398 \uC54C\uBC14\uB3C4 2\uB144 \uC815\uB3C4 \uB418\uC5C8\uB294\uB370
         \uC774\uAC78 \uACBD\uB825\uC73C\uB85C \uCCD0\uC8FC\uC9C0\uB294 \uC54A\uACA0\uC9C0?"
@@ -72,12 +76,13 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 1
     isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uB300\uCCB4 \uC5B4\uB514\uC11C\uBD80\uD130 \uAF2C\uC778\uAC78\uAE4C..."
       sfx: {fileID: 0}
       image: {fileID: 0}
     - text: "[\uB538\uB791]"
-      sfx: {fileID: 0}
+      sfx: {fileID: 8300000, guid: c0f4e1bc7da5ec249b2304d4b7b2e1dd, type: 3}
       image: {fileID: 0}
     - text: "\uD559\uC0DD \uC190\uB2D8: \uC544\uC774\uC2A4 \uC544\uBA54\uB9AC\uCE74\uB178
         \uC5BC\uC74C \uB9CE\uC774 \uC8FC\uC138\uC694!"
@@ -86,6 +91,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uB124. \uC8FC\uBB38 \uBC1B\uC558\uC2B5\uB2C8\uB2E4. \uC7A0\uC2DC\uB9CC
         \uAE30\uB2E4\uB824\uC8FC\uC138\uC694."
@@ -94,6 +100,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 1
     isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "-\uD29C\uD1A0\uB9AC\uC5BC! \uC190\uB2D8\uC758 \uC8FC\uBB38\uC744 \uBC1B\uC544
         \uCEE4\uD53C\uB97C \uB9CC\uB4DC\uC138\uC694! \uC190\uB2D8\uC758 \uB9CC\uC871\uB3C4\uC5D0
