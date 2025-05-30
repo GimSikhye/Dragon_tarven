@@ -7,6 +7,12 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        public bool IsOccupied { get; private set; } = false;
+        public void SetOccupied(bool state)
+        {
+            IsOccupied = state;
+        }
+
         private Tilemap floorTilemap;
 
         [Header("아이템 회전")]
@@ -26,6 +32,9 @@ namespace DalbitCafe.Deco
         private bool _isDragging = false; // 드래그 중인지 검사
         public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
 
+        public ItemData itemData; // Inspector에 연결 필요
+
+
         private void Start()
         {
             rotateUIParent = GameObject.Find("UI_DecoButtons").GetComponent<RectTransform>(); // 회전 버튼 부모 오브젝트 이름에 따라 변경
@@ -44,6 +53,10 @@ namespace DalbitCafe.Deco
         {
             floorTilemap = GameObject.Find("1FFloor").GetComponent<Tilemap>();   
         }
+        public int DirectionIndex()
+        {
+            return _rotationIndex;
+        }
 
         public void OnPointerDown(PointerEventData eventData) // 클릭했다면 타겟아이템을 이걸로
         {
@@ -58,6 +71,11 @@ namespace DalbitCafe.Deco
 
             if(rotateUIParent != null) rotateUIParent.gameObject.SetActive(false);
 
+        }
+
+        public int GetDirectionIndex()
+        {
+            return _rotationIndex;
         }
 
         public void OnDrag(PointerEventData eventData) // 드래그 중일 때

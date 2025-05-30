@@ -4,12 +4,15 @@ using UnityEngine;
 using System;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
+using DalbitCafe.Deco;
 
 // 이동 + 경로 + Flip + 애니메이션
 // 기존 손님이 주문 중/ 자리 이동 중이면 새 손님x
 public class CustomerMovement : MonoBehaviour
 {
-     private float moveSpeed = 2f;
+    private DraggableItem mySeat; // 이 손님의 좌석
+
+    private float moveSpeed = 2f;
      [SerializeField] private Animator animator;
      [SerializeField] private SpriteRenderer spriteRenderer;
 
@@ -46,7 +49,7 @@ public class CustomerMovement : MonoBehaviour
 
         if (path == null || path.Count == 0)
         {
-            Debug.LogWarning("경로 없음: 거리 → 입구");
+            Debug.LogWarning("경로 없음: 거리 -> 입구");
             isMoving = false;
             return;
         }
@@ -81,12 +84,22 @@ public class CustomerMovement : MonoBehaviour
 
     public void MoveToSeat(Action onDone)
     {
-        Vector3 seat = CustomerSpawner.Instance.GetAvailableSeatPosition();
+        mySeat = CustomerSpawner.Instance.GetAvailableSeat();
+        if (mySeat == null)
+        {
+            Debug.LogWarning("[CustomerMovement] 좌석 없음, 입구로 이동");
+            LeaveStore(onDone);
+            return;
+        }
+
+        Vector3 seatPos = mySeat.transform.position;
+
         path = PathfindingManager.Instance.FindPathInTilemap(
-            storeTilemap, storeWalkableTile, transform.position, seat);
+            storeTilemap, storeWalkableTile, transform.position, seatPos);
         debugPath = path;
         SetMovePath(onDone);
     }
+
 
     public void LeaveStore(Action onDone)
     {
@@ -118,11 +131,47 @@ public class CustomerMovement : MonoBehaviour
 
     public void Sit()
     {
-        // 의자 방향에 따라서
-        animator.Play("Front_Idle_Sit");
-        //Front_Sit: 앉는 애니메이션
-        //Front_Idle_Sit: 앉아있는 애니메이션
+        if (mySeat == null) return;
+
+        var meta = mySeat.GetComponent<ItemMeta>();
+        if (meta == null) return;
+
+        int index = mySeat.GetComponent<DraggableItem>().DirectionIndex();
+
+        switch (index)
+        {
+            case 0:
+                animator.Play("Front_Idle_Sit");
+                spriteRenderer.flipX = true;
+                break;
+            case 1:
+                animator.Play("Front_Idle_Sit");
+                spriteRenderer.flipX = false;
+                break;
+            case 2:
+                animator.Play("Back_Idle_Sit");
+                spriteRenderer.flipX = true;
+                break;
+            case 3:
+                animator.Play("Back_Idle_Sit");
+                spriteRenderer.flipX = false;
+                break;
+            default:
+                animator.Play("Front_Idle_Sit");
+                break;
+        }
+
+        CustomerSpawner.Instance.OnCustomerSeated(); // isStoreBusy = false 해주기
     }
+    public void ReleaseSeat()
+    {
+        if (mySeat != null)
+        {
+            mySeat.SetOccupied(false);
+            mySeat = null;
+        }
+    }
+
 
     private void MoveTo(Tilemap tilemap, TileBase walkable, Vector3 destination, Action callback)
     {
@@ -140,8 +189,6 @@ public class CustomerMovement : MonoBehaviour
         pathIndex = 0;
         isMoving = true;
     }
-
-
 
 
     private void Update()
@@ -164,6 +211,27 @@ public class CustomerMovement : MonoBehaviour
 
         UpdateAnimation(dir);
     }
+
+    // 입장 거절된 손님이 그냥 쭉 반대 방향으로 지나가기
+    public void LeaveImmediately(Action onDone)
+    {
+        Vector3 exit = CustomerSpawner.Instance.GetOppositeStreetPosition(transform.position);
+
+        path = PathfindingManager.Instance.FindPathInTilemap(
+            outdoorTilemap, outdoorWalkableTile, transform.position, exit);
+
+        debugPath = path;
+
+        if (path == null || path.Count == 0)
+        {
+            Debug.LogWarning("[Customer] 즉시 퇴장 경로 없음");
+            onDone?.Invoke();
+            return;
+        }
+
+        SetMovePath(onDone);
+    }
+
 
 
     private void UpdateAnimation(Vector3 dir)

@@ -53,11 +53,14 @@ public class CustomerStateMachine : MonoBehaviour
                 break;
 
             case CustomerState.Leaving:
-                //Debug.Log("가게를 떠나는중");
+                movement.ReleaseSeat(); // 좌석 비우기
                 movement.LeaveStore(() => Destroy(gameObject));
                 break;
+
         }
     }
+
+
 
     private void GoToSeat()
     {

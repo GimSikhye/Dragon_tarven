@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8fdb28531fda4741aa197f69c41b884, type: 3}
+  m_Name: P_Chair
+  m_EditorClassIdentifier: 
+  itemName: "\uBCF4\uB77C\uC0C9 \uC758\uC790"
+  icon: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
+  price: 100
+  prefab: {fileID: 6637696299877266489, guid: 06a8a710764c1024ca5b96e82d524d14, type: 3}
+  interiorType: 1

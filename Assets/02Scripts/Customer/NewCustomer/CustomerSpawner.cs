@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine.Tilemaps;
+using DalbitCafe.Deco;
+using System.Linq;
 
 public class CustomerSpawner : MonoSingleton<CustomerSpawner>
 {
@@ -11,7 +13,7 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
     [SerializeField] private Transform counter;
     [SerializeField] private Transform entrance;
     [SerializeField] private List<Transform> seatPositions; // 의자 리스트
-    [SerializeField] private int maxCustomerCount = 3; // 돌아다니는 최대 손님 수(얘가 문제- 좌석 수에 따라서 손님 수가 늘어나야 함.
+    private int maxCustomerCount; // runtime에 결정
     private List<GameObject> activeCustomers = new(); // 현재 씬 내 존재하는 손님 목록
 
     private bool isStoreBusy = false; // 가게가 바쁘면(손님이 계산을 하고 있으면 그때는 기다리는 타임이 없게 하기 위해서, 손닝미 들어가지 않게 하기)
@@ -22,6 +24,7 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
     [SerializeField] private TileBase outdoorWalkableTile;
     [SerializeField] private TileBase storeWalkableTile;
 
+    private DraggableItem assignedSeat;
 
     void Start()
     {
@@ -36,8 +39,18 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
             yield return null;
         }
 
+        // 좌석 수를 기준으로 maxCustomerCount 자동 결정
+        maxCustomerCount = FindObjectsOfType<DraggableItem>()
+            .Count(item =>
+                item != null &&
+                item.TryGetComponent<ItemMeta>(out var meta) &&
+                meta.SubCategory.ToString() == "Chair");
+
+        Debug.Log($"[CustomerSpawner] 좌석 수 만큼 손님 수 설정됨: {maxCustomerCount}명");
+
         StartCoroutine(SpawnLoop());
     }
+
 
     // 입장 시도
     public void TryEnterCustomer(CustomerMovement movement)
@@ -97,19 +110,44 @@ public class CustomerSpawner : MonoSingleton<CustomerSpawner>
         return counter.position;
     }
 
-    public Vector3 GetAvailableSeatPosition()
+    public DraggableItem GetAvailableSeat()
     {
-        if (seatPositions == null || seatPositions.Count == 0)
+        var allItems = FindObjectsOfType<DraggableItem>();
+        var availableChairs = allItems
+            .Where(item =>
+                item != null &&
+                item.TryGetComponent<ItemMeta>(out var meta) &&
+                meta.SubCategory.ToString() == "Chair" &&
+                !item.IsOccupied)
+            .ToList();
+
+        if (availableChairs.Count == 0)
         {
-            Debug.LogError("[CustomerSpawner] 좌석 리스트가 비어 있습니다!");
-            return entrance.position; // fallback
+            Debug.LogWarning("사용 가능한 의자가 없습니다.");
+            return null;
         }
 
-        return seatPositions[0].position;
+        int index = Random.Range(0, availableChairs.Count);
+        var chosen = availableChairs[index];
+        chosen.SetOccupied(true); // 점유 처리
+
+        return chosen;
     }
 
 
-    private IEnumerator SpawnLoop()
+
+    public Vector3 GetAvailableSeatPosition()
+    {
+        var seat = GetAvailableSeat();
+        return seat != null ? seat.transform.position : entrance.position;
+    }
+
+    public DraggableItem GetAssignedSeat() => assignedSeat;
+
+
+
+
+private IEnumerator SpawnLoop()
     {
         while(true)
         {
