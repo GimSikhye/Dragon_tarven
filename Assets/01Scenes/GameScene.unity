@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 16581418}
   - component: {fileID: 16581417}
   m_Layer: 5
-  m_Name: Text_Time (2)
+  m_Name: Text_Coffee Bean Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2840,7 +2840,7 @@ GameObject:
   - component: {fileID: 345820332}
   - component: {fileID: 345820331}
   m_Layer: 5
-  m_Name: Text_Time (1)
+  m_Name: Text_Coin Amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3993,6 +3993,7 @@ MonoBehaviour:
   centerGroup: {fileID: 0}
   _typingSpeed: 0.05
   dialogueData: {fileID: 0}
+  cameraShake: {fileID: 0}
   imageEffectObject: {fileID: 0}
   effectImage: {fileID: 0}
   sfxSource: {fileID: 0}
@@ -7394,6 +7395,53 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &749655213
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 749655215}
+  - component: {fileID: 749655214}
+  m_Layer: 0
+  m_Name: DayCycleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &749655214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749655213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b74c5cfa03b9e042a749e8a417fcfc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeText: {fileID: 300513019}
+  ampmText: {fileID: 1746890769}
+  dayText: {fileID: 992256110}
+--- !u!4 &749655215
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 749655213}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &805072344
 GameObject:
   m_ObjectHideFlags: 0
@@ -18781,6 +18829,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: cd90c8479bdeb8b43996d131ecd0792e, type: 2}
+    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
       propertyPath: 'directionSprites.Array.data[0]'
       value: 
       objectReference: {fileID: 7202665837126834665, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
@@ -20869,6 +20921,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 570655510}
+  walkableTile: {fileID: 11400000, guid: 846ae3869dc13ef408d94b924528c794, type: 2}
 --- !u!4 &1421693136
 Transform:
   m_ObjectHideFlags: 0
@@ -23393,7 +23446,7 @@ GameObject:
   - component: {fileID: 1746890770}
   - component: {fileID: 1746890769}
   m_Layer: 5
-  m_Name: 'Text_the day before '
+  m_Name: Text_The Day Before
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24828,6 +24881,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: cd90c8479bdeb8b43996d131ecd0792e, type: 2}
     - target: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
       propertyPath: m_Name
       value: P_Funiture_Chair
@@ -26318,6 +26375,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3644515790212293228, guid: 06a8a710764c1024ca5b96e82d524d14, type: 3}
+      propertyPath: itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 1cf5226c83db19047bffc3a96e24655a, type: 2}
     - target: {fileID: 6261046269857188999, guid: 06a8a710764c1024ca5b96e82d524d14, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.452
@@ -26942,3 +27003,4 @@ SceneRoots:
   - {fileID: 1760802291}
   - {fileID: 1882112540}
   - {fileID: 1142662177}
+  - {fileID: 749655215}
