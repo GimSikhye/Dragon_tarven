@@ -5,7 +5,7 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 {
     public PlayerStats statsSO;
     public int CoffeeBeans { get; private set; }
-    public int Coin { get; private set; }
+    public float Coin { get; private set; }
     public int Gem { get; private set; }
     public int Exp { get; private set; }
     public int Level { get; private set; }
@@ -34,7 +34,7 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     public void Load()
     {
         CoffeeBeans = PlayerPrefs.GetInt("CoffeeBean");
-        Coin = PlayerPrefs.GetInt("Coin");
+        Coin = PlayerPrefs.GetFloat("Coin");
         Gem = PlayerPrefs.GetInt("Gem");
         Exp = PlayerPrefs.GetInt("Exp");
         Level = PlayerPrefs.GetInt("Level");
@@ -47,10 +47,10 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 
     }
 
-    public void AddCoin(int amount)
+    public void AddCoin(float amount)
     {
         Coin += amount;
-        PlayerPrefs.SetInt("Coin", Coin);
+        PlayerPrefs.SetFloat("Coin", Coin);
         UIManager.Instance.UpdateCoinUI(Coin);
     }
 

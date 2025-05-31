@@ -81,7 +81,7 @@ public class DayCycleManager : MonoBehaviour
     private void SaveDay()
     {
         PlayerPrefs.SetInt("Day", day);
-        PlayerPrefs.SetInt("Coin", PlayerStatsManager.Instance.Coin);
+        PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
         PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
         PlayerPrefs.Save();
     }

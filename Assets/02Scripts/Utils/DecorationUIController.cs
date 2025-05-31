@@ -30,7 +30,7 @@ public class DecorationUIController : MonoBehaviour
     void SaveData()
     {
         PlayerPrefs.SetInt("Day", PlayerPrefs.GetInt("Day", 1) + 1);
-        PlayerPrefs.SetInt("Coin", PlayerStatsManager.Instance.Coin);
+        PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
         PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
         PlayerPrefs.SetInt("Gem", PlayerStatsManager.Instance.Gem);
         PlayerPrefs.Save();

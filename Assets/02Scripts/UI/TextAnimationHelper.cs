@@ -4,7 +4,7 @@ using UnityEngine;
 
 public static class TextAnimationHelper
 {
-    public static void AnimateNumber(TextMeshProUGUI text, int from, int to, float duration = 0.6f)
+    public static void AnimateNumber(TextMeshProUGUI text, float from, float to, float duration = 0.6f)
     {
         DOTween.To(() => from, x => {
             from = x;

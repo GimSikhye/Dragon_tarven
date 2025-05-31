@@ -45,7 +45,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     // 닷트윈 UI 애니메이션을 위한 재화 이전값
     private int _currentCoffeeBean;
-    private int _currentCoin;
+    private float _currentCoin;
     private int _currentGem;
 
     // 프로필
@@ -187,7 +187,7 @@ public class UIManager : MonoSingleton<UIManager>
         _currentCoffeeBean = value;
     }
 
-    public void UpdateCoinUI(int value)
+    public void UpdateCoinUI(float value)
     {
         TextAnimationHelper.AnimateNumber(_coinAmountText, _currentCoin, value, 1.5f);
         _currentCoin = value;
