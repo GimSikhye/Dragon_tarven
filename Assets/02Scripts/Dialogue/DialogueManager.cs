@@ -68,7 +68,46 @@ public class DialogueManager : MonoSingleton<DialogueManager>
     {
         currentLine = 0;
         currentTextIndex = 0;
-        ShowLine();
+        //ShowLine();
+
+        ShowLineImmediate();
+    }
+
+    void ShowLineImmediate()
+    {
+        DialogueLine line = dialogueData.lines[currentLine];
+        var textBlock = line.dialogueTexts[currentTextIndex];
+
+        nameArea.SetActive(!line.isNarration);
+        namePlateImage.gameObject.SetActive(!line.isNarration);
+
+        if (line.isNarration)
+            dialogueText.color = Color.white;
+        else if (line.isInnerFeelings)
+            dialogueText.color = new Color32(161, 95, 255, 255);
+        else
+            dialogueText.color = Color.white;
+
+        nameText.text = line.isNarration ? "" : line.speaker.characterName;
+        dialogueText.text = textBlock.text;
+
+        UpdateCharacters(line);
+
+        if (line.doCameraShake && cameraShake != null)
+            cameraShake.Shake();
+
+        if (textBlock.sfx != null)
+            sfxSource.PlayOneShot(textBlock.sfx);
+
+        if (textBlock.image != null)
+        {
+            effectImage.sprite = textBlock.image;
+            imageEffectObject?.SetActive(true);
+        }
+        else
+        {
+            imageEffectObject?.SetActive(false);
+        }
     }
 
     public void LoadDialogue(DialogueData newDialogue)
@@ -159,7 +198,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
 
         if (line.doCameraShake && cameraShake != null)
         {
-            cameraShake.Shake();
+            cameraShake.Shake(); //흔들기
         }
 
         typingCoroutine = StartCoroutine(TypeTextRoutine(line.dialogueTexts[currentTextIndex].text));
@@ -177,6 +216,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         if (line.dialogueTexts[currentTextIndex].image != null)
         {
             effectImage.sprite = line.dialogueTexts[currentTextIndex].image;
+            effectImage.color = Color.white; // <-- 추가: 알파값 보장
             imageEffectObject?.SetActive(true);
         }
         else

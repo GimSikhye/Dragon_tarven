@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 53503321}
   - component: {fileID: 53503323}
   - component: {fileID: 53503322}
+  - component: {fileID: 53503324}
   m_Layer: 5
   m_Name: EventImage
   m_TagString: Untagged
@@ -194,6 +195,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53503320}
   m_CullTransparentMesh: 1
+--- !u!114 &53503324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 53503320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eacd1c312c3b09d4285ae4aa077a9b7f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 0}
+  originalPosition: {x: 0, y: 0, z: 0}
+  shakeDuration: 100
+  shakeMagnitude: 3
+  dampingSpeed: 10
 --- !u!1 &348450049
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,8 +248,8 @@ MonoBehaviour:
   centerCharacterImage: {fileID: 1176876168}
   centerGroup: {fileID: 1176876170}
   _typingSpeed: 0.05
-  dialogueData: {fileID: 11400000, guid: ec811bd7aa5e92a43b8cb8ca682ade65, type: 2}
-  cameraShake: {fileID: 597974882}
+  dialogueData: {fileID: 11400000, guid: 34f7f5aa72e59024cb193e30a2f34d01, type: 2}
+  cameraShake: {fileID: 53503324}
   imageEffectObject: {fileID: 53503320}
   effectImage: {fileID: 53503322}
   sfxSource: {fileID: 1838131660}
@@ -551,7 +569,6 @@ GameObject:
   - component: {fileID: 597974879}
   - component: {fileID: 597974878}
   - component: {fileID: 597974881}
-  - component: {fileID: 597974882}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -677,22 +694,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!114 &597974882
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597974877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eacd1c312c3b09d4285ae4aa077a9b7f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  duration: 0.5
-  strength: 0.3
-  vibrato: 10
-  randomness: 90
 --- !u!1 &600231497
 GameObject:
   m_ObjectHideFlags: 0
@@ -743,7 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

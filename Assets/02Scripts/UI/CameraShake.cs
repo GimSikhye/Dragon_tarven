@@ -4,26 +4,37 @@ using Unity.VisualScripting;
 
 public class CameraShake : MonoBehaviour
 {
-    [Header("Shake Settings")]
-    public float duration = 0.5f; 
-    public float strength = 0.3f; 
-    public int vibrato = 10; // Number of vibrations
-    public float randomness = 90f; // The randomness of the 'direction' of shaking
-
-    private Vector3 originalPos;
+    private RectTransform rectTransform;
+    private Vector3 originalPosition;
+    private float shakeDuration = 0f;
+    private float shakeMagnitude = 45f; // »ÁµÈ∏≤ ºº±‚ («»ºø ¥‹¿ß)
+    private float dampingSpeed = 1.0f;
 
     void Awake()
     {
-        originalPos = transform.position;
+        rectTransform = GetComponent<RectTransform>();
+        originalPosition = rectTransform.anchoredPosition;
     }
 
-    public void Shake()
+    void Update()
     {
-        // If there is a tween currently running, delete
-        transform.DOKill();
+        if (shakeDuration > 0)
+        {
+            Vector2 offset = Random.insideUnitCircle * shakeMagnitude;
+            rectTransform.anchoredPosition = originalPosition + (Vector3)offset;
+            shakeDuration -= Time.deltaTime * dampingSpeed;
+        }
+        else
+        {
+            shakeDuration = 0f;
+            rectTransform.anchoredPosition = originalPosition;
+        }
+    }
 
-        // When finished, return to original position
-        transform.DOShakePosition(duration, strength, vibrato, randomness, false, true)
-            .OnComplete(() => transform.position = originalPos);
+    public void Shake(float duration = 0.3f, float magnitude = 5f)
+    {
+        originalPosition = rectTransform.anchoredPosition;
+        shakeDuration = duration;
+        shakeMagnitude = magnitude;
     }
 }

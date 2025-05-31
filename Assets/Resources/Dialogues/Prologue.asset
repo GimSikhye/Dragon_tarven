@@ -16,7 +16,7 @@ MonoBehaviour:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 0
-    doCameraShake: 0
+    doCameraShake: 1
     dialogueTexts:
     - text: "\uC5B4\uB290\uB367 \uB098\uC774\uB3C4 25 \uAC00\uAE4C\uC774 \uB418\uC5C8\uB2E4."
       sfx: {fileID: 0}
@@ -25,7 +25,7 @@ MonoBehaviour:
         \uC804\uD600 \uC0C1\uAD00\uC5C6\uB294 \uCE74\uD398\uC54C\uBC14\uB97C \uD558\uACE0
         \uC788\uB2E4."
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: 7716473a251be0846a79ebc3803255ab, type: 3}
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 1
