@@ -11,11 +11,12 @@ public class DayCycleManager : MonoBehaviour
     [SerializeField] private TMP_Text dayText;
 
     private int day = 1;
-    private int gameHour = 20; // PM 8시
+    private int gameHour = 20; 
     private int gameMinute = 0;
 
     private float tickInterval = 5f; // 5초마다 시간 흐름
     private float elapsed = 0f;
+    private bool showColon = true;
 
     private const int minutesPerTick = 10;
     private const int minutesPerDay = 600; // 10시간 = 600분
@@ -26,6 +27,7 @@ public class DayCycleManager : MonoBehaviour
         LoadDay();
         UpdateTimeUI();
         StartCoroutine(GameTimeLoop());
+        StartCoroutine(BlinkColon());
     }
 
     private IEnumerator GameTimeLoop()
@@ -36,6 +38,17 @@ public class DayCycleManager : MonoBehaviour
             AdvanceTime();
         }
     }
+
+    private IEnumerator BlinkColon()
+    {
+        while (true)
+        {
+            showColon = !showColon;
+            UpdateTimeUI();
+            yield return new WaitForSeconds(0.5f); // 0.5초 간격으로 깜빡임
+        }
+    }
+
 
     private void AdvanceTime()
     {
@@ -64,7 +77,8 @@ public class DayCycleManager : MonoBehaviour
         int displayHour = gameHour % 12;
         if (displayHour == 0) displayHour = 12;
 
-        string formattedTime = $"{displayHour}:{gameMinute:00}";
+        string colon = showColon ? ":" : " ";
+        string formattedTime = $"{displayHour}{colon}{gameMinute:00}";
         timeText.text = formattedTime;
         ampmText.text = period;
 
