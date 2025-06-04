@@ -13,7 +13,8 @@ public class SettlementSceneManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI refundText; // 환불
     [SerializeField] private TextMeshProUGUI netProfitText; // 순수익
     [SerializeField] private Button okButton;
-    [SerializeField] private GameObject shopPanel;
+    [SerializeField] private GameObject settlementCanvas;
+    [SerializeField] private GameObject shopCanvas;
 
     [Header("수치 설정")] // 수치도 게임 내에서 정해야 함
     public float totalIncome = 63.00f;
@@ -40,7 +41,7 @@ public class SettlementSceneManager : MonoBehaviour
 
     void OpenShop()
     {
-        shopPanel.SetActive(true);
-        okButton.gameObject.SetActive(false);
+        shopCanvas.SetActive(true);
+        settlementCanvas.SetActive(false);
     }
 }

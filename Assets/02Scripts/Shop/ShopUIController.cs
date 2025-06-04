@@ -71,10 +71,10 @@ public class ShopUIController : MonoBehaviour
             {
                 GameObject btn = Instantiate(categoryButtonPrefab, categoryButtonParent);
                 btn.GetComponentInChildren<TextMeshProUGUI>().text = ConvertToKorean(category.ToString());
+                btn.GetComponent<Button>().onClick.RemoveAllListeners();
                 btn.GetComponent<Button>().onClick.AddListener(() =>
                 {
-                    currentCategory = category;
-                    ShowItems(ShopManager.Instance.GetItems(currentCategory));
+                    OnTabSelected(category);
                 });
 
             }
@@ -85,6 +85,7 @@ public class ShopUIController : MonoBehaviour
         {
             GameObject btn = Instantiate(categoryButtonPrefab, categoryButtonParent);
             btn.GetComponentInChildren<TextMeshProUGUI>().text = ConvertToKorean(sub.ToString());
+            btn.GetComponent<Button>().onClick.RemoveAllListeners();
             btn.GetComponent<Button>().onClick.AddListener(() =>
             {
                 currentSubCategory = sub;
