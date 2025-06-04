@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: "\uD718\uD551\uD06C\uB9BC"
   description: "\uCF58\uD30C\uB0D0 \uBA54\uB274 \uB808\uC2DC\uD53C \uD574\uAE08"
-  icon: {fileID: -3075872301111521182, guid: d9568f59cc706e540ad0fcc0325d38d7, type: 3}
+  icon: {fileID: 21300000, guid: 3289e7df4f3a0604e8bdbe5bfaefe046, type: 3}
   price: 30
   category: 0
   subCategory: 0

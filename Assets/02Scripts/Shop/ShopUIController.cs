@@ -83,6 +83,8 @@ public class ShopUIController : MonoBehaviour
 
         foreach (DecoSubCategory sub in System.Enum.GetValues(typeof(DecoSubCategory)))
         {
+            if (sub == DecoSubCategory.None) continue; // None일 경우 생략
+
             GameObject btn = Instantiate(categoryButtonPrefab, categoryButtonParent);
             btn.GetComponentInChildren<TextMeshProUGUI>().text = ConvertToKorean(sub.ToString());
             btn.GetComponent<Button>().onClick.RemoveAllListeners();
