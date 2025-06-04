@@ -7,21 +7,15 @@ public class DecorationUIController : MonoBehaviour
     [SerializeField] private GameObject decoPanel;
     [SerializeField] private GameObject storePanel;
     [SerializeField] private Button decorationButton;
-    [SerializeField] private Button nextDayButton;
+    [SerializeField] private Button nextDayButton; // 다음 일차 넘어가기
 
     void Start()
     {
-        decorationButton.onClick.AddListener(OpenDecorationPanel);
         nextDayButton.onClick.AddListener(ProceedToNextDay);
     }
 
-    void OpenDecorationPanel()
-    {
-        decoPanel.SetActive(true);
-        storePanel.SetActive(false);
-    }
 
-    void ProceedToNextDay()
+    void ProceedToNextDay() // 진행하다
     {
         SaveData();
         SceneManager.LoadScene("GameScene");
@@ -33,6 +27,6 @@ public class DecorationUIController : MonoBehaviour
         PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
         PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
         PlayerPrefs.SetInt("Gem", PlayerStatsManager.Instance.Gem);
-        PlayerPrefs.Save();
+        PlayerPrefs.Save(); // PlayerPrefs Save 공부
     }
 }

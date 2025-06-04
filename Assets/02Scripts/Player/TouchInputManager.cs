@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace DalbitCafe.Inputs
 {
-    public class TouchInputManager : MonoSingleton<TouchInputManager>   
+    public class TouchInputManager : MonoBehaviour
     {
         public event Action<Vector2> OnTouchBegan;
         public event Action<Vector2> OnTouchMoved;

@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 // 판매/배치 등 조건 체크용 이벤트 수신
 public class QuestManager : MonoSingleton<QuestManager> 
 {
-
     public Transform questListContent; // 퀘스트 UI를 생성할 때 필요한 부모 객체
     public GameObject questItemPrefab; //QuestSelectButton
     public List<QuestData> activeQuests = new(); // 현재 진행중인 퀘스트 목록
@@ -15,11 +14,6 @@ public class QuestManager : MonoSingleton<QuestManager>
     public DialogueManager dialougManager;
 
 
-    private void Start()
-    {
-        //AddQuest(quest1);
-        //ResetQuestProgress(quest1);
-    }
 
     private void OnEnable()
     {
@@ -36,7 +30,7 @@ public class QuestManager : MonoSingleton<QuestManager>
     {
         if(scene.name == "GameScene")
         {
-            questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton");
+            questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton"); //Resources.Load 성능?
             questListContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
             dialougManager = DialogueManager.Instance;
             quest1 = Resources.Load<QuestData>("QuestData/QuestData1");

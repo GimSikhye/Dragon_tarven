@@ -9,14 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 13966, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: New SceneTemplate
+  m_Script: {fileID: 11500000, guid: c8fdb28531fda4741aa197f69c41b884, type: 3}
+  m_Name: Air conditioner(black)_ItemData
   m_EditorClassIdentifier: 
-  templateScene: {fileID: 0}
-  templateName: 
-  description: 
-  preview: {fileID: 0}
-  dependencies: []
-  templatePipeline: {fileID: 0}
-  badge: {fileID: 0}
-  addToDefaults: 0
+  itemName: Air conditioner(black)
+  icon: {fileID: 21300000, guid: 13f09fc93b57f2b4fafdfd894c8b43cd, type: 3}
+  price: 15
+  prefab: {fileID: 0}
+  interiorType: 5

@@ -10,18 +10,20 @@ public class ShopUIController : MonoBehaviour
     public Button upgradeTab;
     public Button decoTab;
 
+    [Header("ShoptCategory UI")]
+    //public GameObject shopCategoryPanel;
+
     [Header("SubCategory UI")]
-    public GameObject subCategoryPanel;
-    public Button backButton;
-    public Transform subCategoryButtonParent;
-    public GameObject subCategoryButtonPrefab;
+    public GameObject shopItemPanel;
+    public Transform categoryButtonParent;
+    public GameObject categoryButtonPrefab;
 
     [Header("Item List")]
-    public Transform itemParent;
+    public Transform itemParent; // itemParent: UI_ShopPanel의 content, UI_DecoPanel의 content
     public GameObject itemPrefab;
 
     [Header("Player Info")]
-    public TMP_Text coinText;
+    public TextMeshProUGUI coinText;
 
     private ShopCategoryType currentCategory;
     private DecoSubCategory currentSubCategory;
@@ -31,7 +33,6 @@ public class ShopUIController : MonoBehaviour
         materialTab.onClick.AddListener(() => OnTabSelected(ShopCategoryType.Material));
         upgradeTab.onClick.AddListener(() => OnTabSelected(ShopCategoryType.Upgrade));
         decoTab.onClick.AddListener(() => OnTabSelected(ShopCategoryType.Decoration));
-        backButton.onClick.AddListener(CloseSubCategories);
 
         OnTabSelected(ShopCategoryType.Material);
         UpdateCoinUI();
@@ -41,29 +42,53 @@ public class ShopUIController : MonoBehaviour
     {
         currentCategory = category;
 
-        subCategoryPanel.SetActive(category == ShopCategoryType.Decoration);
-        ClearItems();
-
         if (category == ShopCategoryType.Decoration)
         {
+            ClearItems();
             ShowSubCategories();
         }
         else
         {
+            ClearItems();
             ShowItems(ShopManager.Instance.GetItems(category));
         }
+
     }
 
-    void ShowSubCategories()
+    void ShowSubCategories() // 서브카테고리 보여줌(데코)
     {
-        ClearChildren(subCategoryButtonParent);
+        Debug.Log("서브카테고리 보여줌");
+        ClearChildren(categoryButtonParent);
+
+        GameObject backButton = Instantiate(categoryButtonPrefab, categoryButtonParent);
+        backButton.GetComponentInChildren<TextMeshProUGUI>().text = "뒤로 가기";
+        backButton.GetComponent<Button>().onClick.AddListener(() =>
+        {
+            ClearChildren(categoryButtonParent);
+            OnTabSelected(ShopCategoryType.Material);
+
+            foreach (ShopCategoryType category in System.Enum.GetValues(typeof(ShopCategoryType)))
+            {
+                GameObject btn = Instantiate(categoryButtonPrefab, categoryButtonParent);
+                btn.GetComponentInChildren<TextMeshProUGUI>().text = ConvertToKorean(category.ToString());
+                btn.GetComponent<Button>().onClick.AddListener(() =>
+                {
+                    currentCategory = category;
+                    ShowItems(ShopManager.Instance.GetItems(currentCategory));
+                });
+
+            }
+
+        });
+
         foreach (DecoSubCategory sub in System.Enum.GetValues(typeof(DecoSubCategory)))
         {
-            GameObject btn = Instantiate(subCategoryButtonPrefab, subCategoryButtonParent);
-            btn.GetComponentInChildren<TMP_Text>().text = ConvertToKorean(sub.ToString());
+            GameObject btn = Instantiate(categoryButtonPrefab, categoryButtonParent);
+            btn.GetComponentInChildren<TextMeshProUGUI>().text = ConvertToKorean(sub.ToString());
             btn.GetComponent<Button>().onClick.AddListener(() =>
             {
                 currentSubCategory = sub;
+                ClearItems();
                 ShowItems(ShopManager.Instance.GetItems(currentCategory, sub));
             });
         }
@@ -71,7 +96,6 @@ public class ShopUIController : MonoBehaviour
 
     void ShowItems(List<ShopItemData> items)
     {
-        ClearItems();
         foreach (var item in items)
         {
             GameObject obj = Instantiate(itemPrefab, itemParent);
@@ -89,10 +113,6 @@ public class ShopUIController : MonoBehaviour
         foreach (Transform child in parent) Destroy(child.gameObject);
     }
 
-    void CloseSubCategories()
-    {
-        ShowSubCategories();
-    }
 
     void UpdateCoinUI()
     {
@@ -103,10 +123,12 @@ public class ShopUIController : MonoBehaviour
     {
         return name switch
         {
+            "Material" => "재료",
+            "Upgrade" => "업그레이드",
+            "Decoration" => "장식",
             "Item" => "아이템",
             "Wall" => "벽",
             "Floor" => "바닥",
-            "Box" => "박스",
             "Table" => "테이블",
             _ => name
         };

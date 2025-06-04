@@ -5,15 +5,13 @@ public enum ItemCategory
     Interior, // 인테리어
     Exterior // 익스테리어
 }
-
-// 모든 아이템이 공통으로 가지는 정보들
-[CreateAssetMenu(menuName = "SO/Inventory/ItemData")]
+// 아이템, 벽, 바닥, 테이블
 public abstract class ItemData : ScriptableObject
 {
     public string itemName;
     public Sprite icon;
     public int price; // 되파는 가격
-    public GameObject prefab; // 배치용 프리팹
+    public GameObject prefab; // 배치용 프리팹(데코 아이템일 경우)
 
     public abstract ItemCategory Category { get; }
     public virtual System.Enum SubCategory => null; // default

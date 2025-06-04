@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a318360a20bc3c48a9d346f49645f3a, type: 3}
+  m_Name: Air conditioner(black)
+  m_EditorClassIdentifier: 
+  itemName: "\uBCBD\uAC78\uC774 \uC5D0\uC5B4\uCEE8(\uBE14\uB799)"
+  description: "\uCC1C\uD1B5 \uAC19\uC740 \uC5EC\uB984, \uC2DC\uC6D0\uD55C \uBC14\uB78C
+    \uD55C \uC904\uAE30\uAC00 \uC8FC\uB294 \uD589\uBCF5. \uB2F9\uC2E0\uC758 \uC5EC\uB984\uC744
+    \uCC45\uC784\uC9C8 \uC5D0\uC5B4\uCEE8."
+  icon: {fileID: 21300000, guid: 13f09fc93b57f2b4fafdfd894c8b43cd, type: 3}
+  price: 30
+  category: 2
+  subCategory: 1
+  itemData: {fileID: 11400000, guid: e43df2424bb4a2f499d83c8335b17560, type: 2}

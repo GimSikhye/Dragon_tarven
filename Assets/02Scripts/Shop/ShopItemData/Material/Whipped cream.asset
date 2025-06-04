@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a318360a20bc3c48a9d346f49645f3a, type: 3}
+  m_Name: Whipped cream
+  m_EditorClassIdentifier: 
+  itemName: "\uD718\uD551\uD06C\uB9BC"
+  description: "\uCF58\uD30C\uB0D0 \uBA54\uB274 \uB808\uC2DC\uD53C \uD574\uAE08"
+  icon: {fileID: -3075872301111521182, guid: d9568f59cc706e540ad0fcc0325d38d7, type: 3}
+  price: 30
+  category: 0
+  subCategory: 0
+  itemData: {fileID: 0}

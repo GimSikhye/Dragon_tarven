@@ -11,15 +11,15 @@ public class ShopItemButton : MonoBehaviour
     [SerializeField] private Button buyButton;
     [SerializeField] private GameObject checkMark;
 
-    private ShopItemData itemData;
-    private System.Action onPurchase;
+    private ShopItemData shopItemData;
+    private System.Action onPurchase; // 구입했을 때
 
     public void Init(ShopItemData data, System.Action onPurchaseCallback)
     {
-        itemData = data;
+        shopItemData = data;
         onPurchase = onPurchaseCallback;
 
-        iconImage.sprite = data.icon;
+        iconImage.sprite = data.icon; 
         nameText.text = data.itemName;
         descText.text = data.description;
         priceText.text = $"${data.price}";
@@ -31,16 +31,17 @@ public class ShopItemButton : MonoBehaviour
     void BuyItem()
     {
         var stats = PlayerStatsManager.Instance;
-        if (stats.Coin < itemData.price)
+        if (stats.Coin < shopItemData.price)
         {
             Debug.Log("코인 부족");
             return;
         }
 
-        stats.AddCoin(-itemData.price);
+        stats.AddCoin(-shopItemData.price);
 
-        // 핵심 수정: ShopItemData → 내부의 itemData 사용
-        Inventory.Instance.AddItem(itemData.itemData, 1);
+        // 배치용 아이템이라면,
+        if(shopItemData.itemData != null) 
+        Inventory.Instance.AddItem(shopItemData.itemData, 1);
 
         checkMark.SetActive(true);
         buyButton.gameObject.SetActive(false);

@@ -124,19 +124,6 @@ public class UIManager : MonoSingleton<UIManager>
         SceneManager.sceneLoaded -= InitGameUI;
     }
 
-    private void OnEnable()
-    {
-       TouchInputManager.Instance.OnTouchBegan += ShowTouchFeedback;
-       TouchInputManager.Instance.OnTouchMoved += ShowTouchFeedback;
-    }
-
-    private void OnDisable()
-    {
-        TouchInputManager.Instance.OnTouchBegan -= ShowTouchFeedback;
-        TouchInputManager.Instance.OnTouchMoved -= ShowTouchFeedback;
-    }
-
-
     private void InitGameUI(Scene scene, LoadSceneMode mode) // 게임씬 일때만 실행
     {
         if (scene.name != "GameScene") return;

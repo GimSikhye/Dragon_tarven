@@ -8,7 +8,7 @@ using DalbitCafe.Inputs;
 using DalbitCafe.Map;
 namespace DalbitCafe.Player
 {
-    public class PlayerCtrl : MonoSingleton<PlayerCtrl>
+    public class PlayerCtrl : MonoBehaviour
     {
 
         [Header("터치 UI")]
@@ -23,6 +23,7 @@ namespace DalbitCafe.Player
         private SpriteRenderer _spriteRenderer;
         public SpriteRenderer SpriteRender => _spriteRenderer;
         private Animator _animator;
+        [SerializeField] private TouchInputManager _touchInputManager;
 
         // 이동 관련 변수들
         private bool _touchOnUI = false; // 터치를 UI위에서 시작했는지
@@ -50,31 +51,23 @@ namespace DalbitCafe.Player
 
         private void OnEnable()
         {
-            SceneManager.sceneLoaded += OnSceneLoaded; // 씬 바뀔 때
-
-            if (TouchInputManager.Instance != null)
+            if (_touchInputManager != null)
             {
-                TouchInputManager.Instance.OnTouchBegan += HandleTouchBegan; // 터치 매니저의 역할?
-                TouchInputManager.Instance.OnTouchMoved += HandleTouchMoved;
-                TouchInputManager.Instance.OnTouchEnded += HandleTouchEnded;
+                _touchInputManager.OnTouchBegan += HandleTouchBegan; // 터치 매니저의 역할?
+                _touchInputManager.OnTouchMoved += HandleTouchMoved;
+                _touchInputManager.OnTouchEnded += HandleTouchEnded;
             }
         }
 
         private void OnDisable()
         {
-            SceneManager.sceneLoaded -= OnSceneLoaded;
 
-            if (TouchInputManager.Instance != null)
+            if (_touchInputManager != null)
             {
-                TouchInputManager.Instance.OnTouchBegan -= HandleTouchBegan;
-                TouchInputManager.Instance.OnTouchMoved -= HandleTouchMoved;
-                TouchInputManager.Instance.OnTouchEnded -= HandleTouchEnded;
+                _touchInputManager.OnTouchBegan -= HandleTouchBegan;
+                _touchInputManager.OnTouchMoved -= HandleTouchMoved;
+                _touchInputManager.OnTouchEnded -= HandleTouchEnded;
             }
-        }
-
-        private void OnSceneLoaded(Scene scene, LoadSceneMode mode) // 씬이 바뀔 때 DialgoueScene이 아니면 움직일 수 있음.
-        {
-            _canMoveControl = scene.name != "DialogueScene";
         }
 
         public void HandleTouchBegan(Vector2 screenPos)

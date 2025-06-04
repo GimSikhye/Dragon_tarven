@@ -7,5 +7,5 @@ public enum ShopCategoryType
 
 public enum DecoSubCategory
 {
-    Item, Wall, Floor, Box, Table
+    Item, Wall, Floor, Table
 }
