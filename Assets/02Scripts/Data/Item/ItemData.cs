@@ -3,7 +3,8 @@ public enum ItemCategory
 {
     Kitchen, // 주방
     Interior, // 인테리어
-    Exterior // 익스테리어
+    Exterior, // 익스테리어
+    Material // 재료(요리 위함)
 }
 // 아이템, 벽, 바닥, 테이블
 public abstract class ItemData : ScriptableObject

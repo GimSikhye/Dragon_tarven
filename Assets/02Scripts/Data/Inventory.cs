@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Inventory : MonoSingleton<Inventory>
+public class Inventory : MonoSingleton<Inventory> // 상점에도 필요하고, 게임씬에도 필요하므로
 {
     [SerializeField]
     private List<InventoryItem> items = new List<InventoryItem>(); // 아이템 데이터와 그 아이템 수량
@@ -27,7 +27,7 @@ public class Inventory : MonoSingleton<Inventory>
 
     public void RemoveItem(InventoryItem item)
     {
-        if(items.Contains(item))
+        if (items.Contains(item))
         {
             items.Remove(item);
         }
