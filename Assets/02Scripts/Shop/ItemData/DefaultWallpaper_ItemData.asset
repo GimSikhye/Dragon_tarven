@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fdb28531fda4741aa197f69c41b884, type: 3}
-  m_Name: BrickWallpaper
+  m_Name: DefaultWallpaper_ItemData
   m_EditorClassIdentifier: 
-  itemName: BrickWallpaper
-  icon: {fileID: 0}
-  price: 0
+  itemName: DefaultWall
+  icon: {fileID: 21300000, guid: 4379481d2a6b7ec4eb68191e5c499ea5, type: 3}
+  price: 10
   prefab: {fileID: 0}
   interiorType: 7

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a318360a20bc3c48a9d346f49645f3a, type: 3}
+  m_Name: BrickWallpaper
+  m_EditorClassIdentifier: 
+  itemName: "\uBCBD\uB3CC \uBCBD\uC9C0"
+  description: "\uC2DC\uACF5 \uC5C6\uC774\uB3C4 \uAC04\uD3B8\uD558\uAC8C \uBCBD\uB3CC
+    \uB290\uB08C\uC744 \uB0BC \uC218 \uC788\uB294 \uBCBD\uC9C0"
+  icon: {fileID: 21300000, guid: 9f1f73500367f784e98c671bc19fc2ad, type: 3}
+  price: 10
+  category: 2
+  subCategory: 2
+  itemData: {fileID: 11400000, guid: b050bf1f8bccbdb47b317a9659915e9d, type: 2}

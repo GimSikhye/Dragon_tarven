@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a318360a20bc3c48a9d346f49645f3a, type: 3}
+  m_Name: DefaultWallpaper
+  m_EditorClassIdentifier: 
+  itemName: "\uBCBD\uB3CC \uBCBD\uC9C0"
+  description: "\uBAA8\uB4E0 \uAC00\uAD6C, \uBAA8\uB4E0 \uC18C\uD488\uACFC \uC5B4\uC6B8\uB9AC\uB294
+    \uBB34\uB09C\uD55C \uAE30\uBCF8\uD615 \uBCBD\uC9C0"
+  icon: {fileID: 21300000, guid: 4379481d2a6b7ec4eb68191e5c499ea5, type: 3}
+  price: 10
+  category: 2
+  subCategory: 2
+  itemData: {fileID: 11400000, guid: 3fec17cb9ac7a90478d2f7575b307c81, type: 2}

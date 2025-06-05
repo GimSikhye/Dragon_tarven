@@ -31,7 +31,7 @@ public class QuestManager : MonoSingleton<QuestManager>
         if(scene.name == "GameScene")
         {
             questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton"); //Resources.Load 성능?
-            questListContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
+            //questListContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
             dialougManager = DialogueManager.Instance;
             quest1 = Resources.Load<QuestData>("QuestData/QuestData1");
             AddQuest(quest1); // 테스트
