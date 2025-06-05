@@ -5,7 +5,7 @@ using UnityEngine;
 public class Inventory : MonoSingleton<Inventory> // 상점에도 필요하고, 게임씬에도 필요하므로
 {
     [SerializeField]
-    private List<InventoryItem> items = new List<InventoryItem>(); // 아이템 데이터와 그 아이템 수량
+    private List<InventoryItem> items = new List<InventoryItem>(); // 아이템 데이터와 그 아이템 수량(추상화 클래스)
 
     public List<InventoryItem> GetItemsByCategory(ItemCategory category) // 카테고리가 같은 아이템 리스트를 반환함
     {
@@ -35,6 +35,18 @@ public class Inventory : MonoSingleton<Inventory> // 상점에도 필요하고, 게임씬에
         {
             Debug.LogWarning("Iventory에서 제거하려하는 아이템이 존재하지 않음");
         }
+    }
+
+    public void RemoveItemAmount(ItemData itemData, int amount)
+    {
+        var item = items.FirstOrDefault(i => i.itemData == itemData);
+        if ((item != null))
+        {
+            item.quantity -= amount;
+            if (item.quantity <= 0)
+                items.Remove(item);
+        }
+
     }
 
 }
