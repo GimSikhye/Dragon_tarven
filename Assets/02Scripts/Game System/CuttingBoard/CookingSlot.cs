@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class CookingSlot : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image iconImage;
-    [SerializeField] private Image dimOverlay; // 어두운 오버레이
 
     private RecipeData recipe;
     private bool isCookable;
@@ -16,13 +15,22 @@ public class CookingSlot : MonoBehaviour, IPointerClickHandler
         isCookable = cookable;
 
         iconImage.sprite = data.icon;
-        dimOverlay.gameObject.SetActive(!cookable); // 흐리게 처리
+
+        if (cookable)
+        {
+            iconImage.color = Color.white; // 원래 색
+        }
+        else
+        {
+            Color gray = Color.gray;
+            gray.a = 0.75f; // 투명도 조정 (75%)
+            iconImage.color = gray;
+        }
     }
 
-    
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(isCookable)
+        if (isCookable)
         {
             FindObjectOfType<CookingUIManager>().TryCook(recipe);
         }

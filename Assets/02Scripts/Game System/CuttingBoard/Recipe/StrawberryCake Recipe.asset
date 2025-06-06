@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 392b57913ac293449aedce429084591a, type: 3}
-  m_Name: StrawberryCake
+  m_Name: StrawberryCake Recipe
   m_EditorClassIdentifier: 
   recipeName: "\uB538\uAE30 \uCF00\uC775"
   icon: {fileID: 21300000, guid: dcd4d6be745ecf841b6ff8bc1443f834, type: 3}
@@ -23,4 +23,4 @@ MonoBehaviour:
     requiredAmount: 1
   - item: {fileID: 11400000, guid: 5190690a3593b7d47a8d2ac6d141e5c6, type: 2}
     requiredAmount: 1
-  outputItem: {fileID: 0}
+  outputItem: {fileID: 11400000, guid: 16ee3b9bd969665459164c4e98b2a5ce, type: 2}
