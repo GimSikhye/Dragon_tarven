@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 392b57913ac293449aedce429084591a, type: 3}
+  m_Name: CheeseCake
+  m_EditorClassIdentifier: 
+  recipeName: "\uCE58\uC988 \uCF00\uC775"
+  icon: {fileID: 21300000, guid: dfbebaefbccaf5543b3d34871baf722e, type: 3}
+  ingredients:
+  - item: {fileID: 11400000, guid: b26cd8451447e7041a4c6de3a9e4da2d, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 5c258d37f9b7083449b10e29f4a4a36b, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 01718cf2130e2434fa6bd6bb214775dc, type: 2}
+    requiredAmount: 1
+  outputItem: {fileID: 0}
