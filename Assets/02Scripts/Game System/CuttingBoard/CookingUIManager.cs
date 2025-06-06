@@ -44,7 +44,7 @@ public class CookingUIManager : MonoBehaviour
             int inventoryAmount = Inventory.Instance
                 .GetItemsByCategory(ItemCategory.Material) // Inventory.cs Items List의 InventoryItem: i
                 .Where(i => i.itemData == ingredient.item)
-                .Sum(i => i.quantity); // .sum을 하는 이유?
+                .Sum(i => i.quantity); // Sum: 컬렉션 안의 값들을 모두 더해서 합계를 구해주는 함수 // 해당 아이템이 인벤토리에 여러 개 있을 수 있으므로, 그 총 수량(quantity)을 전부 더함
 
             if (inventoryAmount < ingredient.requiredAmount)
                 return false;

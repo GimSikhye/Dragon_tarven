@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f73f29bc3e3cfb5488b8c6cc75efab38, type: 3}
-  m_Name: Milk_ItemData
+  m_Name: Flour_ItemData
   m_EditorClassIdentifier: 
-  itemName: Milk
-  icon: {fileID: 21300000, guid: a7b0f7e7adf742345b9c017c47dc6073, type: 3}
+  itemName: Flour
+  icon: {fileID: 21300000, guid: d4730ace89abc794a8b315b7a33ca91b, type: 3}
   price: 15
   prefab: {fileID: 0}
-  materialType: 2
+  materialType: 1

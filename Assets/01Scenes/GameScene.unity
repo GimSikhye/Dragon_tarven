@@ -1444,7 +1444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4309d245e08c6314fb8b766e6c34ae03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cookingUI: {fileID: 0}
+  cookingUI: {fileID: 163707824}
   recipeSlotParent: {fileID: 0}
   recipeSlotPrefab: {fileID: 0}
   recipes: []
@@ -6252,7 +6252,7 @@ MonoBehaviour:
     quantity: 1
   - itemData: {fileID: 11400000, guid: 97d1a860d3ae32f43a305354968d6da0, type: 2}
     quantity: 1
-  - itemData: {fileID: 11400000, guid: 5ed6dfb4fe061ef409b1b7590ca7c0b7, type: 2}
+  - itemData: {fileID: 11400000, guid: b26cd8451447e7041a4c6de3a9e4da2d, type: 2}
     quantity: 1
 --- !u!1 &645623179
 GameObject:
