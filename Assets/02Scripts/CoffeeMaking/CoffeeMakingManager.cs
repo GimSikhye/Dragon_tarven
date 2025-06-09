@@ -14,7 +14,6 @@ public class CoffeeMakingManager : MonoBehaviour
     private CoffeeState currentState;
     private string selectedBase;
 
-    private Vector2 simulatedTilt = Vector2.zero;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
     [SerializeField] private float pourSpeed = 10f;
     [SerializeField] private float pourDecreaseSpeed = 5f;
@@ -22,6 +21,10 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private float pouredAmount = 0f; // 현재 따라진 양
     private float pourIntensity = 0f; // 기울기 기반으로 계산된 양
+    private Vector2 simulatedTilt = Vector2.zero;
+    [SerializeField] private float simulatedTiltSpeed = 1.5f;
+    [SerializeField] private float simulatedTiltMax = 1.2f;
+
 
     // 시럽 펌핑 횟수 저장용 딕셔너리
     private Dictionary<string, int> syrupCounts = new();
@@ -78,20 +81,27 @@ public class CoffeeMakingManager : MonoBehaviour
     private Vector3 GetSimulatedAcceleration()
     {
 #if UNITY_EDITOR
-        float x = 0f;
-        float z = 0f;
+        float xInput = 0f;
+        float zInput = 0f;
 
-        if (Input.GetKey(KeyCode.LeftArrow)) x = -0.7f;
-        if (Input.GetKey(KeyCode.RightArrow)) x = 0.7f;
-        if (Input.GetKey(KeyCode.UpArrow)) z = 0.7f;
-        if (Input.GetKey(KeyCode.DownArrow)) z = -0.7f;
+        if (Input.GetKey(KeyCode.LeftArrow)) xInput = -1f;
+        if (Input.GetKey(KeyCode.RightArrow)) xInput = 1f;
+        if (Input.GetKey(KeyCode.UpArrow)) zInput = 1f;
+        if (Input.GetKey(KeyCode.DownArrow)) zInput = -1f;
 
-        return new Vector3(x, 0f, z);
+        // 누르고 있는 시간에 따라 기울기 누적 (Time.deltaTime 적용)
+        simulatedTilt.x = Mathf.Clamp(simulatedTilt.x + (xInput * simulatedTiltSpeed * Time.deltaTime), -simulatedTiltMax, simulatedTiltMax);
+        simulatedTilt.y = Mathf.Clamp(simulatedTilt.y + zInput * simulatedTiltSpeed * Time.deltaTime, -simulatedTiltMax, simulatedTiltMax);
+
+        // 키를 떼면 기울기가 천천히 복원됨
+        if (xInput == 0) simulatedTilt.x = Mathf.MoveTowards(simulatedTilt.x, 0f, simulatedTiltSpeed * Time.deltaTime);
+        if (zInput == 0) simulatedTilt.y = Mathf.MoveTowards(simulatedTilt.y, 0f, simulatedTiltSpeed * Time.deltaTime);
+
+        return new Vector3(simulatedTilt.x, 0f, simulatedTilt.y);
 #else
     return Input.acceleration;
 #endif
     }
-
 
     public void SetState(CoffeeState newState)
     {
@@ -121,7 +131,6 @@ public class CoffeeMakingManager : MonoBehaviour
         selectedBase = "";
     }
 
-
     void InitPouring() 
     {
         pouredAmount = 0f;
@@ -142,19 +151,20 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
     }
-
     private void SetAllPanelsInactive()
     {
         basePanel?.SetActive(false);
         pouringPanel?.SetActive(false);
         syrupPanel?.SetActive(false);
     }
-
     public void OnBaseSelected(string baseName)
     {
         selectedBase = baseName;
         SetState(CoffeeState.Pouring);
     }
+    public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
+    public void OnNextToPouring() => SetState(CoffeeState.Pouring);
+    public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
 
     public void OnSyrupButtonClick(string syrupName, Animator anim)
     {
