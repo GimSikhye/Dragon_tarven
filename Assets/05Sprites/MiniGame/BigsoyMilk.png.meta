@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5353675da36996e4ea70afa98f45fa02
+guid: 02b55a0b257a5b346a87cd45ede83806
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5978206272943586822
-    second: spr_portrait_Fox_0
+      213: 5217395717008225532
+    second: BigsoyMilk_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -139,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_Fox_0
+      name: BigsoyMilk_0
       rect:
         serializedVersion: 2
-        x: 98
-        y: 0
-        width: 603
-        height: 1000
+        x: 12
+        y: 8
+        width: 365
+        height: 479
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: af18f239115290da0800000000000000
-      internalID: -5978206272943586822
+      spriteID: cf47becf2c9e76840800000000000000
+      internalID: 5217395717008225532
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_Fox_0: -5978206272943586822
+      BigsoyMilk_0: 5217395717008225532
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
