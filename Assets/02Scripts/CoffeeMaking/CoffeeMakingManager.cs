@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
 
 public enum CoffeeState { BaseSelect, Pouring, Syrup}
@@ -166,8 +167,11 @@ public class CoffeeMakingManager : MonoBehaviour
     public void OnNextToPouring() => SetState(CoffeeState.Pouring);
     public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
 
-    public void OnSyrupButtonClick(string syrupName, Animator anim)
+    public void OnSyrupButtonClick(string syrupName)
     {
+        Animator anim = EventSystem.current.currentSelectedGameObject.GetComponent<Animator>(); // ? 
+        if (anim == null) return;
+
         // 애니메이션 실행
         anim.SetTrigger("Pump");
 
@@ -177,8 +181,6 @@ public class CoffeeMakingManager : MonoBehaviour
         else
             syrupCounts[syrupName]++;
 
-        // 해당 버튼의 위치를 기준으로 UI 띄우기
-        GameObject syrupButton = anim.gameObject; // Animator가 붙은 시럽 버튼 오브젝트
         UpdateSyrupUI(syrupCounts[syrupName], anim.transform);
     }
 
