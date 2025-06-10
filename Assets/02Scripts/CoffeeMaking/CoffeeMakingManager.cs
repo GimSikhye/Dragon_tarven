@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
 using System.Collections;
 
-public enum CoffeeState { BaseSelect, Pouring, Syrup}
+public enum CoffeeState { BaseSelect, Pouring, Syrup, WhippedCream}
 [System.Serializable]
 public class BaseSpriteEntry // entry: Ç×¸ñ
 {
@@ -224,6 +224,7 @@ public class CoffeeMakingManager : MonoBehaviour
     public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
     public void OnNextToPouring() => SetState(CoffeeState.Pouring);
     public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
+    public void OnNextToWhippedCream() => SetState(CoffeeState.WhippedCream);
 
     public void OnSyrupButtonClick(string syrupName)
     {
