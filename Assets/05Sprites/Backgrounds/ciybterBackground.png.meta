@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ciybterBackground_0: 8051458335065169939
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

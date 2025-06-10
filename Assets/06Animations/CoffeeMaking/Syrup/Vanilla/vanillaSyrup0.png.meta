@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bc0e8242f424dd439f627f9f795e5f0
+guid: 0e4da5e0a8bac324da54309a2b0d508b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1479999682640221454
-    second: sugarSyrup0_0
+      213: -6112193598979966025
+    second: vanillaSyrup0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sugarSyrup0_0
+      name: vanillaSyrup0_0
       rect:
         serializedVersion: 2
         x: 77
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e051677bed30a8410800000000000000
-      internalID: 1479999682640221454
+      spriteID: 7bbf1663e402d2ba0800000000000000
+      internalID: -6112193598979966025
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sugarSyrup0_0: 1479999682640221454
+      vanillaSyrup0_0: -6112193598979966025
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 4bc0e8242f424dd439f627f9f795e5f0
+guid: fb1cd07455fbcc6478fa33761fe5cb26
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 1479999682640221454
-    second: sugarSyrup0_0
+      213: 2542704776427516370
+    second: PourWater_Low0_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sugarSyrup0_0
+      name: PourWater_Low0_0
       rect:
         serializedVersion: 2
-        x: 77
-        y: 6
-        width: 146
-        height: 478
+        x: 69
+        y: 0
+        width: 115
+        height: 208
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e051677bed30a8410800000000000000
-      internalID: 1479999682640221454
+      spriteID: 2d1b6a7b580894320800000000000000
+      internalID: 2542704776427516370
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      sugarSyrup0_0: 1479999682640221454
+      PourWater_Low0_0: 2542704776427516370
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

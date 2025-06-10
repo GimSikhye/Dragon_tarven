@@ -7,7 +7,7 @@ using UnityEditor.SceneManagement;
 
 public enum CoffeeState { BaseSelect, Pouring, Syrup}
 [System.Serializable]
-public class BaseSpriteEntry
+public class BaseSpriteEntry // entry: 항목
 {
     public string baseName;
     public Sprite sprite;
@@ -20,9 +20,8 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private CoffeeState currentState;
     private string selectedBase;
-    
-
-    [SerializeField] private Dictionary<string, Sprite> baseSprites;
+    [SerializeField] private BaseSpriteEntry[] baseSpriteEntries;
+    private Dictionary<string, Sprite> baseSprites;
 
     [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
@@ -50,8 +49,12 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void Start()
     {
+        baseSprites = new Dictionary<string, Sprite>();
+        foreach(var entry in baseSpriteEntries)
+        {
+            baseSprites[entry.baseName] = entry.sprite;
+        }
         SetState(CoffeeState.BaseSelect);
-
     }
     private void Update()
     {
@@ -159,7 +162,17 @@ public class CoffeeMakingManager : MonoBehaviour
         pourIntensity = 0f;
 
         // selectedBase에 따라서 이미지 이름 바꾸기
+        pourDrink.sprite = baseSprites[selectedBase];
         UpdatePouringUI(pouredAmount);
+
+        // selectedBase
+
+        ResetAllBools(pouringAnimator);
+        if (selectedBase.Contains("Water"))
+            pouringAnimator.SetBool("Water", true);
+        else if(selectedBase.Contains("Milk"))
+            pouringAnimator.SetBool("Milk", true);
+
         UpdatePouringAnimation(0);
 
     }
@@ -184,6 +197,17 @@ public class CoffeeMakingManager : MonoBehaviour
         pouringPanel?.SetActive(false);
         syrupPanel?.SetActive(false);
     }
+    private void ResetAllBools(Animator animator)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.type == AnimatorControllerParameterType.Bool)
+            {
+                animator.SetBool(param.name, false);
+            }
+        }
+    }
+
     public void OnBaseSelected(string baseName)
     {
         selectedBase = baseName;
