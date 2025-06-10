@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
+using System.Collections;
 
 public enum CoffeeState { BaseSelect, Pouring, Syrup}
 [System.Serializable]
@@ -44,7 +45,10 @@ public class CoffeeMakingManager : MonoBehaviour
     [SerializeField] Transform mug;
     [SerializeField] private Vector3 mugDefaultPosition; // 중앙 위치
     [SerializeField] private Vector3 mugOffset = new Vector3(-50f, 0f, 0f); // 디스펜서 왼쪽으로 이동할 오프셋
-    private float pumpingCooldown = 1.5f;
+    private string lastUsedSyrup = ""; // 마지막으로 사용한 시럽 이름 추적
+    private Coroutine returnCoroutine; // 현재 실행 중인 복귀 코루틴 참조
+    private float pumpingCooldown;
+    [SerializeField] float pumpingCooltime = 0.5f;
 
 
     private void Start()
@@ -66,7 +70,8 @@ public class CoffeeMakingManager : MonoBehaviour
 
         if(currentState == CoffeeState.Syrup)
         {
-            pumpingCooldown -= Time.deltaTime;
+            if(pumpingCooldown > 0)
+                pumpingCooldown -= Time.deltaTime;
         }
 
     }
@@ -178,17 +183,20 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     void InitSyrup()
     {
-        //syrupCounts.Clear();
-
-        //// 기존 시럽 UI 초기화
-        //foreach(Transform child in syrupListPanel.transform)
-        //{
-        //    Destroy(child.gameObject);
-        //}
+        pumpingCooldown = 0f;
+        
+        // 기존 복귀 코루틴이 있다면 중단
+        if(returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+            returnCoroutine = null;
+        }
 
         // 머그 중앙으로 초기화
         mug.GetComponent<RectTransform>().anchoredPosition = mugDefaultPosition;
 
+        // 마지막으로 사용한 시럽 초기화
+        lastUsedSyrup = "";
 
     }
     private void SetAllPanelsInactive()
@@ -220,7 +228,7 @@ public class CoffeeMakingManager : MonoBehaviour
     public void OnSyrupButtonClick(string syrupName)
     {
         if (pumpingCooldown > 0) return;
-        pumpingCooldown = 1.5f;
+        pumpingCooldown = pumpingCooltime;
         Animator anim = EventSystem.current.currentSelectedGameObject.GetComponent<Animator>(); 
         if (anim == null) return;
 
@@ -234,7 +242,58 @@ public class CoffeeMakingManager : MonoBehaviour
             syrupCounts[syrupName]++;
 
         UpdateSyrupUI(syrupCounts[syrupName], anim.transform);
-        MoveMugToPumpPosition(anim.GetComponent<RectTransform>());
+
+        // 현재 실행 중인 복귀 코루틴이 있다면 중단
+        if(returnCoroutine != null)
+        {
+            StopCoroutine(returnCoroutine);
+            returnCoroutine = null;
+        }
+        
+        // 다른 시럽으로 바뀌었거나 처음 시럽을 사용하는 경우에만 위치 이동
+        if(lastUsedSyrup != syrupName)
+        {
+            MoveMugToPumpPosition(anim.GetComponent<RectTransform>());
+            lastUsedSyrup = syrupName;
+        }
+
+        // 시럽 펌핑 후 일정 시간 뒤 머그를 기본 위치로 되돌리기
+        returnCoroutine = StartCoroutine(ReturnMugToDefaultPosition());
+
+    }
+
+    // 머그를 기본 위치로 되돌리는 코루틴 추가
+    private IEnumerator ReturnMugToDefaultPosition()
+    {
+        // 시럽 펌핑 애니메이션이 끝날 시간 + 추가 대기 시간 
+        yield return new WaitForSeconds(1.5f);
+
+        // 머그를 기본 위치로 부드럽게 이동
+        RectTransform mugRect = mug.GetComponent<RectTransform>();
+        Vector2 startPos = mugRect.anchoredPosition;
+        Vector2 targetPos = mugDefaultPosition;
+
+        float duration = 0.5f; // 이동에 걸릴 시간
+        float elasped = 0f;
+
+        while(elasped < duration)
+        {
+            elasped += Time.deltaTime;
+            float t = elasped / duration; // 점점 커짐
+
+            // 부드러운 이동을 위한 easing 함수 적용
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            mugRect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        // 정확한 위치로 최종 설정
+        mugRect.anchoredPosition = mugDefaultPosition;
+
+        // 마지막 사용한 시럽 초기화 (기본 위치로 돌아왔으므로)
+        lastUsedSyrup = "";
+        returnCoroutine = null;
     }
 
     private void MoveMugToPumpPosition(RectTransform syrupTransform)
