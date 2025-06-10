@@ -6,6 +6,12 @@ using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
 
 public enum CoffeeState { BaseSelect, Pouring, Syrup}
+[System.Serializable]
+public class BaseSpriteEntry
+{
+    public string baseName;
+    public Sprite sprite;
+}
 public class CoffeeMakingManager : MonoBehaviour
 {
     [SerializeField] private GameObject basePanel;
@@ -14,7 +20,11 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private CoffeeState currentState;
     private string selectedBase;
+    
 
+    [SerializeField] private Dictionary<string, Sprite> baseSprites;
+
+    [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
     [SerializeField] private float pourSpeed = 10f;
     [SerializeField] private float pourDecreaseSpeed = 5f;
@@ -31,6 +41,12 @@ public class CoffeeMakingManager : MonoBehaviour
     private Dictionary<string, int> syrupCounts = new();
     [SerializeField] private HorizontalLayoutGroup syrupListPanel;
     [SerializeField] private GameObject syrupLabelPrefab; // 시럽이 추가되었음을 나타낼 UI 프리팹 (Text)
+    [SerializeField] private float textOffset;
+    [SerializeField] Transform mug;
+    [SerializeField] private Vector3 mugDefaultPosition; // 중앙 위치
+    [SerializeField] private Vector3 mugOffset = new Vector3(-50f, 0f, 0f); // 디스펜서 왼쪽으로 이동할 오프셋
+    private float pumpingCooldown = 1.5f;
+
 
     private void Start()
     {
@@ -43,6 +59,11 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             Debug.Log("붓기");
             HandlePouring();
+        }
+
+        if(currentState == CoffeeState.Syrup)
+        {
+            pumpingCooldown -= Time.deltaTime;
         }
 
     }
@@ -137,19 +158,24 @@ public class CoffeeMakingManager : MonoBehaviour
         pouredAmount = 0f;
         pourIntensity = 0f;
 
+        // selectedBase에 따라서 이미지 이름 바꾸기
         UpdatePouringUI(pouredAmount);
         UpdatePouringAnimation(0);
 
     }
     void InitSyrup()
     {
-        syrupCounts.Clear();
+        //syrupCounts.Clear();
 
-        // 기존 시럽 UI 초기화
-        foreach(Transform child in syrupListPanel.transform)
-        {
-            Destroy(child.gameObject);
-        }
+        //// 기존 시럽 UI 초기화
+        //foreach(Transform child in syrupListPanel.transform)
+        //{
+        //    Destroy(child.gameObject);
+        //}
+
+        // 머그 중앙으로 초기화
+        mug.GetComponent<RectTransform>().anchoredPosition = mugDefaultPosition;
+
 
     }
     private void SetAllPanelsInactive()
@@ -169,7 +195,9 @@ public class CoffeeMakingManager : MonoBehaviour
 
     public void OnSyrupButtonClick(string syrupName)
     {
-        Animator anim = EventSystem.current.currentSelectedGameObject.GetComponent<Animator>(); // ? 
+        if (pumpingCooldown > 0) return;
+        pumpingCooldown = 1.5f;
+        Animator anim = EventSystem.current.currentSelectedGameObject.GetComponent<Animator>(); 
         if (anim == null) return;
 
         // 애니메이션 실행
@@ -182,7 +210,35 @@ public class CoffeeMakingManager : MonoBehaviour
             syrupCounts[syrupName]++;
 
         UpdateSyrupUI(syrupCounts[syrupName], anim.transform);
+        MoveMugToPumpPosition(anim.GetComponent<RectTransform>());
     }
+
+    private void MoveMugToPumpPosition(RectTransform syrupTransform)
+    {
+        RectTransform mugRect = mug.GetComponent<RectTransform>();
+
+        // 1. 시럽 버튼의 월드 위치 가져오기
+        Vector3 syrupWorldPos = syrupTransform.position;
+
+        // 2. 머그의 부모 Canvas를 기준으로 로컬 좌표 변환
+        RectTransform canvasRect = syrupPanel.GetComponent<RectTransform>();
+
+        Vector2 localPoint;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            syrupWorldPos,
+            null, // UI Camera가 없는 경우 null 사용
+            out localPoint))
+        {
+            // 3. X 위치는 시럽 버튼 기준, Y는 기본 위치 유지
+            Vector2 targetPos = new Vector2(localPoint.x + mugOffset.x, mugDefaultPosition.y + mugOffset.y);
+            mugRect.anchoredPosition = targetPos;
+
+            Debug.Log($"변환된 로컬 포인트: {localPoint}, 최종 위치: {targetPos}");
+        }
+    }
+
+
 
     private void CheckRecipe() // 레시피 조건 ScriptableObject로 만들기
     {
@@ -221,12 +277,23 @@ public class CoffeeMakingManager : MonoBehaviour
             amountText.text = $"{amount:F2} ml";
     }
 
-    private void UpdateSyrupUI(int count, Transform targetTransform)
+    private void UpdateSyrupUI(int count, Transform targetTransform) // 횟수, targetTransform
     {
         if (syrupLabelPrefab == null) return;
 
         GameObject label = Instantiate(syrupLabelPrefab, syrupPanel.transform);
-        label.transform.position = Camera.main.WorldToScreenPoint(targetTransform.position);
+
+        Vector2 screenPos = Camera.main.WorldToScreenPoint(targetTransform.position);
+        RectTransform parentRect = syrupPanel.GetComponent<RectTransform>();
+        RectTransform labelRect = label.GetComponent<RectTransform>();
+
+        Vector2 localPoint; 
+        if(RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRect, screenPos, Camera.main, out localPoint))
+        {
+            localPoint.y += textOffset;
+
+            labelRect.anchoredPosition = localPoint;
+        }
 
         TextMeshProUGUI text = label.GetComponent<TextMeshProUGUI>();
         if (text != null)
