@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using UnityEditor.SceneManagement;
 using System.Collections;
+using Unity.VisualScripting;
 
 public enum CoffeeState { BaseSelect, Pouring, Syrup, WhippedCream}
 [System.Serializable]
@@ -50,6 +51,14 @@ public class CoffeeMakingManager : MonoBehaviour
     private float pumpingCooldown;
     [SerializeField] float pumpingCooltime = 0.5f;
 
+    // 타이머 관련 변수들
+    [Header("Timer Settings")]
+    [SerializeField] private TextMeshProUGUI timeRemainingText;
+    [SerializeField] private Image timerFillImage;
+    [SerializeField] private float totalTime = 120f; // 총 시간(초)
+    private float currentTime;
+    private bool isTimerRunning = false;
+    private Coroutine timerCoroutine;
 
     private void Start()
     {
@@ -58,23 +67,125 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             baseSprites[entry.baseName] = entry.sprite;
         }
+
+        InitializeTimer();
         SetState(CoffeeState.BaseSelect);
+
     }
     private void Update()
     {
         if (currentState == CoffeeState.Pouring)
         {
-            Debug.Log("붓기");
             HandlePouring();
         }
 
-        if(currentState == CoffeeState.Syrup)
+        if (currentState == CoffeeState.Syrup)
         {
-            if(pumpingCooldown > 0)
+            if (pumpingCooldown > 0)
                 pumpingCooldown -= Time.deltaTime;
+        }
+    }
+    #region Timer Methods
+    private void InitializeTimer()
+    {
+        currentTime = totalTime;
+        UpdateTimerUI();
+        StartTimer();
+
+        if(timerFillImage != null)
+        {
+            timerFillImage.type = Image.Type.Filled;
+            timerFillImage.fillMethod = Image.FillMethod.Horizontal;
+            timerFillImage.fillOrigin = 0; // 왼쪽에서 시작(Left)
+            timerFillImage.fillAmount = 1f; // 시작할 때는 가득 참
         }
 
     }
+
+    public void StartTimer()
+    {
+        if(!isTimerRunning)
+        {
+            isTimerRunning = true;
+            timerCoroutine = StartCoroutine(TimerCountdown());
+        }
+    }
+
+    public void StopTimer()
+    {
+        if(isTimerRunning)
+        {
+            isTimerRunning = false;
+            if(timerCoroutine != null)
+            {
+                StopCoroutine(timerCoroutine);
+                timerCoroutine = null;
+            }
+        }
+    }
+
+    public void ResetTimer()
+    {
+        StopTimer();
+        currentTime = totalTime;
+        UpdateTimerUI();
+    }
+
+    private IEnumerator TimerCountdown()
+    {
+        while(currentTime > 0 && isTimerRunning)
+        {
+            yield return new WaitForSeconds(1f); // 1초 대기
+
+            currentTime -= 1f;
+            currentTime = Mathf.Max(0f, currentTime); // 0 이하로 내려가지 않도록
+
+            UpdateTimerUI();
+        }
+
+        // 타이머가 끝났을 때
+        if(currentTime <= 0)
+        {
+            OnTimerEnd();
+        }
+
+        isTimerRunning = false;
+        timerCoroutine = null;
+    }
+
+    private void UpdateTimerUI()
+    {
+        // 텍스트 업데이트 (분:초 형식)
+        if(timeRemainingText != null)
+        {
+            int minutes = Mathf.FloorToInt(currentTime / 60f);
+            int seconds = Mathf.FloorToInt(currentTime % 60f);
+            timeRemainingText.text = $"{minutes:00}:{seconds:00}";
+        }
+
+        // Fill Image 업데이트(0~1 사이의 값)
+        if(timerFillImage != null)
+        {
+            float fillAmount = currentTime / totalTime;
+            timerFillImage.fillAmount = fillAmount;
+        }
+    }
+
+    private void OnTimerEnd()
+    {
+        Debug.Log("타이머 종료! 게임 종료");
+        // 타이머 종료 시 실행할 로직 추가
+        // End State로 바로 이동해서, 채점 받음(결과 화면)
+    }
+
+    // 외부에서 현재 남은 시간을 확인할 수 있는 프로퍼티
+    public float RemainingTime => currentTime;
+    public bool IsTimerRunning => isTimerRunning;
+#endregion
+
+
+
+
 
     private void HandlePouring()
     {

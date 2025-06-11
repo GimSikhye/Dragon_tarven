@@ -3,6 +3,12 @@ using UnityEngine.SceneManagement;
 
 namespace DalbitCafe.Core
 {
+    public enum Bgm
+    {
+        Menu = 0,
+        Game
+    }
+
     public class SoundManager : MonoSingleton<SoundManager> 
     {
 
@@ -10,7 +16,7 @@ namespace DalbitCafe.Core
         [SerializeField] private AudioSource _sfxAudioSource;
         [SerializeField] private AudioClip[] _bgmClips; // BGM 클립 배열
 
-        // 브금 볼륨'
+        // 브금 볼륨
         public void PlaySceneBGM(Scene scene)
         {
             AudioClip clipToPlay = null; // 플레이 할 브금
@@ -56,9 +62,4 @@ namespace DalbitCafe.Core
         }
     }
 
-    public enum Bgm
-    {
-        Menu,
-        Game
-    }
 }
