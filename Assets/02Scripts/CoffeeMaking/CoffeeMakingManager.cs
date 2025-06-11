@@ -7,7 +7,8 @@ using UnityEditor.SceneManagement;
 using System.Collections;
 using Unity.VisualScripting;
 
-public enum CoffeeState { BaseSelect, Pouring, Syrup, WhippedCream}
+public enum CoffeeState { BaseSelect, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
+
 [System.Serializable]
 public class BaseSpriteEntry // entry: 항목
 {
@@ -19,6 +20,7 @@ public class CoffeeMakingManager : MonoBehaviour
     [SerializeField] private GameObject basePanel;
     [SerializeField] private GameObject pouringPanel;
     [SerializeField] private GameObject syrupPanel;
+    [SerializeField] private GameObject whippedCreamSelectPanel;
 
     private CoffeeState currentState;
     private string selectedBase;
@@ -51,12 +53,15 @@ public class CoffeeMakingManager : MonoBehaviour
     private float pumpingCooldown;
     [SerializeField] float pumpingCooltime = 0.5f;
 
+
     // 타이머 관련 변수들
     [Header("Timer Settings")]
     [SerializeField] private TextMeshProUGUI timeRemainingText;
     [SerializeField] private Image timerFillImage;
     [SerializeField] private float totalTime = 120f; // 총 시간(초)
+    [SerializeField] private float fillSmoothSpeed = 2f; // Fill Image 부드러운 감소 속도
     private float currentTime;
+    private float targetFillAmount; // 목표 Fill Amount
     private bool isTimerRunning = false;
     private Coroutine timerCoroutine;
 
@@ -69,6 +74,7 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         InitializeTimer();
+        StartTimer();
         SetState(CoffeeState.BaseSelect);
 
     }
@@ -84,13 +90,19 @@ public class CoffeeMakingManager : MonoBehaviour
             if (pumpingCooldown > 0)
                 pumpingCooldown -= Time.deltaTime;
         }
+
+        // Fill Image 부드러운 애니메이션 처리
+        if(timerFillImage != null && isTimerRunning)
+        {
+            SmoothUpdateFillImage();
+        }
     }
     #region Timer Methods
     private void InitializeTimer()
     {
         currentTime = totalTime;
+        targetFillAmount = 0f; // 초기 목표값 0으로 설정
         UpdateTimerUI();
-        StartTimer();
 
         if(timerFillImage != null)
         {
@@ -128,6 +140,7 @@ public class CoffeeMakingManager : MonoBehaviour
     {
         StopTimer();
         currentTime = totalTime;
+        targetFillAmount = 0f; // 목표값도 리셋
         UpdateTimerUI();
     }
 
@@ -158,17 +171,23 @@ public class CoffeeMakingManager : MonoBehaviour
         // 텍스트 업데이트 (분:초 형식)
         if(timeRemainingText != null)
         {
-            int minutes = Mathf.FloorToInt(currentTime / 60f);
-            int seconds = Mathf.FloorToInt(currentTime % 60f);
-            timeRemainingText.text = $"{minutes:00}:{seconds:00}";
+            int seconds = Mathf.FloorToInt(currentTime);
+            timeRemainingText.text = seconds.ToString();
         }
+        
+        // 목표 Fill Amount 업데이트(실제 Fill Image는 SmoothUpdateFillImage에서 처리)
+        float fillAmount = currentTime / totalTime;
+    }
 
-        // Fill Image 업데이트(0~1 사이의 값)
-        if(timerFillImage != null)
-        {
-            float fillAmount = currentTime / totalTime;
-            timerFillImage.fillAmount = fillAmount;
-        }
+    private void SmoothUpdateFillImage()
+    {
+        if (timerFillImage == null) return;
+
+        // 현재 fillAmount를 목표값으로 부드럽게 이동
+        float currentFillAmount = timerFillImage.fillAmount;
+        float newFillAmount = Mathf.MoveTowards(currentFillAmount, targetFillAmount, fillSmoothSpeed * Time.deltaTime);
+
+        timerFillImage.fillAmount = newFillAmount;
     }
 
     private void OnTimerEnd()
@@ -182,9 +201,6 @@ public class CoffeeMakingManager : MonoBehaviour
     public float RemainingTime => currentTime;
     public bool IsTimerRunning => isTimerRunning;
 #endregion
-
-
-
 
 
     private void HandlePouring()
@@ -251,9 +267,10 @@ public class CoffeeMakingManager : MonoBehaviour
         basePanel.SetActive(newState == CoffeeState.BaseSelect);
         pouringPanel.SetActive(newState == CoffeeState.Pouring);
         syrupPanel.SetActive(newState == CoffeeState.Syrup);
+        whippedCreamSelectPanel.SetActive(newState == CoffeeState.WhippedCreamSelect);
 
         // 상태별 초기화도 여기에 넣어줄 수 있음
-        switch(newState)
+        switch (newState)
         {
             case CoffeeState.BaseSelect:
                 InitBaseSelect();
@@ -264,15 +281,18 @@ public class CoffeeMakingManager : MonoBehaviour
             case CoffeeState.Syrup:
                 InitSyrup();
                 break;
+            case CoffeeState.WhippedCreamSelect:
+                // 휘핑크림 선택 패널
+                break;
         }
     }
 
-    void InitBaseSelect()
+    private void InitBaseSelect()
     {
         selectedBase = "";
     }
 
-    void InitPouring() 
+    private void InitPouring() 
     {
         pouredAmount = 0f;
         pourIntensity = 0f;
@@ -292,7 +312,7 @@ public class CoffeeMakingManager : MonoBehaviour
         UpdatePouringAnimation(0);
 
     }
-    void InitSyrup()
+    private void InitSyrup()
     {
         pumpingCooldown = 0f;
         
@@ -308,6 +328,11 @@ public class CoffeeMakingManager : MonoBehaviour
 
         // 마지막으로 사용한 시럽 초기화
         lastUsedSyrup = "";
+
+    }
+
+    private void InitWhippedCreamSelect()
+    {
 
     }
     private void SetAllPanelsInactive()
@@ -335,7 +360,7 @@ public class CoffeeMakingManager : MonoBehaviour
     public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
     public void OnNextToPouring() => SetState(CoffeeState.Pouring);
     public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
-    public void OnNextToWhippedCream() => SetState(CoffeeState.WhippedCream);
+    public void OnNextToWhippedCreamSelect() => SetState(CoffeeState.WhippedCreamSelect);
 
     public void OnSyrupButtonClick(string syrupName)
     {
