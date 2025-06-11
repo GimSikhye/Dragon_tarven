@@ -182,30 +182,50 @@ public class CoffeeMakingManager : MonoBehaviour
 
         // 현재 Fill Amount를 기준으로 화살표 위치와 비교
         float fillImageWidth = whippingAmountFillImage.rectTransform.rect.width;
-        float currentFillPosition = currentWhippingAmount * fillImageWidth; // 현재 채워진 위치
+        float currentFillPosition = currentWhippingAmount * fillImageWidth; // 현재 채워진 위치(픽셀)
 
         // 화살표들의 상대적 위치 계산 (Fill Image 기준)
         float lowArrowPos = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
         float highArrowPos = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
         float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
 
-        // 텍스트와 이미지 업데이트
+        // 레벨 결정
+        string level;
         if (currentFillPosition >= veryHighArrowPos)
         {
-            UpdateWhippingDisplay("아주 많음", "veryhigh");
+            level = "veryhigh";
         }
         else if (currentFillPosition >= highArrowPos)
         {
-            UpdateWhippingDisplay("많음", "high");
+            level = "high";
         }
         else if (currentFillPosition >= lowArrowPos)
         {
-            UpdateWhippingDisplay("적음", "low");
+            level = "low";
         }
         else if (currentWhippingAmount > 0)
         {
-            UpdateWhippingDisplay("아주 적음", "verylow");
+            level = "verylow";
         }
+        else
+        {
+            return; // currentWhippingAmount가 0 이하인 경우 업데이트하지 않음
+        }
+
+        // 텍스트는 항상 동일
+        string displayText = level switch
+        {
+            "veryhigh" => "아주 많음",
+            "high" => "많음",
+            "low" => "적음",
+            "verylow" => "아주 적음",
+            _ => ""
+        };
+
+        // 이미지는 Espresso인지에 따라 다르게 처리
+        string imageName = selectedWhippingGas == "EspressoWhippingGas" ? $"Espresso_{level}" : level;
+
+        UpdateWhippingDisplay(displayText, imageName);
     }
 
     private float GetArrowRelativePosition(RectTransform arrow, RectTransform fillImage)
