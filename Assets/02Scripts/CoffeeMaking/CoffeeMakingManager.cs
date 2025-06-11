@@ -15,12 +15,25 @@ public class BaseSpriteEntry // entry: 항목
     public string baseName;
     public Sprite sprite;
 }
+[System.Serializable]
+public class WhippingGasSpriteEntry
+{
+    public string whippingGasName;
+    public Sprite sprite;
+}
+[System.Serializable]
+public class WhippedCreamSpriteEntry
+{
+    public string levelName;
+    public Sprite sprite;
+}
 public class CoffeeMakingManager : MonoBehaviour
 {
     [SerializeField] private GameObject basePanel;
     [SerializeField] private GameObject pouringPanel;
     [SerializeField] private GameObject syrupPanel;
     [SerializeField] private GameObject whippedCreamSelectPanel;
+    [SerializeField] private GameObject whippedCreamSqueezePanel;
 
     private CoffeeState currentState;
     private string selectedBase;
@@ -53,6 +66,29 @@ public class CoffeeMakingManager : MonoBehaviour
     private float pumpingCooldown;
     [SerializeField] float pumpingCooltime = 0.5f;
 
+    // 휘핑가스 선택
+    private string selectedWhippingGas;
+    [SerializeField] private WhippingGasSpriteEntry[] whippingGasSpriteEntries;
+    private Dictionary<string, Sprite> whippingGasSprites;
+    [SerializeField] private Image squeezeWhippingGas;
+
+    // 휘핑크림 게이지 시스템
+    [Header("Whipped Cream Gauge System")]
+    [SerializeField] private Image whippingAmountFillImage;
+    [SerializeField] private TextMeshProUGUI whippingAmountText;
+    [SerializeField] private Image whippedCreamImage;
+    [SerializeField] private TextMeshProUGUI startOrStopText;
+    [SerializeField] private RectTransform lowArrow;
+    [SerializeField] private RectTransform highArrow;
+    [SerializeField] private RectTransform veryHighArrow;
+    [SerializeField] private WhippedCreamSpriteEntry[] whippedCreamSprites;
+    [SerializeField] private Sprite noneWhippedCreamSpirte;
+    [SerializeField] private float whippingSpeed = 1f;
+
+    private Dictionary<string, Sprite> whippedCreamSpriteDict;
+    private bool isWhipping = false;
+    private float currentWhippingAmount = 0f;
+
 
     // 타이머 관련 변수들
     [Header("Timer Settings")]
@@ -73,6 +109,18 @@ public class CoffeeMakingManager : MonoBehaviour
             baseSprites[entry.baseName] = entry.sprite;
         }
 
+        whippingGasSprites = new Dictionary<string, Sprite>();
+        foreach (var entry in whippingGasSpriteEntries)
+        {
+            whippingGasSprites[entry.whippingGasName] = entry.sprite;
+        }
+
+        whippedCreamSpriteDict = new Dictionary<string, Sprite>();
+        foreach(var entry in whippedCreamSprites)
+        {
+            whippedCreamSpriteDict[entry.levelName] = entry.sprite;
+        }
+
         InitializeTimer();
         StartTimer();
         SetState(CoffeeState.BaseSelect);
@@ -90,13 +138,94 @@ public class CoffeeMakingManager : MonoBehaviour
             if (pumpingCooldown > 0)
                 pumpingCooldown -= Time.deltaTime;
         }
+        if (currentState == CoffeeState.WhippedCreamSqueeze)
+        {
+            HandleWhipping();
+        }
 
         // Fill Image 부드러운 애니메이션 처리
-        if(timerFillImage != null && isTimerRunning)
+        if (timerFillImage != null && isTimerRunning)
         {
             SmoothUpdateFillImage();
         }
     }
+
+    private void HandleWhipping()
+    {
+        if(isWhipping && currentWhippingAmount < 1f)
+        {
+            currentWhippingAmount += Time.deltaTime * whippingSpeed;
+            currentWhippingAmount = Mathf.Clamp01(currentWhippingAmount);
+
+            UpdateWhippingGauge();
+        }
+    }
+    private void UpdateWhippingDisplay(string text, string spriteKey)
+    {
+        if (whippingAmountText != null)
+        {
+            whippingAmountText.text = text;
+        }
+
+        if (whippedCreamImage != null && whippedCreamSpriteDict.ContainsKey(spriteKey)) // 키가 있다면
+        {
+            whippedCreamImage.sprite = whippedCreamSpriteDict[spriteKey];
+        }
+    }
+    private void UpdateWhippingGauge()
+    {
+        // Fill Image 업데이트
+        if (whippingAmountFillImage != null)
+        {
+            whippingAmountFillImage.fillAmount = currentWhippingAmount;
+        }
+
+        // 현재 Fill Amount를 기준으로 화살표 위치와 비교
+        float fillImageWidth = whippingAmountFillImage.rectTransform.rect.width;
+        float currentFillPosition = currentWhippingAmount * fillImageWidth; // 현재 채워진 위치
+
+        // 화살표들의 상대적 위치 계산 (Fill Image 기준)
+        float lowArrowPos = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
+        float highArrowPos = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
+        float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+
+        // 텍스트와 이미지 업데이트
+        if (currentFillPosition >= veryHighArrowPos)
+        {
+            UpdateWhippingDisplay("아주 많음", "veryhigh");
+        }
+        else if (currentFillPosition >= highArrowPos)
+        {
+            UpdateWhippingDisplay("많음", "high");
+        }
+        else if (currentFillPosition >= lowArrowPos)
+        {
+            UpdateWhippingDisplay("적음", "low");
+        }
+        else if (currentWhippingAmount > 0)
+        {
+            UpdateWhippingDisplay("아주 적음", "verylow");
+        }
+    }
+
+    private float GetArrowRelativePosition(RectTransform arrow, RectTransform fillImage)
+    {
+        // 화살표의 월드 위치를 Fill Image의 로컬 좌표계로 변환
+        Vector3[] arrowCorners = new Vector3[4];
+        Vector3[] fillCorners = new Vector3[4];
+
+        // GetWorldCorners: RectTransform의 네 꼭짓점의 월드 좌표를 반환하는 함수
+        arrow.GetWorldCorners(arrowCorners);
+        fillImage.GetWorldCorners(fillCorners);
+
+        // Fill Image의 왼쪽 끝과 화살표 위치의 차이를 계산
+        float fillImageLeft = fillCorners[0].x;
+        float arrowCenterX = (arrowCorners[0].x + arrowCorners[2].x) / 2f; // 화살표 중심 X 위치
+
+        return arrowCenterX - fillImageLeft;
+    }
+
+
     #region Timer Methods
     private void InitializeTimer()
     {
@@ -268,6 +397,7 @@ public class CoffeeMakingManager : MonoBehaviour
         pouringPanel.SetActive(newState == CoffeeState.Pouring);
         syrupPanel.SetActive(newState == CoffeeState.Syrup);
         whippedCreamSelectPanel.SetActive(newState == CoffeeState.WhippedCreamSelect);
+        whippedCreamSqueezePanel.SetActive(newState == CoffeeState.WhippedCreamSqueeze);
 
         // 상태별 초기화도 여기에 넣어줄 수 있음
         switch (newState)
@@ -283,6 +413,10 @@ public class CoffeeMakingManager : MonoBehaviour
                 break;
             case CoffeeState.WhippedCreamSelect:
                 // 휘핑크림 선택 패널
+                InitWhippedCreamSelect();
+                break;
+            case CoffeeState.WhippedCreamSqueeze:
+                InitWhippedCreamSqueeze();
                 break;
         }
     }
@@ -333,13 +467,51 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void InitWhippedCreamSelect()
     {
-
+        selectedWhippingGas = "";
     }
+
+    private void InitWhippedCreamSqueeze()
+    {
+        // selectedWhippingGas에 따라서 이미지 이름 바꾸기
+        squeezeWhippingGas.sprite = whippingGasSprites[selectedWhippingGas];
+
+        // 휘핑크림 게이지 시스템 초기화
+        currentWhippingAmount = 0f;
+        isWhipping = false;
+
+        // Fill Image 초기화(0으로 설정)
+        if(whippingAmountFillImage != null)
+        {
+            whippingAmountFillImage.fillAmount = 0f;
+        }
+
+        // 텍스트 초기화("아주 적음"으로 설정)
+        if(whippingAmountText != null)
+        {
+            whippingAmountText.text = "아주 적음";
+        }
+
+        // 휘핑 크림 이미지를 none으로 초기화
+        if(whippedCreamImage != null)
+        {
+            whippedCreamImage.sprite = noneWhippedCreamSpirte;
+        }
+
+        // 시작&멈춤 버튼 텍스트를 "시작"으로 초기화
+        if(startOrStopText != null)
+        {
+            startOrStopText.text = "시작";
+        }
+    }
+
     private void SetAllPanelsInactive()
     {
         basePanel?.SetActive(false);
         pouringPanel?.SetActive(false);
         syrupPanel?.SetActive(false);
+        whippedCreamSelectPanel?.SetActive(false);
+        whippedCreamSqueezePanel?.SetActive(false);
+
     }
     private void ResetAllBools(Animator animator)
     {
@@ -357,6 +529,7 @@ public class CoffeeMakingManager : MonoBehaviour
         selectedBase = baseName;
         SetState(CoffeeState.Pouring);
     }
+
     public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
     public void OnNextToPouring() => SetState(CoffeeState.Pouring);
     public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
@@ -457,8 +630,27 @@ public class CoffeeMakingManager : MonoBehaviour
             Debug.Log($"변환된 로컬 포인트: {localPoint}, 최종 위치: {targetPos}");
         }
     }
+    public void OnWhippedCreamSelected(string whippedCreamName)
+    {
+        selectedWhippingGas = whippedCreamName;
+        SetState(CoffeeState.WhippedCreamSqueeze);
+    }
 
-
+    public void OnAdjustmentButtonClick()
+    {
+        if(startOrStopText.text == "시작")
+        {
+            // 시작 상태로 변경
+            startOrStopText.text = "멈춤";
+            isWhipping = true;
+            // 다음 state로 넘기기(결과?)
+        }
+        else
+        {
+            // 멈춤 상태로 변경
+            isWhipping = false;
+        }
+    }
 
     private void CheckRecipe() // 레시피 조건 ScriptableObject로 만들기
     {
