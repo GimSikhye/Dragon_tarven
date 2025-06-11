@@ -42,6 +42,10 @@ public class CoffeeMakingManager : MonoBehaviour
     // Shot 관련 변수
     [Header("Shot System")]
     [SerializeField] private Animator[] outletAnimators; // Outlet 1, 2, 3, 4의 애니메이터들
+    [SerializeField] private Button[] shotButtons; // Shot 버튼들 배열
+    private readonly Color defaultShotButtonColor = new Color(1f, 172f / 255f, 65f / 255f, 1f);
+    private readonly Color selectedShotButtonColor = new Color(142f / 255f, 207f / 255f, 40f / 255f, 1f);
+    private bool[] shotButtonPressed; // 각 버튼이 눌렸는지 추적하는 배열
 
     [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
@@ -111,6 +115,9 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             baseSprites[entry.baseName] = entry.sprite;
         }
+
+        // Shot button 상태 배열 초기화
+        shotButtonPressed = new bool[shotButtons.Length];
 
         whippingGasSprites = new Dictionary<string, Sprite>();
         foreach (var entry in whippingGasSpriteEntries)
@@ -364,6 +371,17 @@ public class CoffeeMakingManager : MonoBehaviour
         // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기(배열 인덱스는 0부터 시작하므로 -1)
         int outletIndex = buttonNumber - 1;
 
+        // 이미 눌린 버튼인지 확인
+        if (shotButtonPressed[outletIndex])
+        {
+            Debug.Log($"Shot Button {buttonNumber}은 이미 눌렸습니다.");
+            return; // 이미 눌린 버튼이면 함수 종료
+        }
+
+        // 버튼을 눌렀다고 표시
+        shotButtonPressed[outletIndex] = true;
+
+        // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기
         if (outletIndex < outletAnimators.Length && outletAnimators[outletIndex] != null)
         {
             StartCoroutine(PlayBrewAnimation(outletAnimators[outletIndex]));
@@ -371,6 +389,25 @@ public class CoffeeMakingManager : MonoBehaviour
         else
         {
             Debug.LogError($"Outlet {buttonNumber}에 해당하는 애니메이터가 없거나 null입니다.");
+        }
+
+        // 버튼 색상 변경 및 텍스트 제거
+        if(outletIndex < shotButtons.Length && shotButtons[outletIndex] != null)
+        {
+            // 버튼 색상 변경
+            Image buttonImage = shotButtons[outletIndex].GetComponent<Image>();
+            if(buttonImage != null)
+            {
+                buttonImage.color = selectedShotButtonColor;
+            }
+
+            // 버튼의 자식 TextMeshProUGUI 텍스트 제거
+            TextMeshProUGUI buttonText = shotButtons[outletIndex].GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = "";
+            }
+
         }
     }
 
@@ -502,6 +539,26 @@ public class CoffeeMakingManager : MonoBehaviour
             if (outletAnimators[i] != null)
             {
                 outletAnimators[i].SetTrigger("None");
+            }
+        }
+
+        // Shot 버튼 상태 초기화
+        for(int i = 0; i < shotButtonPressed.Length; i++)
+        {
+            shotButtonPressed[i] = false;
+
+            // 버튼 UI도 초기 상태로 복원
+            Image buttonImage = shotButtons[i].GetComponent<Image>();
+            if(buttonImage != null)
+            {
+                buttonImage.color = defaultShotButtonColor;
+            }
+
+            // 버튼 텍스트 복원
+            TextMeshProUGUI buttonText = shotButtons[i].GetComponentInChildren<TextMeshProUGUI>();
+            if (buttonText != null)
+            {
+                buttonText.text = "TAB"; 
             }
         }
     }
