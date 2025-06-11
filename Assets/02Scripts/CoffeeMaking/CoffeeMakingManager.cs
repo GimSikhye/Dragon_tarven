@@ -3,11 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
-using UnityEditor.SceneManagement;
 using System.Collections;
-using Unity.VisualScripting;
 
-public enum CoffeeState { BaseSelect, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
+public enum CoffeeState { BaseSelect, DoTheShot, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
 
 [System.Serializable]
 public class BaseSpriteEntry // entry: 항목
@@ -30,6 +28,7 @@ public class WhippedCreamSpriteEntry
 public class CoffeeMakingManager : MonoBehaviour
 {
     [SerializeField] private GameObject basePanel;
+    [SerializeField] private GameObject shotPanel;
     [SerializeField] private GameObject pouringPanel;
     [SerializeField] private GameObject syrupPanel;
     [SerializeField] private GameObject whippedCreamSelectPanel;
@@ -39,6 +38,10 @@ public class CoffeeMakingManager : MonoBehaviour
     private string selectedBase;
     [SerializeField] private BaseSpriteEntry[] baseSpriteEntries;
     private Dictionary<string, Sprite> baseSprites;
+
+    // Shot 관련 변수
+    [Header("Shot System")]
+    [SerializeField] private Animator[] outletAnimators; // Outlet 1, 2, 3, 4의 애니메이터들
 
     [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
@@ -349,8 +352,49 @@ public class CoffeeMakingManager : MonoBehaviour
     // 외부에서 현재 남은 시간을 확인할 수 있는 프로퍼티
     public float RemainingTime => currentTime;
     public bool IsTimerRunning => isTimerRunning;
-#endregion
+    #endregion
 
+    #region Shot System Methods
+    // Shot Button 클릭 처리 메서드
+    public void OnShotButtonClick(int buttonNumber)
+    {
+        if (currentState != CoffeeState.DoTheShot) return;
+        if (buttonNumber < 1 || buttonNumber > 4) return;
+
+        // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기(배열 인덱스는 0부터 시작하므로 -1)
+        int outletIndex = buttonNumber - 1;
+
+        if (outletIndex < outletAnimators.Length && outletAnimators[outletIndex] != null)
+        {
+            StartCoroutine(PlayBrewAnimation(outletAnimators[outletIndex]));
+        }
+        else
+        {
+            Debug.LogError($"Outlet {buttonNumber}에 해당하는 애니메이터가 없거나 null입니다.");
+        }
+    }
+
+    private IEnumerator PlayBrewAnimation(Animator outletAnimator)
+    {
+        // Brew 애니메이션 재생
+        outletAnimator.SetTrigger("Brew");
+
+        // 애니메이션이 시작될 때까지 잠시 대기
+        yield return new WaitForEndOfFrame();
+
+        // "Brew" 애니메이션이 재생 중인지 확인하고 완료까지 대기
+        while (outletAnimator.GetCurrentAnimatorStateInfo(0).IsName("Brew") &&
+               outletAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+        {
+            yield return null;
+        }
+
+        // 애니메이션 완료 후 None 상태로 변경
+        outletAnimator.SetTrigger("None");
+
+        Debug.Log($"Outlet의 Brew 애니메이션이 완료되었습니다.");
+    }
+    #endregion
 
     private void HandlePouring()
     {
@@ -414,6 +458,7 @@ public class CoffeeMakingManager : MonoBehaviour
         currentState = newState;
         SetAllPanelsInactive();
         basePanel.SetActive(newState == CoffeeState.BaseSelect);
+        shotPanel.SetActive(newState == CoffeeState.DoTheShot);
         pouringPanel.SetActive(newState == CoffeeState.Pouring);
         syrupPanel.SetActive(newState == CoffeeState.Syrup);
         whippedCreamSelectPanel.SetActive(newState == CoffeeState.WhippedCreamSelect);
@@ -424,6 +469,9 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             case CoffeeState.BaseSelect:
                 InitBaseSelect();
+                break;
+            case CoffeeState.DoTheShot:
+                InitDoTheShot();
                 break;
             case CoffeeState.Pouring:
                 InitPouring();
@@ -444,6 +492,18 @@ public class CoffeeMakingManager : MonoBehaviour
     private void InitBaseSelect()
     {
         selectedBase = "";
+    }
+
+    private void InitDoTheShot()
+    {
+        // 모든 Outlet 애니메이터를 None 상태로 초기화
+        for(int i = 0; i < outletAnimators.Length; i++)
+        {
+            if (outletAnimators[i] != null)
+            {
+                outletAnimators[i].SetTrigger("None");
+            }
+        }
     }
 
     private void InitPouring() 
@@ -527,6 +587,7 @@ public class CoffeeMakingManager : MonoBehaviour
     private void SetAllPanelsInactive()
     {
         basePanel?.SetActive(false);
+        shotPanel?.SetActive(false);
         pouringPanel?.SetActive(false);
         syrupPanel?.SetActive(false);
         whippedCreamSelectPanel?.SetActive(false);
@@ -547,10 +608,11 @@ public class CoffeeMakingManager : MonoBehaviour
     public void OnBaseSelected(string baseName)
     {
         selectedBase = baseName;
-        SetState(CoffeeState.Pouring);
+        SetState(CoffeeState.DoTheShot);
     }
 
     public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
+    public void OnNextDoTheShot() => SetState(CoffeeState.DoTheShot);
     public void OnNextToPouring() => SetState(CoffeeState.Pouring);
     public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
     public void OnNextToWhippedCreamSelect() => SetState(CoffeeState.WhippedCreamSelect);
