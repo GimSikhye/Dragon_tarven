@@ -1744,7 +1744,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &180348753
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2871,7 +2871,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &328003812
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3128,9 +3128,9 @@ RectTransform:
   - {fileID: 435452218}
   m_Father: {fileID: 328003812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 125.28404, y: -37.36905}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 163.3176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &350160611
@@ -19829,9 +19829,9 @@ RectTransform:
   - {fileID: 1382143040}
   m_Father: {fileID: 328003812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 626.4202, y: -37.36905}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 163.3176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180256548
@@ -23515,6 +23515,7 @@ MonoBehaviour:
   _decorateModeExitButton: {fileID: 180348752}
   _decorateModeMenuBar: {fileID: 328003811}
   _decorateUIElement: {fileID: 988781334}
+  _calendarPanel: {fileID: 1882617450}
   _isDecorateMode: 0
   targetItem: {fileID: 0}
 --- !u!4 &1656495227
@@ -26915,9 +26916,9 @@ RectTransform:
   - {fileID: 680917034}
   m_Father: {fileID: 328003812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 375.8521, y: -37.36905}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 163.3176}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2097161350

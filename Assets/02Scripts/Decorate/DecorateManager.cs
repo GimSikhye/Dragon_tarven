@@ -3,7 +3,6 @@ using UnityEngine.SceneManagement;
 // 배치모드 관리
 namespace DalbitCafe.Deco
 {
-    // 손님 비활성화, 플레이어 비활성화
     public class DecorateManager : MonoSingleton<DecorateManager>
     {
         [Header("모드 진입 시 비활성화할 오브젝트들")]
@@ -15,13 +14,28 @@ namespace DalbitCafe.Deco
         [SerializeField] private GameObject _decorateModeExitButton;
         [SerializeField] private GameObject _decorateModeMenuBar;
         [SerializeField] private GameObject _decorateUIElement; // 배치된 아이템 터치 시 위에 뜨는 배치 UI 활성화/비활성화
-        
-        [SerializeField] private bool _isDecorateMode = false;
 
+        [Header("캘린더 패널")]
+        [SerializeField] private GameObject _calendarPanel; // daycycleManager의 UI들이 있는 부모
+
+        [SerializeField] private bool _isDecorateMode = false;
         public DraggableItem targetItem;
+
+        // DayCycleManager 참조
+        private DayCycleManager _dayCycleManager;
 
         // 배치모드 상태를 외부에서 확인할 수 있도록 public 프로퍼티 추가
         public bool IsDecorateMode => _isDecorateMode;
+
+        private void Start()
+        {
+            // DayCycleManager 찾기
+            _dayCycleManager = FindObjectOfType<DayCycleManager>();
+            if (_dayCycleManager == null)
+            {
+                Debug.LogWarning("[DecorateManager] DayCycleManager를 찾을 수 없습니다!");
+            }
+        }
 
         // 배치 모드 활성화
         public void ActivateDecorateMode()
@@ -29,17 +43,32 @@ namespace DalbitCafe.Deco
             if (_isDecorateMode) return;
 
             _isDecorateMode = true;
+
             _player.SetActive(false); // 플레이어 비활성화
 
+            // 손님들 비활성화
             _customers = new GameObject[_customerParent.childCount];
             for (int i = 0; i < _customers.Length; i++) 
             {
                 _customers[i] = _customerParent.GetChild(i).gameObject;
-                _customers[i].SetActive(false); // 손님들 비활성화
+                _customers[i].SetActive(false); 
             }
 
-            _decorateModeExitButton.SetActive(true); // 꾸미기 끝내기 버튼 활성화
+            // 배치모드 UI 활성화
+            _decorateModeExitButton.SetActive(true);
             _decorateModeMenuBar.SetActive(true);
+
+            // 캘린더 패널 비활성화
+            if (_calendarPanel != null)
+            {
+                _calendarPanel.SetActive(false);
+            }
+
+            // 시간 흐름 정지
+            if (_dayCycleManager != null)
+            {
+                _dayCycleManager.PauseTime();
+            }
         }
 
         // 배치 모드 비활성화(꾸미기 끝내기 버튼)
@@ -48,15 +77,32 @@ namespace DalbitCafe.Deco
             if (!_isDecorateMode) return;
 
             _isDecorateMode = false;
-            _player.SetActive(true); // 플레이어 활성화
+
+            // 플레이어 활성화
+            _player.SetActive(true);
+
+            // 손님들 다시 활성화
             foreach (var customer in _customers)
             {
-                customer.SetActive(true); // 손님들 다시 활성화
+                customer.SetActive(true);
             }
-            _decorateUIElement.SetActive(false); // 배치 UI 비활성화
-            _decorateModeExitButton.SetActive(false); // 끝내기 버튼 비활성화
+
+            // 배치모드 UI 비활성화
+            _decorateUIElement.SetActive(false); 
+            _decorateModeExitButton.SetActive(false); 
             _decorateModeMenuBar.SetActive(false);
 
+            // 캘린더 패널 활성화
+            if (_calendarPanel != null)
+            {
+                _calendarPanel.SetActive(true);
+            }
+
+            // 시간 흐름 재개
+            if (_dayCycleManager != null)
+            {
+                _dayCycleManager.ResumeTime();
+            }
         }
 
         // 아이템 배치 기능 여부 체크
@@ -75,7 +121,6 @@ namespace DalbitCafe.Deco
             targetItem.RotateItem();
         }
     }
-
 
 }
 

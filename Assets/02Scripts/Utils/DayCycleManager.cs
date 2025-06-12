@@ -13,21 +13,24 @@ public class DayCycleManager : MonoBehaviour
     private int day = 1;
     private int gameHour = 20; 
     private int gameMinute = 0;
-
     private float tickInterval = 5f; // 5초마다 시간 흐름
     private float elapsed = 0f;
     private bool showColon = true;
-
     private const int minutesPerTick = 10;
     private const int minutesPerDay = 600; // 10시간 = 600분
     private int totalGameMinutesPassed = 0;
+
+    // 시간 흐름 제어용 변수
+    private bool _isTimePaused = false;
+    private Coroutine _gameTimeCoroutine;
+    private Coroutine _blinkCoroutine;
 
     private void Start()
     {
         LoadDay();
         UpdateTimeUI();
-        StartCoroutine(GameTimeLoop());
-        StartCoroutine(BlinkColon());
+        _gameTimeCoroutine = StartCoroutine(GameTimeLoop());
+        _blinkCoroutine = StartCoroutine(BlinkColon());
     }
 
     private IEnumerator GameTimeLoop()
@@ -35,21 +38,14 @@ public class DayCycleManager : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(tickInterval);
-            AdvanceTime();
+            
+            // 시간이 일시정지된 상태라면 시간을 진행하지 않음
+            if(!_isTimePaused)
+            {
+                AdvanceTime();
+            }
         }
     }
-
-    private IEnumerator BlinkColon()
-    {
-        while (true)
-        {
-            showColon = !showColon;
-            UpdateTimeUI();
-            yield return new WaitForSeconds(0.5f); // 0.5초 간격으로 깜빡임
-        }
-    }
-
-
     private void AdvanceTime()
     {
         gameMinute += minutesPerTick;
@@ -69,7 +65,6 @@ public class DayCycleManager : MonoBehaviour
             EndDay();
         }
     }
-
     private void UpdateTimeUI()
     {
         string period = gameHour >= 12 && gameHour < 24 ? "pm" : "am";
@@ -83,6 +78,16 @@ public class DayCycleManager : MonoBehaviour
         ampmText.text = period;
 
         dayText.text = $"Day {day}";
+    }
+
+    private IEnumerator BlinkColon()
+    {
+        while (true)
+        {
+            showColon = !showColon;
+            UpdateTimeUI();
+            yield return new WaitForSeconds(0.5f); // 0.5초 간격으로 깜빡임
+        }
     }
 
     private void EndDay()
@@ -99,7 +104,6 @@ public class DayCycleManager : MonoBehaviour
         PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
         PlayerPrefs.Save();
     }
-
     public void LoadDay()
     {
         day = PlayerPrefs.GetInt("Day", 1); // 기본 1일차부터
@@ -115,8 +119,30 @@ public class DayCycleManager : MonoBehaviour
         gameHour = 20;
         gameMinute = 0;
         totalGameMinutesPassed = 0;
-
         UpdateTimeUI();
-        StartCoroutine(GameTimeLoop());
+
+        // 기존 코루틴을 정지하고 새로 시작
+        if (_gameTimeCoroutine != null)
+        {
+            StopCoroutine(_gameTimeCoroutine);
+        }
+        _gameTimeCoroutine = StartCoroutine(GameTimeLoop());
     }
+
+        // 시간 흐름 일시정지
+    public void PauseTime()
+    {
+        _isTimePaused = true;
+        Debug.Log("[DayCycleManager] 시간 흐름이 일시정지되었습니다.");
+    }
+
+    // 시간 흐름 재개
+    public void ResumeTime()
+    {
+        _isTimePaused = false;
+        Debug.Log("[DayCycleManager] 시간 흐름이 재개되었습니다.");
+    }
+
+    // 현재 시간 일시정지 상태 확인
+    public bool IsTimePaused => _isTimePaused;
 }
