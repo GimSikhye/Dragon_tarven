@@ -7,10 +7,12 @@ public class ShotGlassDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     [SerializeField] private int shotGlassNumber;
     [SerializeField] private Animator shotGlassAnimator; // 샷잔용 애니메이터
     [SerializeField] CoffeeMakingManager coffeeManager;
+
     private RectTransform rectTransform;
     private Vector2 originalPosition;
     private bool isDragging = false;
     private Canvas parentCanvas;
+    private bool isPouring = false; // 붓는 중인지 확인하는 플래그
 
     void Start()
     {
@@ -22,8 +24,10 @@ public class ShotGlassDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (!coffeeManager.CanDragShotGlass(shotGlassNumber)) return;
+        if (isPouring) return; // 붓는 중이면 드래그 불가
+
         isDragging = true;
-        coffeeManager.OnShotGlassDragStart(); // 여기가 실행안되는듯?
+        coffeeManager.OnShotGlassDragStart(); 
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -46,10 +50,10 @@ public class ShotGlassDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         if (!isDragging) return;
 
         isDragging = false;
+
         // Mug과의거리 체크
         if (coffeeManager.IsNearMug(rectTransform.position))
         {
-            Debug.Log("머그컵과 샷잔 가까움-샷잔 기울어짐");
             // Mug 위 왼쪽에 위치시키고 기울인 자세로 변경
             coffeeManager.PourShotToMug(shotGlassNumber, this);
         }
@@ -63,6 +67,7 @@ public class ShotGlassDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
     public void MoveToPourPosition(Vector2 pourPosition)
     {
         Debug.Log("MoveToPourPosition 실행");
+        isPouring = true; // 붓는 상태로 변경
 
         rectTransform.anchoredPosition = pourPosition;
 
@@ -73,37 +78,31 @@ public class ShotGlassDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandl
         if (shotGlassAnimator != null)
         {
             shotGlassAnimator.SetTrigger("Pour");
+            // 애니메이션 완료 후 삭제
+            StartCoroutine(WaitForAnimationAndDestroy());
         }
-    }
-    public void ReturnToOriginalPosition()
-    {
-        StartCoroutine(ReturnCoroutine());
+    
     }
 
-    private IEnumerator ReturnCoroutine()
+    private IEnumerator WaitForAnimationAndDestroy()
     {
-        // 샷 붓기 애니메이션 완료 대기
-        yield return new WaitForSeconds(1.5f);
+        // 애니메이션이 시작될 때까지 잠시 대기
+        yield return new WaitForEndOfFrame();
 
-        // 원래 위치와 회전으로 복귀
-        float duration = 0.5f;
-        float elapsed = 0f;
-        Vector2 startPos = rectTransform.anchoredPosition;
-        Quaternion startRot = rectTransform.rotation;
-
-        while (elapsed < duration)
+        // "Pour" 애니메이션이 완료될 때까지 대기
+        while(shotGlassAnimator.GetCurrentAnimatorStateInfo(0).IsName("Pour") &&
+            shotGlassAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
         {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / duration);
-
-            rectTransform.anchoredPosition = Vector2.Lerp(startPos, originalPosition, t);
-            rectTransform.rotation = Quaternion.Lerp(startRot, Quaternion.identity, t);
-
             yield return null;
         }
 
-        rectTransform.anchoredPosition = originalPosition;
-        rectTransform.rotation = Quaternion.identity;
-    }
+        // 애니메이션 완료 후 CoffeeMakingManager에 알림
+        Debug.Log($"Shot Glass {shotGlassNumber} 애니메이션 완료");
+        coffeeManager.OnShotGlassAnimationCompleted(shotGlassNumber);
 
+        // 오브젝트 삭제
+        Debug.Log($"Shot Glass {shotGlassNumber} 오브젝트 삭제");
+        Destroy(gameObject);
+
+    }
 }

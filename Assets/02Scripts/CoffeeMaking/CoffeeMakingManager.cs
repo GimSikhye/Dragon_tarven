@@ -53,6 +53,7 @@ public class CoffeeMakingManager : MonoBehaviour
     private bool[] shotButtonPressed; // 각 버튼이 눌렸는지 추적하는 배열
     private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부
     private bool[] shotGlassPouredToMug; // 각 샷잔이 Mug에 부어졌는지 여부
+    private bool[] shotGlassAnimationCompleted; // 각 샷잔의 애니메이션이 완료되었는지 여부
     private bool hasDragStarted = false; // 드래그가 한 번이라도 시작되었는지
 
     // Pour 관련 변수
@@ -129,6 +130,7 @@ public class CoffeeMakingManager : MonoBehaviour
         shotButtonPressed = new bool[shotButtons.Length];
         shotGlassHasShot = new bool[shotGlasses.Length];
         shotGlassPouredToMug = new bool[shotGlasses.Length];
+        shotGlassAnimationCompleted = new bool[shotGlasses.Length]; 
 
         whippingGasSprites = new Dictionary<string, Sprite>();
         foreach (var entry in whippingGasSpriteEntries)
@@ -214,31 +216,38 @@ public class CoffeeMakingManager : MonoBehaviour
         shotGlassPouredToMug[index] = true;
 
         Debug.Log($"Shot Glass {shotGlassNumber}이 Mug 위치 ({pourPosition}로 이동합니다.");
-        //// 일정 시간 후 원래 위치로 복귀
-        //StartCoroutine(DelayedReturn(dragHandler));
 
-        //// 모든 샷이 부어졌는지 확인
-        //CheckAllShotsPouredToMug();
     }
 
-    private IEnumerator DelayedReturn(ShotGlassDragHandler dragHandler)
+    // 샷잔 애니메이션 완료 시 호출되는 메서드 (ShotGlassDragHandler에서 호출)
+    public void OnShotGlassAnimationCompleted(int shotGlassNumber)
     {
-        yield return new WaitForSeconds(2f);
-        dragHandler.ReturnToOriginalPosition();
+        int index = shotGlassNumber - 1;
+        shotGlassAnimationCompleted[index] = true;
+
+        Debug.Log($"Shot Glass {shotGlassNumber} 애니메이션 완료");
+
+        // 모든 애니메이션이 완료되었는지 확인
+        CheckAllShotsPouredToMug();
     }
 
     private void CheckAllShotsPouredToMug()
     {
-        // 샷이 있는 모든 샷글라스가 Mug에 부어졌는지 확인
+        // 샷이 있는 모든 샷글라스가 Mug에 부어지고 애니메이션이 완료되었는지 확인
         for (int i = 0; i < shotGlassHasShot.Length; i++)
         {
-            if (shotGlassHasShot[i] && !shotGlassPouredToMug[i])
+            if (shotGlassHasShot[i])
             {
-                return; // 아직 부어지지 않은 샷글라스가 있음
+                // 샷이 있는 샷잔이 부어지지 않았거나 애니메이션이 완료되지 않았으면 리턴
+                if (!shotGlassPouredToMug[i] || !shotGlassAnimationCompleted[i])
+                {
+                    return;
+                }
             }
         }
 
-        // 모든 샷이 부어졌으면 다음 단계로 이동
+        // 모든 샷이 부어지고 애니메이션이 완료되었으면 다음 단계로 이동
+        Debug.Log("모든 샷잔 애니메이션 완료 - 다음 단계로 이동");
         OnNextToPouring();
     }
 
@@ -473,11 +482,11 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         // 버튼 색상 변경 및 텍스트 제거
-        if(outletIndex < shotButtons.Length && shotButtons[outletIndex] != null)
+        if (outletIndex < shotButtons.Length && shotButtons[outletIndex] != null)
         {
             // 버튼 색상 변경
             Image buttonImage = shotButtons[outletIndex].GetComponent<Image>();
-            if(buttonImage != null)
+            if (buttonImage != null)
             {
                 buttonImage.color = selectedShotButtonColor;
             }
@@ -491,7 +500,6 @@ public class CoffeeMakingManager : MonoBehaviour
 
         }
     }
-
 
     private IEnumerator PlayBrewAnimation(Animator outletAnimator, int shotGlassNumber)
     {
