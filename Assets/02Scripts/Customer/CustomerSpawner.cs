@@ -58,7 +58,6 @@ public class CustomerSpawner : MonoBehaviour
     }
 
 
-
     // 입장 시도
     public void TryEnterCustomer(CustomerMovement movement)
     {
@@ -157,9 +156,6 @@ public class CustomerSpawner : MonoBehaviour
 
     public DraggableItem GetAssignedSeat() => assignedSeat;
 
-
-
-
     private IEnumerator SpawnLoop()
     {
 
@@ -210,8 +206,6 @@ public class CustomerSpawner : MonoBehaviour
         state.Init();
         Debug.Log("[Spawner] Init 호출 완료");
     }
-
-
 
     public void OnCustomerSeated()
     {

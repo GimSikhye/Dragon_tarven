@@ -22,10 +22,6 @@ namespace DalbitCafe.Deco
             return _grid[gridIndex.x, gridIndex.y];
         }
 
-        private void Start()
-        {
-           
-        }
         private void OnEnable()
         {
             Debug.Log($"[{GetType().Name}] OnEnable »£√‚µ ");
@@ -37,16 +33,6 @@ namespace DalbitCafe.Deco
             base.Awake();
             InitTile();
         }
-        //private void OnEnable()
-        //{
-        //    SceneManager.sceneLoaded += InitTile;
-        //}
-
-        //private void OnDisable()
-        //{
-        //    SceneManager.sceneLoaded -= InitTile;
-
-        //}
 
         private void InitTile(Scene scene, LoadSceneMode sceneMode)
         {

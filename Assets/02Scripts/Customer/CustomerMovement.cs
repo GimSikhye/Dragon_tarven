@@ -1,4 +1,3 @@
-using DalbitCafe.Customer;
 using UnityEditor.Tilemaps;
 using UnityEngine;
 using System;
@@ -6,8 +5,6 @@ using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
 
-// 이동 + 경로 + Flip + 애니메이션
-// 기존 손님이 주문 중/ 자리 이동 중이면 새 손님x
 public class CustomerMovement : MonoBehaviour
 {
     private DraggableItem mySeat; // 이 손님의 좌석
@@ -20,7 +17,6 @@ public class CustomerMovement : MonoBehaviour
     private Tilemap storeTilemap;
     private TileBase outdoorWalkableTile; // spr_tile_brick
     private TileBase storeWalkableTile;   // spr_tile_floor
-
 
     private Vector3 target;
     private bool isMoving;
@@ -35,8 +31,6 @@ public class CustomerMovement : MonoBehaviour
     {
         this.spawner = spawner;
     }
-
-
     public void WalkRandomly()
     {
         if (pathfinder == null)
@@ -119,7 +113,6 @@ public class CustomerMovement : MonoBehaviour
         this.pathfinder = manager;
     }
 
-
     public void LeaveStore(Action onDone)
     {
         Vector3 entrance = spawner.GetEntrancePosition();
@@ -140,14 +133,11 @@ public class CustomerMovement : MonoBehaviour
         debugPath = path;
         SetMovePath(onDone);
     }
-
-
     public void PlayIdleAnimation()
     {
         animator.Play("Back_Idle_Stand");
         //spriteRenderer.flipX = true;
     }
-
     public void Sit()
     {
         if (mySeat == null) return;
@@ -190,8 +180,6 @@ public class CustomerMovement : MonoBehaviour
             mySeat = null;
         }
     }
-
-
     private void MoveTo(Tilemap tilemap, TileBase walkable, Vector3 destination, Action callback)
     {
         onArrive = callback;
@@ -251,8 +239,6 @@ public class CustomerMovement : MonoBehaviour
         SetMovePath(onDone);
     }
 
-
-
     private void UpdateAnimation(Vector3 dir)
     {
         if (dir.y > 0)
@@ -267,7 +253,6 @@ public class CustomerMovement : MonoBehaviour
 
         }
     }
-
     private void SetMovePath(Action onDone)
     {
         if (path == null || path.Count == 0)
@@ -287,7 +272,6 @@ public class CustomerMovement : MonoBehaviour
         isMoving = true;
         onArrive = onDone;
     }
-
 
     private void OnDrawGizmos()
     {
