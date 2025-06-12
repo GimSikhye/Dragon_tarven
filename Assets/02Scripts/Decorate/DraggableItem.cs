@@ -33,11 +33,9 @@ namespace DalbitCafe.Deco
         public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
 
         public ItemData itemData; // Inspector에 연결 필요
-
-
         private void Start()
         {
-            rotateUIParent = GameObject.Find("UI_DecoButtons").GetComponent<RectTransform>(); // 회전 버튼 부모 오브젝트 이름에 따라 변경
+            rotateUIParent = GameObject.Find("UI_DecorateUIElement").GetComponent<RectTransform>(); // 회전 버튼 부모 오브젝트 이름에 따라 변경
             UpdateRotateUIPosition();
         }
 
