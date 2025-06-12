@@ -26,6 +26,11 @@ namespace DalbitCafe.Deco
 
         // 배치모드 상태를 외부에서 확인할 수 있도록 public 프로퍼티 추가
         public bool IsDecorateMode => _isDecorateMode;
+        public GameObject Player => _player;
+        public Transform CustomerParent => _customerParent;
+        public GameObject[] Customers => _customers;
+        public GridManager GridManager => _gridManager;
+        public GameObject DecorateUIElement => _decorateUIElement;
 
         private void Start()
         {
@@ -43,7 +48,6 @@ namespace DalbitCafe.Deco
             if (_isDecorateMode) return;
 
             _isDecorateMode = true;
-
             _player.SetActive(false); // 플레이어 비활성화
 
             // 손님들 비활성화
@@ -84,7 +88,8 @@ namespace DalbitCafe.Deco
             // 손님들 다시 활성화
             foreach (var customer in _customers)
             {
-                customer.SetActive(true);
+                if(customer != null)
+                    customer.SetActive(true);
             }
 
             // 배치모드 UI 비활성화
@@ -103,6 +108,9 @@ namespace DalbitCafe.Deco
             {
                 _dayCycleManager.ResumeTime();
             }
+
+            // 타겟 아이템 초기화
+            targetItem = null;
         }
 
         // 아이템 배치 기능 여부 체크
@@ -116,6 +124,13 @@ namespace DalbitCafe.Deco
         {
             _gridManager.PlaceItem(position, size); // 아이템 배치 처리
         }
+
+        // 아이템 제거
+        public void RemoveItem(Vector2Int position, Vector2Int size)
+        {
+            _gridManager.RemoveItem(position, size);
+        }
+
         public void OnRotateButtonPressed()
         {
             targetItem.RotateItem();

@@ -7,14 +7,6 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
-        public bool IsOccupied { get; private set; } = false;
-        public void SetOccupied(bool state)
-        {
-            IsOccupied = state;
-        }
-
-        private Tilemap floorTilemap;
-
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] directionSprites; // 0: 오른쪽 아래, 1: 왼쪽 아래, 2: 왼쪽위, 3: 오른쪽 위
@@ -23,25 +15,40 @@ namespace DalbitCafe.Deco
         [Header("아이템 회전 제한")]
         [SerializeField] private int rotationLimit = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
 
-        
-        [Header("회전 버튼 위치")]        
-        private RectTransform rotateUIParent;
-
         [Header("아이템 배치")]
-        private Vector3 _initialPosition; // 드래그 시작 전 위치
-        private bool _isDragging = false; // 드래그 중인지 검사
-        public Vector2Int _itemSize;  // 아이템 크기 (예: 1x1, 2x1 등)
+        private Vector3 _initialPosition; // 드래그 시작 전 아이템 위치
+        private bool _isDragging = false; // 아이템이 드래그 중인지 검사
+        public Vector2Int _itemSize;  // 아이템이 차지하는 크기 (예: 1x1, 2x1 등)
+        private Vector2Int _originalGridPosition; // 원래 그리드 위치 저장
 
+        [Header("참조")]
         public ItemData itemData; // Inspector에 연결 필요
+
+        // 프로퍼티들
+        public bool IsOccupied { get; private set; } = false; // 사용 중인지
+        public bool IsDragging => _isDragging;
+        public Vector2Int ItemSize => _itemSize;
+        public int RotationIndex => _rotationIndex;
+        public int RotationLimit => rotationLimit;
+        public Vector3 InitialPosition => _initialPosition;
+
+        private Tilemap FloorTilemap { get; set; }
+        private RectTransform RotateUIParent { get; set; }
+
+        public void SetOccupied(bool state)
+        {
+            IsOccupied = state;
+        }
+
         private void Start()
         {
-            rotateUIParent = GameObject.Find("UI_DecorateUIElement").GetComponent<RectTransform>(); // 회전 버튼 부모 오브젝트 이름에 따라 변경
+            RotateUIParent = GameObject.Find("UI_DecorateUIElement")?.GetComponent<RectTransform>();
             UpdateRotateUIPosition();
         }
 
         private void Update()
         {
-            if(!_isDragging && DecorateManager.Instance.targetItem == this) // 드래그 중이 아니고, 마지막으로 선택한 아이템이라면
+            if (!_isDragging && DecorateManager.Instance.targetItem == this && DecorateManager.Instance.IsDecorateMode)
             {
                 UpdateRotateUIPosition();
             }
@@ -49,80 +56,85 @@ namespace DalbitCafe.Deco
 
         private void OnEnable()
         {
-            floorTilemap = GameObject.Find("1FFloor").GetComponent<Tilemap>();   
-        }
-        public int DirectionIndex()
-        {
-            return _rotationIndex;
+            FloorTilemap = GameObject.Find("1FFloor")?.GetComponent<Tilemap>();
         }
 
-        public void OnPointerDown(PointerEventData eventData) // 클릭했다면 타겟아이템을 이걸로
+        public void OnPointerDown(PointerEventData eventData)
         {
+            // 배치모드가 아니면 드래그 불가
+            if (!DecorateManager.Instance.IsDecorateMode) return;
+
             Debug.Log("타겟 아이템 지정됨");
             DecorateManager.Instance.targetItem = this;
         }
 
-        public void OnBeginDrag(PointerEventData eventData) // 드래그를 시작했을 때
+        public void OnBeginDrag(PointerEventData eventData)
         {
-            _initialPosition = transform.position; // 처음 위치 저장
+            // 배치모드가 아니면 드래그 불가
+            if (!DecorateManager.Instance.IsDecorateMode) return;
+
+            _initialPosition = transform.position;
             _isDragging = true;
 
-            if(rotateUIParent != null) rotateUIParent.gameObject.SetActive(false);
+            // 현재 그리드 위치 저장 및 해당 위치에서 아이템 제거
+            Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
+            _originalGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+            DecorateManager.Instance.RemoveItem(_originalGridPosition, _itemSize);
 
+            if (RotateUIParent != null)
+                RotateUIParent.gameObject.SetActive(false);
         }
 
-        public int GetDirectionIndex()
+        public void OnDrag(PointerEventData eventData)
         {
-            return _rotationIndex;
+            // 배치모드가 아니면 드래그 불가
+            if (!DecorateManager.Instance.IsDecorateMode || !_isDragging) return;
+
+            // 마우스 위치를 월드 좌표로 변환
+            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
+            worldMousePosition.z = 0;
+
+            // 셀 기준 위치 계산
+            Vector3Int cellPosition = FloorTilemap.WorldToCell(worldMousePosition);
+            Vector3 worldCenter = FloorTilemap.GetCellCenterWorld(cellPosition);
+
+            // 셀 중심에 아이템 이동
+            transform.position = worldCenter;
+
+            // 배치 가능 여부 확인
+            Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
+            bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
+
+            // 테두리 색상 갱신 (선택사항)
+            UpdateBorderColor(canPlace);
         }
 
-        public void OnDrag(PointerEventData eventData) // 드래그 중일 때
+        public void OnEndDrag(PointerEventData eventData)
         {
-            if (_isDragging)
-            {
-                // 마우스 위치를 월드 좌표로 변환
-                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
-                worldMousePosition.z = 0;
+            // 배치모드가 아니면 드래그 불가
+            if (!DecorateManager.Instance.IsDecorateMode) return;
 
-                // 셀 기준 위치 계산
-                Vector3Int cellPosition = floorTilemap.WorldToCell(worldMousePosition); // 어느 셀에 해당하는지 계산
-                Vector3 worldCenter = floorTilemap.GetCellCenterWorld(cellPosition); 
-
-                // 셀 중심에 아이템 이동
-                transform.position = worldCenter;
-
-                // 배치 가능 여부 확인
-                Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y); // 시작 셀 좌표
-                bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize); // 이 셀부터 _itemSize 크기만큼 공간이 비어 있나요?"를 체크
-
-                // 테두리 색상 갱신(불가능하면 테두리 빨간색으로)
-                //UpdateBorderColor(canPlace);
-            }
-        }
-
-        public void OnEndDrag(PointerEventData eventData) // 아이템을 놓았을 때
-        {
             _isDragging = false;
 
-            Vector3Int cellPosition = floorTilemap.WorldToCell(transform.position);
+            Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
 
             if (DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize))
             {
+                // 새 위치에 배치
                 DecorateManager.Instance.PlaceItem(cell2D, _itemSize);
-                // 배치 완료 후 UI 숨기기 (예: Move/보관함 버튼 등)
-                // HideButtons();
             }
             else
             {
-                // 원래 위치로 복귀
+                // 원래 위치로 복귀 및 그리드에 다시 배치
                 transform.position = _initialPosition;
+                DecorateManager.Instance.PlaceItem(_originalGridPosition, _itemSize);
             }
 
             // UI 다시 활성화 + 위치 업데이트
-            if(rotateUIParent != null && DecorateManager.Instance.targetItem == this)
+            if (RotateUIParent != null && DecorateManager.Instance.targetItem == this)
             {
-                rotateUIParent.gameObject.SetActive(true);
+                RotateUIParent.gameObject.SetActive(true);
                 UpdateRotateUIPosition();
             }
         }
@@ -130,24 +142,14 @@ namespace DalbitCafe.Deco
         private void UpdateBorderColor(bool canPlace)
         {
             // 테두리 색상 처리 (스프라이트 테두리 등과 연동 가능)
-            if (canPlace)
-            {
-                // itemBorder.color = Color.green;
-            }
-            else
-            {
-                // itemBorder.color = Color.red;
-            }
-        }
-
-        private void HideButtons()
-        {
-            // 꾸미기 완료 시 UI 버튼 숨기기 처리
+            // 구현이 필요한 경우 여기에 추가
         }
 
         public void RotateItem()
         {
-            Vector3 oldCenter = GetItemCenterWorldPos(floorTilemap); // floorTilemap의 중심을 가져옴?
+            if (!DecorateManager.Instance.IsDecorateMode) return;
+
+            Vector3 oldCenter = GetItemCenterWorldPos(FloorTilemap);
 
             // 회전 인덱스 갱신 (제한된 방향 수만큼)
             _rotationIndex = (_rotationIndex + 1) % rotationLimit;
@@ -159,37 +161,31 @@ namespace DalbitCafe.Deco
             }
 
             // 사이즈 전환 (x <-> y)
-            _itemSize = new Vector2Int(_itemSize.y, _itemSize.x); // 셀에서 차지하는 공간도 회전에 따라 바뀜(회전을 하면, 가로 ↔ 세로가 바뀌는 경우가 생기기 때문)
-            // 0도(↓), 180도(↑): 원래 사이즈 유지 // 90도(→), 270도(←): x ↔ y 교환 필요
-            // 그래서 회전할 때마다 x와 y를 한 번씩 교체해주면 결국 4회전 이후 원래대로 돌아오게 됩니다!
+            _itemSize = new Vector2Int(_itemSize.y, _itemSize.x);
 
             // 회전 시 중심 위치 보정
-            Vector3 newCenter = GetItemCenterWorldPos(floorTilemap);
+            Vector3 newCenter = GetItemCenterWorldPos(FloorTilemap);
             transform.position += oldCenter - newCenter;
         }
 
         private Vector3 GetItemCenterWorldPos(Tilemap tilemap)
         {
-            Vector3Int cellPos = tilemap.WorldToCell(transform.position); // 아이템의 위치를 cell 위치로 바꿈 (어디에 위치해 있는가)
-            Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos); // 좌하단 cell의 가운데
-            Vector2 offset = new Vector2((_itemSize.x - 1) / 2f, (_itemSize.y - 1) / 2f); // 아이템이 여러 칸 크기일 경우 아이템 설치 시 그 위치는 좌하단 위치가 됨. 
-            //  “여러 셀을 차지하는 아이템의 중심이 좌하단 기준으로부터 얼마나 떨어져 있는가”를 계산하는 공식 // 셀 단위 거리
+            Vector3Int cellPos = tilemap.WorldToCell(transform.position);
+            Vector3 cellCenter = tilemap.GetCellCenterWorld(cellPos);
+            Vector2 offset = new Vector2((_itemSize.x - 1) / 2f, (_itemSize.y - 1) / 2f);
 
-            return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0); // Unity 월드에서는 셀의 크기가 1이 아닐 수 있다.
-
+            return cellCenter + new Vector3(offset.x * tilemap.cellSize.x, offset.y * tilemap.cellSize.y, 0);
         }
 
         private void UpdateRotateUIPosition()
         {
-            if (rotateUIParent == null) return;
+            if (RotateUIParent == null || !DecorateManager.Instance.IsDecorateMode) return;
 
-            // 월드 좌표-> 화면 좌표
-            Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position); 
+            // 월드 좌표 -> 화면 좌표
+            Vector2 screenPos = Camera.main.WorldToScreenPoint(transform.position);
 
             // UI 위치 업데이트
-            rotateUIParent.position = screenPos;
+            RotateUIParent.position = screenPos;
         }
-
-
     }
 }

@@ -145,7 +145,7 @@ public class CustomerMovement : MonoBehaviour
         var meta = mySeat.GetComponent<ItemMeta>();
         if (meta == null) return;
 
-        int index = mySeat.GetComponent<DraggableItem>().DirectionIndex();
+        int index = mySeat.GetComponent<DraggableItem>().RotationIndex;
 
         switch (index)
         {
