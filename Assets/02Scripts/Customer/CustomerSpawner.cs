@@ -5,6 +5,7 @@ using System.Collections;
 using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
 using System.Linq;
+using Unity.VisualScripting;
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -45,7 +46,7 @@ public class CustomerSpawner : MonoBehaviour
 
         Debug.Log("[CustomerSpawner] 손님 생성 시작");
 
-        // 여기서 maxCustomerCount 설정!
+        // maxCustomerCount 설정
         maxCustomerCount = FindObjectsOfType<DraggableItem>()
             .Count(item =>
                 item != null &&
@@ -103,13 +104,10 @@ public class CustomerSpawner : MonoBehaviour
         Debug.LogWarning("GetRandomStreetPosition() 실패: walkable 타일 못 찾음, 기본 위치 반환");
         return streetSpawns[0].position;
     }
-
-
     public Vector3 GetOppositeStreetPosition(Vector3 from) // opposite : 반대방향 return
     {
         return streetSpawns[0].position == from ? streetSpawns[1].position : streetSpawns[0].position;
     }
-
     public Vector3 GetCounterPosition()
     {
         return counter.position;
@@ -146,8 +144,6 @@ public class CustomerSpawner : MonoBehaviour
         return chosen;
     }
 
-
-
     public Vector3 GetAvailableSeatPosition()
     {
         var seat = GetAvailableSeat();
@@ -158,18 +154,33 @@ public class CustomerSpawner : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
-
         while (true)
         {
             Debug.Log("[Spawner] SpawnLoop 실행");
 
-            if (activeCustomers.Count < maxCustomerCount)
+            // 배치모드 중이 아닐 때만 손님 생성
+            if (!IsDecorateMode() && activeCustomers.Count < maxCustomerCount)
             {
                 SpawnCustomer();
             }
 
             yield return new WaitForSeconds(spawnInterval);
         }
+    }
+
+    // 배치모드 상태 확인 메서드
+    private bool IsDecorateMode()
+    {
+        // DecorateManager가 null인지 먼저 확인
+        if(DecorateManager.Instance == null)
+        {
+            Debug.LogWarning("[CustomerSpawner] DecorateManager.Instance가 null입니다.");
+            return false; // DecorateManager가 없으면 일반 모드로 간주
+        }
+
+        bool isDecoMode = DecorateManager.Instance.IsDecorateMode;
+        Debug.Log($"[CustomerSpawner] 배치모드 상태: {isDecoMode}");
+        return isDecoMode;
     }
 
     private void SpawnCustomer()
@@ -181,7 +192,7 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        GameObject customer = Instantiate(prefab);
+        GameObject customer = Instantiate(prefab, transform);
         Debug.Log($"[Spawner] 손님 생성됨: {customer.name}");
 
         var movement = customer.GetComponent<CustomerMovement>();
