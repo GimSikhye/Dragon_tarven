@@ -650,6 +650,7 @@ GameObject:
   - component: {fileID: 208502799}
   - component: {fileID: 208502801}
   - component: {fileID: 208502800}
+  - component: {fileID: 208502802}
   m_Layer: 5
   m_Name: ShotGlass3
   m_TagString: Untagged
@@ -714,6 +715,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 208502798}
   m_CullTransparentMesh: 1
+--- !u!114 &208502802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 208502798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d19d215c54362747b5ceb93bf28670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotGlassNumber: 3
+  shotGlassAnimator: {fileID: 1066341066}
+  coffeeManager: {fileID: 1929333038}
 --- !u!1 &226346455
 GameObject:
   m_ObjectHideFlags: 0
@@ -2370,7 +2386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634438558
@@ -2734,7 +2750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710883512
@@ -3051,6 +3067,7 @@ GameObject:
   - component: {fileID: 809060565}
   - component: {fileID: 809060567}
   - component: {fileID: 809060566}
+  - component: {fileID: 809060568}
   m_Layer: 5
   m_Name: ShotGlass1
   m_TagString: Untagged
@@ -3115,6 +3132,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809060564}
   m_CullTransparentMesh: 1
+--- !u!114 &809060568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809060564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d19d215c54362747b5ceb93bf28670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotGlassNumber: 1
+  shotGlassAnimator: {fileID: 1066341066}
+  coffeeManager: {fileID: 1929333038}
 --- !u!1 &823806637
 GameObject:
   m_ObjectHideFlags: 0
@@ -3281,7 +3313,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863877258
@@ -3924,7 +3956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1043678895
@@ -4075,7 +4107,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1055050286
@@ -4340,6 +4372,104 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1059197404}
+  m_CullTransparentMesh: 1
+--- !u!1 &1066341064
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1066341065}
+  - component: {fileID: 1066341068}
+  - component: {fileID: 1066341067}
+  - component: {fileID: 1066341066}
+  m_Layer: 5
+  m_Name: ShotGlassAnimator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1066341065
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066341064}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1563324214}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 440, y: -200}
+  m_SizeDelta: {x: 154.07, y: 198.4527}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &1066341066
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066341064}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b6e76dbfaecd5764fb5592e31c4f4f7b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1066341067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066341064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: da2a16a4aed50264a9fb3afcb14781f5, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1066341068
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1066341064}
   m_CullTransparentMesh: 1
 --- !u!1 &1080848159
 GameObject:
@@ -5153,6 +5283,7 @@ GameObject:
   - component: {fileID: 1219963397}
   - component: {fileID: 1219963399}
   - component: {fileID: 1219963398}
+  - component: {fileID: 1219963400}
   m_Layer: 5
   m_Name: ShotGlass4
   m_TagString: Untagged
@@ -5217,6 +5348,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219963396}
   m_CullTransparentMesh: 1
+--- !u!114 &1219963400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1219963396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d19d215c54362747b5ceb93bf28670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotGlassNumber: 4
+  shotGlassAnimator: {fileID: 1066341066}
+  coffeeManager: {fileID: 1929333038}
 --- !u!1 &1258289189
 GameObject:
   m_ObjectHideFlags: 0
@@ -5349,7 +5495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.524994}
+  m_AnchoredPosition: {x: 0, y: 86.5249}
   m_SizeDelta: {x: 0, y: 173.051}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276923165
@@ -6310,6 +6456,7 @@ RectTransform:
   m_Children:
   - {fileID: 1055050285}
   - {fileID: 1080848160}
+  - {fileID: 1066341065}
   - {fileID: 1542170414}
   - {fileID: 809060565}
   - {fileID: 1645960193}
@@ -6659,6 +6806,7 @@ GameObject:
   - component: {fileID: 1645960193}
   - component: {fileID: 1645960195}
   - component: {fileID: 1645960194}
+  - component: {fileID: 1645960196}
   m_Layer: 5
   m_Name: ShotGlass2
   m_TagString: Untagged
@@ -6723,6 +6871,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1645960192}
   m_CullTransparentMesh: 1
+--- !u!114 &1645960196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1645960192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d19d215c54362747b5ceb93bf28670e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shotGlassNumber: 2
+  shotGlassAnimator: {fileID: 1066341066}
+  coffeeManager: {fileID: 1929333038}
 --- !u!1 &1661329006
 GameObject:
   m_ObjectHideFlags: 0
@@ -8358,6 +8521,13 @@ MonoBehaviour:
   - {fileID: 329262060}
   - {fileID: 194643697}
   - {fileID: 2071989825}
+  shotGlasses:
+  - {fileID: 809060565}
+  - {fileID: 1645960193}
+  - {fileID: 208502799}
+  - {fileID: 1219963397}
+  mugTransform: {fileID: 1542170414}
+  mugDetectionRadius: 100
   pourDrink: {fileID: 999124897}
   pouringAnimator: {fileID: 1682133044}
   pourSpeed: 10

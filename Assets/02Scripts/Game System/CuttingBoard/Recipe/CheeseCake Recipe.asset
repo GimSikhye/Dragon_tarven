@@ -21,4 +21,4 @@ MonoBehaviour:
     requiredAmount: 1
   - item: {fileID: 11400000, guid: 01718cf2130e2434fa6bd6bb214775dc, type: 2}
     requiredAmount: 1
-  outputItem: {fileID: 11400000, guid: 5c258d37f9b7083449b10e29f4a4a36b, type: 2}
+  outputItem: {fileID: 11400000, guid: 9368d61b85233664c9614e207651f484, type: 2}

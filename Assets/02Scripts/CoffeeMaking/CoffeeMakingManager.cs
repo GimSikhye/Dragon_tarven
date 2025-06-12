@@ -43,10 +43,19 @@ public class CoffeeMakingManager : MonoBehaviour
     [Header("Shot System")]
     [SerializeField] private Animator[] outletAnimators; // Outlet 1, 2, 3, 4의 애니메이터들
     [SerializeField] private Button[] shotButtons; // Shot 버튼들 배열
+    [SerializeField] private Transform[] shotGlasses; // 샷잔들의 Transform
+    [SerializeField] private Transform mugTransform; // Mug의 Transform
+    [SerializeField] private float mugDetectionRadius = 100f; // Mug 근처 감지 반경
+
     private readonly Color defaultShotButtonColor = new Color(1f, 172f / 255f, 65f / 255f, 1f);
     private readonly Color selectedShotButtonColor = new Color(142f / 255f, 207f / 255f, 40f / 255f, 1f);
+    
     private bool[] shotButtonPressed; // 각 버튼이 눌렸는지 추적하는 배열
+    private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부
+    private bool[] shotGlassPouredToMug; // 각 샷잔이 Mug에 부어졌는지 여부
+    private bool hasDragStarted = false; // 드래그가 한 번이라도 시작되었는지
 
+    // Pour 관련 변수
     [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
     [SerializeField] private float pourSpeed = 10f;
@@ -118,6 +127,8 @@ public class CoffeeMakingManager : MonoBehaviour
 
         // Shot button 상태 배열 초기화
         shotButtonPressed = new bool[shotButtons.Length];
+        shotGlassHasShot = new bool[shotGlasses.Length];
+        shotGlassPouredToMug = new bool[shotGlasses.Length];
 
         whippingGasSprites = new Dictionary<string, Sprite>();
         foreach (var entry in whippingGasSpriteEntries)
@@ -158,6 +169,77 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             SmoothUpdateFillImage();
         }
+    }
+
+    public bool CanDragShotGlass(int shotGlassNumber)
+    {
+        if (currentState != CoffeeState.DoTheShot) return false;
+        int index = shotGlassNumber - 1;
+        return shotGlassHasShot[index] && !shotGlassPouredToMug[index];
+    }
+
+    public void OnShotGlassDragStart()
+    {
+        hasDragStarted = true;
+    }
+
+    public bool IsNearMug(Vector3 shotGlassPosition)
+    {
+        if (mugTransform == null) return false;
+
+        float distance = Vector3.Distance(shotGlassPosition, mugTransform.position);
+        return distance <= mugDetectionRadius;
+    }
+
+    public void PourShotToMug(int shotGlassNumber, ShotGlassDragHandler dragHandler)
+    {
+        int index = shotGlassNumber - 1;
+
+        // Mug의 RectTransform을 가져옴
+        RectTransform mugRect = mugTransform.GetComponent<RectTransform>();
+        if(mugRect == null)
+        {
+            Debug.LogError("Mug에 RectTransform이 없습니다!");
+            return;
+        }
+
+        // Mug의 현재 anchoredPosition을 기준으로 붓는 위치 계산
+        Vector2 mugPosition = mugRect.anchoredPosition;
+        Vector2 pourPosition = new Vector2(mugPosition.x - 250f, mugPosition.y + 200f);
+
+        // 샷글라스를 붓는 위치로 이동하고 애니메이션 실행
+        dragHandler.MoveToPourPosition(pourPosition);
+
+        // 샷이 부어졌다고 표시
+        shotGlassPouredToMug[index] = true;
+
+        Debug.Log($"Shot Glass {shotGlassNumber}이 Mug 위치 ({pourPosition}로 이동합니다.");
+        //// 일정 시간 후 원래 위치로 복귀
+        //StartCoroutine(DelayedReturn(dragHandler));
+
+        //// 모든 샷이 부어졌는지 확인
+        //CheckAllShotsPouredToMug();
+    }
+
+    private IEnumerator DelayedReturn(ShotGlassDragHandler dragHandler)
+    {
+        yield return new WaitForSeconds(2f);
+        dragHandler.ReturnToOriginalPosition();
+    }
+
+    private void CheckAllShotsPouredToMug()
+    {
+        // 샷이 있는 모든 샷글라스가 Mug에 부어졌는지 확인
+        for (int i = 0; i < shotGlassHasShot.Length; i++)
+        {
+            if (shotGlassHasShot[i] && !shotGlassPouredToMug[i])
+            {
+                return; // 아직 부어지지 않은 샷글라스가 있음
+            }
+        }
+
+        // 모든 샷이 부어졌으면 다음 단계로 이동
+        OnNextToPouring();
     }
 
     private void HandleWhipping()
@@ -368,6 +450,9 @@ public class CoffeeMakingManager : MonoBehaviour
         if (currentState != CoffeeState.DoTheShot) return;
         if (buttonNumber < 1 || buttonNumber > 4) return;
 
+        // 드래그가 시작된 후에는 버튼 클릭 무시
+        if (hasDragStarted) return;
+
         // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기(배열 인덱스는 0부터 시작하므로 -1)
         int outletIndex = buttonNumber - 1;
 
@@ -384,11 +469,7 @@ public class CoffeeMakingManager : MonoBehaviour
         // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기
         if (outletIndex < outletAnimators.Length && outletAnimators[outletIndex] != null)
         {
-            StartCoroutine(PlayBrewAnimation(outletAnimators[outletIndex]));
-        }
-        else
-        {
-            Debug.LogError($"Outlet {buttonNumber}에 해당하는 애니메이터가 없거나 null입니다.");
+            StartCoroutine(PlayBrewAnimation(outletAnimators[outletIndex], buttonNumber));
         }
 
         // 버튼 색상 변경 및 텍스트 제거
@@ -411,7 +492,8 @@ public class CoffeeMakingManager : MonoBehaviour
         }
     }
 
-    private IEnumerator PlayBrewAnimation(Animator outletAnimator)
+
+    private IEnumerator PlayBrewAnimation(Animator outletAnimator, int shotGlassNumber)
     {
         // Brew 애니메이션 재생
         outletAnimator.SetTrigger("Brew");
@@ -429,7 +511,11 @@ public class CoffeeMakingManager : MonoBehaviour
         // 애니메이션 완료 후 None 상태로 변경
         outletAnimator.SetTrigger("None");
 
-        Debug.Log($"Outlet의 Brew 애니메이션이 완료되었습니다.");
+        // 애니메이션 완료 후 해당 샷글라스에 샷이 있다고 표시
+        int index = shotGlassNumber - 1;
+        shotGlassHasShot[index] = true;
+
+        Debug.Log($"Shot Glass {shotGlassNumber}에 샷이 준비되었습니다.");
     }
     #endregion
 
@@ -533,8 +619,18 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void InitDoTheShot()
     {
+        // 모든 상태 초기화
+        for (int i = 0; i < shotButtonPressed.Length; i++)
+        {
+            shotButtonPressed[i] = false;
+            shotGlassHasShot[i] = false;
+            shotGlassPouredToMug[i] = false;
+        }
+
+        hasDragStarted = false;
+
         // 모든 Outlet 애니메이터를 None 상태로 초기화
-        for(int i = 0; i < outletAnimators.Length; i++)
+        for (int i = 0; i < outletAnimators.Length; i++)
         {
             if (outletAnimators[i] != null)
             {
