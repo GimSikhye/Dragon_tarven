@@ -632,7 +632,7 @@ MonoBehaviour:
   counter: {fileID: 2001443305}
   entrance: {fileID: 1523030856}
   seatPositions:
-  - {fileID: 1968674880}
+  - {fileID: 0}
   - {fileID: 1162794391}
   outdoorTilemap: {fileID: 916491242}
   storeTilemap: {fileID: 570655510}
@@ -19665,7 +19665,7 @@ PrefabInstance:
     - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 3ff4d0719106fac4a9f2dcec3f52abf0, type: 2}
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -25746,76 +25746,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
   m_PrefabInstance: {fileID: 7320602828924358826}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1968674879
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.3696115
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.4347221
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 501423630672643444, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: itemData
-      value: 
-      objectReference: {fileID: 11400000, guid: cd90c8479bdeb8b43996d131ecd0792e, type: 2}
-    - target: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: m_Name
-      value: P_Funiture_Chair
-      objectReference: {fileID: 0}
-    - target: {fileID: 9002122089546757465, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 3ff4d0719106fac4a9f2dcec3f52abf0, type: 2}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
---- !u!4 &1968674880 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 79783471751879234, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-  m_PrefabInstance: {fileID: 1968674879}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1970320625
 GameObject:
   m_ObjectHideFlags: 0
@@ -27579,6 +27509,10 @@ PrefabInstance:
       propertyPath: itemData
       value: 
       objectReference: {fileID: 11400000, guid: 1cf5226c83db19047bffc3a96e24655a, type: 2}
+    - target: {fileID: 5160243935755911282, guid: 06a8a710764c1024ca5b96e82d524d14, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
     - target: {fileID: 6261046269857188999, guid: 06a8a710764c1024ca5b96e82d524d14, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.452
@@ -28202,7 +28136,6 @@ SceneRoots:
   - {fileID: 77308646}
   - {fileID: 1379463224}
   - {fileID: 897082830}
-  - {fileID: 1968674879}
   - {fileID: 1162794390}
   - {fileID: 3679612288810568974}
   - {fileID: 1656495227}

@@ -21,6 +21,11 @@ namespace DalbitCafe.Deco
         public Vector2Int _itemSize;  // 아이템이 차지하는 크기 (예: 1x1, 2x1 등)
         private Vector2Int _originalGridPosition; // 원래 그리드 위치 저장
 
+        [Header("아웃라인 효과")]
+        [SerializeField] private Material greenOutlineMaterial; // 배치 가능한 위치용 머티리얼
+        [SerializeField] private Material redOutlineMaterial; // 배치 불가능한 위치용 머티리얼
+        private Material _originalMaterial; // 원본 머티리얼 저장
+
         [Header("참조")]
         public ItemData itemData; // Inspector에 연결 필요
 
@@ -44,6 +49,18 @@ namespace DalbitCafe.Deco
         {
             RotateUIParent = GameObject.Find("UI_DecorateUIElement")?.GetComponent<RectTransform>();
             UpdateRotateUIPosition();
+
+            // 원본 머티리얼 저장
+            if (spriteRenderer != null)
+            {
+                _originalMaterial = spriteRenderer.material;
+            }
+
+            // 아웃라인 머티리얼들이 Inspector에서 설정되지 않은 경우 경고
+            if (greenOutlineMaterial == null || redOutlineMaterial == null)
+            {
+                Debug.LogWarning($"[DraggableItem] {gameObject.name}의 아웃라인 머티리얼들이 설정되지 않았습니다. Inspector에서 GreenOutlineMaterial과 RedOutlineMaterial을 할당해주세요.");
+            }
         }
 
         private void Update()
@@ -105,8 +122,8 @@ namespace DalbitCafe.Deco
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
             bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
 
-            // 테두리 색상 갱신 (선택사항)
-            UpdateBorderColor(canPlace);
+            // 아웃라인 색상 갱신
+            UpdateOutlineColor(canPlace);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -131,6 +148,9 @@ namespace DalbitCafe.Deco
                 DecorateManager.Instance.PlaceItem(_originalGridPosition, _itemSize);
             }
 
+            // 아웃라인 효과 비활성화
+            EnableOutline(false);
+
             // UI 다시 활성화 + 위치 업데이트
             if (RotateUIParent != null && DecorateManager.Instance.targetItem == this)
             {
@@ -139,10 +159,42 @@ namespace DalbitCafe.Deco
             }
         }
 
-        private void UpdateBorderColor(bool canPlace)
+        /// <summary>
+        /// 아웃라인 효과 활성화/비활성화
+        /// </summary>
+        private void EnableOutline(bool enable)
         {
-            // 테두리 색상 처리 (스프라이트 테두리 등과 연동 가능)
-            // 구현이 필요한 경우 여기에 추가
+            if (spriteRenderer == null) return;
+
+            if (enable)
+            {
+                // 기본적으로 초록색 아웃라인으로 시작
+                spriteRenderer.material = greenOutlineMaterial;
+            }
+            else
+            {
+                spriteRenderer.material = _originalMaterial;
+            }
+        }
+
+        /// <summary>
+        /// 배치 가능 여부에 따라 아웃라인 머티리얼 변경
+        /// </summary>
+        private void UpdateOutlineColor(bool canPlace)
+        {
+            if (spriteRenderer == null) return;
+
+            // 배치 가능 여부에 따라 적절한 머티리얼로 교체
+            if (canPlace)
+            {
+                if (greenOutlineMaterial != null)
+                    spriteRenderer.material = greenOutlineMaterial;
+            }
+            else
+            {
+                if (redOutlineMaterial != null)
+                    spriteRenderer.material = redOutlineMaterial;
+            }
         }
 
         public void RotateItem()
