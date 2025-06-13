@@ -112,6 +112,8 @@ MonoBehaviour:
   _itemSize: {x: 1, y: 1}
   greenOutlineMaterial: {fileID: 2100000, guid: fdb3db24d00dfd34895526797a509f3b, type: 2}
   redOutlineMaterial: {fileID: 2100000, guid: 5a8e5bba1ec50a84e9f1e06e52213b8b, type: 2}
+  confirmActiveSprite: {fileID: 21300000, guid: bf6d359889db3f34392f1ac1084f63a4, type: 3}
+  confirmDeactiveSprite: {fileID: 21300000, guid: 9b9383c096a414b4e9de1afbf72da389, type: 3}
   itemData: {fileID: 0}
 --- !u!61 &4573046559606593623
 BoxCollider2D:

@@ -2,6 +2,7 @@ using DalbitCafe.Deco;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Tilemaps;
+using UnityEngine.UI;
 
 namespace DalbitCafe.Deco
 {
@@ -26,6 +27,10 @@ namespace DalbitCafe.Deco
         [SerializeField] private Material redOutlineMaterial; // 배치 불가능한 위치용 머티리얼
         private Material _originalMaterial; // 원본 머티리얼 저장
 
+        [Header("UI 스프라이트 변경")]
+        [SerializeField] private Sprite confirmActiveSprite; // 배치 가능할 때 사용할 스프라이트
+        [SerializeField] private Sprite confirmDeactiveSprite; // 배치 불가능할 때 사용할 스프라이트 
+        
         [Header("참조")]
         public ItemData itemData; // Inspector에 연결 필요
 
@@ -39,6 +44,7 @@ namespace DalbitCafe.Deco
 
         private Tilemap FloorTilemap { get; set; }
         private RectTransform RotateUIParent { get; set; }
+        private Image ConfirmButtonImage { get; set; } // UI_DecoConfirmBtn의 Image 컴포넌트
 
         public void SetOccupied(bool state)
         {
@@ -48,6 +54,14 @@ namespace DalbitCafe.Deco
         private void Start()
         {
             RotateUIParent = GameObject.Find("UI_DecorateUIElement")?.GetComponent<RectTransform>();
+
+            // UI_DecoConfirmBtn의 Image 컴포넌트 찾기
+            GameObject confirmBtn = GameObject.Find("UI_DecoConfirmBtn");
+            if (confirmBtn != null)
+            {
+                ConfirmButtonImage = confirmBtn.GetComponent<Image>();
+            }
+
             UpdateRotateUIPosition();
 
             // 원본 머티리얼 저장
@@ -124,6 +138,9 @@ namespace DalbitCafe.Deco
 
             // 아웃라인 색상 갱신
             UpdateOutlineColor(canPlace);
+
+            // UI 스프라이트 갱신
+            UpdateConfirmButtonSprite(canPlace);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -150,6 +167,9 @@ namespace DalbitCafe.Deco
 
             // 아웃라인 효과 비활성화
             EnableOutline(false);
+
+            // UI 스프라이트를 기본 상태로 복원
+            UpdateConfirmButtonSprite(true);
 
             // UI 다시 활성화 + 위치 업데이트
             if (RotateUIParent != null && DecorateManager.Instance.targetItem == this)
@@ -194,6 +214,25 @@ namespace DalbitCafe.Deco
             {
                 if (redOutlineMaterial != null)
                     spriteRenderer.material = redOutlineMaterial;
+            }
+        }
+
+        /// <summary>
+        /// 배치 가능 여부에 따라 확인 버튼 스프라이트 변경
+        /// </summary>
+        private void UpdateConfirmButtonSprite(bool canPlace)
+        {
+            if (ConfirmButtonImage == null) return;
+
+            if (canPlace)
+            {
+                if (confirmActiveSprite != null)
+                    ConfirmButtonImage.sprite = confirmActiveSprite;
+            }
+            else
+            {
+                if (confirmDeactiveSprite != null)
+                    ConfirmButtonImage.sprite = confirmDeactiveSprite;
             }
         }
 

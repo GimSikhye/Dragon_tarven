@@ -1871,12 +1871,12 @@ GameObject:
   - component: {fileID: 197691007}
   - component: {fileID: 197691006}
   m_Layer: 5
-  m_Name: UI_StoreBtn
+  m_Name: UI_SettingBtn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &197691005
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1961,9 +1961,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 58dd4e92dd1e2427bb5d418a3e58d159, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74dc5b1ae3086704db3be35d7d66f480, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -2387,9 +2387,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2e57f9725042d4e3aa9ec75259c6c3c0, type: 3}
+  m_Sprite: {fileID: 1288719380353296186, guid: 2ca6eb8919ed7954b8126c281c4cdd3e, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -4135,9 +4135,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d04b5fd68437e4faba7a160858d7b6a6, type: 3}
+  m_Sprite: {fileID: -6112223929934651330, guid: dc221c9f793738c4abde1cfc69edf612, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -6372,7 +6372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &585801128
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6457,9 +6457,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d756a7bcbb54b496aa528f21c3ddc7af, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6c17f5c2a888aa34b8c61e0e25ff8d7f, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -7515,7 +7515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -88}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &680917035
@@ -26915,9 +26915,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
+  m_Sprite: {fileID: -3660477880530691491, guid: 1e6feea9cd323304e8c9ad19ee9ead3f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -27570,6 +27570,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 85951641}
     m_Modifications:
+    - target: {fileID: 1732359880940467263, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bf6d359889db3f34392f1ac1084f63a4, type: 3}
+    - target: {fileID: 3056033683447115539, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 743ed22076f13a54ca7c482a57e8fe69, type: 3}
     - target: {fileID: 3710415558670058386, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
       propertyPath: m_Name
       value: UI_DecorateUIElement
@@ -27578,6 +27586,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5232819614704700612, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c876a5283c606d44baa57f9fa7a9dab4, type: 3}
     - target: {fileID: 5803069473220284993, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -27670,6 +27682,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8970139426291050799, guid: d87072b40a0df2a4c912546d2cc63635, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 58426a1db0055b34f8449902041c82c0, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

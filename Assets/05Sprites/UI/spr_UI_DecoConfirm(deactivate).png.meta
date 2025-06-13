@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c876a5283c606d44baa57f9fa7a9dab4
+guid: 9b9383c096a414b4e9de1afbf72da389
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1032288966828978437
-    second: spr_UI_DecoStorageBox_0
+      213: -2675835894767491223
+    second: spr_UI_DecoConfirm(deactivate)_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,12 +126,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_UI_DecoStorageBox_0
+      name: spr_UI_DecoConfirm(deactivate)_0
       rect:
         serializedVersion: 2
-        x: 5
+        x: 6
         y: 6
-        width: 501
+        width: 500
         height: 501
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bfe8a9a67a29ca1f0800000000000000
-      internalID: -1032288966828978437
+      spriteID: 967e42f4e658ddad0800000000000000
+      internalID: -2675835894767491223
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_UI_DecoStorageBox_0: -1032288966828978437
+      spr_UI_DecoConfirm(deactivate)_0: -2675835894767491223
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
