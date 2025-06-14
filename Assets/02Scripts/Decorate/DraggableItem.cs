@@ -322,6 +322,67 @@ namespace DalbitCafe.Deco
 
             Debug.Log($"[CancelPendingPlacement] 취소 완료 - 최종 위치: {transform.position}");
         }
+
+        /// <summary>
+        /// 아이템을 배치 대기 상태로 시작 (인벤토리에서 새로 생성된 아이템용)
+        /// </summary>
+        public void StartPendingPlacement()
+        {
+            Debug.Log($"[StartPendingPlacement] 새 아이템 배치 대기 시작: {gameObject.name}");
+
+            // 현재 위치를 초기 위치로 설정
+            _initialPosition = transform.position;
+
+            // 현재 그리드 위치 계산
+            if (FloorTilemap == null)
+            {
+                FloorTilemap = GameObject.Find("1FFloor")?.GetComponent<Tilemap>();
+            }
+
+            if (FloorTilemap != null)
+            {
+                Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
+                _originalGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+
+                // 셀 중심으로 위치 보정
+                Vector3 worldCenter = FloorTilemap.GetCellCenterWorld(cellPosition);
+                transform.position = worldCenter;
+
+                // 보정된 위치로 초기 위치 다시 설정
+                _initialPosition = worldCenter;
+
+                Debug.Log($"[StartPendingPlacement] 초기 위치 설정: {_initialPosition}");
+                Debug.Log($"[StartPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
+            }
+
+            // 배치 대기 상태로 설정
+            _isPendingPlacement = true;
+            _pendingPosition = transform.position;
+            _pendingGridPosition = _originalGridPosition;
+
+            // 현재 위치에 배치 가능한지 확인
+            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(_pendingGridPosition, _itemSize);
+
+            Debug.Log($"[StartPendingPlacement] 배치 대기 위치: {_pendingPosition}");
+            Debug.Log($"[StartPendingPlacement] 배치 대기 그리드 위치: {_pendingGridPosition}");
+            Debug.Log($"[StartPendingPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
+
+            // 아웃라인 효과 활성화
+            UpdateOutlineColor(_canPlaceAtPendingPosition);
+
+            // UI 스프라이트 업데이트
+            UpdateConfirmButtonSprite(_canPlaceAtPendingPosition);
+
+            // 회전 UI 활성화 및 위치 업데이트
+            if (RotateUIParent != null)
+            {
+                RotateUIParent.gameObject.SetActive(true);
+                UpdateRotateUIPosition();
+            }
+
+            Debug.Log($"[StartPendingPlacement] 배치 대기 상태 설정 완료");
+        }
+
         /// <summary>
         /// 아웃라인 효과 활성화/비활성화
         /// </summary>
@@ -378,6 +439,8 @@ namespace DalbitCafe.Deco
                     ConfirmButtonImage.sprite = confirmDeactiveSprite;
             }
         }
+
+
 
         public void RotateItem()
         {

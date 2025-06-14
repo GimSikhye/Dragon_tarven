@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 231120833
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,10 +104,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 9002122089546757465}
   directionSprites:
-  - {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
-  - {fileID: 21300000, guid: be999b1fbdf0f4544b003452fa97dcf5, type: 3}
-  - {fileID: 21300000, guid: 2e2ced8649508474797f1cc096febbf7, type: 3}
-  - {fileID: 21300000, guid: 496f26a9fe9f12f4eaa82005e5115282, type: 3}
+  - {fileID: 21300000, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
+  - {fileID: 21300000, guid: 5f51a3c84bed77440a3391f5e026eba0, type: 3}
+  - {fileID: 21300000, guid: 04dc4526470c29d43a280ec246e74b26, type: 3}
+  - {fileID: 21300000, guid: 765f988914572c540bd50c076abaf0c4, type: 3}
   rotationLimit: 4
   _itemSize: {x: 1, y: 1}
   greenOutlineMaterial: {fileID: 2100000, guid: fdb3db24d00dfd34895526797a509f3b, type: 2}
