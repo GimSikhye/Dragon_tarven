@@ -31,8 +31,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private List<SubCategoryIconEntry> subCategoryIcons; // SerializedField로 넣어줌
     private Dictionary<string, Sprite> _subCategoryIconMap;
 
- 
-
     private ItemCategory selectedCategory; // 선택된 카테고리
     private System.Enum selectedSubCategory; // 선택된 하위 목록
     private Button prieviousButton; // 이전에 선택됐던 버튼

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: dc221c9f793738c4abde1cfc69edf612
+guid: b9d58a05991e45a419be02f0df8bb384
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6112223929934651330
-    second: spr_UI_MenuIcon_0
+      213: 2844730885512613508
+    second: DecorateInventory_arrowButtonL_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,7 +46,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -126,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_UI_MenuIcon_0
+      name: DecorateInventory_arrowButtonL_0
       rect:
         serializedVersion: 2
-        x: 10
-        y: 9
-        width: 492
-        height: 494
+        x: 4
+        y: 7
+        width: 118
+        height: 242
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: e306a9c38b40d2ba0800000000000000
-      internalID: -6112223929934651330
+      spriteID: 48ecf881ba38a7720800000000000000
+      internalID: 2844730885512613508
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_UI_MenuIcon_0: -6112223929934651330
+      DecorateInventory_arrowButtonL_0: 2844730885512613508
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

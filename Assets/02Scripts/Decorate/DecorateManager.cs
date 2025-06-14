@@ -268,6 +268,9 @@ namespace DalbitCafe.Deco
                 bool wasPending = targetItem.IsPendingPlacement;
                 Vector3 positionBefore = targetItem.transform.position;
 
+                // 아이템 데이터 가져오기 (DraggableItem에 ItemData 참조 필요)
+                ItemData itemData = GetItemDataFromDraggableItem(targetItem);
+
                 targetItem.ConfirmPlacement();
 
                 // 배치 확정 후 상태 확인
@@ -275,10 +278,18 @@ namespace DalbitCafe.Deco
                 Debug.Log($"[DecorateManager] 배치 확정 후 위치: {targetItem.transform.position}");
                 Debug.Log($"[DecorateManager] 위치 변경됨? {positionBefore != targetItem.transform.position}");
 
-                // 배치가 확정되면 UI 비활성화하고 targetItem 초기화
+                // 배치가 확정되면 인벤토리에서 아이템 수량 감소 및 UI 처리
                 if (!targetItem.IsPendingPlacement)
                 {
                     Debug.Log("[DecorateManager] UI 비활성화 및 targetItem 초기화");
+
+                    // 인벤토리에서 아이템 수량 감소
+                    if (itemData != null && Inventory.Instance != null)
+                    {
+                        Inventory.Instance.RemoveItemAmount(itemData, 1);
+                        Debug.Log($"[DecorateManager] {itemData.itemName} 1개 사용됨");
+                    }
+
                     _decorateUIElement.SetActive(false);
                     targetItem = null;
                 }
@@ -293,7 +304,6 @@ namespace DalbitCafe.Deco
             }
         }
 
-
         /// <summary>
         /// 취소 버튼이 눌렸을 때 호출 (배치 취소)
         /// </summary>
@@ -305,6 +315,25 @@ namespace DalbitCafe.Deco
                 _decorateUIElement.SetActive(false);
                 targetItem = null;
             }
+        }
+
+        /// <summary>
+        /// DraggableItem에서 ItemData를 가져오는 메서드
+        /// (DraggableItem 클래스에 itemData 필드가 있다고 가정)
+        /// </summary>
+        private ItemData GetItemDataFromDraggableItem(DraggableItem draggableItem)
+        {
+            // DraggableItem에 itemData 필드가 있다면:
+            // return draggableItem.itemData;
+
+            // 만약 DraggableItem에 itemData 필드가 없다면, 
+            // 프리팹 이름이나 다른 방법으로 ItemData를 찾아야 합니다
+            // 예시: 프리팹 이름으로 찾기
+            string prefabName = draggableItem.gameObject.name.Replace("(Clone)", "");
+
+            // 모든 ItemData에서 프리팹 이름과 일치하는 것 찾기
+            // 이 부분은 프로젝트 구조에 따라 다르게 구현해야 할 수 있습니다
+            return null; // 실제 구현 필요
         }
     }
 

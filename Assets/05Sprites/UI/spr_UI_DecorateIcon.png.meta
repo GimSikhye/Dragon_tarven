@@ -160,7 +160,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      spr_UI_DecorateIcon_0: 1288719380353296186
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
