@@ -8,6 +8,8 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+
+
         [Header("Slot Reference")]
         public InventorySlot sourceSlot; // 이 아이템을 생성한 슬롯 참조
 
@@ -43,7 +45,9 @@ namespace DalbitCafe.Deco
         [SerializeField] private Sprite confirmActiveSprite; // 배치 가능할 때 사용할 스프라이트
         [SerializeField] private Sprite confirmDeactiveSprite; // 배치 불가능할 때 사용할 스프라이트 
 
+        [SerializeField] private ItemData defaultItemData;  // inspector용
         private ItemData itemData;  // 내부 변수로만 사용
+
         // 프로퍼티들
         public bool IsOccupied { get; private set; } = false; // 사용 중인지
         public bool IsDragging => _isDragging;
@@ -62,6 +66,8 @@ namespace DalbitCafe.Deco
         public ItemCategory Category => itemData != null ? itemData.Category : ItemCategory.Interior;
         public System.Enum SubCategory => itemData?.SubCategory;
 
+
+
         public void SetOccupied(bool state)
         {
             IsOccupied = state;
@@ -71,7 +77,11 @@ namespace DalbitCafe.Deco
         {
             itemData = itemdata;
         }
-
+        private void Awake()
+        {
+            if (itemData == null && defaultItemData != null)
+                itemData = defaultItemData;
+        }
         private void Start()
         {
             RotateUIParent = GameObject.Find("UI_DecorateUIElement")?.GetComponent<RectTransform>();

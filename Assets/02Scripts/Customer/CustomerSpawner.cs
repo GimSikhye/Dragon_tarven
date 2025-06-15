@@ -43,7 +43,8 @@ public class CustomerSpawner : MonoBehaviour
 
         // 이제 바로 DraggableItem에서 SubCategory 접근
         maxCustomerCount = FindObjectsOfType<DraggableItem>()
-            .Count(item => item.SubCategory is InteriorType type && type == InteriorType.Chair);
+     .Count(item => item.GetItemData()?.SubCategory is InteriorType type && type == InteriorType.Chair);
+
 
         StartCoroutine(SpawnLoop());
     }
@@ -92,6 +93,11 @@ public class CustomerSpawner : MonoBehaviour
     public DraggableItem GetAvailableSeat()
     {
         var allItems = FindObjectsOfType<DraggableItem>();
+
+        foreach (var item in allItems)
+        {
+            Debug.Log($"[Spawner] DraggableItem: {item.name}, SubCategory: {item.SubCategory}");
+        }
 
         var availableChairs = allItems
             .Where(item =>
