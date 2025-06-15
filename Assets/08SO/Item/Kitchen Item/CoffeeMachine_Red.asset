@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee84ca0237e320844b08c8862761826e, type: 3}
-  m_Name: CoffeeMachineRed
+  m_Name: CoffeeMachine_Red
   m_EditorClassIdentifier: 
   itemName: "\uCEE4\uD53C\uBA38\uC2E0(\uBE68\uAC15)"
   icon: {fileID: 21300000, guid: 109f82d39d8b2294ab997bfe0e2c72fe, type: 3}

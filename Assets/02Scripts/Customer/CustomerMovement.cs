@@ -142,9 +142,6 @@ public class CustomerMovement : MonoBehaviour
     {
         if (mySeat == null) return;
 
-        var meta = mySeat.GetComponent<ItemMeta>();
-        if (meta == null) return;
-
         int index = mySeat.GetComponent<DraggableItem>().RotationIndex;
 
         switch (index)
@@ -170,7 +167,7 @@ public class CustomerMovement : MonoBehaviour
                 break;
         }
 
-        spawner.OnCustomerSeated(); // isStoreBusy = false «ÿ¡÷±‚
+        spawner.OnCustomerSeated();
     }
     public void ReleaseSeat()
     {

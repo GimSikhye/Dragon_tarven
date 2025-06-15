@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8fdb28531fda4741aa197f69c41b884, type: 3}
-  m_Name: Purple Chair
+  m_Name: PatioTable
   m_EditorClassIdentifier: 
-  itemName: "\uBCF4\uB77C\uC0C9 \uC758\uC790"
-  icon: {fileID: 21300000, guid: edbdd75e54008a64286d1da882ab3b9a, type: 3}
+  itemName: "\uD50C\uB77C\uC2A4\uD2F1 \uD14C\uC774\uBE14"
+  icon: {fileID: 21300000, guid: 8abb20f1718abec438f258a3bc48cf29, type: 3}
   price: 100
-  prefab: {fileID: 6689706440051736636, guid: 9380351262fe92e4fb49ba0244acf69e, type: 3}
-  interiorType: 1
+  prefab: {fileID: 6689706440051736636, guid: 9765841bc39d74147a2c3b326c830721, type: 3}
+  interiorType: 0

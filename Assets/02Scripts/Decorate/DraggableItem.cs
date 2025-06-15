@@ -37,7 +37,7 @@ namespace DalbitCafe.Deco
         [Header("아웃라인 효과")]
         [SerializeField] private Material greenOutlineMaterial; // 배치 가능한 위치용 머티리얼
         [SerializeField] private Material redOutlineMaterial; // 배치 불가능한 위치용 머티리얼
-        private Material _originalMaterial; // 원본 머티리얼 저장
+        [SerializeField] private Material _originalMaterial; // 원본 머티리얼 저장
 
         [Header("UI 스프라이트 변경")]
         [SerializeField] private Sprite confirmActiveSprite; // 배치 가능할 때 사용할 스프라이트
@@ -58,6 +58,10 @@ namespace DalbitCafe.Deco
         private RectTransform RotateUIParent { get; set; }
         private Image ConfirmButtonImage { get; set; } // UI_DecoConfirmBtn의 Image 컴포넌트
 
+        public ItemData GetItemData() => itemData;
+        public ItemCategory Category => itemData != null ? itemData.Category : ItemCategory.Interior;
+        public System.Enum SubCategory => itemData?.SubCategory;
+
         public void SetOccupied(bool state)
         {
             IsOccupied = state;
@@ -66,11 +70,6 @@ namespace DalbitCafe.Deco
         public void Initialize(ItemData itemdata)
         {
             itemData = itemdata;
-        }
-
-        public ItemData GetItemData()
-        {
-            return itemData;
         }
 
         private void Start()
@@ -85,12 +84,6 @@ namespace DalbitCafe.Deco
             }
 
             UpdateRotateUIPosition();
-
-            // 원본 머티리얼 저장
-            if (spriteRenderer != null)
-            {
-                _originalMaterial = spriteRenderer.material;
-            }
 
             // 아웃라인 머티리얼들이 Inspector에서 설정되지 않은 경우 경고
             if (greenOutlineMaterial == null || redOutlineMaterial == null)
@@ -288,6 +281,7 @@ namespace DalbitCafe.Deco
                 _canPlaceAtPendingPosition = false;
                 _isPlacedItem = true; // 배치 확정된 아이템으로 표시
                 sourceSlot = null; // 슬롯 참조 해제 (이제 인벤토리와 무관한 배치된 아이템)
+                spriteRenderer.material = _originalMaterial;
 
                 Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제, 배치 확정 상태로 변경");
 

@@ -43,6 +43,12 @@ namespace DalbitCafe.Deco
             {
                 Debug.LogWarning("[DecorateManager] DayCycleManager를 찾을 수 없습니다!");
             }
+
+            // 시작할 때 배치모드 UI들은 숨김 상태로 시작
+            
+            _decorateModeExitButton.SetActive(false);
+            _decorateModeMenuBar.SetActive(false);
+            _decorateUIElement.SetActive(false);
         }
 
         private void Update()
@@ -122,7 +128,7 @@ namespace DalbitCafe.Deco
             if (Input.touchCount > 0)
             {
                 int touchId = Input.GetTouch(0).fingerId;
-                if (UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject(touchId))
+                if (EventSystem.current.IsPointerOverGameObject(touchId))
                 {
                     return;
                 }
@@ -180,7 +186,7 @@ namespace DalbitCafe.Deco
         public void DeactivateDecorateMode()
         {
             if (!_isDecorateMode) return;
-
+            Debug.Log("배치모드 비활성화됨");
             // 추가: 배치 대기중인 아이템 정리
             if (targetItem != null)
             {

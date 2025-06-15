@@ -101,17 +101,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249901547915ac448991c4af539d9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sourceSlot: {fileID: 0}
   spriteRenderer: {fileID: 9002122089546757465}
   directionSprites:
   - {fileID: 21300000, guid: 109f82d39d8b2294ab997bfe0e2c72fe, type: 3}
   - {fileID: 21300000, guid: 0d626aeedb08a1f4f9b27faac9b8288b, type: 3}
   rotationLimit: 4
   _itemSize: {x: 1, y: 1}
-  greenOutlineMaterial: {fileID: 0}
-  redOutlineMaterial: {fileID: 0}
-  confirmActiveSprite: {fileID: 0}
-  confirmDeactiveSprite: {fileID: 0}
-  itemData: {fileID: 11400000, guid: 6c47e442590710449888947eecbb607a, type: 2}
+  greenOutlineMaterial: {fileID: 2100000, guid: fdb3db24d00dfd34895526797a509f3b, type: 2}
+  redOutlineMaterial: {fileID: 2100000, guid: 5a8e5bba1ec50a84e9f1e06e52213b8b, type: 2}
+  _originalMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  confirmActiveSprite: {fileID: 21300000, guid: bf6d359889db3f34392f1ac1084f63a4, type: 3}
+  confirmDeactiveSprite: {fileID: 21300000, guid: 9b9383c096a414b4e9de1afbf72da389, type: 3}
 --- !u!61 &4573046559606593623
 BoxCollider2D:
   m_ObjectHideFlags: 0
