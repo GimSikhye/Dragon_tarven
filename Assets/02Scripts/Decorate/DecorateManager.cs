@@ -128,24 +128,21 @@ namespace DalbitCafe.Deco
                 }
             }
 
-            // 스크린 좌표를 월드 좌표로 변환
-            Vector2 worldPos = Camera.main.ScreenToWorldPoint(screenPosition);
+            // 원래 코드에서는 빈 공간 터치 시 배치 취소하는 부분이 있었음.
+            // 아래 코드를 제거하거나 주석처리하면 됨.
 
-            // 레이캐스트로 터치된 오브젝트 확인
-            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
-
-            // 아무것도 터치되지 않았거나, DraggableItem이 아닌 경우
-            if (hit.collider == null || hit.collider.GetComponent<DraggableItem>() == null)
+            /*
+            if (targetItem != null && targetItem.IsPendingPlacement)
             {
-                // 현재 타겟 아이템이 있고 배치 대기 중이라면 취소
-                if (targetItem != null && targetItem.IsPendingPlacement)
-                {
-                    targetItem.CancelPendingPlacement();
-                    targetItem = null;
-                    _decorateUIElement.SetActive(false);
-                }
+                targetItem.CancelPendingPlacement();
+                targetItem = null;
+                _decorateUIElement.SetActive(false);
             }
+            */
+
+            // 아무 동작도 하지 않음 - 빈 공간 터치 시 배치 유지
         }
+
         // 배치 모드 활성화
         public void ActivateDecorateMode()
         {
@@ -184,10 +181,15 @@ namespace DalbitCafe.Deco
         {
             if (!_isDecorateMode) return;
 
-            // 배치 대기 중인 아이템이 있다면 원래 위치로 되돌림
-            if (targetItem != null && targetItem.IsPendingPlacement)
+            // 추가: 배치 대기중인 아이템 정리
+            if (targetItem != null)
             {
-                targetItem.CancelPendingPlacement();
+                if (targetItem.IsPendingPlacement && !targetItem.IsPlacedItem)
+                {
+                    // 배치확정되지 않은 신규 아이템은 삭제
+                    Destroy(targetItem.gameObject);
+                }
+                // 이미 배치 확정된 경우는 놔둠 (아무 처리 안함)
             }
 
             _isDecorateMode = false;
@@ -323,17 +325,8 @@ namespace DalbitCafe.Deco
         /// </summary>
         private ItemData GetItemDataFromDraggableItem(DraggableItem draggableItem)
         {
-            // DraggableItem에 itemData 필드가 있다면:
-            // return draggableItem.itemData;
-
-            // 만약 DraggableItem에 itemData 필드가 없다면, 
-            // 프리팹 이름이나 다른 방법으로 ItemData를 찾아야 합니다
-            // 예시: 프리팹 이름으로 찾기
-            string prefabName = draggableItem.gameObject.name.Replace("(Clone)", "");
-
-            // 모든 ItemData에서 프리팹 이름과 일치하는 것 찾기
-            // 이 부분은 프로젝트 구조에 따라 다르게 구현해야 할 수 있습니다
-            return null; // 실제 구현 필요
+            return draggableItem.itemData;
+           
         }
     }
 

@@ -49,4 +49,40 @@ public class Inventory : MonoSingleton<Inventory> // 상점에도 필요하고, 게임씬에
 
     }
 
+    /// <summary>
+    /// 특정 아이템의 수량을 업데이트 (증가 또는 감소)
+    /// </summary>
+    /// <param name="itemData">업데이트할 아이템</param>
+    /// <param name="amount">변경할 수량 (양수: 증가, 음수: 감소)</param>
+    public void UpdateItemQuantity(ItemData itemData, int amount)
+    {
+        var existingItem = items.FirstOrDefault(i => i.itemData == itemData);
+
+        if (existingItem != null)
+        {
+            existingItem.quantity += amount;
+
+            // 수량이 0 이하가 되면 아이템 제거
+            if (existingItem.quantity <= 0)
+            {
+                items.Remove(existingItem);
+                Debug.Log($"[Inventory] {itemData.itemName} 수량이 0이 되어 인벤토리에서 제거됨");
+            }
+            else
+            {
+                Debug.Log($"[Inventory] {itemData.itemName} 수량 업데이트: {existingItem.quantity}");
+            }
+        }
+        else if (amount > 0)
+        {
+            // 아이템이 존재하지 않는데 양수 amount라면 새로 추가
+            items.Add(new InventoryItem { itemData = itemData, quantity = amount });
+            Debug.Log($"[Inventory] {itemData.itemName} 새로 추가됨: {amount}개");
+        }
+        else
+        {
+            Debug.LogWarning($"[Inventory] {itemData.itemName}이 인벤토리에 없어서 수량을 감소시킬 수 없습니다.");
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using DalbitCafe.Deco;
 
 public class InputManager : MonoBehaviour
 {
@@ -56,7 +57,7 @@ public class InputManager : MonoBehaviour
             Debug.Log("Raycast hit: " + result.gameObject.name);
 
             // 드래그 가능한 아이템이나 배치 관련 UI는 터치 차단하지 않음
-            if (result.gameObject.CompareTag("DraggableItem") ||
+            if (result.gameObject.TryGetComponent<DraggableItem>(out DraggableItem component) ||
                 result.gameObject.name.Contains("Confirm") ||
                 result.gameObject.name.Contains("Cancel") ||
                 result.gameObject.name.Contains("Rotate"))

@@ -8,6 +8,9 @@ namespace DalbitCafe.Deco
 {
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        [Header("Slot Reference")]
+        public InventorySlot sourceSlot; // 이 아이템을 생성한 슬롯 참조
+
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] directionSprites; // 0: 오른쪽 아래, 1: 왼쪽 아래, 2: 왼쪽위, 3: 오른쪽 위
@@ -28,6 +31,9 @@ namespace DalbitCafe.Deco
         private Vector2Int _pendingGridPosition; // 배치 대기 중인 그리드 위치
         private bool _canPlaceAtPendingPosition = false; // 대기 중인 위치에 배치 가능한지
 
+        // 아이템 상태 추가
+        private bool _isPlacedItem = false; // 이미 배치 확정된 아이템인지
+
         [Header("아웃라인 효과")]
         [SerializeField] private Material greenOutlineMaterial; // 배치 가능한 위치용 머티리얼
         [SerializeField] private Material redOutlineMaterial; // 배치 불가능한 위치용 머티리얼
@@ -44,6 +50,7 @@ namespace DalbitCafe.Deco
         public bool IsOccupied { get; private set; } = false; // 사용 중인지
         public bool IsDragging => _isDragging;
         public bool IsPendingPlacement => _isPendingPlacement; // 배치 대기 중인지
+        public bool IsPlacedItem => _isPlacedItem; // 배치 확정된 아이템인지
         public Vector2Int ItemSize => _itemSize;
         public int RotationIndex => _rotationIndex;
         public int RotationLimit => rotationLimit;
@@ -113,7 +120,6 @@ namespace DalbitCafe.Deco
             Debug.Log("타겟 아이템 지정됨");
             DecorateManager.Instance.targetItem = this;
         }
-
 
         public void OnBeginDrag(PointerEventData eventData)
         {
@@ -205,7 +211,11 @@ namespace DalbitCafe.Deco
 
             Debug.Log($"[OnEndDrag] 최종 상태 - IsPendingPlacement: {_isPendingPlacement}, CanPlace: {_canPlaceAtPendingPosition}");
         }
-        // <summary>
+
+        /// <summary>
+        /// 배치 확정 (Confirm 버튼을 눌렀을 때 호출)
+        /// </summary>
+        /// <summary>
         /// 배치 확정 (Confirm 버튼을 눌렀을 때 호출)
         /// </summary>
         public void ConfirmPlacement()
@@ -258,16 +268,25 @@ namespace DalbitCafe.Deco
                 Debug.Log($"[ConfirmPlacement] 원래 그리드 위치 업데이트: {oldOriginalGrid} -> {_originalGridPosition}");
                 Debug.Log($"[ConfirmPlacement] 초기 위치 업데이트: {oldInitialPosition} -> {_initialPosition}");
 
-                // 4. 배치 대기 상태 해제
+                // 4. 슬롯에 배치 확정 알림 (수량 차감)
+                if (sourceSlot != null)
+                {
+                    sourceSlot.OnItemPlacementConfirmed();
+                    Debug.Log("[ConfirmPlacement] 슬롯에 배치 확정 알림 완료");
+                }
+
+                // 5. 배치 대기 상태 해제 및 배치 확정 상태로 변경
                 _isPendingPlacement = false;
                 _canPlaceAtPendingPosition = false;
+                _isPlacedItem = true; // 배치 확정된 아이템으로 표시
+                sourceSlot = null; // 슬롯 참조 해제 (이제 인벤토리와 무관한 배치된 아이템)
 
-                Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제");
+                Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제, 배치 확정 상태로 변경");
 
-                // 5. 아웃라인 효과 비활성화
+                // 6. 아웃라인 효과 비활성화
                 EnableOutline(false);
 
-                // 6. UI 스프라이트를 기본 상태로 복원
+                // 7. UI 스프라이트를 기본 상태로 복원
                 UpdateConfirmButtonSprite(true);
 
                 Debug.Log($"[ConfirmPlacement] 배치 확정 완료! 최종 위치: {transform.position}");
@@ -277,13 +296,15 @@ namespace DalbitCafe.Deco
                 Debug.LogWarning("[ConfirmPlacement] 배치 불가능한 위치 - 원래 위치로 복귀");
                 CancelPendingPlacement();
             }
-        }        /// <summary>
-                 /// 배치 대기 상태 취소 (원래 위치로 되돌림)
-                 /// </summary>
+        }
 
+
+        /// <summary>
+        /// 배치 대기 상태 취소 (원래 위치로 되돌림)
+        /// </summary>
         public void CancelPendingPlacement()
         {
-            Debug.Log($"[CancelPendingPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}");
+            Debug.Log($"[CancelPendingPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}, IsPlacedItem: {_isPlacedItem}");
 
             if (!_isPendingPlacement)
             {
@@ -320,6 +341,29 @@ namespace DalbitCafe.Deco
                 UpdateRotateUIPosition();
             }
 
+            // 처리 방식 분기: 신규 아이템 vs 기존 배치된 아이템
+            if (_isPlacedItem)
+            {
+                // 이미 배치 확정된 아이템인 경우: 원래 위치로 복귀만 하고 파괴하지 않음
+                Debug.Log("[CancelPendingPlacement] 배치 확정된 아이템 - 원래 위치로 복귀 완료");
+            }
+            else
+            {
+                // 인벤토리에서 새로 생성된 아이템인 경우: 슬롯에 수량 복구 후 파괴
+                if (sourceSlot != null)
+                {
+                    sourceSlot.RestoreItemQuantity();
+                    Debug.Log("[CancelPendingPlacement] 신규 아이템 - 슬롯 수량 복구 후 파괴");
+                }
+                else
+                {
+                    Debug.LogWarning("[CancelPendingPlacement] sourceSlot이 null이어서 수량 복구 불가");
+                }
+
+                // 오브젝트 파괴
+                Destroy(gameObject);
+            }
+
             Debug.Log($"[CancelPendingPlacement] 취소 완료 - 최종 위치: {transform.position}");
         }
 
@@ -332,6 +376,7 @@ namespace DalbitCafe.Deco
 
             // 현재 위치를 초기 위치로 설정
             _initialPosition = transform.position;
+            _isPlacedItem = false; // 신규 아이템임을 표시
 
             // 현재 그리드 위치 계산
             if (FloorTilemap == null)
@@ -439,8 +484,6 @@ namespace DalbitCafe.Deco
                     ConfirmButtonImage.sprite = confirmDeactiveSprite;
             }
         }
-
-
 
         public void RotateItem()
         {

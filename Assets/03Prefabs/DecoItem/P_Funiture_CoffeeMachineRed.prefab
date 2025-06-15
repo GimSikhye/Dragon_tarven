@@ -101,13 +101,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 249901547915ac448991c4af539d9b3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorTilemap: {fileID: 0}
   spriteRenderer: {fileID: 9002122089546757465}
   directionSprites:
   - {fileID: 21300000, guid: 109f82d39d8b2294ab997bfe0e2c72fe, type: 3}
   - {fileID: 21300000, guid: 0d626aeedb08a1f4f9b27faac9b8288b, type: 3}
-  rotationCount: 2
+  rotationLimit: 4
   _itemSize: {x: 1, y: 1}
+  greenOutlineMaterial: {fileID: 0}
+  redOutlineMaterial: {fileID: 0}
+  confirmActiveSprite: {fileID: 0}
+  confirmDeactiveSprite: {fileID: 0}
+  itemData: {fileID: 11400000, guid: 6c47e442590710449888947eecbb607a, type: 2}
 --- !u!61 &4573046559606593623
 BoxCollider2D:
   m_ObjectHideFlags: 0

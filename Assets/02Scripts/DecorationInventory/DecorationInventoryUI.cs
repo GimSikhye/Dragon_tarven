@@ -12,15 +12,25 @@ namespace DalbitCafe.Deco
         [SerializeField] private GameObject inventoryPanel;
         [SerializeField] private Button arrowButtonL;
         [SerializeField] private Button arrowButtonR;
-        [SerializeField] private TextMeshProUGUI typeNumberText;
+        [SerializeField] private TextMeshProUGUI typeNumberText; // 타입넘버텍스트 -> 개수?
         [SerializeField] private Transform slotsParent;
 
         [Header("Slot Prefab")]
         [SerializeField] private GameObject slotPrefab; // 슬롯 프리팹
 
+        [Header("Button Settings")]
+        [SerializeField] private float buttonCooldownTime = 0.3f; // 버튼 쿨다운 시간 (초)
+
         // 현재 카테고리 및 서브카테고리 정보
         private List<CategoryGroup> categoryGroups = new List<CategoryGroup>();
         private int currentGroupIndex = 0;
+
+        // 버튼 중복 클릭 방지를 위한 변수들
+        private float lastButtonClickTime = 0f;
+        private bool isProcessingButtonClick = false;
+
+        // 현재 생성된 슬롯들 저장
+        private List<InventorySlot> currentSlots = new List<InventorySlot>();
 
         private void Start()
         {
@@ -51,7 +61,7 @@ namespace DalbitCafe.Deco
                 {
                     category = ItemCategory.Kitchen,
                     subCategory = kitchenType,
-                    displayName = $"주방 - {GetKitchenTypeDisplayName(kitchenType)}"
+                    displayName = $"{GetKitchenTypeDisplayName(kitchenType)}"
                 });
             }
 
@@ -62,7 +72,7 @@ namespace DalbitCafe.Deco
                 {
                     category = ItemCategory.Interior,
                     subCategory = interiorType,
-                    displayName = $"인테리어 - {GetInteriorTypeDisplayName(interiorType)}"
+                    displayName = $"{GetInteriorTypeDisplayName(interiorType)}"
                 });
             }
 
@@ -73,7 +83,7 @@ namespace DalbitCafe.Deco
                 {
                     category = ItemCategory.Exterior,
                     subCategory = exteriorType,
-                    displayName = $"익스테리어 - {GetExteriorTypeDisplayName(exteriorType)}"
+                    displayName = $"{GetExteriorTypeDisplayName(exteriorType)}"
                 });
             }
 
@@ -93,22 +103,92 @@ namespace DalbitCafe.Deco
         }
 
         /// <summary>
+        /// 버튼 클릭이 유효한지 확인
+        /// </summary>
+        private bool IsButtonClickValid()
+        {
+            float currentTime = Time.time;
+
+            // 이미 처리 중이거나 쿨다운 시간 내에 클릭된 경우 무시
+            if (isProcessingButtonClick || (currentTime - lastButtonClickTime) < buttonCooldownTime)
+            {
+                Debug.Log($"[DecorationInventoryUI] 버튼 클릭 무시 - 쿨다운 중 (경과시간: {currentTime - lastButtonClickTime:F2}초)");
+                return false;
+            }
+
+            lastButtonClickTime = currentTime;
+            return true;
+        }
+
+        /// <summary>
         /// 패널 표시 상태 업데이트
         /// </summary>
         private void UpdatePanelVisibility()
         {
+            Debug.Log($"UpdatePanelVisibility 호출됨");
+
             if (DecorateManager.Instance != null)
             {
                 bool shouldShow = DecorateManager.Instance.IsDecorateMode;
+                bool wasShowing = inventoryPanel.activeSelf;
+
+                Debug.Log($"DecorateMode: {shouldShow}, 현재 패널 상태: {inventoryPanel.activeSelf}");
+
                 if (inventoryPanel.activeSelf != shouldShow)
                 {
+                    Debug.Log("패널 표시 상태 업데이트");
                     inventoryPanel.SetActive(shouldShow);
 
                     if (shouldShow)
                     {
-                        // 배치 모드가 활성화될 때 첫 번째 카테고리 표시
                         RefreshCurrentCategory();
                     }
+                    else
+                    {
+                        // 배치모드가 종료될 때 모든 슬롯의 배치 상태 취소
+                        OnDecorateModeExited();
+                    }
+                }
+                else
+                {
+                    Debug.Log("패널 상태 변경 불필요");
+                }
+            }
+            else
+            {
+                Debug.Log("DecorateManager.Instance가 null입니다");
+            }
+        }
+
+        /// <summary>
+        /// 배치모드 종료 시 모든 슬롯의 배치 상태 정리
+        /// </summary>
+        private void OnDecorateModeExited()
+        {
+            Debug.Log("[DecorationInventoryUI] 배치모드 종료 - 모든 배치 중인 아이템 취소");
+
+            // 현재 배치 중인 아이템이 있다면 취소
+            if (DecorateManager.Instance.targetItem != null &&
+                DecorateManager.Instance.targetItem.IsPendingPlacement)
+            {
+                var currentItem = DecorateManager.Instance.targetItem;
+
+                // 아이템 취소 (신규 아이템인 경우 파괴됨)
+                currentItem.CancelPendingPlacement();
+
+                // 타겟 아이템 해제
+                DecorateManager.Instance.targetItem = null;
+
+                // UI 비활성화
+                DecorateManager.Instance.DecorateUIElement.SetActive(false);
+            }
+
+            // 모든 슬롯의 배치 상태 해제
+            foreach (var slot in currentSlots)
+            {
+                if (slot != null)
+                {
+                    slot.OnDecorateModeExited();
                 }
             }
         }
@@ -118,12 +198,24 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void OnPreviousCategory()
         {
-            currentGroupIndex--;
-            if (currentGroupIndex < 0)
+            if (!IsButtonClickValid()) return;
+
+            isProcessingButtonClick = true;
+
+            try
             {
-                currentGroupIndex = categoryGroups.Count - 1; // 마지막으로 이동
+                currentGroupIndex--;
+                if (currentGroupIndex < 0)
+                {
+                    currentGroupIndex = categoryGroups.Count - 1; // 마지막으로 이동
+                }
+                RefreshCurrentCategory();
+                Debug.Log($"[DecorationInventoryUI] 이전 카테고리로 이동: {currentGroupIndex}");
             }
-            RefreshCurrentCategory();
+            finally
+            {
+                isProcessingButtonClick = false;
+            }
         }
 
         /// <summary>
@@ -131,12 +223,24 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void OnNextCategory()
         {
-            currentGroupIndex++;
-            if (currentGroupIndex >= categoryGroups.Count)
+            if (!IsButtonClickValid()) return;
+
+            isProcessingButtonClick = true;
+
+            try
             {
-                currentGroupIndex = 0; // 처음으로 이동
+                currentGroupIndex++;
+                if (currentGroupIndex >= categoryGroups.Count)
+                {
+                    currentGroupIndex = 0; // 처음으로 이동
+                }
+                RefreshCurrentCategory();
+                Debug.Log($"[DecorationInventoryUI] 다음 카테고리로 이동: {currentGroupIndex}");
             }
-            RefreshCurrentCategory();
+            finally
+            {
+                isProcessingButtonClick = false;
+            }
         }
 
         /// <summary>
@@ -191,6 +295,19 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void ClearSlots()
         {
+            // 현재 슬롯들의 배치 상태 정리
+            foreach (var slot in currentSlots)
+            {
+                if (slot != null)
+                {
+                    slot.OnDecorateModeExited();
+                }
+            }
+
+            // 슬롯 리스트 초기화
+            currentSlots.Clear();
+
+            // 슬롯 오브젝트들 파괴
             foreach (Transform child in slotsParent)
             {
                 Destroy(child.gameObject);
@@ -204,17 +321,45 @@ namespace DalbitCafe.Deco
         {
             foreach (var item in items)
             {
+                // 수량이 0인 아이템은 슬롯을 생성하지 않음
+                if (item.quantity <= 0) continue;
+
                 GameObject slotObj = Instantiate(slotPrefab, slotsParent);
                 InventorySlot slot = slotObj.GetComponent<InventorySlot>();
 
                 if (slot != null)
                 {
                     slot.SetupSlot(item);
+                    // 슬롯 제거 이벤트 구독
+                    slot.OnSlotShouldBeRemoved += OnSlotRemovalRequested;
+
+                    // 슬롯 리스트에 추가
+                    currentSlots.Add(slot);
                 }
                 else
                 {
                     Debug.LogError("[DecorationInventoryUI] 슬롯 프리팹에 InventorySlot 컴포넌트가 없습니다!");
                 }
+            }
+        }
+
+        /// <summary>
+        /// 슬롯 제거 요청 처리
+        /// </summary>
+        private void OnSlotRemovalRequested(InventorySlot slot)
+        {
+            if (slot != null)
+            {
+                Debug.Log($"[DecorationInventoryUI] 슬롯 제거: {slot.name}");
+
+                // 슬롯 리스트에서 제거
+                currentSlots.Remove(slot);
+
+                // 이벤트 구독 해제
+                slot.OnSlotShouldBeRemoved -= OnSlotRemovalRequested;
+
+                // 슬롯 오브젝트 파괴
+                Destroy(slot.gameObject);
             }
         }
 

@@ -39,12 +39,12 @@ public class CustomerSpawner : MonoBehaviour
 
         while (pathfinder == null || !pathfinder.IsInitialized)
         {
-            Debug.Log("[CustomerSpawner] PathfindingManager 초기화 대기 중...");
+            //Debug.Log("[CustomerSpawner] PathfindingManager 초기화 대기 중...");
             yield return null;
             pathfinder = FindObjectOfType<PathfindingManager>();
         }
 
-        Debug.Log("[CustomerSpawner] 손님 생성 시작");
+        //Debug.Log("[CustomerSpawner] 손님 생성 시작");
 
         // maxCustomerCount 설정
         maxCustomerCount = FindObjectsOfType<DraggableItem>()
@@ -53,7 +53,7 @@ public class CustomerSpawner : MonoBehaviour
                 item.TryGetComponent<ItemMeta>(out var meta) &&
                 meta.SubCategory.ToString() == "Chair");
 
-        Debug.Log($"[CustomerSpawner] 사용 가능한 의자 수: {maxCustomerCount}");
+        //Debug.Log($"[CustomerSpawner] 사용 가능한 의자 수: {maxCustomerCount}");
 
         StartCoroutine(SpawnLoop());
     }
@@ -80,7 +80,7 @@ public class CustomerSpawner : MonoBehaviour
     {
         Vector3Int entranceCell = outdoorTilemap.WorldToCell(entrance.position);
         TileBase tile = outdoorTilemap.GetTile(entranceCell);
-        Debug.Log($"[디버그] 입구 위치 {entranceCell} 타일: {tile?.name}");
+        //Debug.Log($"[디버그] 입구 위치 {entranceCell} 타일: {tile?.name}");
 
         return entrance.position;
     }
@@ -174,12 +174,12 @@ public class CustomerSpawner : MonoBehaviour
         // DecorateManager가 null인지 먼저 확인
         if(DecorateManager.Instance == null)
         {
-            Debug.LogWarning("[CustomerSpawner] DecorateManager.Instance가 null입니다.");
+            //Debug.LogWarning("[CustomerSpawner] DecorateManager.Instance가 null입니다.");
             return false; // DecorateManager가 없으면 일반 모드로 간주
         }
 
         bool isDecoMode = DecorateManager.Instance.IsDecorateMode;
-        Debug.Log($"[CustomerSpawner] 배치모드 상태: {isDecoMode}");
+        //Debug.Log($"[CustomerSpawner] 배치모드 상태: {isDecoMode}");
         return isDecoMode;
     }
 
@@ -188,24 +188,24 @@ public class CustomerSpawner : MonoBehaviour
         GameObject prefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
         if (prefab == null)
         {
-            Debug.LogError("[Spawner] customerPrefab이 null입니다!");
+            //Debug.LogError("[Spawner] customerPrefab이 null입니다!");
             return;
         }
 
         GameObject customer = Instantiate(prefab, transform);
-        Debug.Log($"[Spawner] 손님 생성됨: {customer.name}");
+        //Debug.Log($"[Spawner] 손님 생성됨: {customer.name}");
 
         var movement = customer.GetComponent<CustomerMovement>();
         if (movement == null)
         {
-            Debug.LogError("[Spawner] CustomerMovement 컴포넌트 없음!");
+            //Debug.LogError("[Spawner] CustomerMovement 컴포넌트 없음!");
             return;
         }
 
         var state = customer.GetComponent<CustomerStateMachine>();
         if (state == null)
         {
-            Debug.LogError("[Spawner] CustomerStateMachine 컴포넌트 없음!");
+            //Debug.LogError("[Spawner] CustomerStateMachine 컴포넌트 없음!");
             return;
         }
 
@@ -213,9 +213,9 @@ public class CustomerSpawner : MonoBehaviour
         movement.SetSpawner(this);
         movement.SetPathfinder(pathfinder);
 
-        Debug.Log("[Spawner] Init 호출 전");
+        //Debug.Log("[Spawner] Init 호출 전");
         state.Init();
-        Debug.Log("[Spawner] Init 호출 완료");
+        //Debug.Log("[Spawner] Init 호출 완료");
     }
 
     public void OnCustomerSeated()
