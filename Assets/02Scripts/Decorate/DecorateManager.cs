@@ -325,7 +325,7 @@ namespace DalbitCafe.Deco
         /// </summary>
         private ItemData GetItemDataFromDraggableItem(DraggableItem draggableItem)
         {
-            return draggableItem.itemData;
+            return draggableItem.GetItemData();
            
         }
     }

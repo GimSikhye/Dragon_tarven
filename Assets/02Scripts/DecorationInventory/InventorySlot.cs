@@ -271,12 +271,13 @@ namespace DalbitCafe.Deco
             // 아이템을 적절한 시작 위치에 배치 (예: 화면 중앙 또는 플레이어 근처)
             Vector3 startPosition = GetStartPosition();
             newItemObj.transform.position = startPosition;
-
-            // DraggableItem을 배치 대기 상태로 설정
-            draggableItem.StartPendingPlacement();
+            draggableItem.Initialize(inventoryItem.itemData);
 
             // 현재 슬롯 참조를 DraggableItem에 저장
             draggableItem.sourceSlot = this;
+
+            // DraggableItem을 배치 대기 상태로 설정
+            draggableItem.StartPendingPlacement();
 
             // DecorateManager에 현재 타겟 아이템으로 설정
             DecorateManager.Instance.targetItem = draggableItem;

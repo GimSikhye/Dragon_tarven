@@ -43,9 +43,7 @@ namespace DalbitCafe.Deco
         [SerializeField] private Sprite confirmActiveSprite; // 배치 가능할 때 사용할 스프라이트
         [SerializeField] private Sprite confirmDeactiveSprite; // 배치 불가능할 때 사용할 스프라이트 
 
-        [Header("참조")]
-        public ItemData itemData; // Inspector에 연결 필요
-
+        private ItemData itemData;  // 내부 변수로만 사용
         // 프로퍼티들
         public bool IsOccupied { get; private set; } = false; // 사용 중인지
         public bool IsDragging => _isDragging;
@@ -63,6 +61,16 @@ namespace DalbitCafe.Deco
         public void SetOccupied(bool state)
         {
             IsOccupied = state;
+        }
+
+        public void Initialize(ItemData itemdata)
+        {
+            itemData = itemdata;
+        }
+
+        public ItemData GetItemData()
+        {
+            return itemData;
         }
 
         private void Start()
