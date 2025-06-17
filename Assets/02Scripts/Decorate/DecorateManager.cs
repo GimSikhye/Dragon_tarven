@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 // 배치모드 관리
 namespace DalbitCafe.Deco
@@ -35,6 +36,13 @@ namespace DalbitCafe.Deco
         public GridManager GridManager => _gridManager;
         public GameObject DecorateUIElement => _decorateUIElement;
 
+        private List<DraggableItem> placedItems = new();
+        public void RegisterPlacedItem(DraggableItem item)
+        {
+            placedItems.Add(item);
+        }
+
+        public List<DraggableItem> GetPlacedItems() => placedItems;
         private void Start()
         {
             // DayCycleManager 찾기
@@ -324,6 +332,35 @@ namespace DalbitCafe.Deco
                 targetItem = null;
             }
         }
+
+        public void RequestPlacement(InventoryItem inventoryItem, InventorySlot sourceSlot)
+        {
+            GameObject obj = Instantiate(inventoryItem.itemData.prefab);
+            DraggableItem draggable = obj.GetComponent<DraggableItem>();
+
+            draggable.Initialize(inventoryItem.itemData);
+            draggable.sourceSlot = sourceSlot;
+
+            Vector3 startPos = GetPlacementStartPosition();
+            obj.transform.position = startPos;
+
+            draggable.StartPendingPlacement();
+            targetItem = draggable;
+            _decorateUIElement.SetActive(true);
+        }
+        private Vector3 GetPlacementStartPosition()
+        {
+            Camera mainCamera = Camera.main;
+            if (mainCamera != null)
+            {
+                Vector3 screenCenter = new Vector3(Screen.width / 2, Screen.height / 2, 0);
+                Vector3 worldCenter = mainCamera.ScreenToWorldPoint(new Vector3(screenCenter.x, screenCenter.y, mainCamera.nearClipPlane + 5f));
+                return new Vector3(worldCenter.x, worldCenter.y, 0);
+            }
+            return Vector3.zero;
+        }
+
+
 
         /// <summary>
         /// DraggableItem에서 ItemData를 가져오는 메서드

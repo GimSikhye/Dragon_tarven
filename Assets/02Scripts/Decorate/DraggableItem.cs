@@ -308,6 +308,8 @@ namespace DalbitCafe.Deco
                 Debug.LogWarning("[ConfirmPlacement] 배치 불가능한 위치 - 원래 위치로 복귀");
                 CancelPendingPlacement();
             }
+            // 기존 ConfirmPlacement 로직 유지한 뒤
+            DecorateManager.Instance.RegisterPlacedItem(this);
         }
 
 

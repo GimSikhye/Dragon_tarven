@@ -256,61 +256,63 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void StartItemPlacement()
         {
-            // 새 아이템 인스턴스 생성
-            GameObject newItemObj = Instantiate(inventoryItem.itemData.prefab);
-            DraggableItem draggableItem = newItemObj.GetComponent<DraggableItem>();
+            DecorateManager.Instance.RequestPlacement(inventoryItem, this);
 
-            if (draggableItem == null)
-            {
-                Debug.LogError($"[InventorySlot] {inventoryItem.itemData.itemName} 프리팹에 DraggableItem 컴포넌트가 없습니다!");
-                Destroy(newItemObj);
-                SetPlacingState(false);
-                return;
-            }
+            //    // 새 아이템 인스턴스 생성
+            //    GameObject newItemObj = Instantiate(inventoryItem.itemData.prefab);
+            //    DraggableItem draggableItem = newItemObj.GetComponent<DraggableItem>();
 
-            // 아이템을 적절한 시작 위치에 배치 (예: 화면 중앙 또는 플레이어 근처)
-            Vector3 startPosition = GetStartPosition();
-            newItemObj.transform.position = startPosition;
-            draggableItem.Initialize(inventoryItem.itemData);
+            //    if (draggableItem == null)
+            //    {
+            //        Debug.LogError($"[InventorySlot] {inventoryItem.itemData.itemName} 프리팹에 DraggableItem 컴포넌트가 없습니다!");
+            //        Destroy(newItemObj);
+            //        SetPlacingState(false);
+            //        return;
+            //    }
 
-            // 현재 슬롯 참조를 DraggableItem에 저장
-            draggableItem.sourceSlot = this;
+            //    // 아이템을 적절한 시작 위치에 배치 (예: 화면 중앙 또는 플레이어 근처)
+            //    Vector3 startPosition = GetStartPosition();
+            //    newItemObj.transform.position = startPosition;
+            //    draggableItem.Initialize(inventoryItem.itemData);
 
-            // DraggableItem을 배치 대기 상태로 설정
-            draggableItem.StartPendingPlacement();
+            //    // 현재 슬롯 참조를 DraggableItem에 저장
+            //    draggableItem.sourceSlot = this;
 
-            // DecorateManager에 현재 타겟 아이템으로 설정
-            DecorateManager.Instance.targetItem = draggableItem;
+            //    // DraggableItem을 배치 대기 상태로 설정
+            //    draggableItem.StartPendingPlacement();
 
-            // 배치 UI 활성화
-            DecorateManager.Instance.DecorateUIElement.SetActive(true);
+            //    // DecorateManager에 현재 타겟 아이템으로 설정
+            //    DecorateManager.Instance.targetItem = draggableItem;
 
-            Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 시작 (수량 차감 안함)");
-        }
+            //    // 배치 UI 활성화
+            //    DecorateManager.Instance.DecorateUIElement.SetActive(true);
 
-        /// <summary>
-        /// 아이템 배치 확정 시 수량 차감
-        /// </summary>
-        public void OnItemPlacementConfirmed()
-        {
-            if (inventoryItem != null && inventoryItem.quantity > 0)
-            {
-                int oldQuantity = inventoryItem.quantity;
-                inventoryItem.quantity--;
-                Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 확정 - 수량 차감: {oldQuantity} -> {inventoryItem.quantity}");
+            //    Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 시작 (수량 차감 안함)");
+            //}
 
-                // 인벤토리에서도 수량 업데이트
-                if (Inventory.Instance != null)
-                {
-                    Inventory.Instance.UpdateItemQuantity(inventoryItem.itemData, -1);
-                }
+            ///// <summary>
+            ///// 아이템 배치 확정 시 수량 차감
+            ///// </summary>
+            //public void OnItemPlacementConfirmed()
+            //{
+            //    if (inventoryItem != null && inventoryItem.quantity > 0)
+            //    {
+            //        int oldQuantity = inventoryItem.quantity;
+            //        inventoryItem.quantity--;
+            //        Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 확정 - 수량 차감: {oldQuantity} -> {inventoryItem.quantity}");
 
-                // 수량 표시 업데이트
-                UpdateQuantityDisplay();
+            //        // 인벤토리에서도 수량 업데이트
+            //        if (Inventory.Instance != null)
+            //        {
+            //            Inventory.Instance.UpdateItemQuantity(inventoryItem.itemData, -1);
+            //        }
 
-                // 배치 상태 해제
-                SetPlacingState(false);
-            }
+            //        // 수량 표시 업데이트
+            //        UpdateQuantityDisplay();
+
+            //        // 배치 상태 해제
+            //        SetPlacingState(false);
+            //    }
         }
 
         /// <summary>
@@ -354,6 +356,25 @@ namespace DalbitCafe.Deco
             // 카메라가 없는 경우 원점 반환
             return Vector3.zero;
         }
+
+        public void OnItemPlacementConfirmed()
+        {
+            if (inventoryItem != null && inventoryItem.quantity > 0)
+            {
+                int oldQuantity = inventoryItem.quantity;
+                inventoryItem.quantity--;
+
+                // 인벤토리에서도 수량 업데이트
+                if (Inventory.Instance != null)
+                {
+                    Inventory.Instance.UpdateItemQuantity(inventoryItem.itemData, -1);
+                }
+
+                UpdateQuantityDisplay();
+                SetPlacingState(false);
+            }
+        }
+
 
         /// <summary>
         /// 현재 아이템의 수량을 반환

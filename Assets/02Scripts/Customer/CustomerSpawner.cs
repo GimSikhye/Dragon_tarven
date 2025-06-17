@@ -42,8 +42,9 @@ public class CustomerSpawner : MonoBehaviour
         }
 
         // 이제 바로 DraggableItem에서 SubCategory 접근
-        maxCustomerCount = FindObjectsOfType<DraggableItem>()
-     .Count(item => item.GetItemData()?.SubCategory is InteriorType type && type == InteriorType.Chair);
+        maxCustomerCount = DecorateManager.Instance.GetPlacedItems()
+           .Count(item => item.SubCategory is InteriorType type && type == InteriorType.Chair);
+
 
 
         StartCoroutine(SpawnLoop());
