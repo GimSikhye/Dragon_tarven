@@ -45,6 +45,7 @@ public class CustomerSpawner : MonoBehaviour
         maxCustomerCount = DecorateManager.Instance.GetPlacedItems()
            .Count(item => item.SubCategory is InteriorType type && type == InteriorType.Chair);
 
+        Debug.Log($"등록된 의자 개수: {maxCustomerCount}");
 
 
         StartCoroutine(SpawnLoop());

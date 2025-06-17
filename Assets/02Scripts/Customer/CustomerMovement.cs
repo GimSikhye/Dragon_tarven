@@ -15,7 +15,7 @@ public class CustomerMovement : MonoBehaviour
 
     private Tilemap outdoorTilemap;
     private Tilemap storeTilemap;
-    private TileBase outdoorWalkableTile; // spr_tile_brick
+    private TileBase outdoorWalkableTile; // sidewalkBlock
     private TileBase storeWalkableTile;   // spr_tile_floor
 
     private Vector3 target;

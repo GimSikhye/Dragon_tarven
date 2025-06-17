@@ -46,7 +46,7 @@ public class PathfindingManager : MonoBehaviour
 
         gridManager = GridManager.Instance;
         tilemap = gridManager.tilemap;
-        walkableTile = gridManager.storeFloorTile;
+        //walkableTile = gridManager.storeFloorTile;
 
         if (tilemap == null || walkableTile == null)
         {

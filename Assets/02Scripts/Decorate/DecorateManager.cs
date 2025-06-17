@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 // 배치모드 관리
 namespace DalbitCafe.Deco
@@ -37,7 +38,7 @@ namespace DalbitCafe.Deco
         public GameObject DecorateUIElement => _decorateUIElement;
 
         private List<DraggableItem> placedItems = new();
-        public void RegisterPlacedItem(DraggableItem item)
+        public void RegisterPlacedItem(DraggableItem item) // 기록하다
         {
             placedItems.Add(item);
         }
@@ -47,13 +48,22 @@ namespace DalbitCafe.Deco
         {
             // DayCycleManager 찾기
             _dayCycleManager = FindObjectOfType<DayCycleManager>();
-            if (_dayCycleManager == null)
+
+            // 이미 씬에 존재하는 배치된 의자들을 등록
+            var allChairs = FindObjectsOfType<DraggableItem>()
+             .Where(item => item.SubCategory is InteriorType type && type == InteriorType.Chair)
+                .ToList();
+
+            foreach (var chair in allChairs)
             {
-                Debug.LogWarning("[DecorateManager] DayCycleManager를 찾을 수 없습니다!");
+                if (!placedItems.Contains(chair))
+                {
+                    placedItems.Add(chair);
+                }
             }
 
             // 시작할 때 배치모드 UI들은 숨김 상태로 시작
-            
+
             _decorateModeExitButton.SetActive(false);
             _decorateModeMenuBar.SetActive(false);
             _decorateUIElement.SetActive(false);
@@ -167,10 +177,10 @@ namespace DalbitCafe.Deco
 
             // 손님들 비활성화
             _customers = new GameObject[_customerParent.childCount];
-            for (int i = 0; i < _customers.Length; i++) 
+            for (int i = 0; i < _customers.Length; i++)
             {
                 _customers[i] = _customerParent.GetChild(i).gameObject;
-                _customers[i].SetActive(false); 
+                _customers[i].SetActive(false);
             }
 
             // 배치모드 UI 활성화
@@ -369,7 +379,7 @@ namespace DalbitCafe.Deco
         private ItemData GetItemDataFromDraggableItem(DraggableItem draggableItem)
         {
             return draggableItem.GetItemData();
-           
+
         }
     }
 
