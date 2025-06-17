@@ -9,7 +9,6 @@ namespace DalbitCafe.Deco
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
 
-
         [Header("Slot Reference")]
         public InventorySlot sourceSlot; // 이 아이템을 생성한 슬롯 참조
 

@@ -257,62 +257,6 @@ namespace DalbitCafe.Deco
         private void StartItemPlacement()
         {
             DecorateManager.Instance.RequestPlacement(inventoryItem, this);
-
-            //    // 새 아이템 인스턴스 생성
-            //    GameObject newItemObj = Instantiate(inventoryItem.itemData.prefab);
-            //    DraggableItem draggableItem = newItemObj.GetComponent<DraggableItem>();
-
-            //    if (draggableItem == null)
-            //    {
-            //        Debug.LogError($"[InventorySlot] {inventoryItem.itemData.itemName} 프리팹에 DraggableItem 컴포넌트가 없습니다!");
-            //        Destroy(newItemObj);
-            //        SetPlacingState(false);
-            //        return;
-            //    }
-
-            //    // 아이템을 적절한 시작 위치에 배치 (예: 화면 중앙 또는 플레이어 근처)
-            //    Vector3 startPosition = GetStartPosition();
-            //    newItemObj.transform.position = startPosition;
-            //    draggableItem.Initialize(inventoryItem.itemData);
-
-            //    // 현재 슬롯 참조를 DraggableItem에 저장
-            //    draggableItem.sourceSlot = this;
-
-            //    // DraggableItem을 배치 대기 상태로 설정
-            //    draggableItem.StartPendingPlacement();
-
-            //    // DecorateManager에 현재 타겟 아이템으로 설정
-            //    DecorateManager.Instance.targetItem = draggableItem;
-
-            //    // 배치 UI 활성화
-            //    DecorateManager.Instance.DecorateUIElement.SetActive(true);
-
-            //    Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 시작 (수량 차감 안함)");
-            //}
-
-            ///// <summary>
-            ///// 아이템 배치 확정 시 수량 차감
-            ///// </summary>
-            //public void OnItemPlacementConfirmed()
-            //{
-            //    if (inventoryItem != null && inventoryItem.quantity > 0)
-            //    {
-            //        int oldQuantity = inventoryItem.quantity;
-            //        inventoryItem.quantity--;
-            //        Debug.Log($"[InventorySlot] {inventoryItem.itemData.itemName} 배치 확정 - 수량 차감: {oldQuantity} -> {inventoryItem.quantity}");
-
-            //        // 인벤토리에서도 수량 업데이트
-            //        if (Inventory.Instance != null)
-            //        {
-            //            Inventory.Instance.UpdateItemQuantity(inventoryItem.itemData, -1);
-            //        }
-
-            //        // 수량 표시 업데이트
-            //        UpdateQuantityDisplay();
-
-            //        // 배치 상태 해제
-            //        SetPlacingState(false);
-            //    }
         }
 
         /// <summary>

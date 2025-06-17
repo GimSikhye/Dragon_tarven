@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
+using System.Collections;
 
 public class CustomerMovement : MonoBehaviour
 {
@@ -27,6 +28,17 @@ public class CustomerMovement : MonoBehaviour
     private CustomerSpawner spawner;
     private PathfindingManager pathfinder;
 
+    private CustomerStateMachine stateMachine;
+
+    private void Awake()
+    {
+        stateMachine = GetComponent<CustomerStateMachine>();
+    }
+
+    private void Start()
+    {
+        Debug.Log($"[FlipXDebugger] 내 오브젝트 이름: {gameObject.name} / SpriteRenderer 인스턴스 ID: {spriteRenderer.GetInstanceID()}");
+    }
     public void SetSpawner(CustomerSpawner spawner)
     {
         this.spawner = spawner;
@@ -140,35 +152,49 @@ public class CustomerMovement : MonoBehaviour
     }
     public void Sit()
     {
-        if (mySeat == null) return;
+        if (mySeat == null)
+        {
+            Debug.LogError("mySeat가 null입니다! 착석 실패");
+            return;
+        }
 
         int index = mySeat.GetComponent<DraggableItem>().RotationIndex;
+        Debug.Log($"손님이 앉으려고 합니다. 좌석 회전 인덱스: {index}");
 
-        switch (index)
-        {
-            case 0:
-                animator.Play("Front_Idle_Sit");
-                spriteRenderer.flipX = true;
-                break;
-            case 1:
-                animator.Play("Front_Idle_Sit");
-                spriteRenderer.flipX = false;
-                break;
-            case 2:
-                animator.Play("Back_Idle_Sit");
-                spriteRenderer.flipX = true;
-                break;
-            case 3:
-                animator.Play("Back_Idle_Sit");
-                spriteRenderer.flipX = false;
-                break;
-            default:
-                animator.Play("Front_Idle_Sit");
-                break;
-        }
+        // 파라미터 전달
+        animator.SetInteger("Direction", index);
+        animator.SetBool("IsSitting", true);
+
+        // flipX는 항상 코드에서 직접 제어
+        ApplyFlipX(index);
 
         spawner.OnCustomerSeated();
     }
+
+    private void ApplyFlipX(int index)
+    {
+        switch (index)
+        {
+            case 0: // 오른쪽 아래
+                spriteRenderer.flipX = true;
+                break;
+            case 1: // 왼쪽 아래
+                spriteRenderer.flipX = false;
+                break;
+            case 2: // 왼쪽 위
+                spriteRenderer.flipX = true;
+                break;
+            case 3: // 오른쪽 위
+                spriteRenderer.flipX = false;
+                break;
+            default:
+                spriteRenderer.flipX = false;
+                break;
+        }
+    }
+
+
+
     public void ReleaseSeat()
     {
         if (mySeat != null)
@@ -194,7 +220,6 @@ public class CustomerMovement : MonoBehaviour
         isMoving = true;
     }
 
-
     private void Update()
     {
         if (!isMoving || path == null || pathIndex >= path.Count) return;
@@ -210,11 +235,18 @@ public class CustomerMovement : MonoBehaviour
             {
                 isMoving = false;
                 onArrive?.Invoke();
+                return; // 여기서 바로 리턴 추가!
             }
         }
 
-        UpdateAnimation(dir);
+        if (isMoving && stateMachine.CurrentState is CustomerState.WalkingAround
+    or CustomerState.Entering or CustomerState.MovingToSeat)
+        {
+            UpdateAnimation(dir);
+        }
+
     }
+
 
     // 입장 거절된 손님이 그냥 쭉 반대 방향으로 지나가기
     public void LeaveImmediately(Action onDone)
@@ -238,6 +270,8 @@ public class CustomerMovement : MonoBehaviour
 
     private void UpdateAnimation(Vector3 dir)
     {
+        // IsSitting은 건드리지 않는다
+
         if (dir.y > 0)
         {
             animator.Play("Back_Walk");
@@ -247,9 +281,9 @@ public class CustomerMovement : MonoBehaviour
         {
             animator.Play("Front_Walk");
             spriteRenderer.flipX = (dir.x > 0 ? true : false);
-
         }
     }
+
     private void SetMovePath(Action onDone)
     {
         if (path == null || path.Count == 0)

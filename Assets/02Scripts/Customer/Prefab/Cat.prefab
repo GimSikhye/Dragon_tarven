@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2094102563690774011}
   - component: {fileID: 6376995693542030523}
   - component: {fileID: 563673070772903567}
+  - component: {fileID: 5871884927739336696}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -136,6 +137,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fcd59ec8720b045aa97032fd43faa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
   animator: {fileID: 2094102563690774011}
+  spriteRenderer: {fileID: 2505766785509714031}
+  path: []
+--- !u!114 &5871884927739336696
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7317934559009848884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e849c96c726b1f947ad68d7365e49136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2505766785509714031}

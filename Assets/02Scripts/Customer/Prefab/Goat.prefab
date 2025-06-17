@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3973182012670509746}
   - component: {fileID: 2936726084600811608}
   - component: {fileID: 2906659829055010588}
+  - component: {fileID: -5881940600028093009}
   m_Layer: 0
   m_Name: Goat
   m_TagString: Untagged
@@ -136,6 +137,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20fcd59ec8720b045aa97032fd43faa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2
   animator: {fileID: 3973182012670509746}
+  spriteRenderer: {fileID: 2592612767376512694}
+  path: []
+--- !u!114 &-5881940600028093009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9142219215421615503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e849c96c726b1f947ad68d7365e49136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   spriteRenderer: {fileID: 2592612767376512694}

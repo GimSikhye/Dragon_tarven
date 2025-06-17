@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 231120833
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 04dc4526470c29d43a280ec246e74b26, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -104,9 +104,9 @@ MonoBehaviour:
   sourceSlot: {fileID: 0}
   spriteRenderer: {fileID: 5160243935755911282}
   directionSprites:
-  - {fileID: 21300000, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
-  - {fileID: 21300000, guid: 5f51a3c84bed77440a3391f5e026eba0, type: 3}
   - {fileID: 21300000, guid: 04dc4526470c29d43a280ec246e74b26, type: 3}
+  - {fileID: 21300000, guid: 5f51a3c84bed77440a3391f5e026eba0, type: 3}
+  - {fileID: 21300000, guid: e179bc4994eeaae4c92e4cf428dcddba, type: 3}
   - {fileID: 21300000, guid: 765f988914572c540bd50c076abaf0c4, type: 3}
   rotationLimit: 4
   _itemSize: {x: 1, y: 1}
@@ -115,6 +115,7 @@ MonoBehaviour:
   _originalMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   confirmActiveSprite: {fileID: 21300000, guid: bf6d359889db3f34392f1ac1084f63a4, type: 3}
   confirmDeactiveSprite: {fileID: 21300000, guid: 9b9383c096a414b4e9de1afbf72da389, type: 3}
+  defaultItemData: {fileID: 11400000, guid: cd90c8479bdeb8b43996d131ecd0792e, type: 2}
 --- !u!61 &2066716453654936477
 BoxCollider2D:
   m_ObjectHideFlags: 0
