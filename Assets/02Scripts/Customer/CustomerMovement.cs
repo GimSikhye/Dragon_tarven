@@ -29,6 +29,7 @@ public class CustomerMovement : MonoBehaviour
     private PathfindingManager pathfinder;
 
     private CustomerStateMachine stateMachine;
+    [SerializeField] private float seatYOffset = 0.4f;
 
     private void Awake()
     {
@@ -161,15 +162,29 @@ public class CustomerMovement : MonoBehaviour
         int index = mySeat.GetComponent<DraggableItem>().RotationIndex;
         Debug.Log($"손님이 앉으려고 합니다. 좌석 회전 인덱스: {index}");
 
-        // 파라미터 전달
+        // 회전 인덱스에 따른 보정값 적용
+        Vector3 seatPosition = mySeat.transform.position;
+        transform.position = seatPosition + GetSittingOffset(index);
+
         animator.SetInteger("Direction", index);
         animator.SetBool("IsSitting", true);
 
-        // flipX는 항상 코드에서 직접 제어
         ApplyFlipX(index);
-
         spawner.OnCustomerSeated();
     }
+
+    private Vector3 GetSittingOffset(int index)
+    {
+        switch (index)
+        {
+            case 0: return new Vector3(0.2f, 0.4f, 0f);     //  오른쪽 아래
+            case 1: return new Vector3(-0.26f, 0.34f, 0f);  //  왼쪽 아래
+            case 2: return new Vector3(0f, 0.4f, 0f);       //  왼쪽 위
+            case 3: return new Vector3(0f, 0.4f, 0f);       //  오른쪽 위
+            default: return new Vector3(0f, 0.4f, 0f);      // fallback
+        }
+    }
+
 
     private void ApplyFlipX(int index)
     {
