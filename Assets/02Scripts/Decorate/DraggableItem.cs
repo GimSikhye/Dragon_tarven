@@ -15,7 +15,7 @@ namespace DalbitCafe.Deco
         [Header("아이템 회전")]
         [SerializeField] private SpriteRenderer spriteRenderer;
         [SerializeField] private Sprite[] directionSprites; // 0: 오른쪽 아래, 1: 왼쪽 아래, 2: 왼쪽위, 3: 오른쪽 위
-        private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
+        [SerializeField] private int _rotationIndex = 0; // 0, 1, 2, 3 → 0~3 사이에서 회전 방향 인덱스
 
         [Header("아이템 회전 제한")]
         [SerializeField] private int rotationLimit = 4; // 회전 가능한 방향 수 : 2(좌우), 4(전체)
