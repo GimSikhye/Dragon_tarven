@@ -62,6 +62,9 @@ public class CustomerStateMachine : MonoBehaviour
 
             case CustomerState.Sitting:
                 movement.Sit();
+                var order = GetComponent<CustomerOrder>();
+                if (order != null)
+                    order.StartOrderingAfterDelay(2.5f); // 2.5초 후 주문
                 break;
 
             case CustomerState.Leaving:

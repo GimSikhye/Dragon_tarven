@@ -155,7 +155,7 @@ public class CustomerMovement : MonoBehaviour
     {
         if (mySeat == null)
         {
-            Debug.LogError("mySeat가 null입니다! 착석 실패");
+            Debug.Log("mySeat가 null입니다! 착석 실패");
             return;
         }
 

@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 8966565626512851432}
   - component: {fileID: 8539365484285561866}
   - component: {fileID: 2009498741948757856}
-  - component: {fileID: 8923390352974082451}
   - component: {fileID: 2179059615084043268}
+  - component: {fileID: 8923390352974082451}
+  - component: {fileID: 7680341620873560193}
   m_Layer: 0
   m_Name: Fox
   m_TagString: Untagged
@@ -125,6 +126,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8966773b9fc0f24f8a58bac82e75297, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2179059615084043268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6206077126572255180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e849c96c726b1f947ad68d7365e49136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteRenderer: {fileID: 8966565626512851432}
 --- !u!114 &8923390352974082451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +154,8 @@ MonoBehaviour:
   animator: {fileID: 8539365484285561866}
   spriteRenderer: {fileID: 8966565626512851432}
   path: []
---- !u!114 &2179059615084043268
+  seatYOffset: 0.4
+--- !u!114 &7680341620873560193
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +164,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 6206077126572255180}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e849c96c726b1f947ad68d7365e49136, type: 3}
+  m_Script: {fileID: 11500000, guid: 22d29752b646a8c4e885ac0427d61134, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteRenderer: {fileID: 8966565626512851432}
+  speechBubblePrefab: {fileID: 3176937107619942135, guid: 3cfe56ca3719ec944a4c20677277dc01, type: 3}
+  menuIcons:
+  - {fileID: 21300000, guid: 57348f8ec2265d04f9cb886de98b6a10, type: 3}
+  - {fileID: 21300000, guid: 8936a268fd580f54ab758a924835564e, type: 3}
+  - {fileID: 21300000, guid: a81a216f81ba49f44899c8ea575f2dfd, type: 3}
+  - {fileID: 21300000, guid: 51a0addf05001ae499210a1cc318e59a, type: 3}
+  - {fileID: 21300000, guid: 9132704896dd53b4782c59a9544dc1c5, type: 3}
