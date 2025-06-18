@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
+using System.Linq;
 
 public enum CoffeeState { BaseSelect, DoTheShot, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
 
@@ -20,9 +21,9 @@ public class WhippingGasSpriteEntry
     public Sprite sprite;
 }
 [System.Serializable]
-public class WhippedCreamSpriteEntry
+public class WhippedCreamSpriteEntry // 레벨에 다라 sprite 교체
 {
-    public string levelName;
+    public string levelName; 
     public Sprite sprite;
 }
 public class CoffeeMakingManager : MonoBehaviour
@@ -34,18 +35,19 @@ public class CoffeeMakingManager : MonoBehaviour
     [SerializeField] private GameObject whippedCreamSelectPanel;
     [SerializeField] private GameObject whippedCreamSqueezePanel;
 
-    private CoffeeState currentState;
-    private string selectedBase;
+    private CoffeeState currentState; // 현재 상태
+    private string selectedBase; // 선택된 재료
+
     [SerializeField] private BaseSpriteEntry[] baseSpriteEntries;
     private Dictionary<string, Sprite> baseSprites;
 
     // Shot 관련 변수
     [Header("Shot System")]
-    [SerializeField] private Animator[] outletAnimators; // Outlet 1, 2, 3, 4의 애니메이터들
+    [SerializeField] private Animator[] outletAnimators; // 배출구 1, 2, 3, 4의 애니메이터들
     [SerializeField] private Button[] shotButtons; // Shot 버튼들 배열
     [SerializeField] private Transform[] shotGlasses; // 샷잔들의 Transform
     [SerializeField] private Transform mugTransform; // Mug의 Transform
-    [SerializeField] private float mugDetectionRadius = 100f; // Mug 근처 감지 반경
+    [SerializeField] private float mugDetectionRadius = 100f; // Mug 근처 감지 반경(드래그로 샷잔을 머그에 옮길때)
 
     private readonly Color defaultShotButtonColor = new Color(1f, 172f / 255f, 65f / 255f, 1f);
     private readonly Color selectedShotButtonColor = new Color(142f / 255f, 207f / 255f, 40f / 255f, 1f);
@@ -64,7 +66,7 @@ public class CoffeeMakingManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI amountText;
 
     private float pouredAmount = 0f; // 현재 따라진 양
-    private float pourIntensity = 0f; // 기울기 기반으로 계산된 양
+    private float pourIntensity = 0f; // 기울기 기반으로 계산된 양(기울기 강도)
     private Vector2 simulatedTilt = Vector2.zero;
     [SerializeField] private float simulatedTiltSpeed = 1.5f;
     [SerializeField] private float simulatedTiltMax = 1.2f;
@@ -117,6 +119,12 @@ public class CoffeeMakingManager : MonoBehaviour
     private float targetFillAmount; // 목표 Fill Amount
     private bool isTimerRunning = false;
     private Coroutine timerCoroutine;
+
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private TextMeshProUGUI feedbackText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI detailNoteText;
+
 
     private void Start()
     {
@@ -623,6 +631,7 @@ public class CoffeeMakingManager : MonoBehaviour
     private void InitBaseSelect()
     {
         selectedBase = "";
+
     }
 
     private void InitDoTheShot()
@@ -892,20 +901,150 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             // 멈춤 상태로 변경
             isWhipping = false;
+            CheckRecipe();
+            ShowResultUI();
         }
     }
 
-    private void CheckRecipe() // 레시피 조건 ScriptableObject로 만들기
+    private void CheckRecipe()
     {
-        //if(selectedBase == "Milk" && selectedSyrups.Contains("카라멜"))
-        //{
-        //    ShowResult("카라멜라뗴 완성!");
-        //}
-        //else
-        //{
-        //    ShowResult("레시피가 달라요!");
-        //}
+        var recipe = OrderData.CurrentRecipe;
+
+        CoffeeResultData result = new CoffeeResultData();
+
+        //  베이스
+        result.ShotAccuracy = (selectedBase == recipe.baseType) ? 1f : 0f;
+
+        //  샷 횟수 비교
+        int shotCount = shotGlassHasShot.Count(x => x); // 실제 shotCount 측정
+        result.ShotAccuracy = (shotCount == recipe.shotCount) ? 1f : 0f;
+
+        //  우유량 비교
+        float pourError = Mathf.Abs(pouredAmount - recipe.expectedPourAmount);
+        result.PourAccuracy = 1f - Mathf.Clamp01(pourError / 100f); // 최대 오차 100ml 기준
+
+        //  시럽 비교 (정확히 같은 종류와 횟수만 인정)
+        result.SyrupCount = CompareSyrups(recipe.syrups) ? 1 : 0;
+
+        //  휘핑 크림
+        result.WhippedLevel = GetCurrentWhippedLevel();
+
+        // 저장
+        OrderData.Result = result;
     }
+    private void ShowResultUI()
+    {
+        resultPanel.SetActive(true);
+
+        var result = OrderData.Result;
+        float score = result.CalculateScore();
+
+        feedbackText.text = GetFeedback(score);
+        scoreText.text = $"{score:F0}점";
+        detailNoteText.text = GenerateNotes(result);
+    }
+
+    private string GetFeedback(float score)
+    {
+        if (score >= 90f) return "완벽해요! GOOD!";
+        if (score >= 70f) return "맛있어요~";
+        if (score >= 40f) return "음.. 괜찮네요. 쏘쏘~";
+        return "다음엔 더 잘해봐요!";
+    }
+    private string GenerateNotes(CoffeeResultData result)
+    {
+        var recipe = OrderData.CurrentRecipe;
+        List<string> notes = new();
+
+        if (selectedBase != recipe.baseType)
+            notes.Add($"베이스: {selectedBase} → {recipe.baseType}");
+
+        int actualShot = shotGlassHasShot.Count(x => x);
+        if (actualShot != recipe.shotCount)
+            notes.Add($"샷: {actualShot} → {recipe.shotCount}");
+
+        float diff = pouredAmount - recipe.expectedPourAmount; 
+        if (Mathf.Abs(diff) > 5f)
+            notes.Add($"우유량: {pouredAmount:F1} → {(diff > 0 ? "많음" : "적음")}");
+
+        if (!CompareSyrups(recipe.syrups))
+            notes.Add("시럽 종류/횟수가 정확하지 않아요.");
+
+        if (result.WhippedLevel != recipe.whippedCreamLevel)
+            notes.Add($"휘핑: {result.WhippedLevel} → {recipe.whippedCreamLevel}");
+
+        return string.Join("\n", notes);
+    }
+
+    private bool CompareSyrups(List<SyrupRequirement> requiredSyrups)
+    {
+        // 총 시럽 개수 비교 (총 펌프 수)
+        int expectedTotal = requiredSyrups.Sum(r => r.count);
+        int actualTotal = syrupCounts.Sum(s => s.Value);
+        if (expectedTotal != actualTotal) return false;
+
+        // 각각의 시럽 이름과 펌프 횟수 비교
+        foreach (var req in requiredSyrups)
+        {
+            if (!syrupCounts.ContainsKey(req.syrupName)) return false;
+            if (syrupCounts[req.syrupName] != req.count) return false;
+        }
+
+        return true;
+    }
+
+    private string GetCurrentWhippedLevel()
+    {
+        if (currentWhippingAmount >= 0.85f) return "veryhigh";
+        if (currentWhippingAmount >= 0.6f) return "high";
+        if (currentWhippingAmount >= 0.3f) return "low";
+        if (currentWhippingAmount > 0f) return "verylow";
+        return "none";
+    }
+
+    private string GetWhippedCreamLevelName(float amount)
+    {
+        float width = whippingAmountFillImage.rectTransform.rect.width;
+        float pos = amount * width;
+
+        float low = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
+        float high = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
+        float veryHigh = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+
+        if (pos >= veryHigh)
+            return "veryhigh";
+        else if (pos >= high)
+            return "high";
+        else if (pos >= low)
+            return "low";
+        else if (amount > 0)
+            return "verylow";
+        else
+            return "none";
+    }
+
+    private bool SyrupCountsMatch(List<SyrupRequirement> expectedList)
+    {
+        // 비교할 시럽이 아예 없을 경우
+        if ((expectedList == null || expectedList.Count == 0) && syrupCounts.Count == 0)
+            return true;
+
+        // 시럽 개수가 다르면 실패
+        if (expectedList.Count != syrupCounts.Count)
+            return false;
+
+        foreach (var expected in expectedList)
+        {
+            if (!syrupCounts.TryGetValue(expected.syrupName, out int actualCount))
+                return false;
+
+            if (actualCount != expected.count)
+                return false;
+        }
+
+        return true;
+    }
+
 
     private void UpdatePouringAnimation(float intensity)
     {

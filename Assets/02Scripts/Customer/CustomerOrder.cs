@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CustomerOrder : MonoBehaviour
 {
@@ -14,6 +15,12 @@ public class CustomerOrder : MonoBehaviour
     private MenuType selectedMenu;
 
     private bool hasOrdered = false;
+    private Camera mainCamera;
+
+    private void Start()
+    {
+        mainCamera = Camera.main;
+    }
 
     public void StartOrderingAfterDelay(float delay)
     {
@@ -34,7 +41,6 @@ public class CustomerOrder : MonoBehaviour
         speechBubble = Instantiate(speechBubblePrefab, transform);
         speechBubble.transform.localPosition = new Vector3(0, 1.5f, 0);
 
-        // 자식 중 이름이 "menuIcon"인 오브젝트 찾기
         Transform iconTransform = speechBubble.transform.Find("SpeechBalloon/menuIcon");
         if (iconTransform == null)
         {
@@ -53,11 +59,29 @@ public class CustomerOrder : MonoBehaviour
         hasOrdered = true;
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-        if (!hasOrdered) return;
+        if (!hasOrdered || Input.touchCount == 0)
+            return;
 
+        Touch touch = Input.GetTouch(0);
+        if (touch.phase != TouchPhase.Began)
+            return;
+
+        Vector2 touchPos = mainCamera.ScreenToWorldPoint(touch.position);
+        RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
+
+        if (hit.collider != null && hit.collider.transform == transform)
+        {
+            Debug.Log("손님 터치됨 (2D Raycast)!");
+            LoadOrderScene();
+        }
+    }
+
+    private void LoadOrderScene()
+    {
         OrderData.CurrentMenu = selectedMenu;
-        UnityEngine.SceneManagement.SceneManager.LoadScene("OrderScene");
+        OrderData.CustomerName = gameObject.name; // ex: "Duck", "Fox", etc.
+        SceneManager.LoadScene("OrderScene");
     }
 }

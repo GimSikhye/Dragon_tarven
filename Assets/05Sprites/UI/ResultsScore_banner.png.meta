@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 19784c95846655d4eac0b79a43af7c93
+guid: c73e0a17fbf7bf441a96a8126022b4e0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4940880841727317810
-    second: spr_portrait_minseok_0
+      213: -6710843235117659016
+    second: ResultsScore_banner_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,30 +122,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_minseok_0
+      name: ResultsScore_banner_0
       rect:
         serializedVersion: 2
-        x: 178
-        y: 0
-        width: 1121
-        height: 1870
+        x: 1
+        y: 4
+        width: 276
+        height: 60
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: ec86f476d077e6bb0800000000000000
-      internalID: -4940880841727317810
+      spriteID: 87c8a7b12ab4ed2a0800000000000000
+      internalID: -6710843235117659016
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_minseok_0: -4940880841727317810
+      ResultsScore_banner_0: -6710843235117659016
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

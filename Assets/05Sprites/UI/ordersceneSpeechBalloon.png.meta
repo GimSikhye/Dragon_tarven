@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a6b1cf361b0d06f42996f22689d756f5
+guid: 54dcc2d410ee66e41a93f6b20dd3f6a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -8493031413478825113
-    second: spr_portrait_Nayeon_0
+      213: 8099291880297664928
+    second: ordersceneSpeechBalloon_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,30 +122,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_Nayeon_0
+      name: ordersceneSpeechBalloon_0
       rect:
         serializedVersion: 2
-        x: 425
-        y: 0
-        width: 1011
-        height: 1826
+        x: 20
+        y: 6
+        width: 560
+        height: 234
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 7636c5d6de0b22a80800000000000000
-      internalID: -8493031413478825113
+      spriteID: 0a11951ad07766070800000000000000
+      internalID: 8099291880297664928
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_Nayeon_0: -8493031413478825113
+      ordersceneSpeechBalloon_0: 8099291880297664928
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

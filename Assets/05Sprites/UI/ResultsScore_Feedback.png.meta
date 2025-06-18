@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: ecc79eb08ad395b43bd895090bdd0e4c
+guid: 74a6f51c0142058438aaf8cf39ea7a16
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5818962666566430916
-    second: spr_portrait_jihoonAdult_0
+      213: 929283793240426699
+    second: ResultsScore_Feedback_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -122,30 +122,17 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_portrait_jihoonAdult_0
+      name: ResultsScore_Feedback_0
       rect:
         serializedVersion: 2
-        x: 327
-        y: 0
-        width: 885
-        height: 1905
+        x: 6
+        y: 1
+        width: 131
+        height: 89
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: c3f4c02f844ee3fa0800000000000000
-      internalID: -5818962666566430916
+      spriteID: bc88f97bfaa75ec00800000000000000
+      internalID: 929283793240426699
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_portrait_jihoonAdult_0: -5818962666566430916
+      ResultsScore_Feedback_0: 929283793240426699
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
