@@ -129,10 +129,10 @@ TextureImporter:
       name: orderSpeeachBalloon_0
       rect:
         serializedVersion: 2
-        x: 19
-        y: 4
-        width: 562
-        height: 585
+        x: 14
+        y: 0
+        width: 572
+        height: 594
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

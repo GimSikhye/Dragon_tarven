@@ -7,6 +7,8 @@ using System.Collections;
 using System.Linq;
 
 public enum CoffeeState { BaseSelect, DoTheShot, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
+// 점수에 따른 점수 아이콘 이미지
+
 
 [System.Serializable]
 public class BaseSpriteEntry // entry: 항목
@@ -34,6 +36,37 @@ public class CoffeeMakingManager : MonoBehaviour
     [SerializeField] private GameObject syrupPanel;
     [SerializeField] private GameObject whippedCreamSelectPanel;
     [SerializeField] private GameObject whippedCreamSqueezePanel;
+
+    [SerializeField] private GameObject blueNotePrefab;
+    [SerializeField] private GameObject redNotePrefab;
+    [SerializeField] private RectTransform notesPanel; // 오답 노트 UI가 붙은 패널
+    [SerializeField] private GameObject noteLinePrefab; // TextMeshProUGUI 한 줄짜리 프리팹
+
+    private void SpawnPourNoteBubble(float diff)
+    {
+        GameObject prefabToUse = diff > 0 ? redNotePrefab : blueNotePrefab;
+        string textToShow = diff > 0 ? "더 적게" : "더 많이";
+
+        // 찾은 마지막 텍스트 UI (노트 마지막 줄)
+        TextMeshProUGUI[] texts = notesPanel.GetComponentsInChildren<TextMeshProUGUI>();
+        if (texts.Length == 0) return;
+
+        var lastText = texts.Last();
+        if (lastText == null) return;
+
+        // 말풍선 생성
+        GameObject bubble = Instantiate(prefabToUse, notesPanel);
+        bubble.GetComponentInChildren<TextMeshProUGUI>().text = textToShow;
+
+        // 말풍선을 텍스트 옆에 배치 (X 오프셋만 적용)
+        RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
+        RectTransform textRect = lastText.GetComponent<RectTransform>();
+
+        bubbleRect.anchoredPosition = textRect.anchoredPosition + new Vector2(150f, 0f); // 오른쪽에 배치
+
+
+    }
+
 
     private CoffeeState currentState; // 현재 상태
     private string selectedBase; // 선택된 재료
@@ -121,9 +154,9 @@ public class CoffeeMakingManager : MonoBehaviour
     private Coroutine timerCoroutine;
 
     [SerializeField] private GameObject resultPanel;
+    [SerializeField] private Sprite[] scoreIcons;
     [SerializeField] private TextMeshProUGUI feedbackText;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI detailNoteText;
+    [SerializeField] private Image scoreImage;
 
 
     private void Start()
@@ -259,6 +292,30 @@ public class CoffeeMakingManager : MonoBehaviour
         OnNextToPouring();
     }
 
+    public void OnSkipWhippedCream()
+    {
+        // 휘핑크림 단계들을 모두 건너뜀
+        currentWhippingAmount = 0f;
+
+        // 휘핑크림 레벨을 none으로 설정
+        if (whippingAmountFillImage != null)
+            whippingAmountFillImage.fillAmount = 0f;
+
+        if (whippingAmountText != null)
+            whippingAmountText.text = "없음";
+
+        if (whippedCreamImage != null)
+            whippedCreamImage.sprite = noneWhippedCreamSpirte;
+
+        // 결과 저장 시 WhippedLevel이 "none"이 되도록 보장
+        isWhipping = false;
+
+        // 다음 단계로 넘어가기 (예: 결과 화면으로 이동하거나 Syrup이나 Finish 등)
+        CheckRecipe(); // 혹은 필요한 로직
+        ShowResultUI();
+    }
+
+
     private void HandleWhipping()
     {
         if(isWhipping && currentWhippingAmount < 1f)
@@ -299,27 +356,8 @@ public class CoffeeMakingManager : MonoBehaviour
         float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
 
         // 레벨 결정
-        string level;
-        if (currentFillPosition >= veryHighArrowPos)
-        {
-            level = "veryhigh";
-        }
-        else if (currentFillPosition >= highArrowPos)
-        {
-            level = "high";
-        }
-        else if (currentFillPosition >= lowArrowPos)
-        {
-            level = "low";
-        }
-        else if (currentWhippingAmount > 0)
-        {
-            level = "verylow";
-        }
-        else
-        {
-            return; // currentWhippingAmount가 0 이하인 경우 업데이트하지 않음
-        }
+        string level = CalculateWhippedLevelFromGauge(currentWhippingAmount);
+
 
         // 텍스트는 항상 동일
         string displayText = level switch
@@ -909,8 +947,8 @@ public class CoffeeMakingManager : MonoBehaviour
     private void CheckRecipe()
     {
         var recipe = OrderData.CurrentRecipe;
-
         CoffeeResultData result = new CoffeeResultData();
+
 
         //  베이스
         result.ShotAccuracy = (selectedBase == recipe.baseType) ? 1f : 0f;
@@ -937,44 +975,196 @@ public class CoffeeMakingManager : MonoBehaviour
         resultPanel.SetActive(true);
 
         var result = OrderData.Result;
-        float score = result.CalculateScore();
+        string grade = result.EvaluateGrade();
 
-        feedbackText.text = GetFeedback(score);
-        scoreText.text = $"{score:F0}점";
-        detailNoteText.text = GenerateNotes(result);
+        feedbackText.text = grade switch
+        {
+            "Perfect" => "완벽해요! GOOD!",
+            "Good" => "좋아요~",
+            "Bad" => "조금 아쉬워요...",
+            _ => "환불해주세요."
+        };
+
+        scoreImage.sprite = grade switch
+        {
+            "Perfect" => scoreIcons[0],
+            "Good" => scoreIcons[1],
+            "Bad" => scoreIcons[2],
+            _ => scoreIcons[3]
+        };
+
+        GenerateNoteLines(result); // 여기!
     }
 
-    private string GetFeedback(float score)
+    private IEnumerator ResizeUnderlineToValueOnly(TextMeshProUGUI textComp, Image underlineImg)
     {
-        if (score >= 90f) return "완벽해요! GOOD!";
-        if (score >= 70f) return "맛있어요~";
-        if (score >= 40f) return "음.. 괜찮네요. 쏘쏘~";
-        return "다음엔 더 잘해봐요!";
+        yield return null;
+
+        string fullText = textComp.text;
+        int colonIndex = fullText.IndexOf(':');
+
+        // 콜론이 없는 경우: 전체 밑줄 + 시작 X 보정
+        if (colonIndex < 0 || colonIndex + 1 >= fullText.Length)
+        {
+            underlineImg.rectTransform.anchorMin = new Vector2(0f, 0.5f);
+            underlineImg.rectTransform.anchorMax = new Vector2(0f, 0.5f);
+            underlineImg.rectTransform.pivot = new Vector2(0f, 0.5f);
+
+            float width = textComp.preferredWidth;
+            underlineImg.rectTransform.sizeDelta = new Vector2(width, underlineImg.rectTransform.sizeDelta.y);
+
+            // X 보정: 텍스트 자체 위치 고려
+            float textStartOffsetX = textComp.margin.x + textComp.fontSize * 1.2f;
+            underlineImg.rectTransform.anchoredPosition = new Vector2(textStartOffsetX, 0f);
+            yield break;
+        }
+
+        // 콜론이 있는 경우
+        string before = fullText.Substring(0, colonIndex + 1);
+        string after = fullText.Substring(colonIndex + 1).Trim();
+
+        // before 측정용 TMP
+        GameObject tmpBeforeGO = new GameObject("TMP_Measure_Before", typeof(RectTransform));
+        tmpBeforeGO.transform.SetParent(textComp.transform.parent, false);
+        var tmpBefore = tmpBeforeGO.AddComponent<TextMeshProUGUI>();
+        tmpBefore.font = textComp.font;
+        tmpBefore.fontSize = textComp.fontSize;
+        tmpBefore.text = before;
+        tmpBefore.alignment = TextAlignmentOptions.Left;
+        tmpBefore.enableWordWrapping = false;
+        tmpBefore.raycastTarget = false;
+
+        yield return null;
+        float startX = tmpBefore.preferredWidth;
+        Destroy(tmpBeforeGO);
+
+        // after 측정용 TMP
+        GameObject tmpAfterGO = new GameObject("TMP_Measure_After", typeof(RectTransform));
+        tmpAfterGO.transform.SetParent(textComp.transform.parent, false);
+        var tmpAfter = tmpAfterGO.AddComponent<TextMeshProUGUI>();
+        tmpAfter.font = textComp.font;
+        tmpAfter.fontSize = textComp.fontSize;
+        tmpAfter.text = after;
+        tmpAfter.alignment = TextAlignmentOptions.Left;
+        tmpAfter.enableWordWrapping = false;
+        tmpAfter.raycastTarget = false;
+
+        yield return null;
+        float underlineWidth = tmpAfter.preferredWidth;
+        Destroy(tmpAfterGO);
+
+        float fontSizeCorrection = textComp.fontSize * 2.5f;
+        startX += fontSizeCorrection;
+
+        RectTransform underlineRect = underlineImg.rectTransform;
+        underlineRect.anchorMin = new Vector2(0f, 0.5f);
+        underlineRect.anchorMax = new Vector2(0f, 0.5f);
+        underlineRect.pivot = new Vector2(0f, 0.5f);
+        underlineRect.sizeDelta = new Vector2(underlineWidth, underlineRect.sizeDelta.y);
+        underlineRect.anchoredPosition = new Vector2(startX, 0f);
     }
-    private string GenerateNotes(CoffeeResultData result)
+
+
+
+    private void GenerateNoteLines(CoffeeResultData result)
     {
+        foreach (Transform child in notesPanel) // 기존 노트 제거
+            Destroy(child.gameObject);
+
         var recipe = OrderData.CurrentRecipe;
-        List<string> notes = new();
 
+        Dictionary<string, string> baseTranslation = new()
+    {
+        { "Milk", "우유" },
+        { "HotWater", "물" },
+        { "Water", "물" }
+    };
+
+        // 1. 베이스
         if (selectedBase != recipe.baseType)
-            notes.Add($"베이스: {selectedBase} → {recipe.baseType}");
+        {
+            string baseKor = baseTranslation.FirstOrDefault(kvp => selectedBase.Contains(kvp.Key)).Value ?? selectedBase;
+            AddNoteLine($"베이스: {baseKor}", underline: true);
+        }
 
+        // 2. 샷
         int actualShot = shotGlassHasShot.Count(x => x);
         if (actualShot != recipe.shotCount)
-            notes.Add($"샷: {actualShot} → {recipe.shotCount}");
+        {
+            AddNoteLine($"샷: {actualShot}", underline: true);
+        }
 
-        float diff = pouredAmount - recipe.expectedPourAmount; 
+        // 3. 용량
+        float diff = pouredAmount - recipe.expectedPourAmount;
         if (Mathf.Abs(diff) > 5f)
-            notes.Add($"우유량: {pouredAmount:F1} → {(diff > 0 ? "많음" : "적음")}");
+        {
+            string label = selectedBase.Contains("Milk") ? "우유량" :
+                           selectedBase.Contains("Water") ? "물양" : "용량";
 
+            string content = $"{label}: {pouredAmount:F2}";
+            AddNoteLine(content, underline: true, pourDiff: diff);
+        }
+
+        // 4. 시럽
         if (!CompareSyrups(recipe.syrups))
-            notes.Add("시럽 종류/횟수가 정확하지 않아요.");
+        {
+            AddNoteLine("시럽 종류/횟수가 정확하지 않아요.", underline: true);
+        }
 
+        // 5. 휘핑
         if (result.WhippedLevel != recipe.whippedCreamLevel)
-            notes.Add($"휘핑: {result.WhippedLevel} → {recipe.whippedCreamLevel}");
-
-        return string.Join("\n", notes);
+        {
+            AddNoteLine($"휘핑: {result.WhippedLevel}", underline: true);
+        }
     }
+
+    private void AddNoteLine(string text, bool underline = false, float pourDiff = 0f)
+    {
+        GameObject lineObj = Instantiate(noteLinePrefab, notesPanel);
+
+        // 자식에 있는 TMP 가져오기
+        TextMeshProUGUI textComp = lineObj.GetComponentInChildren<TextMeshProUGUI>();
+        textComp.text = text;
+
+        // underline 처리
+        if (underline)
+        {
+            Transform underlineTr = lineObj.transform.Find("Underline");
+            if (underlineTr != null && underlineTr.TryGetComponent(out Image underlineImg))
+            {
+                StartCoroutine(ResizeUnderlineToValueOnly(textComp, underlineImg));
+            }
+        }
+
+        // 말풍선 (우유량 차이 등)
+        if (pourDiff != 0f)
+        {
+            StartCoroutine(SpawnBubbleNextToText(lineObj.GetComponent<RectTransform>(), pourDiff));
+        }
+    }
+
+
+    private IEnumerator SpawnBubbleNextToText(RectTransform lineRect, float diff)
+    {
+        yield return null;
+
+        GameObject prefab = diff > 0 ? redNotePrefab : blueNotePrefab;
+        string msg = diff > 0 ? "더 적게" : "더 많이";
+
+        // 말풍선은 NoteLineText의 자식으로 붙이자!
+        GameObject bubble = Instantiate(prefab, lineRect);
+        RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
+
+        // 텍스트 컴포넌트 가져오기
+        TextMeshProUGUI textComp = lineRect.GetComponentInChildren<TextMeshProUGUI>();
+        bubble.GetComponentInChildren<TextMeshProUGUI>().text = msg;
+
+        //  텍스트 길이에 맞춰 오른쪽 위치 조정
+        float offsetX = textComp.preferredWidth + 30f;
+        bubbleRect.anchoredPosition = new Vector2(offsetX, 0f);  // same Y as text
+    }
+
+
 
     private bool CompareSyrups(List<SyrupRequirement> requiredSyrups)
     {
@@ -993,14 +1183,35 @@ public class CoffeeMakingManager : MonoBehaviour
         return true;
     }
 
+    private string CalculateWhippedLevelFromGauge(float fillAmount)
+    {
+        if (whippingAmountFillImage == null) return "none";
+
+        float fillImageWidth = whippingAmountFillImage.rectTransform.rect.width;
+        float currentFillPosition = fillAmount * fillImageWidth;
+
+        float lowArrowPos = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
+        float highArrowPos = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
+        float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+
+        if (currentFillPosition >= veryHighArrowPos)
+            return "veryhigh";
+        else if (currentFillPosition >= highArrowPos)
+            return "high";
+        else if (currentFillPosition >= lowArrowPos)
+            return "low";
+        else if (fillAmount > 0)
+            return "verylow";
+        else
+            return "none";
+    }
+
+
     private string GetCurrentWhippedLevel()
     {
-        if (currentWhippingAmount >= 0.85f) return "veryhigh";
-        if (currentWhippingAmount >= 0.6f) return "high";
-        if (currentWhippingAmount >= 0.3f) return "low";
-        if (currentWhippingAmount > 0f) return "verylow";
-        return "none";
+        return CalculateWhippedLevelFromGauge(whippingAmountFillImage.fillAmount);
     }
+
 
     private string GetWhippedCreamLevelName(float amount)
     {

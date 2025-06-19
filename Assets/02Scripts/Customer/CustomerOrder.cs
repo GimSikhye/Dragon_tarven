@@ -39,7 +39,7 @@ public class CustomerOrder : MonoBehaviour
         selectedMenu = (MenuType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(MenuType)).Length);
 
         speechBubble = Instantiate(speechBubblePrefab, transform);
-        speechBubble.transform.localPosition = new Vector3(0, 1.5f, 0);
+        speechBubble.transform.localPosition = new Vector3(0, 1f, 0);
 
         Transform iconTransform = speechBubble.transform.Find("SpeechBalloon/menuIcon");
         if (iconTransform == null)

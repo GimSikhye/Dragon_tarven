@@ -10,15 +10,23 @@ public class CoffeeResultData
     public bool SyrupMatch;
     public bool WhippedMatch;
 
-    public float CalculateScore()
+    public string EvaluateGrade()
     {
-        float score = 0f;
-        if (BaseMatch) score += 10f;
-        score += ShotAccuracy * 30f;
-        score += PourAccuracy * 30f;
-        if (SyrupMatch) score += 20f;
-        if (WhippedMatch) score += 10f;
+        int correctCount = 0;
 
-        return Mathf.Clamp(score, 0f, 100f);
+        if (BaseMatch) correctCount++;
+        if (ShotAccuracy >= 0.9f) correctCount++;  // 샷이 거의 정확히 맞았을 경우 인정
+        if (PourAccuracy >= 0.9f) correctCount++;  // 우유량도 비슷하게 맞았을 때만 인정
+        if (SyrupMatch) correctCount++;
+        if (WhippedMatch) correctCount++;
+
+        // 등급 판정
+        return correctCount switch
+        {
+            <= 1 => "Fail",
+            2 or 3 => "Bad",
+            4 => "Good",
+            >= 5 => "Perfect",
+        };
     }
 }

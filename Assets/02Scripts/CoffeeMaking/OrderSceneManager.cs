@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
 
 public class OrderSceneManager : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class OrderSceneManager : MonoBehaviour
     [SerializeField] private Button okayButton;
     [SerializeField] private GameObject canvasOrder;
     [SerializeField] private GameObject canvasCoffee;
+    [SerializeField] private GameObject resultPanel; 
+
 
     [Header("Portrait Sprites")]
     public List<CustomerPortraitEntry> portraitEntries;
@@ -55,6 +58,14 @@ public class OrderSceneManager : MonoBehaviour
         {
             speechText.text = "힌트가 없습니다!";
         }
+
+        // 캔버스 전환 처리
+        canvasCoffee.SetActive(false); // 커피 만들기 UI 끄기
+        canvasOrder.SetActive(true);   // 주문 UI 켜기
+
+        // 결과 패널 끄기 (OrderData에서 접근하거나 직접 참조 필요)
+        if (resultPanel != null)
+            resultPanel.SetActive(false);
 
         //  4. 버튼 이벤트 등록
         hintButton.onClick.AddListener(OnHintClicked);
