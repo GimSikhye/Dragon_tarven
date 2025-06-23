@@ -160,11 +160,11 @@ public class UIManager : MonoSingleton<UIManager>
 
 
         // 데이터 바인딩
-        var stats = PlayerStatsManager.Instance;
-        UpdateCoffeeBeanUI(stats.CoffeeBeans);
-        UpdateCoinUI(stats.Coin);
-        UpdateGemUI(stats.Gem);
-        UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
+        //var stats = PlayerStatsManager.Instance;
+        //UpdateCoffeeBeanUI(stats.CoffeeBeans);
+        //UpdateCoinUI(stats.Coin);
+        //UpdateGemUI(stats.Gem);
+        //UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
     }
 
 

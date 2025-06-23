@@ -134,31 +134,31 @@ public class StoreManager : MonoBehaviour
     private void TryPurchase(StoreItemData item)
     {
         bool success = false;
-        var stats = PlayerStatsManager.Instance;
+        //var stats = PlayerStatsManager.Instance;
 
         switch (item.currency)
         {
-            case CurrencyType.Coin:
-                if (stats.Coin >= item.price)
-                {
-                    stats.AddCoin(-item.price);
-                    success = true;
-                }
-                break;
-            case CurrencyType.Gem:
-                if (stats.Gem >= item.price)
-                {
-                    stats.AddGem(-item.price);
-                    success = true;
-                }
-                break;
-            case CurrencyType.CoffeeBean:
-                if (stats.CoffeeBeans >= item.price)
-                {
-                    stats.AddCoffeeBean(-item.price);
-                    success = true;
-                }
-                break;
+            //case CurrencyType.Coin:
+            //    if (stats.Coin >= item.price)
+            //    {
+            //        stats.AddCoin(-item.price);
+            //        success = true;
+            //    }
+            //    break;
+            //case CurrencyType.Gem:
+            //    if (stats.Gem >= item.price)
+            //    {
+            //        stats.AddGem(-item.price);
+            //        success = true;
+            //    }
+            //    break;
+            //case CurrencyType.CoffeeBean:
+            //    if (stats.CoffeeBeans >= item.price)
+            //    {
+            //        stats.AddCoffeeBean(-item.price);
+            //        success = true;
+            //    }
+            //    break;
         }
 
         if (success)

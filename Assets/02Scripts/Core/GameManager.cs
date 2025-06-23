@@ -12,11 +12,6 @@ public class GameManager : MonoSingleton<GameManager>
     public Transform CashDesk;
     public Transform OutSide;
 
-    private void Start()
-    {
-        //_playerStatsManager.Load();
-    }
-
     private void Update()
     {
 #if UNITY_ANDROID

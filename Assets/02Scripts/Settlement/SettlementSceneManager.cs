@@ -36,7 +36,7 @@ public class SettlementSceneManager : MonoBehaviour
         netProfitText.text = $"${netProfit:F2}";
 
         okButton.onClick.AddListener(OpenShop);
-        PlayerStatsManager.Instance.AddCoin(netProfit); // 수익 반영
+        //PlayerStatsManager.Instance.AddCoin(netProfit); // 수익 반영
     }
 
     void OpenShop()

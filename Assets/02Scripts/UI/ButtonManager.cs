@@ -122,11 +122,11 @@ public class ButtonManager : MonoSingleton<ButtonManager>
 
         CoffeeData coffeeData = roastingWindow.coffeDataList[index];
 
-        if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
-        {
-            PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
-            CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
-        }
+        //if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
+        //{
+        //    PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
+        //    CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
+        //}
 
         StartCoroutine(EnableButtonAfterDelay(button, 3f));
     }

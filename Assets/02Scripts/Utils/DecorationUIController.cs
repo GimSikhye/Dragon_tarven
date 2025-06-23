@@ -24,9 +24,9 @@ public class DecorationUIController : MonoBehaviour
     void SaveData()
     {
         PlayerPrefs.SetInt("Day", PlayerPrefs.GetInt("Day", 1) + 1);
-        PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
-        PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
-        PlayerPrefs.SetInt("Gem", PlayerStatsManager.Instance.Gem);
+        //PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
+        //PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
+        //PlayerPrefs.SetInt("Gem", PlayerStatsManager.Instance.Gem);
         PlayerPrefs.Save(); // PlayerPrefs Save °øºÎ
     }
 }

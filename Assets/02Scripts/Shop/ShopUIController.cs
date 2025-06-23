@@ -119,7 +119,7 @@ public class ShopUIController : MonoBehaviour
 
     void UpdateCoinUI()
     {
-        coinText.text = PlayerStatsManager.Instance.Coin.ToString();
+        //coinText.text = PlayerStatsManager.Instance.Coin.ToString();
     }
 
     string ConvertToKorean(string name)

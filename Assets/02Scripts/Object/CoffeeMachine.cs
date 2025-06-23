@@ -41,7 +41,7 @@ namespace DalbitCafe.Operations
             _isRoasting = true;
             _currentCoffee = coffee;
             _remainingMugs = coffee.MugQty;
-            PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse);
+            //PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse);
             GameObject particle = Instantiate(_steamParticle);
             particle.transform.position = transform.position;
         }
@@ -51,14 +51,14 @@ namespace DalbitCafe.Operations
             if (_remainingMugs > 1)
             {
                 _remainingMugs--;
-                PlayerStatsManager.Instance.AddCoin(_currentCoffee.Price);
+                //PlayerStatsManager.Instance.AddCoin(_currentCoffee.Price);
                 // 퀘스트 조건 업데이트
                 _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
             }
             else
             {
-                PlayerStatsManager.Instance.AddCoin( _currentCoffee.Price); 
+                //PlayerStatsManager.Instance.AddCoin( _currentCoffee.Price); 
                 _isRoasting = false;
                 _currentCoffee = null;
             }

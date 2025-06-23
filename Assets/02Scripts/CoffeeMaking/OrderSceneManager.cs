@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class OrderSceneManager : MonoBehaviour
 {
@@ -12,7 +13,8 @@ public class OrderSceneManager : MonoBehaviour
     [SerializeField] private Button okayButton;
     [SerializeField] private GameObject canvasOrder;
     [SerializeField] private GameObject canvasCoffee;
-    [SerializeField] private GameObject resultPanel; 
+    [SerializeField] private GameObject resultPanel;
+    [SerializeField] private Button settleButton; // 정산 버튼
 
 
     [Header("Portrait Sprites")]
@@ -63,6 +65,8 @@ public class OrderSceneManager : MonoBehaviour
         canvasCoffee.SetActive(false); // 커피 만들기 UI 끄기
         canvasOrder.SetActive(true);   // 주문 UI 켜기
 
+        settleButton.onClick.AddListener(OnSettleClicked);
+
         // 결과 패널 끄기 (OrderData에서 접근하거나 직접 참조 필요)
         if (resultPanel != null)
             resultPanel.SetActive(false);
@@ -79,6 +83,25 @@ public class OrderSceneManager : MonoBehaviour
 
         currentHintIndex = (currentHintIndex + 1) % selectedRecipe.hintText.Length;
         speechText.text = selectedRecipe.hintText[currentHintIndex];
+    }
+
+    private void OnSettleClicked()
+    {
+        if (OrderData.Result != null)
+        {
+            RewardCalculator.GrantCoinByResult(OrderData.Result);
+            Debug.Log("정산 완료: 보상 지급됨.");
+
+            // 중복 지급 방지를 위해 버튼 비활성화
+            settleButton.interactable = false;
+            SceneManager.LoadScene("GameScene");
+
+            // 보상 완료 메시지 UI 출력 등도 여기에 추가 가능
+        }
+        else
+        {
+            Debug.LogWarning("정산 실패: 결과 데이터 없음!");
+        }
     }
 
 

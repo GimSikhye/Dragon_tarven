@@ -30,14 +30,14 @@ public class ShopItemButton : MonoBehaviour
 
     void BuyItem()
     {
-        var stats = PlayerStatsManager.Instance;
-        if (stats.Coin < shopItemData.price)
-        {
-            Debug.Log("코인 부족");
-            return;
-        }
+        ////var stats = PlayerStatsManager.Instance;
+        //if (stats.Coin < shopItemData.price)
+        //{
+        //    Debug.Log("코인 부족");
+        //    return;
+        //}
 
-        stats.AddCoin(-shopItemData.price);
+        //stats.AddCoin(-shopItemData.price);
 
         // 배치용 아이템이라면,
         if(shopItemData.itemData != null) 
