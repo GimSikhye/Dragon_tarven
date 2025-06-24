@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Mono.Cecil;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,8 +11,6 @@ public class QuestManager : MonoSingleton<QuestManager>
 
     public QuestData quest1;
     public DialogueManager dialougManager;
-
-
 
     private void OnEnable()
     {

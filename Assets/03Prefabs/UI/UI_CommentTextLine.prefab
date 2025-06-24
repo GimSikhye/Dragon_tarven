@@ -222,7 +222,7 @@ GameObject:
   - component: {fileID: 4699255391254606142}
   - component: {fileID: 886342791806200766}
   m_Layer: 5
-  m_Name: NoteLineText
+  m_Name: UI_CommentTextLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -5,7 +5,6 @@ using DalbitCafe.Operations;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 [System.Serializable]
 public class SubCategoryIconEntry // 하위카테고리 아이콘 명단

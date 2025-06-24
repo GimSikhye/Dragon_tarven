@@ -169,7 +169,7 @@ GameObject:
   - component: {fileID: 92907850}
   - component: {fileID: 92907849}
   m_Layer: 5
-  m_Name: Base Panel
+  m_Name: Base Select Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2270,7 +2270,7 @@ GameObject:
   - component: {fileID: 414556193}
   - component: {fileID: 414556192}
   m_Layer: 5
-  m_Name: Syrup Panel
+  m_Name: Syrup Pumping Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3023,7 +3023,7 @@ GameObject:
   - component: {fileID: 657420534}
   - component: {fileID: 657420533}
   m_Layer: 5
-  m_Name: 'Whipped Cream Select Panel '
+  m_Name: 'WhippingGas Select Panel '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4671,16 +4671,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e99e9e871a43e7419eb3de610a5e67d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basePanel: {fileID: 92907847}
+  baseSelectPanel: {fileID: 92907847}
   shotPanel: {fileID: 1563324213}
-  pouringPanel: {fileID: 1741820679}
-  syrupPanel: {fileID: 414556190}
-  whippedCreamSelectPanel: {fileID: 657420531}
+  basePouringPanel: {fileID: 1741820679}
+  syrupPumpingPanel: {fileID: 414556190}
+  whippingGasSelectPanel: {fileID: 657420531}
   whippedCreamSqueezePanel: {fileID: 1789544188}
-  blueNotePrefab: {fileID: 2978451130270009804, guid: ee1640654982d4245a24a7cd2c9bfbc0, type: 3}
-  redNotePrefab: {fileID: 7086684247849510216, guid: ef47b786b6688e0499a0e1df1e833a46, type: 3}
-  notesPanel: {fileID: 1907968217}
-  noteLinePrefab: {fileID: 8552707381762649683, guid: b1aa537c9be17de41a24ae4f0228283a, type: 3}
+  commentNoteLineParent: {fileID: 1907968217}
+  blueSpeechBubblePrefab: {fileID: 2978451130270009804, guid: ee1640654982d4245a24a7cd2c9bfbc0, type: 3}
+  redSpeechBubblePrefab: {fileID: 7086684247849510216, guid: ef47b786b6688e0499a0e1df1e833a46, type: 3}
+  commentTextLine: {fileID: 8552707381762649683, guid: b1aa537c9be17de41a24ae4f0228283a, type: 3}
+  speechBubbleOffsetX: 150
   baseSpriteEntries:
   - baseName: Milk
     sprite: {fileID: 21300000, guid: 96be9fa398e3e8943805f7962d3d2be4, type: 3}
@@ -4690,6 +4691,24 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 134bf5abf74cb5244af455a987d8bfa5, type: 3}
   - baseName: ColdWater
     sprite: {fileID: 21300000, guid: 8047676e0a075804a8b20d0c3d6ab92e, type: 3}
+  whippingGasSpriteEntries:
+  - whippingGasName: DefaultWhippingGas
+    sprite: {fileID: 21300000, guid: 8c1294e1d0b76a44fa277a4ac9934281, type: 3}
+  - whippingGasName: LowFatWhippingGas
+    sprite: {fileID: 21300000, guid: 7912a2f9d0499484ca193a0f86550137, type: 3}
+  - whippingGasName: EspressoWhippingGas
+    sprite: {fileID: 21300000, guid: 618d66d55f4647045831e36aebb28194, type: 3}
+  whippedCreamSpriteEntries:
+  - levelName: None
+    sprite: {fileID: 21300000, guid: c2de77b1a2316884d87c0220a761ae8c, type: 3}
+  - levelName: veryhigh
+    sprite: {fileID: 21300000, guid: 927de9fafae6fce4489881d96dccb21a, type: 3}
+  - levelName: high
+    sprite: {fileID: 21300000, guid: 3907dd8ccc4dc6749b21ca2aafe1ce87, type: 3}
+  - levelName: low
+    sprite: {fileID: 21300000, guid: 972ca66bbbd1d72408c120fdeac12a2c, type: 3}
+  - levelName: verylow
+    sprite: {fileID: 21300000, guid: 8fb3565b093350643832344d4a4e6667, type: 3}
   outletAnimators:
   - {fileID: 1443023784}
   - {fileID: 1127855389}
@@ -4705,61 +4724,37 @@ MonoBehaviour:
   - {fileID: 1645960193}
   - {fileID: 208502799}
   - {fileID: 1219963397}
-  mugTransform: {fileID: 1542170414}
-  mugDetectionRadius: 100
+  shotMugTransform: {fileID: 1542170414}
+  mugDetectionRadius: 150
   pourDrink: {fileID: 999124897}
   pouringAnimator: {fileID: 1682133044}
   pourSpeed: 10
   pourDecreaseSpeed: 5
-  amountText: {fileID: 237256818}
+  currentPouredAmountText: {fileID: 237256818}
   simulatedTiltSpeed: 1.5
   simulatedTiltMax: 1.2
   syrupListPanel: {fileID: 483316979}
-  syrupLabelPrefab: {fileID: 6579753742995947518, guid: 980e1deea41f8094eb5d53d9cc7ca7f6, type: 3}
+  syrupCountLabelPrefab: {fileID: 6579753742995947518, guid: 980e1deea41f8094eb5d53d9cc7ca7f6, type: 3}
   textOffset: 450
-  mug: {fileID: 1162856561}
-  mugDefaultPosition: {x: 0, y: 22, z: 0}
-  mugOffset: {x: -50, y: 150, z: 0}
+  syrupMugTransform: {fileID: 1162856561}
+  syrupMugDefaultPosition: {x: 0, y: 0, z: 0}
+  syrupMugOffset: {x: -50, y: 0, z: 0}
   pumpingCooltime: 0.5
-  whippingGasSpriteEntries:
-  - whippingGasName: DefaultWhippingGas
-    sprite: {fileID: 21300000, guid: 8c1294e1d0b76a44fa277a4ac9934281, type: 3}
-  - whippingGasName: LowFatWhippingGas
-    sprite: {fileID: 21300000, guid: 7912a2f9d0499484ca193a0f86550137, type: 3}
-  - whippingGasName: EspressoWhippingGas
-    sprite: {fileID: 21300000, guid: 618d66d55f4647045831e36aebb28194, type: 3}
   squeezeWhippingGas: {fileID: 428568626}
-  whippingAmountFillImage: {fileID: 1031510080}
-  whippingAmountText: {fileID: 108720346}
-  whippedCreamImage: {fileID: 952767892}
-  startOrStopText: {fileID: 932131096}
-  lowArrow: {fileID: 520564604}
-  highArrow: {fileID: 1210929853}
-  veryHighArrow: {fileID: 1059022465}
-  whippedCreamSprites:
-  - levelName: veryhigh
-    sprite: {fileID: 21300000, guid: 927de9fafae6fce4489881d96dccb21a, type: 3}
-  - levelName: high
-    sprite: {fileID: 21300000, guid: 3907dd8ccc4dc6749b21ca2aafe1ce87, type: 3}
-  - levelName: low
-    sprite: {fileID: 21300000, guid: 972ca66bbbd1d72408c120fdeac12a2c, type: 3}
-  - levelName: verylow
-    sprite: {fileID: 21300000, guid: 8fb3565b093350643832344d4a4e6667, type: 3}
-  - levelName: Espresso_veryhigh
-    sprite: {fileID: 21300000, guid: 4db290f9acdb62f42b246c9f4fbe9845, type: 3}
-  - levelName: Espresso_high
-    sprite: {fileID: 21300000, guid: 2bafb95ee5d67b248b569073a65286a6, type: 3}
-  - levelName: Espresso_low
-    sprite: {fileID: 21300000, guid: e50398bdaf060784dbda3668cd9a64b1, type: 3}
-  - levelName: Espresso_verylow
-    sprite: {fileID: 21300000, guid: ea25660c95e8ea54e94c5f1e3916b1fc, type: 3}
-  noneWhippedCreamSpirte: {fileID: 21300000, guid: c2de77b1a2316884d87c0220a761ae8c, type: 3}
-  whippingSpeed: 0.3
+  whippedCreamGaugeImage: {fileID: 1031510080}
+  currentWhippingAmountText: {fileID: 108720346}
+  currentWhippedCreamImage: {fileID: 952767892}
+  whippingAmountControlButtonText: {fileID: 932131096}
+  whippedCreamGauageLowArrow: {fileID: 520564604}
+  whippedCreamGauageHighArrow: {fileID: 1210929853}
+  whippedCreamGauageveryHighArrow: {fileID: 1059022465}
+  noneWhippedCreamSprite: {fileID: 21300000, guid: c2de77b1a2316884d87c0220a761ae8c, type: 3}
+  whippingGauageSpeed: 0.5
   timeRemainingText: {fileID: 439844025}
-  timerFillImage: {fileID: 1102379811}
+  timerProgressImage: {fileID: 1102379811}
   totalTime: 120
-  fillSmoothSpeed: 0.0081
-  resultPanel: {fileID: 1868291899}
+  timerFillSmoothSpeed: 0.03
+  resultNotePanel: {fileID: 1868291899}
   scoreIcons:
   - {fileID: 21300000, guid: b690904d0c81494409ef0c289e71d98f, type: 3}
   - {fileID: 21300000, guid: c82fbdbaa8a64c7488419d249f643804, type: 3}
@@ -7437,7 +7432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1563324214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8192,7 +8187,7 @@ GameObject:
   - component: {fileID: 1741820682}
   - component: {fileID: 1741820681}
   m_Layer: 5
-  m_Name: Pouring Panel
+  m_Name: Base Pouring Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9506,12 +9501,12 @@ GameObject:
   - component: {fileID: 1868291901}
   - component: {fileID: 1868291900}
   m_Layer: 5
-  m_Name: Result Panel
+  m_Name: resultNotePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1868291900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9585,7 +9580,7 @@ GameObject:
   - component: {fileID: 1907968217}
   - component: {fileID: 1907968218}
   m_Layer: 5
-  m_Name: NoteLine Parent
+  m_Name: Comment NoteLine Parent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

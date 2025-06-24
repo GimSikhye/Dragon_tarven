@@ -6,154 +6,157 @@ using UnityEngine.EventSystems;
 using System.Collections;
 using System.Linq;
 
-public enum CoffeeState { BaseSelect, DoTheShot, Pouring, Syrup, WhippedCreamSelect, WhippedCreamSqueeze }
+public enum CoffeeState { BaseSelect, DoTheShot, BasePouring, SyrupPumping, WhippedCreamSelect, WhippedCreamSqueeze }
 // 점수에 따른 점수 아이콘 이미지
 
 
 [System.Serializable]
-public class BaseSpriteEntry // entry: 항목
+public class BaseSpriteEntry // 재료 Sprite 항목
 {
     public string baseName;
     public Sprite sprite;
 }
 [System.Serializable]
-public class WhippingGasSpriteEntry
+public class WhippingGasSpriteEntry // 휘핑가스 Sprite 항목
 {
     public string whippingGasName;
     public Sprite sprite;
 }
 [System.Serializable]
-public class WhippedCreamSpriteEntry // 레벨에 다라 sprite 교체
+public class WhippedCreamSpriteEntry // 휘핑크림 Sprite 항목(레벨에 따라)
 {
     public string levelName; 
     public Sprite sprite;
 }
 public class CoffeeMakingManager : MonoBehaviour
 {
-    [SerializeField] private GameObject basePanel;
+    [Header("단계별 Panel")]
+    [SerializeField] private GameObject baseSelectPanel;
     [SerializeField] private GameObject shotPanel;
-    [SerializeField] private GameObject pouringPanel;
-    [SerializeField] private GameObject syrupPanel;
-    [SerializeField] private GameObject whippedCreamSelectPanel;
+    [SerializeField] private GameObject basePouringPanel;
+    [SerializeField] private GameObject syrupPumpingPanel;
+    [SerializeField] private GameObject whippingGasSelectPanel;
     [SerializeField] private GameObject whippedCreamSqueezePanel;
 
-    [SerializeField] private GameObject blueNotePrefab;
-    [SerializeField] private GameObject redNotePrefab;
-    [SerializeField] private RectTransform notesPanel; // 오답 노트 UI가 붙은 패널
-    [SerializeField] private GameObject noteLinePrefab; // TextMeshProUGUI 한 줄짜리 프리팹
+    [Header("오답 노트 UI")]
+    [SerializeField] private RectTransform commentNoteLineParent; // 오답 노트 UI가 붙은 패널
+    [SerializeField] private GameObject blueSpeechBubblePrefab;
+    [SerializeField] private GameObject redSpeechBubblePrefab;
+    [SerializeField] private GameObject commentTextLine; // TextMeshProUGUI 한 줄짜리 프리팹
+    [SerializeField] private float speechBubbleOffsetX = 150f;
 
-    private void SpawnPourNoteBubble(float diff)
+    private void DisplayPourAmountFeedbackBubble(float difference)
     {
-        GameObject prefabToUse = diff > 0 ? redNotePrefab : blueNotePrefab;
-        string textToShow = diff > 0 ? "더 적게" : "더 많이";
+        GameObject prefabToUse = difference > 0 ? blueSpeechBubblePrefab : redSpeechBubblePrefab; // 더 많다면, 빨간 말풍선을 띄우고 더 적게 따르라고 코멘트.
+        string textToShow = difference > 0 ? "더 적게" : "더 많이";
 
         // 찾은 마지막 텍스트 UI (노트 마지막 줄)
-        TextMeshProUGUI[] texts = notesPanel.GetComponentsInChildren<TextMeshProUGUI>();
+        TextMeshProUGUI[] texts = commentNoteLineParent.GetComponentsInChildren<TextMeshProUGUI>();
         if (texts.Length == 0) return;
 
-        var lastText = texts.Last();
+        var lastText = texts.Last(); // 배열의 마지막 요소를 가져오는 LINQ 메소드
         if (lastText == null) return;
 
         // 말풍선 생성
-        GameObject bubble = Instantiate(prefabToUse, notesPanel);
-        bubble.GetComponentInChildren<TextMeshProUGUI>().text = textToShow;
+        GameObject speechBubble = Instantiate(prefabToUse, commentNoteLineParent);
+        speechBubble.GetComponentInChildren<TextMeshProUGUI>().text = textToShow;
 
         // 말풍선을 텍스트 옆에 배치 (X 오프셋만 적용)
-        RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
+        RectTransform speechBubbleRect = speechBubble.GetComponent<RectTransform>();
         RectTransform textRect = lastText.GetComponent<RectTransform>();
 
-        bubbleRect.anchoredPosition = textRect.anchoredPosition + new Vector2(150f, 0f); // 오른쪽에 배치
-
+        speechBubbleRect.anchoredPosition = textRect.anchoredPosition + new Vector2(speechBubbleOffsetX, 0f); // 오른쪽에 배치
 
     }
-
 
     private CoffeeState currentState; // 현재 상태
     private string selectedBase; // 선택된 재료
 
+    [Header("저장할 Sprite들")]
     [SerializeField] private BaseSpriteEntry[] baseSpriteEntries;
     private Dictionary<string, Sprite> baseSprites;
+    [SerializeField] private WhippingGasSpriteEntry[] whippingGasSpriteEntries;
+    private Dictionary<string, Sprite> whippingGasSprites;
+    [SerializeField] private WhippedCreamSpriteEntry[] whippedCreamSpriteEntries;
+    private Dictionary<string, Sprite> whippedCreamSprites;
 
     // Shot 관련 변수
     [Header("Shot System")]
     [SerializeField] private Animator[] outletAnimators; // 배출구 1, 2, 3, 4의 애니메이터들
     [SerializeField] private Button[] shotButtons; // Shot 버튼들 배열
     [SerializeField] private Transform[] shotGlasses; // 샷잔들의 Transform
-    [SerializeField] private Transform mugTransform; // Mug의 Transform
-    [SerializeField] private float mugDetectionRadius = 100f; // Mug 근처 감지 반경(드래그로 샷잔을 머그에 옮길때)
+    [SerializeField] private Transform shotMugTransform; // Mug의 Transform
+    [SerializeField] private float mugDetectionRadius = 150f; // Mug 근처 감지 반경(드래그로 샷잔을 머그에 옮길때)
 
     private readonly Color defaultShotButtonColor = new Color(1f, 172f / 255f, 65f / 255f, 1f);
     private readonly Color selectedShotButtonColor = new Color(142f / 255f, 207f / 255f, 40f / 255f, 1f);
     
     private bool[] shotButtonPressed; // 각 버튼이 눌렸는지 추적하는 배열
-    private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부
+    private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부 !
     private bool[] shotGlassPouredToMug; // 각 샷잔이 Mug에 부어졌는지 여부
     private bool[] shotGlassAnimationCompleted; // 각 샷잔의 애니메이션이 완료되었는지 여부
     private bool hasDragStarted = false; // 드래그가 한 번이라도 시작되었는지
 
-    // Pour 관련 변수
+    [Header("Base Pour 관련 변수")]
     [SerializeField] private Image pourDrink;
     [SerializeField] private Animator pouringAnimator; // 애니메이션 컨트롤용
     [SerializeField] private float pourSpeed = 10f;
     [SerializeField] private float pourDecreaseSpeed = 5f;
-    [SerializeField] private TextMeshProUGUI amountText;
+    [SerializeField] private TextMeshProUGUI currentPouredAmountText;
 
-    private float pouredAmount = 0f; // 현재 따라진 양
-    private float pourIntensity = 0f; // 기울기 기반으로 계산된 양(기울기 강도)
+    private float currentPouredAmount = 0f; // 현재 따라진 양
+    private float tiltIntensity = 0f; // 기울기 기반으로 계산된 양(기울기 강도)!
     private Vector2 simulatedTilt = Vector2.zero;
     [SerializeField] private float simulatedTiltSpeed = 1.5f;
-    [SerializeField] private float simulatedTiltMax = 1.2f;
+    [SerializeField] private float simulatedTiltMax = 1.2f; // 왜 titleSpeed값보다 작지?
 
 
-    // 시럽 펌핑 횟수 저장용 딕셔너리
+    [Header("휘핑가스 관련 변수들")]
     private Dictionary<string, int> syrupCounts = new();
     [SerializeField] private HorizontalLayoutGroup syrupListPanel;
-    [SerializeField] private GameObject syrupLabelPrefab; // 시럽이 추가되었음을 나타낼 UI 프리팹 (Text)
+    [SerializeField] private GameObject syrupCountLabelPrefab; // 시럽이 추가되었음을 나타낼 UI 프리팹 (Text)
     [SerializeField] private float textOffset;
-    [SerializeField] Transform mug;
-    [SerializeField] private Vector3 mugDefaultPosition; // 중앙 위치
-    [SerializeField] private Vector3 mugOffset = new Vector3(-50f, 0f, 0f); // 디스펜서 왼쪽으로 이동할 오프셋
+    [SerializeField] Transform syrupMugTransform;
+    [SerializeField] private Vector3 syrupMugDefaultPosition; // 중앙 위치
+    [SerializeField] private Vector3 syrupMugOffset = new Vector3(-50f, 0f, 0f); // 디스펜서 왼쪽으로 이동할 오프셋
     private string lastUsedSyrup = ""; // 마지막으로 사용한 시럽 이름 추적
     private Coroutine returnCoroutine; // 현재 실행 중인 복귀 코루틴 참조
-    private float pumpingCooldown;
+    private float pumpingSyrupCooldown;
     [SerializeField] float pumpingCooltime = 0.5f;
-
+    
     // 휘핑가스 선택
     private string selectedWhippingGas;
-    [SerializeField] private WhippingGasSpriteEntry[] whippingGasSpriteEntries;
-    private Dictionary<string, Sprite> whippingGasSprites;
     [SerializeField] private Image squeezeWhippingGas;
 
     // 휘핑크림 게이지 시스템
-    [Header("Whipped Cream Gauge System")]
-    [SerializeField] private Image whippingAmountFillImage;
-    [SerializeField] private TextMeshProUGUI whippingAmountText;
-    [SerializeField] private Image whippedCreamImage;
-    [SerializeField] private TextMeshProUGUI startOrStopText;
-    [SerializeField] private RectTransform lowArrow;
-    [SerializeField] private RectTransform highArrow;
-    [SerializeField] private RectTransform veryHighArrow;
-    [SerializeField] private WhippedCreamSpriteEntry[] whippedCreamSprites;
-    [SerializeField] private Sprite noneWhippedCreamSpirte;
-    [SerializeField] private float whippingSpeed = 1f;
+    [Header("휘핑크림 게이지 변수들")]
+    [SerializeField] private Image whippedCreamGaugeImage;
+    [SerializeField] private TextMeshProUGUI currentWhippingAmountText;
+    [SerializeField] private Image currentWhippedCreamImage;
+    [SerializeField] private TextMeshProUGUI whippingAmountControlButtonText;
+    [SerializeField] private RectTransform whippedCreamGauageLowArrow;
+    [SerializeField] private RectTransform whippedCreamGauageHighArrow;
+    [SerializeField] private RectTransform whippedCreamGauageveryHighArrow;
 
-    private Dictionary<string, Sprite> whippedCreamSpriteDict;
+    [SerializeField] private Sprite noneWhippedCreamSprite;
+    [SerializeField] private float whippingGauageSpeed = 1f;
+
     private bool isWhipping = false;
     private float currentWhippingAmount = 0f;
 
-
-    // 타이머 관련 변수들
-    [Header("Timer Settings")]
+    [Header("타이머 세팅 변수들")]
     [SerializeField] private TextMeshProUGUI timeRemainingText;
-    [SerializeField] private Image timerFillImage;
+    [SerializeField] private Image timerProgressImage;
     [SerializeField] private float totalTime = 120f; // 총 시간(초)
-    [SerializeField] private float fillSmoothSpeed = 2f; // Fill Image 부드러운 감소 속도
-    private float currentTime;
+    [SerializeField] private float timerFillSmoothSpeed; // Fill Image 부드러운 감소 속도
+
+    private float currentRemainTime; // 현재 시간
     private float targetFillAmount; // 목표 Fill Amount
     private bool isTimerRunning = false;
     private Coroutine timerCoroutine;
 
-    [SerializeField] private GameObject resultPanel;
+    [Header("오답노트 UI 변수들")]
+    [SerializeField] private GameObject resultNotePanel;
     [SerializeField] private Sprite[] scoreIcons;
     [SerializeField] private TextMeshProUGUI feedbackText;
     [SerializeField] private Image scoreImage;
@@ -179,10 +182,10 @@ public class CoffeeMakingManager : MonoBehaviour
             whippingGasSprites[entry.whippingGasName] = entry.sprite;
         }
 
-        whippedCreamSpriteDict = new Dictionary<string, Sprite>();
-        foreach(var entry in whippedCreamSprites)
+        whippedCreamSprites = new Dictionary<string, Sprite>();
+        foreach(var entry in whippedCreamSpriteEntries)
         {
-            whippedCreamSpriteDict[entry.levelName] = entry.sprite;
+            whippedCreamSprites[entry.levelName] = entry.sprite;
         }
 
         InitializeTimer();
@@ -192,15 +195,15 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     private void Update()
     {
-        if (currentState == CoffeeState.Pouring)
+        if (currentState == CoffeeState.BasePouring)
         {
-            HandlePouring();
+            HandleBasePouring();
         }
 
-        if (currentState == CoffeeState.Syrup)
+        if (currentState == CoffeeState.SyrupPumping)
         {
-            if (pumpingCooldown > 0)
-                pumpingCooldown -= Time.deltaTime;
+            if (pumpingSyrupCooldown > 0)
+                pumpingSyrupCooldown -= Time.deltaTime;
         }
         if (currentState == CoffeeState.WhippedCreamSqueeze)
         {
@@ -208,12 +211,13 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         // Fill Image 부드러운 애니메이션 처리
-        if (timerFillImage != null && isTimerRunning)
+        if (timerProgressImage != null && isTimerRunning)
         {
-            SmoothUpdateFillImage();
+            SmoothTimerFillAnimation();
         }
     }
 
+   
     public bool CanDragShotGlass(int shotGlassNumber)
     {
         if (currentState != CoffeeState.DoTheShot) return false;
@@ -228,9 +232,9 @@ public class CoffeeMakingManager : MonoBehaviour
 
     public bool IsNearMug(Vector3 shotGlassPosition)
     {
-        if (mugTransform == null) return false;
+        if (shotMugTransform == null) return false;
 
-        float distance = Vector3.Distance(shotGlassPosition, mugTransform.position);
+        float distance = Vector3.Distance(shotGlassPosition, shotMugTransform.position);
         return distance <= mugDetectionRadius;
     }
 
@@ -239,24 +243,23 @@ public class CoffeeMakingManager : MonoBehaviour
         int index = shotGlassNumber - 1;
 
         // Mug의 RectTransform을 가져옴
-        RectTransform mugRect = mugTransform.GetComponent<RectTransform>();
-        if(mugRect == null)
+        RectTransform shotMugRect
+            = shotMugTransform.GetComponent<RectTransform>();
+        if(shotMugRect == null)
         {
             Debug.LogError("Mug에 RectTransform이 없습니다!");
             return;
         }
 
         // Mug의 현재 anchoredPosition을 기준으로 붓는 위치 계산
-        Vector2 mugPosition = mugRect.anchoredPosition;
-        Vector2 pourPosition = new Vector2(mugPosition.x - 250f, mugPosition.y + 200f);
+        Vector2 shotMugPosition = shotMugRect.anchoredPosition; // 머그 위치
+        Vector2 shotPourPosition = new Vector2(shotMugPosition.x - 250f, shotMugPosition.y + 200f); // 붓는 샷잔의 에스프레소샷
 
-        // 샷글라스를 붓는 위치로 이동하고 애니메이션 실행
-        dragHandler.MoveToPourPosition(pourPosition);
+        // 샷잔을 붓는 위치로 이동하고 애니메이션 실행
+        dragHandler.MoveToPourPosition(shotPourPosition);
 
-        // 샷이 부어졌다고 표시
+        // 해당 샷잔의 샷이 부어졌다고 체크
         shotGlassPouredToMug[index] = true;
-
-        Debug.Log($"Shot Glass {shotGlassNumber}이 Mug 위치 ({pourPosition}로 이동합니다.");
 
     }
 
@@ -266,18 +269,17 @@ public class CoffeeMakingManager : MonoBehaviour
         int index = shotGlassNumber - 1;
         shotGlassAnimationCompleted[index] = true;
 
-        Debug.Log($"Shot Glass {shotGlassNumber} 애니메이션 완료");
+        Debug.Log($" {shotGlassNumber}번째 샷잔 애니메이션 재생 완료됨");
 
         // 모든 애니메이션이 완료되었는지 확인
         CheckAllShotsPouredToMug();
     }
 
-    private void CheckAllShotsPouredToMug()
+    private void CheckAllShotsPouredToMug() // 샷이 있는 모든 샷잔이 Mug에 부어지고 애니메이션이 완료되었는지 확인
     {
-        // 샷이 있는 모든 샷글라스가 Mug에 부어지고 애니메이션이 완료되었는지 확인
         for (int i = 0; i < shotGlassHasShot.Length; i++)
         {
-            if (shotGlassHasShot[i])
+            if (shotGlassHasShot[i]) // 해당 샷잔에 샷이 있다면
             {
                 // 샷이 있는 샷잔이 부어지지 않았거나 애니메이션이 완료되지 않았으면 리턴
                 if (!shotGlassPouredToMug[i] || !shotGlassAnimationCompleted[i])
@@ -287,7 +289,7 @@ public class CoffeeMakingManager : MonoBehaviour
             }
         }
 
-        // 모든 샷이 부어지고 애니메이션이 완료되었으면 다음 단계로 이동
+        // 모든 샷잔이 부어지고 애니메이션이 완료되었으면 다음 단계로 이동
         Debug.Log("모든 샷잔 애니메이션 완료 - 다음 단계로 이동");
         OnNextToPouring();
     }
@@ -298,65 +300,63 @@ public class CoffeeMakingManager : MonoBehaviour
         currentWhippingAmount = 0f;
 
         // 휘핑크림 레벨을 none으로 설정
-        if (whippingAmountFillImage != null)
-            whippingAmountFillImage.fillAmount = 0f;
+        if (whippedCreamGaugeImage != null)
+            whippedCreamGaugeImage.fillAmount = 0f;
 
-        if (whippingAmountText != null)
-            whippingAmountText.text = "없음";
+        if (currentWhippingAmountText != null)
+            currentWhippingAmountText.text = "없음";
 
-        if (whippedCreamImage != null)
-            whippedCreamImage.sprite = noneWhippedCreamSpirte;
+        if (currentWhippedCreamImage != null)
+            currentWhippedCreamImage.sprite = noneWhippedCreamSprite;
 
-        // 결과 저장 시 WhippedLevel이 "none"이 되도록 보장
         isWhipping = false;
 
-        // 다음 단계로 넘어가기 (예: 결과 화면으로 이동하거나 Syrup이나 Finish 등)
-        CheckRecipe(); // 혹은 필요한 로직
+        // 다음 단계로 넘어가기
+        CheckRecipe(); 
         ShowResultUI();
     }
 
 
-    private void HandleWhipping()
+    private void HandleWhipping() // Whipping 처리 메서드
     {
         if(isWhipping && currentWhippingAmount < 1f)
         {
-            currentWhippingAmount += Time.deltaTime * whippingSpeed;
-            currentWhippingAmount = Mathf.Clamp01(currentWhippingAmount);
+            currentWhippingAmount += Time.deltaTime * whippingGauageSpeed;
+            currentWhippingAmount = Mathf.Clamp01(currentWhippingAmount); // 0~1값 사이
 
             UpdateWhippingGauge();
         }
     }
-    private void UpdateWhippingDisplay(string text, string spriteKey)
+    private void UpdateWhippingDisplay(string text, string spriteKey) //
     {
-        if (whippingAmountText != null)
+        if (currentWhippingAmountText != null)
         {
-            whippingAmountText.text = text;
+            currentWhippingAmountText.text = text;
         }
 
-        if (whippedCreamImage != null && whippedCreamSpriteDict.ContainsKey(spriteKey)) // 키가 있다면
+        if (currentWhippedCreamImage != null && whippedCreamSprites.ContainsKey(spriteKey)) // 키가 있다면
         {
-            whippedCreamImage.sprite = whippedCreamSpriteDict[spriteKey];
+            currentWhippedCreamImage.sprite = whippedCreamSprites[spriteKey];
         }
     }
     private void UpdateWhippingGauge()
     {
         // Fill Image 업데이트
-        if (whippingAmountFillImage != null)
+        if (whippedCreamGaugeImage != null)
         {
-            whippingAmountFillImage.fillAmount = currentWhippingAmount;
+            whippedCreamGaugeImage.fillAmount = currentWhippingAmount;
         }
 
         // 현재 Fill Amount를 기준으로 화살표 위치와 비교
-        float fillImageWidth = whippingAmountFillImage.rectTransform.rect.width;
+        float fillImageWidth = whippedCreamGaugeImage.rectTransform.rect.width;
         float currentFillPosition = currentWhippingAmount * fillImageWidth; // 현재 채워진 위치(픽셀)
 
-        // 화살표들의 상대적 위치 계산 (Fill Image 기준)
-        float lowArrowPos = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
-        float highArrowPos = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
-        float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+        float lowArrowPos = GetArrowRelativePosition(whippedCreamGauageLowArrow, whippedCreamGaugeImage.rectTransform);
+        float highArrowPos = GetArrowRelativePosition(whippedCreamGauageHighArrow, whippedCreamGaugeImage.rectTransform);
+        float veryHighArrowPos = GetArrowRelativePosition(whippedCreamGauageveryHighArrow, whippedCreamGaugeImage.rectTransform);
 
         // 레벨 결정
-        string level = CalculateWhippedLevelFromGauge(currentWhippingAmount);
+        string level = CalculateWhippedLevelFromGauge(currentWhippingAmount); ////
 
 
         // 텍스트는 항상 동일
@@ -370,42 +370,43 @@ public class CoffeeMakingManager : MonoBehaviour
         };
 
         // 이미지는 Espresso인지에 따라 다르게 처리
-        string imageName = selectedWhippingGas == "EspressoWhippingGas" ? $"Espresso_{level}" : level;
+        string imageName = 
+            selectedWhippingGas == "EspressoWhippingGas" ? $"Espresso_{level}" : level;
 
         UpdateWhippingDisplay(displayText, imageName);
     }
 
-    private float GetArrowRelativePosition(RectTransform arrow, RectTransform fillImage)
+    private float GetArrowRelativePosition(RectTransform arrow, RectTransform fillImage) // 화살표들의 상대적 위치 계산 (Fill Image 기준)
     {
-        // 화살표의 월드 위치를 Fill Image의 로컬 좌표계로 변환
-        Vector3[] arrowCorners = new Vector3[4];
-        Vector3[] fillCorners = new Vector3[4];
+        // 네 모서리 월드 좌표를 저장할 Vector3 타입의 배열
+        Vector3[] arrowVertexs = new Vector3[4]; // 꼭짓점 4개
+        Vector3[] fillVertexs = new Vector3[4];
 
-        // GetWorldCorners: RectTransform의 네 꼭짓점의 월드 좌표를 반환하는 함수
-        arrow.GetWorldCorners(arrowCorners);
-        fillImage.GetWorldCorners(fillCorners);
+        // GetWorldCorners: RectTransform의 네 꼭짓점의 월드 좌표를 반환하는 함수([0]: 좌측 하단, [1]: 좌측 상단, [2]: 우측 상단, [3]: 우측 하단
+        arrow.GetWorldCorners(arrowVertexs);
+        fillImage.GetWorldCorners(fillVertexs); // 기준점(fill amount: 0)
 
         // Fill Image의 왼쪽 끝과 화살표 위치의 차이를 계산
-        float fillImageLeft = fillCorners[0].x;
-        float arrowCenterX = (arrowCorners[0].x + arrowCorners[2].x) / 2f; // 화살표 중심 X 위치
+        float fillImageLeft = fillVertexs[0].x; // fillImage 왼쪽 아래 꼭짓점 x좌표
+        float arrowCenterX = (arrowVertexs[0].x + arrowVertexs[3].x) / 2f; // 화살표 중심 X 위치
 
         return arrowCenterX - fillImageLeft;
     }
 
 
     #region Timer Methods
-    private void InitializeTimer()
+    private void InitializeTimer() // 타이머 초기화 함수
     {
-        currentTime = totalTime;
-        targetFillAmount = 0f; // 초기 목표값 0으로 설정
-        UpdateTimerUI();
+        currentRemainTime = totalTime;
+        targetFillAmount = 0f; // 목표값 0으로 초기화
+        UpdateTimeRemainingText();
 
-        if(timerFillImage != null)
+        if(timerProgressImage != null)
         {
-            timerFillImage.type = Image.Type.Filled;
-            timerFillImage.fillMethod = Image.FillMethod.Horizontal;
-            timerFillImage.fillOrigin = 0; // 왼쪽에서 시작(Left)
-            timerFillImage.fillAmount = 1f; // 시작할 때는 가득 참
+            //timerProgressImage.type = Image.Type.Filled;
+            //timerProgressImage.fillMethod = Image.FillMethod.Horizontal;
+            timerProgressImage.fillOrigin = 0; // fillOrigin: 채워지거나 비워지는 방향의 시작점
+            timerProgressImage.fillAmount = 1f; // 시작할 때는 가득 참
         }
 
     }
@@ -415,7 +416,7 @@ public class CoffeeMakingManager : MonoBehaviour
         if(!isTimerRunning)
         {
             isTimerRunning = true;
-            timerCoroutine = StartCoroutine(TimerCountdown());
+            timerCoroutine = StartCoroutine(TimerCountdown()); // 타이머 카운트 시작
         }
     }
 
@@ -435,55 +436,31 @@ public class CoffeeMakingManager : MonoBehaviour
     public void ResetTimer()
     {
         StopTimer();
-        currentTime = totalTime;
+        currentRemainTime = totalTime;
         targetFillAmount = 0f; // 목표값도 리셋
-        UpdateTimerUI();
+        UpdateTimeRemainingText();
     }
 
     private IEnumerator TimerCountdown()
     {
-        while(currentTime > 0 && isTimerRunning)
+        while(currentRemainTime > 0 && isTimerRunning) // 남은 시간이 0초보다 크고, 타이머가 진행중이라면
         {
             yield return new WaitForSeconds(1f); // 1초 대기
 
-            currentTime -= 1f;
-            currentTime = Mathf.Max(0f, currentTime); // 0 이하로 내려가지 않도록
+            currentRemainTime -= 1f;
+            currentRemainTime = Mathf.Max(0f, currentRemainTime); // 0 이하로 내려가지 않도록
 
-            UpdateTimerUI();
+            UpdateTimeRemainingText();
         }
 
         // 타이머가 끝났을 때
-        if(currentTime <= 0)
+        if(currentRemainTime <= 0)
         {
             OnTimerEnd();
         }
 
         isTimerRunning = false;
         timerCoroutine = null;
-    }
-
-    private void UpdateTimerUI()
-    {
-        // 텍스트 업데이트 (분:초 형식)
-        if(timeRemainingText != null)
-        {
-            int seconds = Mathf.FloorToInt(currentTime);
-            timeRemainingText.text = seconds.ToString();
-        }
-        
-        // 목표 Fill Amount 업데이트(실제 Fill Image는 SmoothUpdateFillImage에서 처리)
-        float fillAmount = currentTime / totalTime;
-    }
-
-    private void SmoothUpdateFillImage()
-    {
-        if (timerFillImage == null) return;
-
-        // 현재 fillAmount를 목표값으로 부드럽게 이동
-        float currentFillAmount = timerFillImage.fillAmount;
-        float newFillAmount = Mathf.MoveTowards(currentFillAmount, targetFillAmount, fillSmoothSpeed * Time.deltaTime);
-
-        timerFillImage.fillAmount = newFillAmount;
     }
 
     private void OnTimerEnd()
@@ -493,8 +470,31 @@ public class CoffeeMakingManager : MonoBehaviour
         // End State로 바로 이동해서, 채점 받음(결과 화면)
     }
 
+    private void UpdateTimeRemainingText()
+    {
+        // 남은 시간 텍스트 업데이트
+        if(timeRemainingText != null)
+        {
+            int seconds = Mathf.FloorToInt(currentRemainTime);
+            timeRemainingText.text = seconds.ToString();
+        }
+    }
+
+    private void SmoothTimerFillAnimation() ////// 
+    {
+        if (timerProgressImage == null) return;
+
+        // 현재 fillAmount를 목표값으로 부드럽게 이동
+        float timerFillAmount = timerProgressImage.fillAmount;
+        float timerFillTargetAmount = Mathf.MoveTowards(timerFillAmount, targetFillAmount, timerFillSmoothSpeed * Time.deltaTime);
+
+        timerProgressImage.fillAmount = timerFillTargetAmount;
+    }
+
+
+
     // 외부에서 현재 남은 시간을 확인할 수 있는 프로퍼티
-    public float RemainingTime => currentTime;
+    public float RemainingTime => currentRemainTime;
     public bool IsTimerRunning => isTimerRunning;
     #endregion
 
@@ -573,16 +573,16 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     #endregion
 
-    private void HandlePouring()
+    private void HandleBasePouring()
     {
         Vector3 tilt = GetSimulatedAcceleration(); // tilt: 기울이다
 
         // 기울기 감지
         bool isTilting = tilt.x > 0.3f || tilt.z > 0.3f;
 
-        if (pouredAmount >= 100f)
+        if (currentPouredAmount >= 100f)
         {
-            pourIntensity = 0f;
+            tiltIntensity = 0f;
             UpdatePouringAnimation(0);
             return;
         }
@@ -590,18 +590,18 @@ public class CoffeeMakingManager : MonoBehaviour
         if(isTilting)
         {
             // 기울어진 정도에 따라 기울기 강도 조절, Mathf.Clmap01: 주어진 숫자를 0과 1 사이에 묶어주는 함수
-            pourIntensity = Mathf.Clamp01(Mathf.Max(Mathf.Abs(tilt.x), Mathf.Abs(tilt.z))); // 여기 부분 잘 모르겠음
-            pouredAmount += Time.deltaTime * pourIntensity * pourSpeed;
+            tiltIntensity = Mathf.Clamp01(Mathf.Max(Mathf.Abs(tilt.x), Mathf.Abs(tilt.z))); // 여기 부분 잘 모르겠음
+            currentPouredAmount += Time.deltaTime * tiltIntensity * pourSpeed;
         }
         else
         {
             // 점점 줄어들다가 멈춤, Mathf.MovToWards: 지정된 값(current)을 목표 값(target)으로 일정한 속도로 이동시키는 함수.
-            pourIntensity = Mathf.MoveTowards(pourIntensity, 0f, Time.deltaTime * pourDecreaseSpeed);
+            tiltIntensity = Mathf.MoveTowards(tiltIntensity, 0f, Time.deltaTime * pourDecreaseSpeed);
         }
 
-        pouredAmount = Mathf.Min(pouredAmount, 100f); // 100으로 제한 (capped)
-        UpdatePouringUI(pouredAmount);
-        UpdatePouringAnimation(pourIntensity);
+        currentPouredAmount = Mathf.Min(currentPouredAmount, 100f); // 100으로 제한 (capped)
+        UpdatePouringUI(currentPouredAmount);
+        UpdatePouringAnimation(tiltIntensity);
         
     }
 
@@ -634,11 +634,11 @@ public class CoffeeMakingManager : MonoBehaviour
     {
         currentState = newState;
         SetAllPanelsInactive();
-        basePanel.SetActive(newState == CoffeeState.BaseSelect);
+        baseSelectPanel.SetActive(newState == CoffeeState.BaseSelect);
         shotPanel.SetActive(newState == CoffeeState.DoTheShot);
-        pouringPanel.SetActive(newState == CoffeeState.Pouring);
-        syrupPanel.SetActive(newState == CoffeeState.Syrup);
-        whippedCreamSelectPanel.SetActive(newState == CoffeeState.WhippedCreamSelect);
+        basePouringPanel.SetActive(newState == CoffeeState.BasePouring);
+        syrupPumpingPanel.SetActive(newState == CoffeeState.SyrupPumping);
+        whippingGasSelectPanel.SetActive(newState == CoffeeState.WhippedCreamSelect);
         whippedCreamSqueezePanel.SetActive(newState == CoffeeState.WhippedCreamSqueeze);
 
         // 상태별 초기화도 여기에 넣어줄 수 있음
@@ -650,10 +650,10 @@ public class CoffeeMakingManager : MonoBehaviour
             case CoffeeState.DoTheShot:
                 InitDoTheShot();
                 break;
-            case CoffeeState.Pouring:
+            case CoffeeState.BasePouring:
                 InitPouring();
                 break;
-            case CoffeeState.Syrup:
+            case CoffeeState.SyrupPumping:
                 InitSyrup();
                 break;
             case CoffeeState.WhippedCreamSelect:
@@ -716,12 +716,12 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void InitPouring() 
     {
-        pouredAmount = 0f;
-        pourIntensity = 0f;
+        currentPouredAmount = 0f;
+        tiltIntensity = 0f;
 
         // selectedBase에 따라서 이미지 이름 바꾸기
         pourDrink.sprite = baseSprites[selectedBase];
-        UpdatePouringUI(pouredAmount);
+        UpdatePouringUI(currentPouredAmount);
 
         // selectedBase
 
@@ -736,7 +736,7 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     private void InitSyrup()
     {
-        pumpingCooldown = 0f;
+        pumpingSyrupCooldown = 0f;
         
         // 기존 복귀 코루틴이 있다면 중단
         if(returnCoroutine != null)
@@ -746,7 +746,7 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         // 머그 중앙으로 초기화
-        mug.GetComponent<RectTransform>().anchoredPosition = mugDefaultPosition;
+        syrupMugTransform.GetComponent<RectTransform>().anchoredPosition = syrupMugDefaultPosition;
 
         // 마지막으로 사용한 시럽 초기화
         lastUsedSyrup = "";
@@ -768,37 +768,37 @@ public class CoffeeMakingManager : MonoBehaviour
         isWhipping = false;
 
         // Fill Image 초기화(0으로 설정)
-        if(whippingAmountFillImage != null)
+        if(whippedCreamGaugeImage != null)
         {
-            whippingAmountFillImage.fillAmount = 0f;
+            whippedCreamGaugeImage.fillAmount = 0f;
         }
 
         // 텍스트 초기화("아주 적음"으로 설정)
-        if(whippingAmountText != null)
+        if(currentWhippingAmountText != null)
         {
-            whippingAmountText.text = "아주 적음";
+            currentWhippingAmountText.text = "아주 적음";
         }
 
         // 휘핑 크림 이미지를 none으로 초기화
-        if(whippedCreamImage != null)
+        if(currentWhippedCreamImage != null)
         {
-            whippedCreamImage.sprite = noneWhippedCreamSpirte;
+            currentWhippedCreamImage.sprite = noneWhippedCreamSprite;
         }
 
         // 시작&멈춤 버튼 텍스트를 "시작"으로 초기화
-        if(startOrStopText != null)
+        if(whippingAmountControlButtonText != null)
         {
-            startOrStopText.text = "시작";
+            whippingAmountControlButtonText.text = "시작";
         }
     }
 
     private void SetAllPanelsInactive()
     {
-        basePanel?.SetActive(false);
+        baseSelectPanel?.SetActive(false);
         shotPanel?.SetActive(false);
-        pouringPanel?.SetActive(false);
-        syrupPanel?.SetActive(false);
-        whippedCreamSelectPanel?.SetActive(false);
+        basePouringPanel?.SetActive(false);
+        syrupPumpingPanel?.SetActive(false);
+        whippingGasSelectPanel?.SetActive(false);
         whippedCreamSqueezePanel?.SetActive(false);
 
     }
@@ -821,14 +821,14 @@ public class CoffeeMakingManager : MonoBehaviour
 
     public void OnNextToBaseSelect() => SetState(CoffeeState.BaseSelect);
     public void OnNextDoTheShot() => SetState(CoffeeState.DoTheShot);
-    public void OnNextToPouring() => SetState(CoffeeState.Pouring);
-    public void OnNextToSyrup() => SetState(CoffeeState.Syrup);
+    public void OnNextToPouring() => SetState(CoffeeState.BasePouring);
+    public void OnNextToSyrup() => SetState(CoffeeState.SyrupPumping);
     public void OnNextToWhippedCreamSelect() => SetState(CoffeeState.WhippedCreamSelect);
 
     public void OnSyrupButtonClick(string syrupName)
     {
-        if (pumpingCooldown > 0) return;
-        pumpingCooldown = pumpingCooltime;
+        if (pumpingSyrupCooldown > 0) return;
+        pumpingSyrupCooldown = pumpingCooltime;
         Animator anim = EventSystem.current.currentSelectedGameObject.GetComponent<Animator>(); 
         if (anim == null) return;
 
@@ -869,9 +869,9 @@ public class CoffeeMakingManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
 
         // 머그를 기본 위치로 부드럽게 이동
-        RectTransform mugRect = mug.GetComponent<RectTransform>();
+        RectTransform mugRect = syrupMugTransform.GetComponent<RectTransform>();
         Vector2 startPos = mugRect.anchoredPosition;
-        Vector2 targetPos = mugDefaultPosition;
+        Vector2 targetPos = syrupMugDefaultPosition;
 
         float duration = 0.5f; // 이동에 걸릴 시간
         float elasped = 0f;
@@ -889,7 +889,7 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         // 정확한 위치로 최종 설정
-        mugRect.anchoredPosition = mugDefaultPosition;
+        mugRect.anchoredPosition = syrupMugDefaultPosition;
 
         // 마지막 사용한 시럽 초기화 (기본 위치로 돌아왔으므로)
         lastUsedSyrup = "";
@@ -898,13 +898,13 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void MoveMugToPumpPosition(RectTransform syrupTransform)
     {
-        RectTransform mugRect = mug.GetComponent<RectTransform>();
+        RectTransform mugRect = syrupMugTransform.GetComponent<RectTransform>();
 
         // 1. 시럽 버튼의 월드 위치 가져오기
         Vector3 syrupWorldPos = syrupTransform.position;
 
         // 2. 머그의 부모 Canvas를 기준으로 로컬 좌표 변환
-        RectTransform canvasRect = syrupPanel.GetComponent<RectTransform>();
+        RectTransform canvasRect = syrupPumpingPanel.GetComponent<RectTransform>();
 
         Vector2 localPoint;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -914,7 +914,7 @@ public class CoffeeMakingManager : MonoBehaviour
             out localPoint))
         {
             // 3. X 위치는 시럽 버튼 기준, Y는 기본 위치 유지
-            Vector2 targetPos = new Vector2(localPoint.x + mugOffset.x, mugDefaultPosition.y + mugOffset.y);
+            Vector2 targetPos = new Vector2(localPoint.x + syrupMugOffset.x, syrupMugDefaultPosition.y + syrupMugOffset.y);
             mugRect.anchoredPosition = targetPos;
 
             Debug.Log($"변환된 로컬 포인트: {localPoint}, 최종 위치: {targetPos}");
@@ -928,10 +928,10 @@ public class CoffeeMakingManager : MonoBehaviour
 
     public void OnAdjustmentButtonClick()
     {
-        if(startOrStopText.text == "시작")
+        if(whippingAmountControlButtonText.text == "시작")
         {
             // 시작 상태로 변경
-            startOrStopText.text = "멈춤";
+            whippingAmountControlButtonText.text = "멈춤";
             isWhipping = true;
             // 다음 state로 넘기기(결과?)
         }
@@ -958,7 +958,7 @@ public class CoffeeMakingManager : MonoBehaviour
         result.ShotAccuracy = (shotCount == recipe.shotCount) ? 1f : 0f;
 
         //  우유량 비교
-        float pourError = Mathf.Abs(pouredAmount - recipe.expectedPourAmount);
+        float pourError = Mathf.Abs(currentPouredAmount - recipe.expectedPourAmount);
         result.PourAccuracy = 1f - Mathf.Clamp01(pourError / 100f); // 최대 오차 100ml 기준
 
         //  시럽 비교 (정확히 같은 종류와 횟수만 인정)
@@ -972,7 +972,7 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     private void ShowResultUI()
     {
-        resultPanel.SetActive(true);
+        resultNotePanel.SetActive(true);
 
         var result = OrderData.Result;
         string grade = result.EvaluateGrade();
@@ -1068,7 +1068,7 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void GenerateNoteLines(CoffeeResultData result)
     {
-        foreach (Transform child in notesPanel) // 기존 노트 제거
+        foreach (Transform child in commentNoteLineParent) // 기존 노트 제거
             Destroy(child.gameObject);
 
         var recipe = OrderData.CurrentRecipe;
@@ -1095,13 +1095,13 @@ public class CoffeeMakingManager : MonoBehaviour
         }
 
         // 3. 용량
-        float diff = pouredAmount - recipe.expectedPourAmount;
+        float diff = currentPouredAmount - recipe.expectedPourAmount;
         if (Mathf.Abs(diff) > 5f)
         {
             string label = selectedBase.Contains("Milk") ? "우유량" :
                            selectedBase.Contains("Water") ? "물양" : "용량";
 
-            string content = $"{label}: {pouredAmount:F2}";
+            string content = $"{label}: {currentPouredAmount:F2}";
             AddNoteLine(content, underline: true, pourDiff: diff);
         }
 
@@ -1120,7 +1120,7 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void AddNoteLine(string text, bool underline = false, float pourDiff = 0f)
     {
-        GameObject lineObj = Instantiate(noteLinePrefab, notesPanel);
+        GameObject lineObj = Instantiate(commentTextLine, commentNoteLineParent);
 
         // 자식에 있는 TMP 가져오기
         TextMeshProUGUI textComp = lineObj.GetComponentInChildren<TextMeshProUGUI>();
@@ -1148,7 +1148,7 @@ public class CoffeeMakingManager : MonoBehaviour
     {
         yield return null;
 
-        GameObject prefab = diff > 0 ? redNotePrefab : blueNotePrefab;
+        GameObject prefab = diff > 0 ? redSpeechBubblePrefab : blueSpeechBubblePrefab;
         string msg = diff > 0 ? "더 적게" : "더 많이";
 
         // 말풍선은 NoteLineText의 자식으로 붙이자!
@@ -1185,14 +1185,14 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private string CalculateWhippedLevelFromGauge(float fillAmount)
     {
-        if (whippingAmountFillImage == null) return "none";
+        if (whippedCreamGaugeImage == null) return "none";
 
-        float fillImageWidth = whippingAmountFillImage.rectTransform.rect.width;
+        float fillImageWidth = whippedCreamGaugeImage.rectTransform.rect.width;
         float currentFillPosition = fillAmount * fillImageWidth;
 
-        float lowArrowPos = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
-        float highArrowPos = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
-        float veryHighArrowPos = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+        float lowArrowPos = GetArrowRelativePosition(whippedCreamGauageLowArrow, whippedCreamGaugeImage.rectTransform);
+        float highArrowPos = GetArrowRelativePosition(whippedCreamGauageHighArrow, whippedCreamGaugeImage.rectTransform);
+        float veryHighArrowPos = GetArrowRelativePosition(whippedCreamGauageveryHighArrow, whippedCreamGaugeImage.rectTransform);
 
         if (currentFillPosition >= veryHighArrowPos)
             return "veryhigh";
@@ -1209,18 +1209,18 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private string GetCurrentWhippedLevel()
     {
-        return CalculateWhippedLevelFromGauge(whippingAmountFillImage.fillAmount);
+        return CalculateWhippedLevelFromGauge(whippedCreamGaugeImage.fillAmount);
     }
 
 
     private string GetWhippedCreamLevelName(float amount)
     {
-        float width = whippingAmountFillImage.rectTransform.rect.width;
+        float width = whippedCreamGaugeImage.rectTransform.rect.width;
         float pos = amount * width;
 
-        float low = GetArrowRelativePosition(lowArrow, whippingAmountFillImage.rectTransform);
-        float high = GetArrowRelativePosition(highArrow, whippingAmountFillImage.rectTransform);
-        float veryHigh = GetArrowRelativePosition(veryHighArrow, whippingAmountFillImage.rectTransform);
+        float low = GetArrowRelativePosition(whippedCreamGauageLowArrow, whippedCreamGaugeImage.rectTransform);
+        float high = GetArrowRelativePosition(whippedCreamGauageHighArrow, whippedCreamGaugeImage.rectTransform);
+        float veryHigh = GetArrowRelativePosition(whippedCreamGauageveryHighArrow, whippedCreamGaugeImage.rectTransform);
 
         if (pos >= veryHigh)
             return "veryhigh";
@@ -1278,18 +1278,18 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void UpdatePouringUI(float amount)
     {
-        if(amountText != null)
-            amountText.text = $"{amount:F2} ml";
+        if(currentPouredAmountText != null)
+            currentPouredAmountText.text = $"{amount:F2} ml";
     }
 
     private void UpdateSyrupUI(int count, Transform targetTransform) // 횟수, targetTransform
     {
-        if (syrupLabelPrefab == null) return;
+        if (syrupCountLabelPrefab == null) return;
 
-        GameObject label = Instantiate(syrupLabelPrefab, syrupPanel.transform);
+        GameObject label = Instantiate(syrupCountLabelPrefab, syrupPumpingPanel.transform);
 
         Vector2 screenPos = Camera.main.WorldToScreenPoint(targetTransform.position);
-        RectTransform parentRect = syrupPanel.GetComponent<RectTransform>();
+        RectTransform parentRect = syrupPumpingPanel.GetComponent<RectTransform>();
         RectTransform labelRect = label.GetComponent<RectTransform>();
 
         Vector2 localPoint; 
