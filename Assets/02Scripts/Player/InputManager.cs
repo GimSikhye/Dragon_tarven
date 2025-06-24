@@ -10,6 +10,7 @@ public class InputManager : MonoBehaviour
     public static event Action<Vector3> OnTouchEnded; // 터치 끝 이벤트 (월드 좌표 기준)
 
     [SerializeField] private GraphicRaycaster uiRaycaster;
+    [SerializeField] private DecorateManager decorateManager;
     private EventSystem eventSystem;
     private PointerEventData pointerEventData;
 
@@ -26,8 +27,8 @@ public class InputManager : MonoBehaviour
             if (touch.phase == TouchPhase.Ended)
             {
                 // 배치 모드일 때는 InputManager에서 터치 처리하지 않음
-                if (DalbitCafe.Deco.DecorateManager.Instance != null &&
-                    DalbitCafe.Deco.DecorateManager.Instance.IsDecorateMode)
+                if (decorateManager != null &&
+                    decorateManager.IsDecorateMode)
                 {
                     return;
                 }

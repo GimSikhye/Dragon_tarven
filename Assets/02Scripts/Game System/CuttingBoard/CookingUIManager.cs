@@ -5,21 +5,21 @@ using UnityEngine;
 
 public class CookingUIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject cookingUI;
+    [SerializeField] private GameObject cookingWindow;
     [SerializeField] private Transform recipeSlotParent;
     [SerializeField] private GameObject recipeSlotPrefab;
-    [SerializeField] private List<RecipeData> recipes;
+    [SerializeField] private List<RecipeData> recipes; // recipe SO List
 
     public void ToggleCookingUI()
     {
-        if(cookingUI.activeSelf)
+        if(cookingWindow.activeSelf)
         {
-            cookingUI.SetActive(false);
+            cookingWindow.SetActive(false);
         }
         else
         {
             RefreshUI();
-            cookingUI.SetActive(true);
+            cookingWindow.SetActive(true);
         }
     }
 
@@ -30,14 +30,14 @@ public class CookingUIManager : MonoBehaviour
 
         foreach(var recipe in recipes)
         {
-            GameObject slot = Instantiate(recipeSlotPrefab, recipeSlotParent);
-            CookingSlot slotScript = slot.GetComponent<CookingSlot>();
-            bool canCook = HasAllIngredients(recipe);
-            slotScript.SetRecipe(recipe, canCook); // slot 스크립트 내부
+            GameObject recipeSlot = Instantiate(recipeSlotPrefab, recipeSlotParent); 
+            RecipeSlot recipeSlotScript = recipeSlot.GetComponent<RecipeSlot>();
+            bool canCook = HasAllIngredients(recipe); // recipe의 재료가 전부 있으면 canCook(true)
+            recipeSlotScript.SetRecipe(recipe, canCook); // canCook 여부에 따라서 display
         }
     }
 
-    private bool HasAllIngredients(RecipeData recipe)
+    private bool HasAllIngredients(RecipeData recipe) // 해당 레시피 데이터의 모든 재료를 가지고 있으면 true ((( 여기부터 읽기))))
     {
         foreach(var ingredient in recipe.ingredients)
         {

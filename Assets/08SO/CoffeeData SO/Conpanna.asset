@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd26127e1b770db42b55236fd27b013d, type: 3}
-  m_Name: Americano
+  m_Name: Conpanna
   m_EditorClassIdentifier: 
-  coffeeId: americano
-  coffeeName: "\uC544\uBA54\uB9AC\uCE74\uB178"
-  price: 250
+  coffeeId: conpannaIcon
+  coffeeName: "\uCF58\uD30C\uB0D0"
+  price: 300
   mugQty: 10
   beanUse: 5
-  menuIcon: {fileID: 21300000, guid: 57348f8ec2265d04f9cb886de98b6a10, type: 3}
+  menuIcon: {fileID: 21300000, guid: 51a0addf05001ae499210a1cc318e59a, type: 3}

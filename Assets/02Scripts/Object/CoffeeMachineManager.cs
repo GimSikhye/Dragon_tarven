@@ -19,7 +19,7 @@ namespace DalbitCafe.Operations
                 machines.Remove(machine);
         }
 
-        public CoffeeMachine GetMachineAtPosition(Vector2 position, float threshold = 0.5f)
+        public CoffeeMachine GetCoffeeMachineAtWorldPosition(Vector2 position, float threshold = 0.5f)
         {
             foreach (var machine in machines)
             {

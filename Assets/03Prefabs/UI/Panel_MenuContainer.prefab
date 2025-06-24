@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 556624108892634020}
   - component: {fileID: 3052026777379454777}
   m_Layer: 5
-  m_Name: make_btn
+  m_Name: menuMakeButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,14 +60,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7106998, g: 0.32983252, b: 0.9622642, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1421983681797030840, guid: fe34e9fe367dc6b459700299dac4a653, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 86ad28a37b0134b33b88df67b42b7fe0, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -123,7 +123,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: MakeDrinkButton
+        m_MethodName: RoastingButton
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 342924957228928942}
@@ -163,12 +163,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5702376241949988225}
   - {fileID: 1360650052086008895}
   - {fileID: 3281095462078141807}
   - {fileID: 8307640421970253387}
   - {fileID: 8126299076895771440}
   - {fileID: 3041300387020492270}
-  - {fileID: 5702376241949988225}
   - {fileID: 792224958795480576}
   - {fileID: 3185591346713128333}
   - {fileID: 5434989760243884090}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1522919659968464305}
   - component: {fileID: 7650297112532838990}
   m_Layer: 5
-  m_Name: mugQty_tmp
+  m_Name: menuQuantityText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,8 +251,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -21.60121, y: -90.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -18.9824, y: -90.5}
+  m_SizeDelta: {x: 38.8, y: 30.125}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &1522919659968464305
 CanvasRenderer:
@@ -284,8 +284,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: x37
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
-  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
+  m_sharedMaterial: {fileID: -3496245524428176139, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 154.61877, y: 0, z: 0, w: 18.25853}
+  m_margin: {x: -16.435204, y: 0, z: 0, w: -0.9310951}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -365,7 +365,7 @@ GameObject:
   - component: {fileID: 3664163275847692922}
   - component: {fileID: 8119933035067756303}
   m_Layer: 5
-  m_Name: bean_Img
+  m_Name: coffeeBeanIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -387,7 +387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -53.2, y: -66.8}
+  m_AnchoredPosition: {x: -61.4, y: -66.8}
   m_SizeDelta: {x: -157.5584, y: -251.42609}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3664163275847692922
@@ -440,7 +440,7 @@ GameObject:
   - component: {fileID: 2368922590789967682}
   - component: {fileID: 5499546113805891163}
   m_Layer: 5
-  m_Name: name_tmp
+  m_Name: menuNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,8 +495,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC5D0\uC2A4\uD504\uB808\uC18C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
-  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
+  m_sharedMaterial: {fileID: -3496245524428176139, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 1955855454408088127}
   - component: {fileID: 6110751131257961101}
   m_Layer: 5
-  m_Name: icon_Img
+  m_Name: coffeeMenuIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +598,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5.7, y: 2.9}
+  m_AnchoredPosition: {x: -15.2, y: 2.9}
   m_SizeDelta: {x: 90.6112, y: 91.6544}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1955855454408088127
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 7646507394604439952}
   - component: {fileID: 7001813133731086876}
   m_Layer: 5
-  m_Name: menu banner_Img
+  m_Name: menuBannerBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.1, y: -11.587402}
+  m_AnchoredPosition: {x: -3, y: -11.587402}
   m_SizeDelta: {x: 151.6719, y: 147.8885}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7646507394604439952
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 3587749697333925617}
   - component: {fileID: 7647596686556065643}
   m_Layer: 5
-  m_Name: coin_Img
+  m_Name: coinIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -748,7 +748,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 17.6, y: -66.5}
+  m_AnchoredPosition: {x: 11.1, y: -66.5}
   m_SizeDelta: {x: 29.381, y: 29.381}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3587749697333925617
@@ -856,15 +856,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uCEE4\uD53C \uB9CC\uB4E4\uAE30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
-  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
+  m_sharedMaterial: {fileID: -3496245524428176139, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -937,7 +937,7 @@ GameObject:
   - component: {fileID: 4882976066718968329}
   - component: {fileID: 2591736149075083071}
   m_Layer: 5
-  m_Name: beanUse_tmp
+  m_Name: coffeeBeanAmountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -959,8 +959,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -21.9, y: -65.8}
-  m_SizeDelta: {x: -126.4019, y: -245.6392}
+  m_AnchoredPosition: {x: -21.5399, y: -65.8}
+  m_SizeDelta: {x: -144.7902, y: -245.6392}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4882976066718968329
 CanvasRenderer:
@@ -992,8 +992,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 50
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
-  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
+  m_sharedMaterial: {fileID: -3496245524428176139, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1055,7 +1055,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.2819023, y: 0, z: 0, w: 0}
+  m_margin: {x: -0.2819023, y: 0, z: 0.1894121, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1073,7 +1073,7 @@ GameObject:
   - component: {fileID: 5057399080947692098}
   - component: {fileID: 5832901009912397004}
   m_Layer: 5
-  m_Name: coin_tmp
+  m_Name: coinAmountText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1086,7 +1086,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6496997057118321647}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1095,8 +1095,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9.3, y: -66.2}
-  m_SizeDelta: {x: 33.3101, y: 30.1828}
+  m_AnchoredPosition: {x: 42.624134, y: -63.376564}
+  m_SizeDelta: {x: 60.4237, y: 35.6268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5057399080947692098
 CanvasRenderer:
@@ -1128,15 +1128,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: 7
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
-  m_sharedMaterial: {fileID: 6484507108436883869, guid: fbd703210ce4b3a429e7b7566085025e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
+  m_sharedMaterial: {fileID: -3496245524428176139, guid: abc70e72708d5764d8bb2a9a7faf5cf6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4285624689
-  m_fontColor: {r: 0.4415095, g: 0.4415095, b: 0.4415095, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1153,15 +1153,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 29.05
-  m_fontSizeBase: 29.05
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 1024
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1191,7 +1191,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 39.396904, y: 0, z: -45.616, w: 0}
+  m_margin: {x: -1.2212067, y: 0, z: 2.3737717, w: -1.433567}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

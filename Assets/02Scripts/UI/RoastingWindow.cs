@@ -12,7 +12,7 @@ namespace DalbitCafe.UI
         [SerializeField] public List<CoffeeData> coffeDataList; // SO 데이터 리스트
 
         [Header("메뉴 UI 패널")]
-        [SerializeField] public List<GameObject> menuContainers; //menu Container 패널 리스트
+        [SerializeField] public List<GameObject> coffeMachineMenuContainers; //menu Container 패널 리스트
 
         void Start()
         {
@@ -21,25 +21,33 @@ namespace DalbitCafe.UI
 
         void UpdateMenuUI()
         {
-            for (int i = 0; i < coffeDataList.Count && i < menuContainers.Count; i++)
+            Debug.Log("menu UI 업데이트-전");
+
+            for (int i = 0; i < coffeDataList.Count && i < coffeMachineMenuContainers.Count; i++)
             {
+                Debug.Log("menu UI 업데이트-후");
                 CoffeeData coffee = coffeDataList[i];
-                GameObject container = menuContainers[i];
+                GameObject container = coffeMachineMenuContainers[i];
 
                 // 각 UI 요소 가져오기
-                TextMeshProUGUI nameTmp = container.transform.Find("name_tmp").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI coinTmp = container.transform.Find("coin_tmp").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI mugQtyTmp = container.transform.Find("mugQty_tmp").GetComponent<TextMeshProUGUI>();
-                TextMeshProUGUI beanUseTmp = container.transform.Find("beanUse_tmp").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI menuNameTmp = container.transform.Find("menuNameText").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI requireCoinTmp = container.transform.Find("coinAmountText").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI menuQuantityTmp = container.transform.Find("menuQuantityText").GetComponent<TextMeshProUGUI>();
+                TextMeshProUGUI requireCoffeeBeanTmp = container.transform.Find("coffeeBeanAmountText").GetComponent<TextMeshProUGUI>();
 
-                Image iconImg = container.transform.Find("icon_Img").GetComponent<Image>();
+                Image menuIcon = container.transform.Find("coffeeMenuIcon").GetComponent<Image>();
 
                 // UI 업데이트
-                nameTmp.text = coffee.CoffeeName;
-                coinTmp.text = coffee.Price.ToString();
-                mugQtyTmp.text = "X " + coffee.MugQty.ToString();
-                beanUseTmp.text = "- " + coffee.BeanUse.ToString();
-                iconImg.sprite = coffee.MenuIcon;
+                menuNameTmp.text = coffee.CoffeeName;
+                requireCoinTmp.text = coffee.Price.ToString();
+                menuQuantityTmp.text = "X " + coffee.MugQty.ToString();
+                requireCoffeeBeanTmp.text = "- " + coffee.BeanUse.ToString();
+                if(menuIcon !=null)
+                {
+                    Debug.Log("이미지 등록됨");
+                    menuIcon.sprite = coffee.MenuIcon;
+
+                }
 
             }
         }

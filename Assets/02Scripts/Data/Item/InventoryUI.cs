@@ -35,6 +35,7 @@ public class InventoryUI : MonoBehaviour
     private Button prieviousButton; // 이전에 선택됐던 버튼
 
     private Inventory inventory;
+    [SerializeField] private DecorateManager decorateManager;
 
     private void Start()
     {
@@ -346,7 +347,7 @@ public class InventoryUI : MonoBehaviour
                 for(int y= -r; y<=r; y++)
                 {
                     Vector2Int pos = new Vector2Int(x, y);
-                    if(DecorateManager.Instance.CanPlaceItem(pos, itemSize))
+                    if(decorateManager.CanPlaceItem(pos, itemSize))
                     {
                         return pos;
                     }

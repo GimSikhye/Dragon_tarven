@@ -45,7 +45,7 @@ public class CustomerSpawner : MonoBehaviour
         maxCustomerCount = DecorateManager.Instance.GetPlacedItems()
            .Count(item => item.SubCategory is InteriorType type && type == InteriorType.Chair);
 
-        Debug.Log($"등록된 의자 개수: {maxCustomerCount}");
+        //Debug.Log($"등록된 의자 개수: {maxCustomerCount}");
 
 
         StartCoroutine(SpawnLoop());
@@ -98,7 +98,7 @@ public class CustomerSpawner : MonoBehaviour
 
         foreach (var item in allItems)
         {
-            Debug.Log($"[Spawner] DraggableItem: {item.name}, SubCategory: {item.SubCategory}");
+            //Debug.Log($"[Spawner] DraggableItem: {item.name}, SubCategory: {item.SubCategory}");
         }
 
         var availableChairs = allItems
@@ -109,7 +109,7 @@ public class CustomerSpawner : MonoBehaviour
 
         if (availableChairs.Count == 0)
         {
-            Debug.LogWarning("사용 가능한 의자가 없습니다.");
+            //Debug.LogWarning("사용 가능한 의자가 없습니다.");
             return null;
         }
 

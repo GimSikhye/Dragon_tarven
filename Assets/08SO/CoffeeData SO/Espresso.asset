@@ -17,4 +17,4 @@ MonoBehaviour:
   price: 200
   mugQty: 5
   beanUse: 3
-  menuIcon: {fileID: 21300000, guid: 687b77bda5629494fb2ee1d0ba563ec7, type: 3}
+  menuIcon: {fileID: 21300000, guid: 9132704896dd53b4782c59a9544dc1c5, type: 3}

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fd26127e1b770db42b55236fd27b013d, type: 3}
-  m_Name: IceAmericano
+  m_Name: CamelLatte
   m_EditorClassIdentifier: 
-  coffeeId: iceAmericano
-  coffeeName: "\uC544\uC774\uC2A4\uC544\uBA54\uB9AC\uCE74\uB178"
+  coffeeId: caramelLatte
+  coffeeName: "\uCE74\uB77C\uBA5C\uB77C\uB5BC"
   price: 300
   mugQty: 10
   beanUse: 5
-  menuIcon: {fileID: 21300000, guid: be47ab740d127f74da577d8b7d0df895, type: 3}
+  menuIcon: {fileID: 21300000, guid: a81a216f81ba49f44899c8ea575f2dfd, type: 3}

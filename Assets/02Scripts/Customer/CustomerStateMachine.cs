@@ -23,7 +23,7 @@ public class CustomerStateMachine : MonoBehaviour
         movement = GetComponent<CustomerMovement>();
         animator = GetComponent<Animator>();
 
-        Debug.Log("[CustomerStateMachine] Init 호출됨 - 상태: WalkingAround");
+        //Debug.Log("[CustomerStateMachine] Init 호출됨 - 상태: WalkingAround");
         SetState(CustomerState.WalkingAround);
     }
 

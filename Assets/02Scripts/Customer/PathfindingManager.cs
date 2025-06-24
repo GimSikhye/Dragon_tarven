@@ -64,7 +64,7 @@ public class PathfindingManager : MonoBehaviour
 
     public List<Vector3> FindPathInTilemap(Tilemap map, TileBase walkable, Vector3 startWorld, Vector3 endWorld)
     {
-        Debug.Log($"[A*] Å½»ö ½ÃÀÛ: {startWorld} ¡æ {endWorld}");
+        //Debug.Log($"[A*] Å½»ö ½ÃÀÛ: {startWorld} ¡æ {endWorld}");
 
         if (map == null || walkable == null)
         {

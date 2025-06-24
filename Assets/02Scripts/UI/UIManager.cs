@@ -23,7 +23,6 @@ public enum Windows
     // 필요한 만큼 아래에 계속 추가 가능
 }
 
-// ui 참조 다 날라간거 이어줘야 함
 public class UIManager : MonoSingleton<UIManager>
 {
     [SerializeField] public GameObject[] panels;
@@ -293,7 +292,7 @@ public class UIManager : MonoSingleton<UIManager>
                                 RoastingWindow roastingWindow = panel.GetComponent<RoastingWindow>();
                                 if (roastingWindow == null) return;
 
-                                int index = roastingWindow.menuContainers.IndexOf(container.gameObject);
+                                int index = roastingWindow.coffeMachineMenuContainers.IndexOf(container.gameObject);
                                 if (index >= 0 && index < roastingWindow.coffeDataList.Count)
                                 {
                                     CoffeeData dataToRoast = roastingWindow.coffeDataList[index];

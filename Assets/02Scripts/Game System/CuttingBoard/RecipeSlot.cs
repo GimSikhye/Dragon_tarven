@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class CookingSlot : MonoBehaviour, IPointerClickHandler
+public class RecipeSlot : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private Image iconImage;
 

@@ -8,8 +8,9 @@ using System.Linq;
 // 배치모드 관리
 namespace DalbitCafe.Deco
 {
-    public class DecorateManager : MonoSingleton<DecorateManager>
+    public class DecorateManager : MonoBehaviour
     {
+        
         [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
@@ -42,6 +43,12 @@ namespace DalbitCafe.Deco
         {
             placedItems.Add(item);
         }
+        public static DecorateManager Instance { get; private set; }
+
+        private void Awake()
+        {
+            Instance = this;
+        }
 
         public List<DraggableItem> GetPlacedItems() => placedItems;
         private void Start()
@@ -63,10 +70,12 @@ namespace DalbitCafe.Deco
             }
 
             // 시작할 때 배치모드 UI들은 숨김 상태로 시작
-
-            _decorateModeExitButton.SetActive(false);
-            _decorateModeMenuBar.SetActive(false);
-            _decorateUIElement.SetActive(false);
+            if(_decorateModeExitButton != null) 
+                _decorateModeExitButton.SetActive(false);
+            if(_decorateModeMenuBar != null)
+                _decorateModeMenuBar.SetActive(false);
+            if(_decorateUIElement != null)
+              _decorateUIElement.SetActive(false);
         }
 
         private void Update()

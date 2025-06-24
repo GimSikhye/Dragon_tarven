@@ -8,35 +8,35 @@ public class CoffeeInteractionHandler : MonoBehaviour
 
     private void Start()
     {
-        InputManager.OnTouchEnded += HandleTouch;
+        InputManager.OnTouchEnded += HandleCoffeeMachineInteraction;
     }
 
     private void OnDestroy()
     {
-        InputManager.OnTouchEnded -= HandleTouch;
+        InputManager.OnTouchEnded -= HandleCoffeeMachineInteraction;
     }
 
-    private void HandleTouch(Vector3 worldPos)
+    private void HandleCoffeeMachineInteraction(Vector3 worldPos) //
     {
-        var machine = CoffeeMachineManager.Instance.GetMachineAtPosition(worldPos);
+        var coffeMachine = CoffeeMachineManager.Instance.GetCoffeeMachineAtWorldPosition(worldPos);
 
-        if (machine == null) return;
+        if (coffeMachine == null) return;
 
-        float distance = Vector3.Distance(transform.position, machine.transform.position);
+        float distance = Vector3.Distance(transform.position, coffeMachine.transform.position);
 
         if (distance <= _interactionRange)
         {
-            CoffeeMachine.SetLastTouchedMachine(machine);
+            CoffeeMachine.SetLastTouchedMachine(coffeMachine);
 
-            if (machine.IsRoasting)
+            if (coffeMachine.IsRoasting)
             {
                 Debug.Log("커피가 로스팅 중입니다");
-                //UIManager.Instance.ShowCurrentMenuPopUp();
+                UIManager.Instance.ShowCurrentMenuPopUp();
             }
             else
             {
                 Debug.Log("커피 만들기 윈도우");
-                //UIManager.Instance.ShowMakeCoffeePopUp();
+                UIManager.Instance.ShowMakeCoffeePopUp();
             }
         }
         else

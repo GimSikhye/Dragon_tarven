@@ -44,27 +44,28 @@ public class ButtonManager : MonoSingleton<ButtonManager>
         }
         else if (scene.name == "GameScene")
         {
-            Button[] gameSceneButtons = GameObject.Find("Canvas_GameScene").GetComponentsInChildren<Button>(true); // 비활성화된 버튼들도 가져옴
+            Button[] gameSceneButtons = GameObject.Find("Canvas_GameScene").GetComponentsInChildren<Button>(true); // 비활성화된 버튼들도 가져옴 <>true
             foreach (Button button in gameSceneButtons)
             {
-                if (button.name == "UI_QuestBtn")
+                if (button.name == "UI_QuestButton")
                 {
-                    button.onClick.AddListener(() => UIManager.Instance.ShowQuestPopUp());
+                    button.onClick.AddListener(() => UIManager.Instance.ShowQuestPopUp()); // 퀘스트 팝업
                 }
-                if (button.name == "UI_StoargeBoxBtn")
+                if (button.name == "UI_StoargeBoxButton")
                 {
                     button.onClick.AddListener(() => UIManager.Instance.OpenInventory());
                 }
-                if (button.name == "UI_StoreBtn")
-                {
-                    button.onClick.AddListener(() => UIManager.Instance.OpenStore());
-                }
-                if (button.name == "UI_DecoRotateBtn")
+                //if (button.name == "UI_StoreButton")
+                //{
+                //    button.onClick.AddListener(() => UIManager.Instance.OpenStore());
+                //}
+                if (button.name == "UI_DecoRotateButton")
                 {
                     button.onClick.AddListener(() =>
                     {
                         button.interactable = false;
-                        DecorateManager.Instance.OnRotateButtonPressed(); // targetItem 기반 회전
+                        DecorateManager decorateManager = FindAnyObjectByType<DecorateManager>();
+                        decorateManager.OnRotateButtonPressed(); // targetItem 기반 회전
                         StartCoroutine(EnableButtonAfterDelay(button.gameObject, 0.5f));
                     });
                 }
@@ -112,7 +113,7 @@ public class ButtonManager : MonoSingleton<ButtonManager>
         button.GetComponent<Button>().interactable = false;
         GameObject menuContainer = button.transform.parent?.gameObject;
         RoastingWindow roastingWindow = FindObjectOfType<RoastingWindow>();
-        int index = roastingWindow.menuContainers.IndexOf(menuContainer);
+        int index = roastingWindow.coffeMachineMenuContainers.IndexOf(menuContainer);
 
         if (index < 0 || index >= roastingWindow.coffeDataList.Count)
         {
@@ -122,11 +123,11 @@ public class ButtonManager : MonoSingleton<ButtonManager>
 
         CoffeeData coffeeData = roastingWindow.coffeDataList[index];
 
-        //if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
-        //{
-        //    PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
-        //    CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
-        //}
+        if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
+        {
+            PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
+            CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
+        }
 
         StartCoroutine(EnableButtonAfterDelay(button, 3f));
     }

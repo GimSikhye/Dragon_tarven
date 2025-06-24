@@ -37,7 +37,7 @@ public class CustomerMovement : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log($"[FlipXDebugger] 내 오브젝트 이름: {gameObject.name} / SpriteRenderer 인스턴스 ID: {spriteRenderer.GetInstanceID()}");
+        //Debug.Log($"[FlipXDebugger] 내 오브젝트 이름: {gameObject.name} / SpriteRenderer 인스턴스 ID: {spriteRenderer.GetInstanceID()}");
     }
     public void SetSpawner(CustomerSpawner spawner)
     {
@@ -56,7 +56,7 @@ public class CustomerMovement : MonoBehaviour
 
         Vector3Int spawnCell = outdoorTilemap.WorldToCell(spawnPos);
         TileBase tile = outdoorTilemap.GetTile(spawnCell);
-        Debug.Log($"[디버그] 고객 스폰 위치 {spawnCell} 타일: {tile?.name}");
+        //Debug.Log($"[디버그] 고객 스폰 위치 {spawnCell} 타일: {tile?.name}");
 
         Vector3 entrance = spawner.GetEntrancePosition();
 

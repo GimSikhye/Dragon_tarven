@@ -94,7 +94,7 @@ namespace DalbitCafe.Player
             worldPos.z = 0;
 
             // 커피머신 좌표 기반으로 찾기
-            var machine = CoffeeMachineManager.Instance.GetMachineAtPosition(worldPos); // GetMachingAtPosition 터치한 곳에 머신이 있으면 머신을 가져옴
+            var machine = CoffeeMachineManager.Instance.GetCoffeeMachineAtWorldPosition(worldPos); // GetMachingAtPosition 터치한 곳에 머신이 있으면 머신을 가져옴
             if (machine != null) // 터치한 곳이 머신이라면
             {
                 TouchCoffeeMachine(machine);

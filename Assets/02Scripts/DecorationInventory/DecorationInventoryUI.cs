@@ -125,18 +125,18 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void UpdatePanelVisibility()
         {
-            Debug.Log($"UpdatePanelVisibility 호출됨");
+            //Debug.Log($"UpdatePanelVisibility 호출됨");
 
             if (DecorateManager.Instance != null)
             {
                 bool shouldShow = DecorateManager.Instance.IsDecorateMode;
                 bool wasShowing = inventoryPanel.activeSelf;
 
-                Debug.Log($"DecorateMode: {shouldShow}, 현재 패널 상태: {inventoryPanel.activeSelf}");
+                //Debug.Log($"DecorateMode: {shouldShow}, 현재 패널 상태: {inventoryPanel.activeSelf}");
 
                 if (inventoryPanel.activeSelf != shouldShow)
                 {
-                    Debug.Log("패널 표시 상태 업데이트");
+                    //Debug.Log("패널 표시 상태 업데이트");
                     inventoryPanel.SetActive(shouldShow);
 
                     if (shouldShow)
@@ -151,12 +151,12 @@ namespace DalbitCafe.Deco
                 }
                 else
                 {
-                    Debug.Log("패널 상태 변경 불필요");
+                    //Debug.Log("패널 상태 변경 불필요");
                 }
             }
             else
             {
-                Debug.Log("DecorateManager.Instance가 null입니다");
+                //Debug.Log("DecorateManager.Instance가 null입니다");
             }
         }
 
@@ -165,7 +165,7 @@ namespace DalbitCafe.Deco
         /// </summary>
         private void OnDecorateModeExited()
         {
-            Debug.Log("[DecorationInventoryUI] 배치모드 종료 - 모든 배치 중인 아이템 취소");
+            //Debug.Log("[DecorationInventoryUI] 배치모드 종료 - 모든 배치 중인 아이템 취소");
 
             // 현재 배치 중인 아이템이 있다면 취소
             if (DecorateManager.Instance.targetItem != null &&
