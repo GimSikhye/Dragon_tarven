@@ -57,8 +57,15 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void StartCoffeeMaking(CoffeeData coffeeData)
     {
+        Debug.Log("커피 만들기 시작");
+        if (this == null) // UIManager 인스턴스 자체가 파괴되었는지 확인
+        {
+            Debug.LogError("StartCoffeeMaking: UIManager 인스턴스가 이미 파괴되었습니다. 더 이상 코루틴을 시작할 수 없습니다.");
+            return;
+        }
         if (_coffeeMakeCoroutine != null)
             StopCoroutine(_coffeeMakeCoroutine);
+
 
         _coffeeMakeCoroutine = StartCoroutine(CoffeeMakingRoutine(coffeeData));
     }
@@ -66,10 +73,14 @@ public class UIManager : MonoSingleton<UIManager>
     
     private IEnumerator CoffeeMakingRoutine(CoffeeData coffeeData)
     {
+        if (_coffeeProgressSlider == null) Debug.Log("coffee ProgressSlider가 null임");
+        if (_sliderText == null) Debug.Log("_sliderText가 null임");
+
         _coffeeProgressSlider.gameObject.SetActive(true);
         _sliderText.gameObject.SetActive(true);
 
         // 1. 커피머신의 월드 위치 -> 스크린 위치로 변환
+        if (CoffeeMachine.LastTouchedMachine == null) Debug.Log("LastTOuchMachine이 null임");
         Vector3 worldPos = CoffeeMachine.LastTouchedMachine.transform.position + Vector3.up * 1.2f; // 약간 위로 띄움
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
@@ -126,7 +137,9 @@ public class UIManager : MonoSingleton<UIManager>
     private void InitGameUI(Scene scene, LoadSceneMode mode) // 게임씬 일때만 실행
     {
         if (scene.name != "GameScene") return;
-
+        Debug.Log($"현재 UIManager 인스턴스 (this): {this}");
+        Debug.Log($"MonoSingleton.Instance: {MonoSingleton<UIManager>.Instance}");
+        Debug.Log($"InitGameUI 호출됨. UIManager 인스턴스 유효성: {this != null}");
         // GameScene의 UI 요소 다시 연결
         panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
             ?.Where(t => t.CompareTag("UIPanel"))
@@ -217,9 +230,10 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowQuestPopUp()
     {
-        GameObject window = panels[(int)Windows.Quest];
-        window.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
-            .OnComplete(() => window.SetActive(true));
+        Debug.Log("퀘스트 창 열림");
+        GameObject questWindow = panels[(int)Windows.Quest];
+        questWindow.transform.DOScale(Vector3.one, 0.3f).SetEase(Ease.InBack)
+            .OnComplete(() => questWindow.SetActive(true));
     }
 
     public void ShowExitPopUp(string window)
@@ -272,35 +286,36 @@ public class UIManager : MonoSingleton<UIManager>
 
         foreach (var panel in panels)
         {
-            Debug.Log(panel.name);
-            var buttons = panel.GetComponentsInChildren<Button>(true);
-            foreach (var btn in buttons)
+            //Debug.Log(panel.name);
+            Button[] buttons = panel.GetComponentsInChildren<Button>(true); ; // 패널의 버튼 자식들을 모두 가져옴
+            foreach (var button in buttons)
             {
-                string btnName = btn.name;
-                btn.onClick.RemoveAllListeners();
+                string buttonName = button.name;
+                button.onClick.RemoveAllListeners(); // 모든 클릭 이벤트 제거
 
-                btn.onClick.AddListener(() =>
+                button.onClick.AddListener(() =>
                 {
                     //GameManager.Instance.SoundManager.PlaySFX(click_clip); // 클릭 효과음
-                    Debug.Log($"{btnName} 버튼 클릭!");
+                    Debug.Log($"{buttonName} 버튼 클릭!");
+
                     // 버튼 이름으로 처리 분기
-                    switch (btnName)
+                    switch (buttonName)
                     {
-                        case "make_btn":
+                        case "menuMakeButton":
                             {
-                                Transform container = btn.transform.parent;
+                                Transform menuContainer = button.transform.parent; // 해당 버튼의 menuContainer 할당
                                 RoastingWindow roastingWindow = panel.GetComponent<RoastingWindow>();
                                 if (roastingWindow == null) return;
 
-                                int index = roastingWindow.coffeMachineMenuContainers.IndexOf(container.gameObject);
-                                if (index >= 0 && index < roastingWindow.coffeDataList.Count)
+                                int index = roastingWindow.coffeeMachineMenuContainers.IndexOf(menuContainer.gameObject); // 해당 menuContainer가 몇 번째 인덱스에 있는지 할당
+                                if (index >= 0 && index < roastingWindow.coffeDataList.Count) // Index가 0보다 크고, coffeDataSO List 요소 개수보다 작아야 함.
                                 {
-                                    CoffeeData dataToRoast = roastingWindow.coffeDataList[index];
-                                    Debug.Log($"커피 만들기: {dataToRoast.CoffeeName}");
+                                    CoffeeData menuDataToRoast = roastingWindow.coffeDataList[index]; // coffeDataList Index와 roastringWindow coffeeMachineMenuContainers와 인덱스 맞춰야 함.
+                                    Debug.Log($"커피 만들기: {menuDataToRoast.CoffeeName}");
 
                                     // 기존 커피 굽기 로직 주석 처리하고 슬라이더 연출 시작
                                     // CoffeeMachine.LastTouchedMachine.RoastCoffee(dataToRoast);
-                                    StartCoffeeMaking(dataToRoast);
+                                    StartCoffeeMaking(menuDataToRoast);
                                 }
                                 else
                                 {

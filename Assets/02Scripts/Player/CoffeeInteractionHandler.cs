@@ -35,13 +35,12 @@ public class CoffeeInteractionHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("커피 만들기 윈도우");
                 UIManager.Instance.ShowMakeCoffeePopUp();
             }
         }
         else
         {
-            Debug.Log("너무 멀어요");
+            //Debug.Log("너무 멀어요");
             //UIManager.Instance.ShowCaptionText();
         }
     }

@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e9877b0fa940c4448df6bfa09065d7d, type: 3}
   m_Name: QuestData1
   m_EditorClassIdentifier: 
-  icon: {fileID: 8695494562980781756, guid: 8c6b72acb4e04964499c8b52bfb2daeb, type: 3}
+  icon: {fileID: 21300000, guid: 57348f8ec2265d04f9cb886de98b6a10, type: 3}
   questTitle: "\uCEE4\uD53C\uC758 \uC815\uC11D \uC544\uBA54\uB9AC\uCE74\uB178"
   description: "\uC544\uBA54\uB9AC\uCE74\uB178\uB97C 5\uC794 \uD314\uC544\uBCF4\uC790!"
   questType: 0
   conditions:
   - targetItemId: americano
     requiredAmount: 5
-    currentAmount: 5
+    currentAmount: 0
     type: 0
   rewardGold: 500
   rewardExp: 100

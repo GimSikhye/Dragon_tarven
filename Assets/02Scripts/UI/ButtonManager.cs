@@ -9,7 +9,6 @@ using System.Collections;
 using DalbitCafe.Core;
 using DalbitCafe.Deco;
 
-
 public class ButtonManager : MonoSingleton<ButtonManager>
 {
     [SerializeField] private AudioClip click_clip;
@@ -113,7 +112,7 @@ public class ButtonManager : MonoSingleton<ButtonManager>
         button.GetComponent<Button>().interactable = false;
         GameObject menuContainer = button.transform.parent?.gameObject;
         RoastingWindow roastingWindow = FindObjectOfType<RoastingWindow>();
-        int index = roastingWindow.coffeMachineMenuContainers.IndexOf(menuContainer);
+        int index = roastingWindow.coffeeMachineMenuContainers.IndexOf(menuContainer);
 
         if (index < 0 || index >= roastingWindow.coffeDataList.Count)
         {

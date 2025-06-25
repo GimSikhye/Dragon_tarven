@@ -12,7 +12,7 @@ namespace DalbitCafe.UI
         [SerializeField] public List<CoffeeData> coffeDataList; // SO 데이터 리스트
 
         [Header("메뉴 UI 패널")]
-        [SerializeField] public List<GameObject> coffeMachineMenuContainers; //menu Container 패널 리스트
+        [SerializeField] public List<GameObject> coffeeMachineMenuContainers; //menu Container 패널 리스트
 
         void Start()
         {
@@ -21,13 +21,11 @@ namespace DalbitCafe.UI
 
         void UpdateMenuUI()
         {
-            Debug.Log("menu UI 업데이트-전");
 
-            for (int i = 0; i < coffeDataList.Count && i < coffeMachineMenuContainers.Count; i++)
+            for (int i = 0; i < coffeDataList.Count && i < coffeeMachineMenuContainers.Count; i++)
             {
-                Debug.Log("menu UI 업데이트-후");
                 CoffeeData coffee = coffeDataList[i];
-                GameObject container = coffeMachineMenuContainers[i];
+                GameObject container = coffeeMachineMenuContainers[i];
 
                 // 각 UI 요소 가져오기
                 TextMeshProUGUI menuNameTmp = container.transform.Find("menuNameText").GetComponent<TextMeshProUGUI>();
@@ -44,9 +42,7 @@ namespace DalbitCafe.UI
                 requireCoffeeBeanTmp.text = "- " + coffee.BeanUse.ToString();
                 if(menuIcon !=null)
                 {
-                    Debug.Log("이미지 등록됨");
                     menuIcon.sprite = coffee.MenuIcon;
-
                 }
 
             }

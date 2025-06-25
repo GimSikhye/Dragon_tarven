@@ -40,7 +40,7 @@ public class PathfindingManager : MonoBehaviour
     {
         while (GridManager.Instance == null || !GridReady())
         {
-            Debug.Log("[PathfindingManager] GridManager 초기화 대기 중...");
+            //Debug.Log("[PathfindingManager] GridManager 초기화 대기 중...");
             yield return null;
         }
 

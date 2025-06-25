@@ -4276,7 +4276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &551277107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6134,11 +6134,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7abe239a4f26f3d49a8b843a05f94cca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questListContent: {fileID: 0}
-  questItemPrefab: {fileID: 0}
-  activeQuests: []
+  questCatalogContent: {fileID: 1376553278}
+  questItemPrefab: {fileID: 1312460211370036399, guid: dece3be467e65bb4fb5485546d0140c1, type: 3}
+  onGoingQuest: []
   quest1: {fileID: 0}
-  dialougManager: {fileID: 0}
 --- !u!4 &581285569
 Transform:
   m_ObjectHideFlags: 0
@@ -7705,6 +7704,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!224 &729735577 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1190626413657286491, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+  m_PrefabInstance: {fileID: 1376553276}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &749655213
 GameObject:
   m_ObjectHideFlags: 0
@@ -19172,6 +19176,33 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 5202174759601152550, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
   m_PrefabInstance: {fileID: 1376553276}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &1376553278 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1646557945314405837, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+  m_PrefabInstance: {fileID: 1376553276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1376553279 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4078818781562877102, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+  m_PrefabInstance: {fileID: 1376553276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1376553280 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1340605842835876139, guid: 42eba22f05ab78e47998b64a17548f99, type: 3}
+  m_PrefabInstance: {fileID: 1376553276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1379463220
 GameObject:
   m_ObjectHideFlags: 0
@@ -19269,12 +19300,12 @@ RectTransform:
   - {fileID: 420516833}
   - {fileID: 432334741}
   - {fileID: 1462586938}
+  - {fileID: 1376553277}
   - {fileID: 1564231614}
   - {fileID: 134760345}
   - {fileID: 124028532}
   - {fileID: 6435859231133248873}
   - {fileID: 1256510043}
-  - {fileID: 1376553277}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -24213,10 +24244,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fd9cf6d995763f41915c93266980716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  questPanel: {fileID: 0}
-  questTitleText: {fileID: 0}
-  questDescText: {fileID: 0}
-  conditionParent: {fileID: 0}
+  questPanel: {fileID: 1599764247}
+  questNameText: {fileID: 1376553280}
+  questDescText: {fileID: 1376553279}
+  conditionParent: {fileID: 729735577}
   conditionTextPrefab: {fileID: 8091644143244873410, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
   completePopup: {fileID: 1564231613}
   completeButton: {fileID: 1186605572}
@@ -25112,6 +25143,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel_MenuContainer_1
       objectReference: {fileID: 0}
+    - target: {fileID: 3069663582644508029, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: m_Name
+      value: close_btn
+      objectReference: {fileID: 0}
     - target: {fileID: 5448756367415700353, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -25198,7 +25233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6527155210756486899, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7143077286547653021, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: m_AnchorMax.y
@@ -25225,6 +25260,10 @@ PrefabInstance:
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: coffeeMachineMenuContainers.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: 'coffeMachineMenuContainers.Array.data[0]'
       value: 
       objectReference: {fileID: 1803118706}
@@ -25242,6 +25281,26 @@ PrefabInstance:
       objectReference: {fileID: 1582674081}
     - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
       propertyPath: 'coffeMachineMenuContainers.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1442936319}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: 'coffeeMachineMenuContainers.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1803118706}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: 'coffeeMachineMenuContainers.Array.data[1]'
+      value: 
+      objectReference: {fileID: 913363992}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: 'coffeeMachineMenuContainers.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1335699167}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: 'coffeeMachineMenuContainers.Array.data[3]'
+      value: 
+      objectReference: {fileID: 1582674081}
+    - target: {fileID: 7535905381085365785, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
+      propertyPath: 'coffeeMachineMenuContainers.Array.data[4]'
       value: 
       objectReference: {fileID: 1442936319}
     - target: {fileID: 8916990914942351458, guid: 7d48bce38ed1bcc4896cbfe23c10ffdb, type: 3}
@@ -25738,7 +25797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7056556654961577, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_TagString
@@ -25838,19 +25897,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 285.32602
       objectReference: {fileID: 0}
     - target: {fileID: 4981505884157995827, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -93.79007
       objectReference: {fileID: 0}
     - target: {fileID: 5611993910719503293, guid: c436e688d8655da4690057e329ccadbe, type: 3}
       propertyPath: m_SizeDelta.x

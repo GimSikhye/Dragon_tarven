@@ -35,7 +35,7 @@ public class InputManager : MonoBehaviour
 
                 if (IsTouchOverUI(touch.position))
                 {
-                    Debug.Log("UI 위에서 손 뗌 -> 이동 안함");
+                    //Debug.Log("UI 위에서 손 뗌 -> 이동 안함");
                     return;
                 }
 

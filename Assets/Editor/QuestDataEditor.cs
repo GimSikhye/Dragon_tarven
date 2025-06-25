@@ -4,7 +4,7 @@ using UnityEngine;
 [CustomEditor(typeof(QuestData))]
 public class QuestDataEditor : Editor
 {
-    private string[] coffeeIds = new string[] { "americano", "latte", "espresso" };
+    private string[] coffeeIds = new string[] { "americano", "cafeLatte", "camelLatte", "conpanna", "espresso" };
     private string[] furnitureIds = new string[] { "chair_01", "table_01", "counter_01" };
 
     public override void OnInspectorGUI()

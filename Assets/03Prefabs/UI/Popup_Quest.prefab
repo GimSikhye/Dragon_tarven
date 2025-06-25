@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8544332585954640517}
   - component: {fileID: 4078818781562877102}
   m_Layer: 5
-  m_Name: UI_QuestDescription
+  m_Name: UI_QuestDescriptionText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -12, y: 135}
-  m_SizeDelta: {x: 339.54, y: 67.699}
+  m_AnchoredPosition: {x: 11.001, y: 125.8763}
+  m_SizeDelta: {x: 973.23, y: 85.9463}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8544332585954640517
 CanvasRenderer:
@@ -99,8 +99,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -465,7 +465,7 @@ GameObject:
   - component: {fileID: 5672314157810976463}
   m_Layer: 5
   m_Name: Popup_Quest
-  m_TagString: Untagged
+  m_TagString: UIPanel
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -758,7 +758,7 @@ GameObject:
   - component: {fileID: 5679111414230374614}
   - component: {fileID: 1340605842835876139}
   m_Layer: 5
-  m_Name: UI_QuestName
+  m_Name: UI_QuestNameText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,8 +780,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 22, y: 211}
-  m_SizeDelta: {x: 523.0717, y: 136.3382}
+  m_AnchoredPosition: {x: -0.00020599, y: 211}
+  m_SizeDelta: {x: 995.23, y: 136.3382}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5679111414230374614
 CanvasRenderer:
@@ -845,7 +845,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -893,7 +893,7 @@ GameObject:
   - component: {fileID: 1646557945314405837}
   - component: {fileID: 7087328134875928049}
   m_Layer: 5
-  m_Name: Content
+  m_Name: QuestCatalogContent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 1190626413657286491}
   - component: {fileID: 7965581318978646148}
   m_Layer: 5
-  m_Name: Content
+  m_Name: Quest Condition Content
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1190,7 +1190,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1198,7 +1198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1238,11 +1238,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 384.60986
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -69.272995
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7049168018496821212, guid: 9b80264a1b731c445a0583ed1701d9b7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

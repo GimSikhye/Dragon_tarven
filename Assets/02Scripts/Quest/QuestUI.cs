@@ -11,10 +11,10 @@ public class QuestUI : MonoBehaviour
 
     [Header(("퀘스트 팝업"))]
     public GameObject questPanel;
-    public TextMeshProUGUI questTitleText; // 퀘스트 제목
-    public TextMeshProUGUI questDescText; // 퀘스트 설명
-    public Transform conditionParent; // 퀘스트 조건이 추가될 위치
-    public GameObject conditionTextPrefab; // 퀘스트 조건
+    [SerializeField] private TextMeshProUGUI questNameText; // 퀘스트 제목
+    [SerializeField] private TextMeshProUGUI questDescText; // 퀘스트 설명
+    [SerializeField] private Transform conditionParent; // 퀘스트 조건이 추가될 위치
+    [SerializeField] private GameObject conditionTextPrefab; // 퀘스트 조건
 
     [Header(("퀘스트 완료 팝업"))]
     public GameObject completePopup;
@@ -40,7 +40,7 @@ public class QuestUI : MonoBehaviour
     {
         _currentQuest = quest;
 
-        questTitleText.text = quest.questTitle;
+        questNameText.text = quest.questTitle;
         questDescText.text = quest.description;
 
         foreach (Transform child in conditionParent) // 이전 퀘스트의 조건 UI를 다 지움
