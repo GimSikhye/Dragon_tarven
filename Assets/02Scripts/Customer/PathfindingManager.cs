@@ -23,6 +23,8 @@ public class PathfindingManager : MonoBehaviour
         }
     }
 
+
+
     [SerializeField] private Tilemap tilemap;
     [SerializeField] private TileBase walkableTile;
 
@@ -38,22 +40,25 @@ public class PathfindingManager : MonoBehaviour
 
     private IEnumerator WaitForGridManager()
     {
-        while (GridManager.Instance == null || !GridReady())
+        Debug.Log("[PathFindingManager] WaitForGridManager() 실행");
+        while (GridManager.Instance == null)
         {
-            //Debug.Log("[PathfindingManager] GridManager 초기화 대기 중...");
+            Debug.Log($"[PathFindingManager] GridManager null 여부 : {GridManager.Instance == null}, Gridy 준비됨 : {GridReady()}");
+            // 그리드매니저가 null인지, gridReady가 false인지 확인해야함.
+            Debug.Log("[PathfindingManager] GridManager 초기화 대기 중..."); //GridManager의 Instance가 null임.
             yield return null;
         }
-
         gridManager = GridManager.Instance;
+
         tilemap = gridManager.tilemap;
-        //walkableTile = gridManager.storeFloorTile;
+        walkableTile = gridManager.storeFloorTile;
 
         if (tilemap == null || walkableTile == null)
         {
             Debug.LogError("[PathfindingManager] 필드 누락!");
         }
 
-        Debug.Log("[PathfindingManager] 초기화 완료");
+        Debug.Log("[PathfindingManager] 초기화 완료"); // 현재 이거 출력 안되는중...
         IsInitialized = true;
     }
 

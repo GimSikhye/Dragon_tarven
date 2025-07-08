@@ -480,7 +480,7 @@ public class CoffeeMakingManager : MonoBehaviour
         }
     }
 
-    private void SmoothTimerFillAnimation() ////// 
+    private void SmoothTimerFillAnimation()
     {
         if (timerProgressImage == null) return;
 
@@ -492,9 +492,8 @@ public class CoffeeMakingManager : MonoBehaviour
     }
 
 
-
     // 외부에서 현재 남은 시간을 확인할 수 있는 프로퍼티
-    public float RemainingTime => currentRemainTime;
+    public float CurrentRemainTime => currentRemainTime;
     public bool IsTimerRunning => isTimerRunning;
     #endregion
 
@@ -508,7 +507,6 @@ public class CoffeeMakingManager : MonoBehaviour
         // 드래그가 시작된 후에는 버튼 클릭 무시
         if (hasDragStarted) return;
 
-        // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기(배열 인덱스는 0부터 시작하므로 -1)
         int outletIndex = buttonNumber - 1;
 
         // 이미 눌린 버튼인지 확인
@@ -518,7 +516,7 @@ public class CoffeeMakingManager : MonoBehaviour
             return; // 이미 눌린 버튼이면 함수 종료
         }
 
-        // 버튼을 눌렀다고 표시
+        // 버튼 눌렀으면 true 체크
         shotButtonPressed[outletIndex] = true;
 
         // 버튼 번호에 해당하는 Outlet 애니메이터 가져오기
@@ -550,14 +548,14 @@ public class CoffeeMakingManager : MonoBehaviour
     private IEnumerator PlayBrewAnimation(Animator outletAnimator, int shotGlassNumber)
     {
         // Brew 애니메이션 재생
-        outletAnimator.SetTrigger("Brew");
+        outletAnimator.SetTrigger("Brew"); // brew: 양조하다
 
-        // 애니메이션이 시작될 때까지 잠시 대기
+        // 애니메이터의 상태 변화가 다음 프레임에 완전히 적용되도록 보장
         yield return new WaitForEndOfFrame();
 
         // "Brew" 애니메이션이 재생 중인지 확인하고 완료까지 대기
         while (outletAnimator.GetCurrentAnimatorStateInfo(0).IsName("Brew") &&
-               outletAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f)
+               outletAnimator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f) // normalizedTime: Animator 컴포넌트에서 현재 재생 중인 애니메이션 상태의 진행 상황을 0과 1 사이의 값으로 정규화하여 나타내는 속성
         {
             yield return null;
         }
@@ -573,21 +571,25 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     #endregion
 
-    private void HandleBasePouring()
+    private void HandleBasePouring() //  
     {
         Vector3 tilt = GetSimulatedAcceleration(); // tilt: 기울이다
 
         // 기울기 감지
-        bool isTilting = tilt.x > 0.3f || tilt.z > 0.3f;
-
+        bool isTilting = tilt.x > 0.3f || tilt.z > 0.3f; // x: 좌우 기울기, y: 위아래(수직) 방향, z: 앞뒤 기울기
+        // y값이 사용되지 않는 이유: y축은 보통 회전이나 수직 방향의 움직임에 해당하여, 단순한 '기울어진 정도'를 측정하는 데는 포함되지 않는 경우가 많음.
+        // Mathf.Max() 함수는 괄호 안의 두 값 중 더 큰 값을 반환한다.
+        // 이 부분은 X축 기울기의 절댓값과 Z축 기울기의 절댓값 중에서 더 큰 값을 선택한다. 
+        // 즉, 앞뒤 기울기와 좌우 기울기 중 가장 크게 기울어진 방향의 강도를 찾는다.
+        
         if (currentPouredAmount >= 100f)
         {
-            tiltIntensity = 0f;
+            tiltIntensity = 0f; // 기울기 강도 0으로 변경
             UpdatePouringAnimation(0);
             return;
         }
 
-        if(isTilting)
+        if(isTilting) // 기울여져 있다면
         {
             // 기울어진 정도에 따라 기울기 강도 조절, Mathf.Clmap01: 주어진 숫자를 0과 1 사이에 묶어주는 함수
             tiltIntensity = Mathf.Clamp01(Mathf.Max(Mathf.Abs(tilt.x), Mathf.Abs(tilt.z))); // 여기 부분 잘 모르겠음

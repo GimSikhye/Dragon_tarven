@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
+// 게임씬에서 단일실행하면, 손님이 스폰이 잘 되지만, 메인메뉴씬에서 시작해서 실행하면 손님이 스폰이 안됨.
 
 public class CustomerSpawner : MonoBehaviour
 {
@@ -33,12 +34,15 @@ public class CustomerSpawner : MonoBehaviour
 
     private IEnumerator WaitThenSpawn()
     {
-        pathfinder = FindObjectOfType<PathfindingManager>();
+        Debug.Log("[Spawner] WaitThenSpawn 실행");
+        pathfinder = FindFirstObjectByType<PathfindingManager>();
 
         while (pathfinder == null || !pathfinder.IsInitialized)
         {
-            yield return null;
-            pathfinder = FindObjectOfType<PathfindingManager>();
+            // 문제점: 현재 pathFinder 초기화 여부가 계속 false임
+            //Debug.Log($"pathFinder null 여부: {pathfinder == null}, patfinder 초기화 여부: {pathfinder.IsInitialized}");
+            yield return null; // 다음 프레임에 실행됨
+            pathfinder = FindFirstObjectByType<PathfindingManager>();
         }
 
         // 이제 바로 DraggableItem에서 SubCategory 접근
@@ -129,9 +133,12 @@ public class CustomerSpawner : MonoBehaviour
 
     private IEnumerator SpawnLoop()
     {
+        Debug.Log("[Spawner] SpawnLoop 실행");
+
         while (true)
         {
-            Debug.Log("[Spawner] SpawnLoop 실행");
+            Debug.Log("[Spawner] SpawnLoop While(true) 반복중");
+
             if (!IsDecorateMode() && activeCustomers.Count < maxCustomerCount)
             {
                 Debug.Log("손님 생성");
