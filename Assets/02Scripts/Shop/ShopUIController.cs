@@ -5,25 +5,22 @@ using System.Collections.Generic;
 
 public class ShopUIController : MonoBehaviour
 {
-    [Header("Tab Buttons")]
+    [Header("목록 버튼")]
     public Button materialTab;
     public Button upgradeTab;
     public Button decoTab;
 
-    [Header("ShoptCategory UI")]
-    //public GameObject shopCategoryPanel;
-
-    [Header("SubCategory UI")]
+    [Header("상점 UI")]
     public GameObject shopItemPanel;
-    public Transform categoryButtonParent;
-    public GameObject categoryButtonPrefab;
+    public Transform categoryButtonParent; // 목록버튼 부모객체
+    public GameObject categoryButtonPrefab; // 목록 버튼 프리팹
 
-    [Header("Item List")]
+    [Header("아이템 리스트")]
     public Transform itemParent; // itemParent: UI_ShopPanel의 content, UI_DecoPanel의 content
     public GameObject itemPrefab;
 
-    [Header("Player Info")]
-    public TextMeshProUGUI coinText;
+    [Header("플레이어 코인 보유량")]
+    public TextMeshProUGUI coinAmountText;
 
     private ShopCategoryType currentCategory;
     private DecoSubCategory currentSubCategory;
@@ -119,7 +116,7 @@ public class ShopUIController : MonoBehaviour
 
     void UpdateCoinUI()
     {
-        //coinText.text = PlayerStatsManager.Instance.Coin.ToString();
+        coinAmountText.text = PlayerStatsManager.Instance.Coin.ToString();
     }
 
     string ConvertToKorean(string name)

@@ -17,7 +17,10 @@ public class DayCycleManager : MonoBehaviour
 
     private bool showColon = true; // :
     private const int minutesPerTick = 10; // 분당 틱
-    private const int minutesPerDay = 600; // 10시간 = 600분
+    //private const int minutesPerDay = 300; // 10시간 = 300분
+    private const int minutesPerDay = 50; // 임시
+
+
     private int totalGameMinutesPassed = 0;
 
     // 시간 흐름 제어용 변수
@@ -58,6 +61,8 @@ public class DayCycleManager : MonoBehaviour
             ampmText = GameObject.Find("AmPmText").GetComponent<TextMeshProUGUI>();
             dayText = GameObject.Find("DayText").GetComponent<TextMeshProUGUI>();
             UpdateTimeUI(); // UI 즉시 갱신
+
+            ResumeTime();
         }
     }
     private IEnumerator GameTimeLoop()
@@ -121,6 +126,7 @@ public class DayCycleManager : MonoBehaviour
     {
         Debug.Log($"[DayCycle] Day {day} 종료, 정산 씬 이동!");
         SaveDay();
+        PauseTime();
         SceneManager.LoadScene("SettlementScene"); // 정산 씬으로 전환
     }
 
@@ -136,9 +142,10 @@ public class DayCycleManager : MonoBehaviour
         day = PlayerPrefs.GetInt("Day", 1); // 기본 1일차부터
     }
 
-    public void AdvanceToNextDay()
+    
+    public void AdvanceToNextDay() // 다음날로
     {
-        day++;
+        ++day;
         PlayerPrefs.SetInt("Day", day);
         PlayerPrefs.Save();
 
