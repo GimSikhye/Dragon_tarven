@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62282c39654f794a92b2facd026c6f6, type: 3}
   m_Name: PlayerStats
   m_EditorClassIdentifier: 
-  coffeeBean: 100
-  coin: 1000
-  gem: 0
-  exp: 0
+  coffeeBean: 1000
+  coin: 100
+  gem: 10
