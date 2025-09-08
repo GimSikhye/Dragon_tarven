@@ -19,8 +19,8 @@ public class ShopUIController : MonoBehaviour
     public Transform itemParent; // itemParent: UI_ShopPanel의 content, UI_DecoPanel의 content
     public GameObject itemPrefab;
 
-    [Header("Player Info")]
-    public TextMeshProUGUI coinText;
+    [Header("플레이어 코인 보유량")]
+    public TextMeshProUGUI coinAmountText;
 
     private ShopCategoryType currentCategory;
     private DecoSubCategory currentSubCategory;
@@ -116,7 +116,7 @@ public class ShopUIController : MonoBehaviour
 
     void UpdateCoinUI()
     {
-        //coinText.text = PlayerStatsManager.Instance.Coin.ToString();
+        coinAmountText.text = PlayerStatsManager.Instance.Coin.ToString();
     }
 
     string ConvertToKorean(string name)
