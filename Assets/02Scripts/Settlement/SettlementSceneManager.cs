@@ -17,12 +17,12 @@ public class SettlementSceneManager : MonoBehaviour
     [SerializeField] private GameObject shopCanvas;
 
     [Header("수치 설정")] // 수치도 게임 내에서 정해야 함
-    public float totalIncome = 63.00f;
-    public float tip = 14.26f;
-    public float rentCost = 10.00f;
-    public float refund = 0.00f;
+    public int totalIncome = 63;
+    public int tip = 14;
+    public int rentCost = 63;
+    public int refund = 0;
 
-    private float netProfit => totalIncome + tip - rentCost;
+    private int netProfit => totalIncome + tip - rentCost;
 
     void Start()
     {
@@ -35,13 +35,29 @@ public class SettlementSceneManager : MonoBehaviour
         refundText.text = $"${refund:F2}";
         netProfitText.text = $"${netProfit:F2}";
 
-        okButton.onClick.AddListener(OpenShop);
-        //PlayerStatsManager.Instance.AddCoin(netProfit); // 수익 반영
+        okButton.onClick.AddListener(OnConfirmButtonClicked);
+
+        PlayerStatsManager.Instance.AddCoin(netProfit); // 수익 반영
     }
 
     void OpenShop()
     {
         shopCanvas.SetActive(true);
         settlementCanvas.SetActive(false);
+    }
+
+    public void OnConfirmButtonClicked()
+    {
+        // DayCycleManager 찾아서 AdvanceToNextDay 실행
+        var dayCycleManager = FindAnyObjectByType<DayCycleManager>();
+        if (dayCycleManager != null)
+        {
+            dayCycleManager.AdvanceToNextDay();
+        }
+
+        OpenShop();
+
+        // GameScene으로 이동
+        //SceneManager.LoadScene("GameScene");
     }
 }

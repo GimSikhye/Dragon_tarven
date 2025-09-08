@@ -95,6 +95,7 @@ public class OrderSceneManager : MonoBehaviour
 
             // 중복 지급 방지를 위해 버튼 비활성화
             settleButton.interactable = false;
+
             SceneManager.LoadScene("GameScene");
 
             // 보상 완료 메시지 UI 출력 등도 여기에 추가 가능
