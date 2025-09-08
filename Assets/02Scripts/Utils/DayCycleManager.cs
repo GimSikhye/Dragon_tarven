@@ -2,21 +2,21 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
-
 public class DayCycleManager : MonoBehaviour
 {
     [Header("UI 연결")]
     [SerializeField] private TMP_Text timeText;
-    [SerializeField] private TMP_Text ampmText;
+    [SerializeField] private TMP_Text ampmText; // 오전오후
     [SerializeField] private TMP_Text dayText;
-
+    
     private int day = 1;
     private int gameHour = 20; 
-    private int gameMinute = 0;
+    private int gameMinute = 0; // 시간 바꿔주는 용도(60분-> 1시간)
     private float tickInterval = 5f; // 5초마다 시간 흐름
     private float elapsed = 0f;
-    private bool showColon = true;
-    private const int minutesPerTick = 10;
+
+    private bool showColon = true; // :
+    private const int minutesPerTick = 10; // 분당 틱
     private const int minutesPerDay = 600; // 10시간 = 600분
     private int totalGameMinutesPassed = 0;
 
@@ -24,7 +24,15 @@ public class DayCycleManager : MonoBehaviour
     private bool _isTimePaused = false;
     private Coroutine _gameTimeCoroutine;
     private Coroutine _blinkCoroutine;
-
+    private void Awake()
+    {
+        if (FindObjectsOfType<DayCycleManager>().Length > 1)
+        {
+            Destroy(gameObject); // 중복 방지
+            return;
+        }
+        DontDestroyOnLoad(gameObject);
+    }
     private void Start()
     {
         LoadDay();
@@ -33,6 +41,25 @@ public class DayCycleManager : MonoBehaviour
         _blinkCoroutine = StartCoroutine(BlinkColon());
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.name == "GameScene")
+        {
+            timeText = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
+            ampmText = GameObject.Find("AmPmText").GetComponent<TextMeshProUGUI>();
+            dayText = GameObject.Find("DayText").GetComponent<TextMeshProUGUI>();
+            UpdateTimeUI(); // UI 즉시 갱신
+        }
+    }
     private IEnumerator GameTimeLoop()
     {
         while (true)
@@ -42,7 +69,7 @@ public class DayCycleManager : MonoBehaviour
             // 시간이 일시정지된 상태라면 시간을 진행하지 않음
             if(!_isTimePaused)
             {
-                AdvanceTime();
+                AdvanceTime(); // 시간 전진
             }
         }
     }
@@ -67,7 +94,7 @@ public class DayCycleManager : MonoBehaviour
     }
     private void UpdateTimeUI()
     {
-        string period = gameHour >= 12 && gameHour < 24 ? "pm" : "am";
+        string period = gameHour >= 12 && gameHour < 24 ? "pm" : "am"; 
 
         int displayHour = gameHour % 12;
         if (displayHour == 0) displayHour = 12;
@@ -100,8 +127,8 @@ public class DayCycleManager : MonoBehaviour
     private void SaveDay()
     {
         PlayerPrefs.SetInt("Day", day);
-        //PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
-        //PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
+        PlayerPrefs.SetInt("Coin", PlayerStatsManager.Instance.Coin);
+        PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
         PlayerPrefs.Save();
     }
     public void LoadDay()
@@ -129,7 +156,7 @@ public class DayCycleManager : MonoBehaviour
         _gameTimeCoroutine = StartCoroutine(GameTimeLoop());
     }
 
-        // 시간 흐름 일시정지
+    // 시간 흐름 일시정지
     public void PauseTime()
     {
         _isTimePaused = true;

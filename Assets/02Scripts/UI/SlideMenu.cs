@@ -37,8 +37,13 @@ namespace DalbitCafe.UI
 
         private void ToggleMenu()
         {
+            Debug.Log("토글 메뉴 버튼");
             // UI 중복 입력 방지
-            if (EventSystem.current.IsPointerOverGameObject() == false) return;
+            if (EventSystem.current.IsPointerOverGameObject() == false)
+            {
+                Debug.Log("입력방지");
+                //return;
+            }
 
             // 애니메이션 중이면 실행 방지
             if (_isAnimating) return;

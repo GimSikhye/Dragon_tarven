@@ -31,7 +31,7 @@ public static class RewardCalculator
 
         if (totalReward > 0)
         {
-            //PlayerStatsManager.Instance.AddCoin(totalReward);
+            PlayerStatsManager.Instance.AddCoin((int)totalReward);
             Debug.Log($"골드 지급: {totalReward} 코인 (정답 수: {correctCount})");
         }
         else

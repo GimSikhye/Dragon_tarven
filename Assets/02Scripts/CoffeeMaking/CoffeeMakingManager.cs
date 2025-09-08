@@ -1156,6 +1156,7 @@ public class CoffeeMakingManager : MonoBehaviour
         RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
 
         // 텍스트 컴포넌트 가져오기
+        if (lineRect == null) Debug.Log("linRect is null");
         TextMeshProUGUI textComp = lineRect.GetComponentInChildren<TextMeshProUGUI>();
         bubble.GetComponentInChildren<TextMeshProUGUI>().text = msg;
 

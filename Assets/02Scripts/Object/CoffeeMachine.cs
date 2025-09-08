@@ -14,6 +14,7 @@ namespace DalbitCafe.Operations
         [SerializeField] private QuestTracker _questTracker;
         [SerializeField] private int unlockedLevel = 1; // 몇 레벨에 활성화되는 머신인지
         [SerializeField] private CoffeeMachineManager _machineManager;
+        [SerializeField] private float coffeeSellCooldown = 2f;
 
         public int UnlockLevel => unlockedLevel;
         public bool IsRoasting => _isRoasting;
@@ -28,6 +29,21 @@ namespace DalbitCafe.Operations
             _machineManager.RegisterMachine(this);
         }
 
+        private void Update()
+        {
+            if (CurrentCoffee == null) return;
+
+            if(coffeeSellCooldown > 0)
+            {
+                coffeeSellCooldown -= Time.deltaTime;
+            }
+            else
+            {
+                coffeeSellCooldown = 2f;
+                SellCoffee();
+            }
+        }
+
         private void OnDestroy()
         {
             _machineManager.UnregisterMachine(this);
@@ -39,9 +55,9 @@ namespace DalbitCafe.Operations
             _isRoasting = true;
 
             _currentCoffee = coffee;
-            _remainingMugs = coffee.MugQty; // 이거 UI에 할당
+            _remainingMugs = coffee.MugQty; 
 
-            PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse);
+            PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse); 
 
             GameObject particle = Instantiate(_steamParticle);
             particle.transform.position = transform.position;
@@ -55,7 +71,7 @@ namespace DalbitCafe.Operations
                 PlayerStatsManager.Instance.AddCoin(_currentCoffee.Price);
 
                 // 퀘스트 조건 업데이트
-                _questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
+                //_questTracker.OnCoffeeSold(_currentCoffee.CoffeeId);
 
             }
             else // 1잔이라면

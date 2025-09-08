@@ -7,6 +7,7 @@ using Random = UnityEngine.Random;
 
 public class CustomerOrder : MonoBehaviour
 {
+    [SerializeField] DayCycleManager dayCycleManager;
     public enum MenuType { Americano, CafeLatte, Conpanna, Espresso, Latte }
     private MenuType selectedMenu;
     private bool hasOrdered = false;
@@ -71,6 +72,8 @@ public class CustomerOrder : MonoBehaviour
 
     private void LoadOrderScene()
     {
+        if (dayCycleManager == null) dayCycleManager = GameObject.Find("DayCycleManager").GetComponent<DayCycleManager>();
+        dayCycleManager.PauseTime();
         OrderData.CurrentMenu = selectedMenu;
         OrderData.CustomerName = gameObject.name; // ex: "Duck", "Fox", etc.
         SceneManager.LoadScene("OrderScene");

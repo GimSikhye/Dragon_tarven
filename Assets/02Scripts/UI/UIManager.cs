@@ -39,6 +39,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _sliderText;
     [SerializeField] private float _coffeeMakeDuration = 1f;
 
+    [Header("버튼들")]
+    [SerializeField] Button questButton;
+    [SerializeField] Button menuButton;
+
     private InventoryUI _inventoryUI;
     private StoreManager _storeManager;
 
@@ -51,6 +55,11 @@ public class UIManager : MonoBehaviour
 
     private Coroutine _coffeeMakeCoroutine;
 
+    private void Start()
+    {
+        questButton.onClick.AddListener(() => ShowQuestPopUp());
+        //menuButton.onClick.AddListener(() => ShowQuestPopUp);
+    }
     private void StartCoffeeMaking(CoffeeData coffeeData)
     {
         Debug.Log("커피 만들기 시작");

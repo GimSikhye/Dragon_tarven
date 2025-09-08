@@ -839,10 +839,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panels: []
   _captionText: {fileID: 0}
-  _touchFeedback: {fileID: 0}
   _coffeeBeanAmountText: {fileID: 0}
   _coinAmountText: {fileID: 0}
   _gemAmountText: {fileID: 0}
+  coffeeMachineManager: {fileID: 0}
   _coffeeProgressSlider: {fileID: 0}
   _sliderText: {fileID: 0}
   _coffeeMakeDuration: 1
@@ -1179,7 +1179,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1456166621
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1622,6 +1622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a57b373ce9a0324a9e4c49fd528d59b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  machines: []
+  lastTouchedMachine: {fileID: 0}
 --- !u!4 &1957334568
 Transform:
   m_ObjectHideFlags: 0
