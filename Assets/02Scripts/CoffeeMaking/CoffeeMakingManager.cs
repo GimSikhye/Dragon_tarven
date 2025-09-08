@@ -92,7 +92,7 @@ public class CoffeeMakingManager : MonoBehaviour
     private readonly Color selectedShotButtonColor = new Color(142f / 255f, 207f / 255f, 40f / 255f, 1f);
     
     private bool[] shotButtonPressed; // 각 버튼이 눌렸는지 추적하는 배열
-    private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부 !
+    private bool[] shotGlassHasShot; // 각 샷잔에 샷이 있는지 여부 
     private bool[] shotGlassPouredToMug; // 각 샷잔이 Mug에 부어졌는지 여부
     private bool[] shotGlassAnimationCompleted; // 각 샷잔의 애니메이션이 완료되었는지 여부
     private bool hasDragStarted = false; // 드래그가 한 번이라도 시작되었는지
@@ -144,7 +144,7 @@ public class CoffeeMakingManager : MonoBehaviour
     private bool isWhipping = false;
     private float currentWhippingAmount = 0f;
 
-    [Header("타이머 세팅 변수들")]
+    [Header("타이머 세팅 변수들")] /////////
     [SerializeField] private TextMeshProUGUI timeRemainingText;
     [SerializeField] private Image timerProgressImage;
     [SerializeField] private float totalTime = 120f; // 총 시간(초)
@@ -932,17 +932,13 @@ public class CoffeeMakingManager : MonoBehaviour
     {
         if(whippingAmountControlButtonText.text == "시작")
         {
-            // 시작 상태로 변경
             whippingAmountControlButtonText.text = "멈춤";
-            isWhipping = true;
-            // 다음 state로 넘기기(결과?)
+            isWhipping = true; // 휘핑중
         }
         else
         {
-            // 멈춤 상태로 변경
             isWhipping = false;
             CheckRecipe();
-            ShowResultUI();
         }
     }
 
@@ -971,6 +967,8 @@ public class CoffeeMakingManager : MonoBehaviour
 
         // 저장
         OrderData.Result = result;
+
+        ShowResultUI();
     }
     private void ShowResultUI()
     {
@@ -995,7 +993,7 @@ public class CoffeeMakingManager : MonoBehaviour
             _ => scoreIcons[3]
         };
 
-        GenerateNoteLines(result); // 여기!
+        GenerateNoteLines(result); 
     }
 
     private IEnumerator ResizeUnderlineToValueOnly(TextMeshProUGUI textComp, Image underlineImg)
@@ -1075,7 +1073,7 @@ public class CoffeeMakingManager : MonoBehaviour
 
         var recipe = OrderData.CurrentRecipe;
 
-        Dictionary<string, string> baseTranslation = new()
+        Dictionary<string, string> baseTranslation = new() // 번역
     {
         { "Milk", "우유" },
         { "HotWater", "물" },
@@ -1083,9 +1081,9 @@ public class CoffeeMakingManager : MonoBehaviour
     };
 
         // 1. 베이스
-        if (selectedBase != recipe.baseType)
+        if (selectedBase != recipe.baseType) // 오답이라면
         {
-            string baseKor = baseTranslation.FirstOrDefault(kvp => selectedBase.Contains(kvp.Key)).Value ?? selectedBase;
+            string baseKor = baseTranslation.FirstOrDefault(str => selectedBase.Contains(str.Key)).Value ?? selectedBase;
             AddNoteLine($"베이스: {baseKor}", underline: true);
         }
 

@@ -77,6 +77,7 @@ public class OrderSceneManager : MonoBehaviour
 
     private void OnHintClicked()
     {
+        Debug.Log("힌트 버튼");
         // 해당 레시피의 힌트가 없다면
         if (selectedRecipe.hintText == null || selectedRecipe.hintText.Length == 0) return;
 
