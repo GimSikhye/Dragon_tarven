@@ -1,4 +1,3 @@
-using DalbitCafe.Player;
 using DG.Tweening;
 using System.Collections.Generic;
 using TMPro;
@@ -23,11 +22,10 @@ public enum Windows
     // 필요한 만큼 아래에 계속 추가 가능
 }
 
-public class UIManager : MonoSingleton<UIManager>
+public class UIManager : MonoBehaviour
 {
     [SerializeField] public GameObject[] panels;
     [SerializeField] private TextMeshProUGUI _captionText; // 주의 문구
-    [SerializeField] private Image _touchFeedback;
 
 
     [Header("재화량 텍스트")]
@@ -36,9 +34,11 @@ public class UIManager : MonoSingleton<UIManager>
     [SerializeField] private TextMeshProUGUI _gemAmountText;
 
     [Header("커피 머신 UI")]
+    [SerializeField] CoffeeMachineManager coffeeMachineManager;
     [SerializeField] private Slider _coffeeProgressSlider;
     [SerializeField] private TextMeshProUGUI _sliderText;
     [SerializeField] private float _coffeeMakeDuration = 1f;
+
     private InventoryUI _inventoryUI;
     private StoreManager _storeManager;
 
@@ -47,10 +47,6 @@ public class UIManager : MonoSingleton<UIManager>
     private float _currentCoin;
     private int _currentGem;
 
-    // 프로필
-    public Slider expSlider;
-    public TextMeshProUGUI currentLevelText;
-
     public Action<QuestData> OnQuestComplete;
 
     private Coroutine _coffeeMakeCoroutine;
@@ -58,30 +54,19 @@ public class UIManager : MonoSingleton<UIManager>
     private void StartCoffeeMaking(CoffeeData coffeeData)
     {
         Debug.Log("커피 만들기 시작");
-        if (this == null) // UIManager 인스턴스 자체가 파괴되었는지 확인
-        {
-            Debug.LogError("StartCoffeeMaking: UIManager 인스턴스가 이미 파괴되었습니다. 더 이상 코루틴을 시작할 수 없습니다.");
-            return;
-        }
         if (_coffeeMakeCoroutine != null)
             StopCoroutine(_coffeeMakeCoroutine);
 
-
         _coffeeMakeCoroutine = StartCoroutine(CoffeeMakingRoutine(coffeeData));
     }
-
     
     private IEnumerator CoffeeMakingRoutine(CoffeeData coffeeData)
     {
-        if (_coffeeProgressSlider == null) Debug.Log("coffee ProgressSlider가 null임");
-        if (_sliderText == null) Debug.Log("_sliderText가 null임");
-
         _coffeeProgressSlider.gameObject.SetActive(true);
         _sliderText.gameObject.SetActive(true);
 
-        // 1. 커피머신의 월드 위치 -> 스크린 위치로 변환
-        if (CoffeeMachine.LastTouchedMachine == null) Debug.Log("LastTOuchMachine이 null임");
-        Vector3 worldPos = CoffeeMachine.LastTouchedMachine.transform.position + Vector3.up * 1.2f; // 약간 위로 띄움
+        // 커피머신의 월드 위치 -> 스크린 위치로 변환
+        Vector3 worldPos = coffeeMachineManager.transform.position + Vector3.up * 1.2f; // 약간 위로 띄움
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
         // 2. UI 위치 적용
@@ -100,83 +85,13 @@ public class UIManager : MonoSingleton<UIManager>
         }
 
         _sliderText.text = "커피 완성!";
+
         yield return new WaitForSeconds(0.5f);
 
         _coffeeProgressSlider.gameObject.SetActive(false);
         _sliderText.gameObject.SetActive(false);
 
-        CoffeeMachine.LastTouchedMachine.RoastCoffee(coffeeData);
-    }
-
-
-    public void UpdateExpUI(int exp, int maxExp, int level)
-    {
-        if (expSlider != null)
-        {
-            expSlider.maxValue = maxExp;
-            expSlider.value = exp; // 현재 경험치
-        }
-
-        if (currentLevelText != null)
-        {
-            currentLevelText.text = $"Lv {level}";
-        }
-    }
-
-    protected override void Awake()
-    {
-        base.Awake();
-        SceneManager.sceneLoaded += InitGameUI;
-    }
-
-    void OnDestroy()
-    {
-        SceneManager.sceneLoaded -= InitGameUI;
-    }
-
-    private void InitGameUI(Scene scene, LoadSceneMode mode) // 게임씬 일때만 실행
-    {
-        if (scene.name != "GameScene") return;
-        Debug.Log($"현재 UIManager 인스턴스 (this): {this}");
-        Debug.Log($"MonoSingleton.Instance: {MonoSingleton<UIManager>.Instance}");
-        Debug.Log($"InitGameUI 호출됨. UIManager 인스턴스 유효성: {this != null}");
-        // GameScene의 UI 요소 다시 연결
-        panels = GameObject.Find("UIPanels")?.GetComponentsInChildren<Transform>(true)
-            ?.Where(t => t.CompareTag("UIPanel"))
-            .Select(t => t.gameObject).ToArray();
-
-        _captionText = GameObject.Find("UI_CaptionText")?.GetComponent<TextMeshProUGUI>();
-        _touchFeedback = GameObject.Find("UI_TouchFeedback")?.GetComponent<Image>();
-        _coffeeBeanAmountText = GameObject.Find("UI_CoffeeBeanAmountText")?.GetComponent<TextMeshProUGUI>();
-        _coinAmountText = GameObject.Find("UI_CoinAmountText")?.GetComponent<TextMeshProUGUI>();
-        _gemAmountText = GameObject.Find("UI_GemAmountText")?.GetComponent<TextMeshProUGUI>();
-
-        expSlider = GameObject.Find("UI_expbar")?.GetComponent<Slider>();
-        currentLevelText = GameObject.Find("UI_LevelText")?.GetComponent<TextMeshProUGUI>();
-
-        _coffeeProgressSlider = GameObject.Find("Canvas_GameScene").transform.Find("UI_CoffeeProgressSlider")?.GetComponent<Slider>();
-        _sliderText = _coffeeProgressSlider.transform.Find("UI_CoffeeProgressText")?.GetComponent<TextMeshProUGUI>();
-        Debug.Log(_coffeeProgressSlider != null);
-        _sliderText.gameObject.SetActive(false);
-        _coffeeProgressSlider.gameObject.SetActive(false);
-        _inventoryUI = GameObject.Find("InventoryUI").GetComponent<InventoryUI>();
-        _storeManager = GameObject.Find("StoreManager").GetComponent<StoreManager>();
-
-        // 패널 숨기기 + 초기화
-        if (panels != null)
-        {
-            foreach (var panel in panels)
-                panel.SetActive(false);
-        }
-        InitializeAllButtons();
-
-
-        // 데이터 바인딩
-        //var stats = PlayerStatsManager.Instance;
-        //UpdateCoffeeBeanUI(stats.CoffeeBeans);
-        //UpdateCoinUI(stats.Coin);
-        //UpdateGemUI(stats.Gem);
-        //UpdateExpUI(stats.Exp, stats.MaxExp, stats.Level);
+        coffeeMachineManager.lastTouchedMachine.RoastCoffee(coffeeData); // 로스트커피
     }
 
 
@@ -200,7 +115,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowMakeCoffeePopUp()
     {
-        var panel = panels[(int)Windows.MakeCoffee]; // 번호가 제대로 할당안됨
+        var panel = panels[(int)Windows.MakeCoffee];
         panel.SetActive(true);
         // 애니메이션
         panel.transform.localScale = Vector3.zero;
@@ -214,8 +129,8 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowCapitonText()
     {
-        Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<PlayerCtrl>().transform.position);
-        _captionText.rectTransform.position = playerScreenPos;
+        //Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<PlayerCtrl>().transform.position);
+        //_captionText.rectTransform.position = playerScreenPos;
         _captionText.enabled = true;
         _captionText.text = "거리가 너무 멀어요!";
     }
@@ -224,8 +139,11 @@ public class UIManager : MonoSingleton<UIManager>
     {
         GameObject window = panels[(int)Windows.CurrentMenu];
         window.SetActive(true);
-        window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
-        window.GetComponent<Image>().DOFade(1, 0.5f);
+        window.transform.Find("menu icon").GetComponent<Image>().sprite = coffeeMachineManager.lastTouchedMachine.CurrentCoffee.MenuIcon;
+        window.transform.Find("menu name").GetComponent<TextMeshProUGUI>().text = coffeeMachineManager.lastTouchedMachine.CurrentCoffee.CoffeeName;
+        window.transform.Find("remainingMugsText").GetComponent<TextMeshProUGUI>().text = $"{coffeeMachineManager.lastTouchedMachine.RemainingMugs.ToString()}잔 남음";
+        //window.GetComponent<Image>().color = new Color32(255, 255, 255, 0);
+        //window.GetComponent<Image>().DOFade(1, 0.5f);
     }
 
     public void ShowQuestPopUp()
@@ -255,15 +173,6 @@ public class UIManager : MonoSingleton<UIManager>
         return results.Count > 0;
     }
 
-    private void ShowTouchFeedback(Vector2 screenPosition)
-    {
-        if(_touchFeedback != null)
-        {
-            _touchFeedback.rectTransform.position = screenPosition;
-            _touchFeedback.enabled = true;
-        }
-
-    }
 
     public void OpenInventory()
     {
@@ -280,13 +189,14 @@ public class UIManager : MonoSingleton<UIManager>
         _storeManager.Open();   
     }
 
+    private void Awake()
+    {
+        InitializeAllButtons();
+    }
     private void InitializeAllButtons()
     {
-        Debug.Log("InitializeAllButtons 호출"); // 여기에 로그 추가
-
         foreach (var panel in panels)
         {
-            //Debug.Log(panel.name);
             Button[] buttons = panel.GetComponentsInChildren<Button>(true); ; // 패널의 버튼 자식들을 모두 가져옴
             foreach (var button in buttons)
             {
@@ -295,7 +205,6 @@ public class UIManager : MonoSingleton<UIManager>
 
                 button.onClick.AddListener(() =>
                 {
-                    //GameManager.Instance.SoundManager.PlaySFX(click_clip); // 클릭 효과음
                     Debug.Log($"{buttonName} 버튼 클릭!");
 
                     // 버튼 이름으로 처리 분기
@@ -313,8 +222,6 @@ public class UIManager : MonoSingleton<UIManager>
                                     CoffeeData menuDataToRoast = roastingWindow.coffeDataList[index]; // coffeDataList Index와 roastringWindow coffeeMachineMenuContainers와 인덱스 맞춰야 함.
                                     Debug.Log($"커피 만들기: {menuDataToRoast.CoffeeName}");
 
-                                    // 기존 커피 굽기 로직 주석 처리하고 슬라이더 연출 시작
-                                    // CoffeeMachine.LastTouchedMachine.RoastCoffee(dataToRoast);
                                     StartCoffeeMaking(menuDataToRoast);
                                 }
                                 else

@@ -17,7 +17,7 @@ public class GameManager : MonoSingleton<GameManager>
 #if UNITY_ANDROID
         if (Input.GetKey(KeyCode.Escape))
         {
-            UIManager.Instance.ShowExitPopUp();
+            //UIManager.Instance.ShowExitPopUp();
         }
 #endif
     }

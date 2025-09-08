@@ -33,9 +33,8 @@ public class InputManager : MonoBehaviour
                     return;
                 }
 
-                if (IsTouchOverUI(touch.position))
+                if (IsTouchOverUI(touch.position)) // UI 위라면 처리X
                 {
-                    //Debug.Log("UI 위에서 손 뗌 -> 이동 안함");
                     return;
                 }
 

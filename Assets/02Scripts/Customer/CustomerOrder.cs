@@ -3,18 +3,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class CustomerOrder : MonoBehaviour
 {
     public enum MenuType { Americano, CafeLatte, Conpanna, Espresso, Latte }
+    private MenuType selectedMenu;
+    private bool hasOrdered = false;
 
-    [SerializeField] private GameObject speechBubblePrefab;
-    [SerializeField] private Sprite[] menuIcons;
+    [Header("메뉴 UI 컴포넌트 할당")]
+    [SerializeField] private GameObject speechBubblePrefab; // 메뉴 말풍선
+    [SerializeField] private Sprite[] menuIcons; // 메뉴 아이콘
 
     private GameObject speechBubble;
-    private MenuType selectedMenu;
-
-    private bool hasOrdered = false;
     private Camera mainCamera;
 
     private void Start()
@@ -22,40 +23,31 @@ public class CustomerOrder : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    public void StartOrderingAfterDelay(float delay)
+    public void StartOrderingAfterDelay(float delayTime) // 지연 후 주문 시작
     {
         if (!hasOrdered)
-            StartCoroutine(DelayedOrder(delay));
+            StartCoroutine(DelayedOrder(delayTime));
     }
 
-    private IEnumerator DelayedOrder(float delay)
+    private IEnumerator DelayedOrder(float delayTime)
     {
-        yield return new WaitForSeconds(delay);
-        ShowOrder();
+        yield return new WaitForSeconds(delayTime);
+        CreateOrderBubble();
     }
 
-    private void ShowOrder()
+    private void CreateOrderBubble()
     {
-        selectedMenu = (MenuType)UnityEngine.Random.Range(0, Enum.GetValues(typeof(MenuType)).Length);
+        selectedMenu = (MenuType)Random.Range(0, Enum.GetValues(typeof(MenuType)).Length); // 선택된 메뉴
 
+        // 말풍선 생성+ 손님 위에 띄우기
         speechBubble = Instantiate(speechBubblePrefab, transform);
         speechBubble.transform.localPosition = new Vector3(0, 1f, 0);
 
-        Transform iconTransform = speechBubble.transform.Find("SpeechBalloon/menuIcon");
-        if (iconTransform == null)
-        {
-            Debug.LogError("menuIcon 오브젝트를 찾을 수 없습니다!");
-            return;
-        }
+        Transform menuIconTransform = speechBubble.transform.Find("SpeechBalloon/menuIcon"); // SpeechBalloon 자식
 
-        Image iconImage = iconTransform.GetComponent<Image>();
-        if (iconImage == null)
-        {
-            Debug.LogError("menuIcon에 Image 컴포넌트가 없습니다!");
-            return;
-        }
+        Image menuIcon = menuIconTransform.GetComponent<Image>();
 
-        iconImage.sprite = menuIcons[(int)selectedMenu];
+        menuIcon.sprite = menuIcons[(int)selectedMenu];
         hasOrdered = true;
     }
 
@@ -64,16 +56,15 @@ public class CustomerOrder : MonoBehaviour
         if (!hasOrdered || Input.touchCount == 0)
             return;
 
-        Touch touch = Input.GetTouch(0);
+        Touch touch = Input.GetTouch(0); // 터치 감지
         if (touch.phase != TouchPhase.Began)
             return;
 
-        Vector2 touchPos = mainCamera.ScreenToWorldPoint(touch.position);
-        RaycastHit2D hit = Physics2D.Raycast(touchPos, Vector2.zero);
+        Vector2 touchPosition = mainCamera.ScreenToWorldPoint(touch.position);
+        RaycastHit2D hit = Physics2D.Raycast(touchPosition, Vector2.zero); // 방향 zero
 
-        if (hit.collider != null && hit.collider.transform == transform)
+        if (hit.collider != null && hit.collider.transform == transform) // 손님 위치라면
         {
-            Debug.Log("손님 터치됨 (2D Raycast)!");
             LoadOrderScene();
         }
     }

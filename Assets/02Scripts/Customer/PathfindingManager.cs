@@ -58,7 +58,6 @@ public class PathfindingManager : MonoBehaviour
             Debug.LogError("[PathfindingManager] 필드 누락!");
         }
 
-        Debug.Log("[PathfindingManager] 초기화 완료"); // 현재 이거 출력 안되는중...
         IsInitialized = true;
     }
 

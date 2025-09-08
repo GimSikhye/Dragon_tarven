@@ -1930,8 +1930,8 @@ MonoBehaviour:
   speechText: {fileID: 686583781}
   hintButton: {fileID: 369094293}
   okayButton: {fileID: 1490285404}
-  canvasOrder: {fileID: 1209889389}
-  canvasCoffee: {fileID: 1929333033}
+  orderCanvas: {fileID: 1209889389}
+  coffeeMakingCanvas: {fileID: 1929333033}
   resultPanel: {fileID: 1868291899}
   settleButton: {fileID: 1611301043}
   portraitEntries:
@@ -1950,9 +1950,10 @@ MonoBehaviour:
     variants:
     - variantName: "\uB530\uB73B\uD55C \uC544\uBA54\uB9AC\uCE74\uB178"
       hintText:
-      - "\uB530\uB73B\uD558\uAC8C \uBD80\uD0C1\uD574\uC694."
-      - "\uD55C \uC794\uC758 \uC5EC\uC720\uB97C \uC8FC\uC138\uC694."
-      - "\uAE30\uBCF8\uC73C\uB85C \uC88B\uC544\uC694."
+      - "\uB728\uAC81\uAC8C \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 2\uBC88 \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uC2DC\uB7FD\uC740 \uB123\uC9C0\uB9D0\uC544\uC8FC\uC138\uC694"
+      - "\uBB3C\uC591\uC740 90\uC73C\uB85C \uD574\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 2
       expectedPourAmount: 90
@@ -1970,9 +1971,10 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uB2EC\uB2EC\uD55C \uC544\uBA54\uB9AC\uCE74\uB178"
       hintText:
-      - "\uC870\uAE08\uB9CC \uB2EC\uB2EC\uD558\uAC8C \uD574\uC8FC\uC138\uC694."
-      - "\uC124\uD0D5 \uC0B4\uC9DD\uC774\uC694!"
-      - "\uC4F4\uB9DB\uC744 \uC904\uC5EC\uC8FC\uC138\uC694."
+      - "\uB728\uAC81\uAC8C \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 2\uBC88 \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uBB3C\uC591\uC740 90\uC73C\uB85C \uD574\uC8FC\uC138\uC694"
+      - "\uC124\uD0D5\uC2DC\uB7FD\uC740 1\uBC88 \uB123\uC5B4\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 2
       expectedPourAmount: 90
@@ -2020,9 +2022,9 @@ MonoBehaviour:
     variants:
     - variantName: "\uACE0\uC18C\uD55C \uB77C\uB5BC"
       hintText:
-      - "\uACE0\uC18C\uD55C \uB77C\uB5BC\uB85C \uBD80\uD0C1\uB4DC\uB824\uC694"
-      - "\uC6B0\uC720\uB294 \uC801\uB2F9\uD788"
-      - "\uC0F7\uC740 2\uBC88"
+      - "\uC77C\uBC18 \uC6B0\uC720\uB97C \uBCA0\uC774\uC2A4\uB85C \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 2\uBC88 \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uC6B0\uC720\uB7C9\uC740 50\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
       - "\uD718\uD551\uC740 \uBE7C\uC8FC\uC138\uC694"
       baseType: Milk
       shotCount: 2
@@ -2031,10 +2033,10 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uB450\uC720 \uCE74\uD398\uB77C\uB5BC"
       hintText:
-      - "\uAC74\uAC15\uC744 \uC0DD\uAC01\uD588\uC5B4\uC694"
-      - "\uC800\uC9C0\uBC29\uC73C\uB85C \uBD80\uD0C1\uB4DC\uB824\uC694"
-      - "\uD718\uD551\uC740 \uC0DD\uB7B5\uD574\uC8FC\uC138\uC694"
-      - "\uC6B0\uC720\uB294 \uC801\uB2F9\uD788"
+      - "\uBCA0\uC774\uC2A4\uB97C \uB450\uC720\uB85C \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 1\uAC1C\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uD718\uD551\uC740 \uB123\uC9C0 \uB9D0\uC544\uC8FC\uC138\uC694"
+      - "\uC6B0\uC720\uB294 45 \uC815\uB3C4\uB85C\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
       baseType: SoyMilk
       shotCount: 1
       expectedPourAmount: 45
@@ -2042,10 +2044,10 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uB2EC\uB2EC\uD55C \uCE74\uD398\uB77C\uB5BC"
       hintText:
-      - "\uBC14\uB2D0\uB77C \uC2DC\uB7FD \uCD94\uAC00\uC694"
-      - "\uB9CE\uC774 \uB2EC\uAC8C \uD574\uC8FC\uC138\uC694"
-      - "\uC6B0\uC720\uB294 \uB109\uB109\uD788"
-      - "\uD718\uD551\uB3C4 \uC0B4\uC9DD \uBD80\uD0C1\uB4DC\uB824\uC694"
+      - "\uBC14\uB2D0\uB77C \uC2DC\uB7FD \uD55C\uBC88\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uC0F7 2\uBC88 \uBD80\uD0C1\uB4DC\uB824\uC694"
+      - "\uC6B0\uC720\uB294 65\uC815\uB3C4 \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uD718\uD551\uD06C\uB9BC\uC740 \uC801\uAC8C \uBD80\uD0C1\uB4DC\uB824\uC694"
       baseType: Milk
       shotCount: 2
       expectedPourAmount: 65
@@ -2057,10 +2059,10 @@ MonoBehaviour:
     variants:
     - variantName: "\uAE30\uBCF8 \uCF58\uD30C\uB0D0"
       hintText:
-      - "\uC9C4\uD55C \uC5D0\uC2A4\uD504\uB808\uC18C\uC5D0 \uD06C\uB9BC\uC744 \uC5B9\uC5B4
-        \uC8FC\uC138\uC694"
-      - "\uCF58\uD30C\uB0D0\uB294 \uC2EC\uD50C\uD558\uAC8C \uC990\uACA8\uC57C\uC8E0"
-      - "\uC0F7 \uD558\uB098\uC5D0 \uD718\uD551 \uD55C \uB369\uC774\uBA74 \uCDA9\uBD84\uD574\uC694"
+      - "\uB728\uAC81\uAC8C \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 1\uBC88 \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uBB3C\uC591\uC740 25\uB85C \uD574\uC8FC\uC138\uC694"
+      - "\uC2DC\uB7FD\uC740 \uB123\uC9C0\uB9D0\uC544\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 1
       expectedPourAmount: 25
@@ -2068,9 +2070,9 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uC9C4\uD55C \uCF58\uD30C\uB0D0"
       hintText:
-      - "\uD06C\uB9BC\uC744 \uB4EC\uBFCD \uC5B9\uC5B4\uC8FC\uC138\uC694."
-      - "\uC0F7\uB3C4 \uB450 \uAC1C\uC694!"
-      - "\uC774\uAC74 \uC9C4\uD55C \uB9DB\uC774 \uD544\uC694\uD574\uC694."
+      - "\uB728\uAC70\uC6B4\uBB3C\uC744 30 \uC815\uB3C4\uB9CC \uD574\uC8FC\uC138\uC694"
+      - "\uC0F7\uC740 2\uAC1C \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uD718\uD551\uD06C\uB9BC\uC740 \uB192\uAC8C \uC313\uC544\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 2
       expectedPourAmount: 30
@@ -2078,9 +2080,9 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uADF9\uC9C4 \uCF58\uD30C\uB0D0"
       hintText:
-      - "3\uC0F7 \uBD80\uD0C1\uB4DC\uB9B4\uAC8C\uC694."
-      - "\uD718\uD551\uC740 \uBBF8\uB514\uC5C4\uC73C\uB85C."
-      - "\uC9C4\uD558\uBA74\uC11C\uB3C4 \uBD80\uB4DC\uB7FD\uAC8C \uB9CC\uB4E4\uC5B4\uC8FC\uC138\uC694."
+      - "\uB728\uAC70\uC6B4\uBB3C\uB85C 3\uC0F7 \uBD80\uD0C1\uB4DC\uB9B4\uAC8C\uC694."
+      - "\uD718\uD551\uD06C\uB9BC \uB0AE\uAC8C \uC313\uC544\uC8FC\uC138\uC694"
+      - "\uBC14\uB2D0\uB77C\uC2DC\uB7FD 2\uD38C\uD504 \uB123\uC5B4\uC8FC\uC138\uC694 "
       baseType: HotWater
       shotCount: 3
       expectedPourAmount: 45
@@ -2092,9 +2094,9 @@ MonoBehaviour:
     variants:
     - variantName: "\uAE30\uBCF8 \uC5D0\uC2A4\uD504\uB808\uC18C"
       hintText:
-      - "\uD55C \uC794\uC758 \uC5D0\uC2A4\uD504\uB808\uC18C\uB97C \uC8FC\uC138\uC694."
-      - "\uAE30\uBCF8 \uC0F7\uC73C\uB85C \uBD80\uD0C1\uD574\uC694."
-      - "\uC9C4\uD55C \uD55C \uC794\uC774\uBA74 \uCDA9\uBD84\uD574\uC694."
+      - "\uB728\uAC70\uC6B4\uBB3C 25 \uC815\uB3C4\uB9CC \uBD80\uD0C1\uD574\uC694"
+      - "\uC0F7 1\uBC88\uB9CC \uD574\uC8FC\uC138\uC694"
+      - "\uD718\uD551\uD06C\uB9BC\uC774\uB791 \uC2DC\uB7FD\uC740 \uD544\uC694\uC5C6\uC5B4\uC694 "
       baseType: HotWater
       shotCount: 1
       expectedPourAmount: 25
@@ -2102,9 +2104,9 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uB354\uBE14 \uC5D0\uC2A4\uD504\uB808\uC18C"
       hintText:
-      - "\uB450 \uBC30\uB85C \uC9C4\uD558\uAC8C!"
-      - "\uB354\uBE14\uC0F7\uC774 \uD544\uC694\uD574\uC694."
-      - "\uB450 \uC794\uBD84\uC758 \uAC15\uB82C\uD568!"
+      - "\uB354\uBE14\uC0F7\uC73C\uB85C \uD574\uC8FC\uC138\uC694 "
+      - "\uB728\uAC70\uC6B4\uBB3C\uC744 35\uC815\uB3C4 \uBD80\uC5B4\uC8FC\uC138\uC694 "
+      - "\uC2DC\uB7FD\uC774\uB791 \uD718\uD551\uD06C\uB9BC\uC740 \uB123\uC9C0 \uB9D0\uC544\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 2
       expectedPourAmount: 35
@@ -2112,9 +2114,9 @@ MonoBehaviour:
       syrups: []
     - variantName: "\uD2B8\uB9AC\uD50C\uC0F7 \uC5D0\uC2A4\uD504\uB808\uC18C"
       hintText:
-      - "\uC0F7 \uC138 \uAC1C\uC694! \uC878\uB824\uC694!"
-      - "\uAC15\uD55C \uCEE4\uD53C\uAC00 \uD544\uC694\uD574\uC694."
-      - "\uAC15\uB825\uD558\uAC8C \uBD80\uD0C1\uD569\uB2C8\uB2E4!"
+      - "\uD2B8\uB9AC\uD50C\uC0F7\uC73C\uB85C \uD574\uC8FC\uC138\uC694"
+      - "\uB728\uAC70\uC6B4\uBB3C 45\uC815\uB3C4\uB85C \uBD80\uD0C1\uB4DC\uB824\uC694"
+      - "\uBC14\uB2D0\uB77C \uC2DC\uB7FD 2\uD38C\uD504 \uBD80\uD0C1\uB4DC\uB9BD\uB2C8\uB2E4"
       baseType: HotWater
       shotCount: 3
       expectedPourAmount: 45
@@ -5963,7 +5965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1209889390
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9649,7 +9651,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1929333034
 MonoBehaviour:
   m_ObjectHideFlags: 0

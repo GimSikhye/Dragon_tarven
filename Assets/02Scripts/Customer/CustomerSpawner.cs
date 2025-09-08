@@ -4,45 +4,47 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine.Tilemaps;
 using DalbitCafe.Deco;
-// 게임씬에서 단일실행하면, 손님이 스폰이 잘 되지만, 메인메뉴씬에서 시작해서 실행하면 손님이 스폰이 안됨.
 
 public class CustomerSpawner : MonoBehaviour
 {
+    [Header("손님 프리팹")]
     [SerializeField] private List<GameObject> customerPrefabs;
+
+    [Header("목적지 Transform")]
     [SerializeField] private Transform[] streetSpawns;
     [SerializeField] private Transform counter;
     [SerializeField] private Transform entrance;
 
+    // 손님 관련 변수들
     private int maxCustomerCount;
     private List<GameObject> activeCustomers = new();
+    private float spawnInterval = 4f; // 생성 간격
 
     private bool isStoreBusy = false;
-    private float spawnInterval = 4f;
 
+    [Header("경로 타일맵들")]
     [SerializeField] private Tilemap outdoorTilemap;
     [SerializeField] private Tilemap storeTilemap;
     [SerializeField] private TileBase outdoorWalkableTile;
     [SerializeField] private TileBase storeWalkableTile;
-    private PathfindingManager pathfinder;
 
+    private PathfindingManager pathfindManager;
     private DraggableItem assignedSeat;
 
     void Start()
     {
-        StartCoroutine(WaitThenSpawn());
+        StartCoroutine(InitializeSpawner());
     }
 
-    private IEnumerator WaitThenSpawn()
+    private IEnumerator InitializeSpawner()
     {
-        Debug.Log("[Spawner] WaitThenSpawn 실행");
-        pathfinder = FindFirstObjectByType<PathfindingManager>();
+        Debug.Log("[CustomerSpawner] WaitThenSpawn 실행");
+        pathfindManager = FindFirstObjectByType<PathfindingManager>();
 
-        while (pathfinder == null || !pathfinder.IsInitialized)
+        while (pathfindManager == null || !pathfindManager.IsInitialized)
         {
-            // 문제점: 현재 pathFinder 초기화 여부가 계속 false임
-            //Debug.Log($"pathFinder null 여부: {pathfinder == null}, patfinder 초기화 여부: {pathfinder.IsInitialized}");
             yield return null; // 다음 프레임에 실행됨
-            pathfinder = FindFirstObjectByType<PathfindingManager>();
+            pathfindManager = FindFirstObjectByType<PathfindingManager>();
         }
 
         // 이제 바로 DraggableItem에서 SubCategory 접근
@@ -51,15 +53,45 @@ public class CustomerSpawner : MonoBehaviour
 
         //Debug.Log($"등록된 의자 개수: {maxCustomerCount}");
 
-
         StartCoroutine(SpawnLoop());
     }
+    private IEnumerator SpawnLoop()
+    {
+        while (true)
+        {
+            if (!IsDecorateMode() && activeCustomers.Count < maxCustomerCount)
+            {
+                //Debug.Log("손님 생성");
+                SpawnCustomer();
+            }
+            yield return new WaitForSeconds(spawnInterval);
+        }
+    }
+    
+    private void SpawnCustomer()
+    {
+        GameObject prefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
+        if (prefab == null) return;
 
-    public void TryEnterCustomer(CustomerMovement movement)
+        GameObject customer = Instantiate(prefab, transform);
+        CustomerMovement movement = customer.GetComponent<CustomerMovement>();
+        if (movement == null) return;
+
+        CustomerStateMachine state = customer.GetComponent<CustomerStateMachine>();
+        if (state == null) return;
+
+        movement.SetTilemapData(outdoorTilemap, storeTilemap, outdoorWalkableTile, storeWalkableTile);
+        movement.SetSpawner(this);
+        movement.SetPathfindManager(pathfindManager);
+
+        state.Init();
+    }
+
+    public void TryEnterCustomer(CustomerMovement movement) // 입구 들어가려고 시도함.
     {
         if (isStoreBusy)
         {
-            movement.LeaveImmediately(() =>
+            movement.LeaveImmediately(() => // Done Action에 할당
             {
                 Destroy(movement.gameObject);
                 activeCustomers.Remove(movement.gameObject);
@@ -67,7 +99,7 @@ public class CustomerSpawner : MonoBehaviour
             return;
         }
 
-        isStoreBusy = true;
+        isStoreBusy = true; // 손님이 들어가는 중엔 다른 손님이 들어오지 못하도록 함.
         movement.GetComponent<CustomerStateMachine>().SetState(CustomerState.Entering);
     }
 
@@ -77,9 +109,9 @@ public class CustomerSpawner : MonoBehaviour
     {
         for (int i = 0; i < 30; i++)
         {
-            Transform t = streetSpawns[Random.Range(0, streetSpawns.Length)];
-            Vector3 offset = new Vector3(0f, Random.Range(-1f, 1f), 0f);
-            Vector3 pos = t.position + offset;
+            Transform randomStreetSpawn = streetSpawns[Random.Range(0, streetSpawns.Length-1)];
+            Vector3 yOffset = new Vector3(0f, Random.Range(-1f, 1f), 0f);
+            Vector3 pos = randomStreetSpawn.position + yOffset; //
             Vector3Int cell = outdoorTilemap.WorldToCell(pos);
             TileBase tile = outdoorTilemap.GetTile(cell);
 
@@ -131,22 +163,6 @@ public class CustomerSpawner : MonoBehaviour
 
     public DraggableItem GetAssignedSeat() => assignedSeat;
 
-    private IEnumerator SpawnLoop()
-    {
-        Debug.Log("[Spawner] SpawnLoop 실행");
-
-        while (true)
-        {
-            Debug.Log("[Spawner] SpawnLoop While(true) 반복중");
-
-            if (!IsDecorateMode() && activeCustomers.Count < maxCustomerCount)
-            {
-                Debug.Log("손님 생성");
-                SpawnCustomer();
-            }
-            yield return new WaitForSeconds(spawnInterval);
-        }
-    }
 
     private bool IsDecorateMode()
     {
@@ -154,25 +170,7 @@ public class CustomerSpawner : MonoBehaviour
         return DecorateManager.Instance.IsDecorateMode;
     }
 
-    private void SpawnCustomer()
-    {
-        GameObject prefab = customerPrefabs[Random.Range(0, customerPrefabs.Count)];
-        if (prefab == null) return;
-
-        GameObject customer = Instantiate(prefab, transform);
-        var movement = customer.GetComponent<CustomerMovement>();
-        if (movement == null) return;
-
-        var state = customer.GetComponent<CustomerStateMachine>();
-        if (state == null) return;
-
-        movement.SetTilemapData(outdoorTilemap, storeTilemap, outdoorWalkableTile, storeWalkableTile);
-        movement.SetSpawner(this);
-        movement.SetPathfinder(pathfinder);
-
-        state.Init();
-    }
-
+ 
     public void OnCustomerSeated()
     {
         isStoreBusy = false;

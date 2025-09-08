@@ -2,30 +2,32 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class OrderSceneManager : MonoBehaviour
 {
+    [Header("카운터 손님")]
     [SerializeField] private Image portraitImage;
     [SerializeField] private TextMeshProUGUI speechText;
     [SerializeField] private Button hintButton;
     [SerializeField] private Button okayButton;
-    [SerializeField] private GameObject canvasOrder;
-    [SerializeField] private GameObject canvasCoffee;
+
+    [Header("Canvas 컴포넌트")]
+    [SerializeField] private GameObject orderCanvas;
+    [SerializeField] private GameObject coffeeMakingCanvas;
+
+    [Header("미니게임 결과")]
     [SerializeField] private GameObject resultPanel;
     [SerializeField] private Button settleButton; // 정산 버튼
 
-
-    [Header("Portrait Sprites")]
+    [Header("손님 초상화 스프라이트 목록")]
     public List<CustomerPortraitEntry> portraitEntries;
 
-    [Header("Menu Recipes")]
+    [Header("변종 메뉴 레시피 목록")]
     public List<MenuWithVariants> menuRecipeData;
 
     private MenuVariantRecipe selectedRecipe;
     private int currentHintIndex = 0;
-
 
     private void Start()
     {
@@ -34,23 +36,23 @@ public class OrderSceneManager : MonoBehaviour
 
     private void InitUI()
     {
-        //  1. 캐릭터 이미지 설정
-        var entry = portraitEntries.Find(p => OrderData.CustomerName.Contains(p.name));
+        // 손님 초상화 가져오기
+        CustomerPortraitEntry entry = portraitEntries.Find(p => OrderData.CustomerName.Contains(p.name));
         if (entry != null)
             portraitImage.sprite = entry.sprite;
 
-        //  2. 메뉴 레시피에서 무작위로 선택
-        var menu = menuRecipeData.Find(m => m.menuType == OrderData.CurrentMenu);
+        // 메뉴 레시피에서 무작위로 선택
+        MenuWithVariants menu = menuRecipeData.Find(m => m.menuType == OrderData.CurrentMenu);
         if (menu == null || menu.variants.Count == 0)
         {
-            Debug.LogError("레시피 없음!");
+            //Debug.LogError(" 메뉴를 못 찾았거나, 해당 메뉴의 변종 레시피 없음!");
             return;
         }
 
         selectedRecipe = menu.variants[Random.Range(0, menu.variants.Count)];
         OrderData.CurrentRecipe = selectedRecipe;
 
-        //  3. 힌트 인덱스 초기화 및 첫 힌트 출력
+        // 힌트 인덱스 초기화 및 첫 힌트 출력
         currentHintIndex = 0;
         if (selectedRecipe.hintText != null && selectedRecipe.hintText.Length > 0)
         {
@@ -62,30 +64,28 @@ public class OrderSceneManager : MonoBehaviour
         }
 
         // 캔버스 전환 처리
-        canvasCoffee.SetActive(false); // 커피 만들기 UI 끄기
-        canvasOrder.SetActive(true);   // 주문 UI 켜기
+        coffeeMakingCanvas.SetActive(false); // 제작 미니게임 Canvas 끄기
+        orderCanvas.SetActive(true);   // 손님 주문 Canvas 켜기
 
-        settleButton.onClick.AddListener(OnSettleClicked);
+        settleButton.onClick.AddListener(OnSettleClicked); // 정산 버튼
+        resultPanel.SetActive(false);
 
-        // 결과 패널 끄기 (OrderData에서 접근하거나 직접 참조 필요)
-        if (resultPanel != null)
-            resultPanel.SetActive(false);
-
-        //  4. 버튼 이벤트 등록
+        // 버튼 이벤트 등록
         hintButton.onClick.AddListener(OnHintClicked);
         okayButton.onClick.AddListener(OnOkayClicked);
     }
 
     private void OnHintClicked()
     {
-        if (selectedRecipe.hintText == null || selectedRecipe.hintText.Length == 0)
-            return;
+        // 해당 레시피의 힌트가 없다면
+        if (selectedRecipe.hintText == null || selectedRecipe.hintText.Length == 0) return;
 
+        // 돌아가면서 힌트 출력
         currentHintIndex = (currentHintIndex + 1) % selectedRecipe.hintText.Length;
         speechText.text = selectedRecipe.hintText[currentHintIndex];
     }
 
-    private void OnSettleClicked()
+    private void OnSettleClicked() // 정산 버튼 클릭
     {
         if (OrderData.Result != null)
         {
@@ -104,11 +104,11 @@ public class OrderSceneManager : MonoBehaviour
         }
     }
 
-
     private void OnOkayClicked()
     {
-        canvasOrder.SetActive(false);
-        canvasCoffee.SetActive(true);
+        Debug.Log("오케이");
+        orderCanvas.SetActive(false);
+        coffeeMakingCanvas.SetActive(true);
     }
 
     [System.Serializable]
@@ -119,9 +119,9 @@ public class OrderSceneManager : MonoBehaviour
     }
 
     [System.Serializable]
-    public class MenuWithVariants
+    public class MenuWithVariants // 변종메뉴 (ex. 따뜻한 아메리카노)
     {
-        public CustomerOrder.MenuType menuType;
-        public List<MenuVariantRecipe> variants;
+        public CustomerOrder.MenuType menuType; // 일반메뉴 타입
+        public List<MenuVariantRecipe> variants; // 변종 메뉴 레시피
     }
 }

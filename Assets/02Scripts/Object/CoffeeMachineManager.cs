@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace DalbitCafe.Operations
 {
-    public class CoffeeMachineManager : MonoSingleton<CoffeeMachineManager>
+    public class CoffeeMachineManager : MonoBehaviour
     {
-        private List<CoffeeMachine> machines = new List<CoffeeMachine>();
+        public List<CoffeeMachine> machines = new List<CoffeeMachine>();
+        public CoffeeMachine lastTouchedMachine;
 
         public void RegisterMachine(CoffeeMachine machine) // 등록
         {
@@ -19,11 +20,11 @@ namespace DalbitCafe.Operations
                 machines.Remove(machine);
         }
 
-        public CoffeeMachine GetCoffeeMachineAtWorldPosition(Vector2 position, float threshold = 0.5f)
+        public CoffeeMachine GetCoffeeMachineAtWorldPosition(Vector2 position, float threshold = 0.5f) 
         {
             foreach (var machine in machines)
             {
-                if (Vector2.Distance(machine.transform.position, position) < threshold)
+                if (Vector2.Distance(machine.transform.position, position) < threshold) // 임계값보다 더 가깝다면
                     return machine;
             }
             return null;
@@ -39,5 +40,14 @@ namespace DalbitCafe.Operations
 
 
         public List<CoffeeMachine> GetAllMachines() => machines;
+
+        public void SetLastTouchedMachine(CoffeeMachine machine)
+        {
+            lastTouchedMachine = machine;
+        }
+
     }
+
+
+
 }

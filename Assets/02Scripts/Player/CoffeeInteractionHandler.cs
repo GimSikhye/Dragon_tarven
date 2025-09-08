@@ -5,6 +5,8 @@ using DalbitCafe.Inputs;
 public class CoffeeInteractionHandler : MonoBehaviour
 {
     [SerializeField] private float _interactionRange = 0.3f;
+    [SerializeField] private UIManager uiManager;
+    [SerializeField] CoffeeMachineManager coffeMachineManager;
 
     private void Start()
     {
@@ -16,9 +18,9 @@ public class CoffeeInteractionHandler : MonoBehaviour
         InputManager.OnTouchEnded -= HandleCoffeeMachineInteraction;
     }
 
-    private void HandleCoffeeMachineInteraction(Vector3 worldPos) //
+    private void HandleCoffeeMachineInteraction(Vector3 worldPos) 
     {
-        var coffeMachine = CoffeeMachineManager.Instance.GetCoffeeMachineAtWorldPosition(worldPos);
+        var coffeMachine = coffeMachineManager.GetCoffeeMachineAtWorldPosition(worldPos);
 
         if (coffeMachine == null) return;
 
@@ -26,22 +28,20 @@ public class CoffeeInteractionHandler : MonoBehaviour
 
         if (distance <= _interactionRange)
         {
-            CoffeeMachine.SetLastTouchedMachine(coffeMachine);
+            coffeMachineManager.SetLastTouchedMachine(coffeMachine);
 
             if (coffeMachine.IsRoasting)
             {
-                Debug.Log("커피가 로스팅 중입니다");
-                UIManager.Instance.ShowCurrentMenuPopUp();
+                uiManager.ShowCurrentMenuPopUp();
             }
             else
             {
-                UIManager.Instance.ShowMakeCoffeePopUp();
+                uiManager.ShowMakeCoffeePopUp();
             }
         }
         else
         {
-            //Debug.Log("너무 멀어요");
-            //UIManager.Instance.ShowCaptionText();
+            Debug.Log("너무 멀어요");
         }
     }
 }

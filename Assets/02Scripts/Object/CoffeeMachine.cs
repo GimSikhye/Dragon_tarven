@@ -5,8 +5,6 @@ namespace DalbitCafe.Operations
 {
     public class CoffeeMachine : MonoBehaviour
     {
-        public static CoffeeMachine LastTouchedMachine { get; private set; }
-
         [Header("커피머신 상태 변수")]
         [SerializeField] private CoffeeData _currentCoffee;
         [SerializeField] private int _remainingMugs; // 남은 잔수
@@ -15,6 +13,7 @@ namespace DalbitCafe.Operations
 
         [SerializeField] private QuestTracker _questTracker;
         [SerializeField] private int unlockedLevel = 1; // 몇 레벨에 활성화되는 머신인지
+        [SerializeField] private CoffeeMachineManager _machineManager;
 
         public int UnlockLevel => unlockedLevel;
         public bool IsRoasting => _isRoasting;
@@ -26,12 +25,12 @@ namespace DalbitCafe.Operations
             if (_questTracker == null)
                 _questTracker = FindObjectOfType<QuestTracker>();
 
-            CoffeeMachineManager.Instance.RegisterMachine(this);
+            _machineManager.RegisterMachine(this);
         }
 
         private void OnDestroy()
         {
-            CoffeeMachineManager.Instance.UnregisterMachine(this);
+            _machineManager.UnregisterMachine(this);
         }
 
         public void RoastCoffee(CoffeeData coffee)
@@ -40,7 +39,7 @@ namespace DalbitCafe.Operations
             _isRoasting = true;
 
             _currentCoffee = coffee;
-            _remainingMugs = coffee.MugQty;
+            _remainingMugs = coffee.MugQty; // 이거 UI에 할당
 
             PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse);
 
@@ -67,10 +66,7 @@ namespace DalbitCafe.Operations
             }
         }
 
-        public static void SetLastTouchedMachine(CoffeeMachine machine)
-        {
-            LastTouchedMachine = machine;
-        }
+
 
         public bool HasCoffee()
         {
