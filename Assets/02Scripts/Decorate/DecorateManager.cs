@@ -10,15 +10,15 @@ namespace DalbitCafe.Deco
 {
     public class DecorateManager : MonoBehaviour
     {
-        
         [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
         private GameObject[] _customers;
 
         [SerializeField] private GridManager _gridManager;
-        [SerializeField] private GameObject _decorateModeExitButton;
+        [SerializeField] private GameObject _decorateModeExitButton; // 데코모드 나가기 버튼
         [SerializeField] private GameObject _decorateModeMenuBar;
+
         [SerializeField] private GameObject _decorateUIElement; // 배치된 아이템 터치 시 위에 뜨는 배치 UI 활성화/비활성화
 
         [Header("캘린더 패널")]
@@ -54,10 +54,10 @@ namespace DalbitCafe.Deco
         private void Start()
         {
             // DayCycleManager 찾기
-            _dayCycleManager = FindObjectOfType<DayCycleManager>();
+            _dayCycleManager = FindAnyObjectByType<DayCycleManager>();
 
             // 이미 씬에 존재하는 배치된 의자들을 등록
-            var allChairs = FindObjectsOfType<DraggableItem>()
+            var allChairs = FindObjectsByType<DraggableItem>(0)
              .Where(item => item.SubCategory is InteriorType type && type == InteriorType.Chair)
                 .ToList();
 

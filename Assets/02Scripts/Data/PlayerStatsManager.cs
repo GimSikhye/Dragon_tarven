@@ -1,3 +1,4 @@
+using System;
 using DalbitCafe.Operations;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     public int CoffeeBeans { get; private set; }
     public int Coin { get; private set; }
     public int Gem { get; private set; }
+    public static event Action<int> OnCoinChanged;
 
     protected override void Awake()
     {
@@ -49,12 +51,16 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 
     public void AddCoin(int amount)
     {
-        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-        
+        if (uiManager == null)
+        {
+            uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+
+        }
+
         Coin += amount;
         PlayerPrefs.SetInt("Coin", Coin);
         PlayerPrefs.Save();
-        if(uiManager != null) uiManager.UpdateCoinUI(Coin);
+        OnCoinChanged?.Invoke(Coin);
     }
 
     public void AddGem(int amount)

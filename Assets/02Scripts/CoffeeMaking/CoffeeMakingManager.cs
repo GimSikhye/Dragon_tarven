@@ -628,7 +628,12 @@ public class CoffeeMakingManager : MonoBehaviour
 
         return new Vector3(simulatedTilt.x, 0f, simulatedTilt.y);
 #else
-    return -Input.acceleration;
+    float tiltX = Input.acceleration.x;
+    if (Mathf.Abs(tiltX) < 0.1f) tiltX = 0f; // 흔들림 방지
+
+    float pourAmount = -tiltX * pourSpeed;
+    return pourAmount;
+
 #endif
     }
 
@@ -1120,27 +1125,27 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void AddNoteLine(string text, bool underline = false, float pourDiff = 0f)
     {
-        GameObject lineObj = Instantiate(commentTextLine, commentNoteLineParent);
+        //GameObject lineObj = Instantiate(commentTextLine, commentNoteLineParent);
 
-        // 자식에 있는 TMP 가져오기
-        TextMeshProUGUI textComp = lineObj.GetComponentInChildren<TextMeshProUGUI>();
-        textComp.text = text;
+        //// 자식에 있는 TMP 가져오기
+        //TextMeshProUGUI textComp = lineObj.GetComponentInChildren<TextMeshProUGUI>();
+        //textComp.text = text;
 
-        // underline 처리
-        if (underline)
-        {
-            Transform underlineTr = lineObj.transform.Find("Underline");
-            if (underlineTr != null && underlineTr.TryGetComponent(out Image underlineImg))
-            {
-                StartCoroutine(ResizeUnderlineToValueOnly(textComp, underlineImg));
-            }
-        }
+        //// underline 처리
+        //if (underline)
+        //{
+        //    Transform underlineTr = lineObj.transform.Find("Underline");
+        //    if (underlineTr != null && underlineTr.TryGetComponent(out Image underlineImg))
+        //    {
+        //        StartCoroutine(ResizeUnderlineToValueOnly(textComp, underlineImg));
+        //    }
+        //}
 
-        // 말풍선 (우유량 차이 등)
-        if (pourDiff != 0f)
-        {
-            StartCoroutine(SpawnBubbleNextToText(lineObj.GetComponent<RectTransform>(), pourDiff));
-        }
+        //// 말풍선 (우유량 차이 등)
+        //if (pourDiff != 0f)
+        //{
+        //    StartCoroutine(SpawnBubbleNextToText(lineObj.GetComponent<RectTransform>(), pourDiff));
+        //}
     }
 
 
@@ -1156,7 +1161,11 @@ public class CoffeeMakingManager : MonoBehaviour
         RectTransform bubbleRect = bubble.GetComponent<RectTransform>();
 
         // 텍스트 컴포넌트 가져오기
-        if (lineRect == null) Debug.Log("linRect is null");
+        if (lineRect == null)
+        {
+            Debug.Log("linRect is null");
+        }
+
         TextMeshProUGUI textComp = lineRect.GetComponentInChildren<TextMeshProUGUI>();
         bubble.GetComponentInChildren<TextMeshProUGUI>().text = msg;
 

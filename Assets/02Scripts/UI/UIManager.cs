@@ -54,7 +54,15 @@ public class UIManager : MonoBehaviour
     public Action<QuestData> OnQuestComplete;
 
     private Coroutine _coffeeMakeCoroutine;
+    private void OnEnable()
+    {
+        PlayerStatsManager.OnCoinChanged += UpdateCoinUI;
+    }
 
+    private void OnDisable()
+    {
+        PlayerStatsManager.OnCoinChanged -= UpdateCoinUI;
+    }
     private void Start()
     {
         questButton.onClick.AddListener(() => ShowQuestPopUp());
@@ -110,7 +118,7 @@ public class UIManager : MonoBehaviour
         _currentCoffeeBean = value;
     }
 
-    public void UpdateCoinUI(float value)
+    public void UpdateCoinUI(int value)
     {
         TextAnimationHelper.AnimateNumber(_coinAmountText, _currentCoin, value, 1.5f);
         _currentCoin = value;

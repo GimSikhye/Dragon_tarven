@@ -66,7 +66,6 @@ namespace DalbitCafe.Deco
         public System.Enum SubCategory => itemData?.SubCategory;
 
 
-
         public void SetOccupied(bool state)
         {
             IsOccupied = state;

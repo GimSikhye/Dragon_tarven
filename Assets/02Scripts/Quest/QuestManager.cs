@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 // 판매/배치 등 조건 체크용 이벤트 수신
 public class QuestManager : MonoBehaviour
 {
-    public static QuestManager Instance { get; private set; } // ?? static Instance 추가
+    public static QuestManager Instance { get; private set; } 
 
     private void Awake()
     {
@@ -36,7 +36,6 @@ public class QuestManager : MonoBehaviour
             dialougManager = DialogueManager.Instance;
             //questCatalogContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
             questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton"); //Resources.Load 성능?
-
 
             // 테스트(임시)
             quest1 = Resources.Load<QuestData>("QuestData/QuestData1");
