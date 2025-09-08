@@ -29,6 +29,10 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
         }
     }
 
+    private void OnEnable()
+    {
+        
+    }
     public void LoadStat()
     {
         if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
@@ -45,29 +49,37 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 
     public void AddCoin(int amount)
     {
+        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+        
         Coin += amount;
-        PlayerPrefs.SetFloat("Coin", Coin);
-        uiManager.UpdateCoinUI(Coin);
+        PlayerPrefs.SetInt("Coin", Coin);
+        PlayerPrefs.Save();
+        if(uiManager != null) uiManager.UpdateCoinUI(Coin);
     }
 
     public void AddGem(int amount)
     {
+        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+
         Gem += amount;
         PlayerPrefs.SetInt("Gem", Gem);
+        PlayerPrefs.Save();
+
         uiManager.UpdateGemUI(Gem);
     }
 
     public void AddCoffeeBean(int amount)
     {
+        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
+
         CoffeeBeans += amount;
         PlayerPrefs.SetInt("CoffeeBean", CoffeeBeans);
-       uiManager.UpdateCoffeeBeanUI(CoffeeBeans);
+        PlayerPrefs.Save();
+
+        uiManager.UpdateCoffeeBeanUI(CoffeeBeans);
     }
 
 
-    private int CalculateMaxExp(int currentLevel)
-    {
-        return 100 + (currentLevel - 1) * 20;
-    }
+
   
 }

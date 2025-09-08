@@ -92,8 +92,8 @@ namespace DalbitCafe.Deco
                     // UI 버튼을 클릭했는지 먼저 확인
                     if (IsTouchingButton(touch.position))
                     {
-                        Debug.Log("[DecorateManager] 버튼 터치 감지됨 - 빈 공간 터치 처리 무시");
-                        return;
+                        //Debug.Log("[DecorateManager] 버튼 터치 감지됨 - 빈 공간 터치 처리 무시");
+                        //return;
                     }
 
                     CheckForEmptySpaceTouch(touch.position);
@@ -105,8 +105,8 @@ namespace DalbitCafe.Deco
                 // UI 버튼을 클릭했는지 먼저 확인
                 if (IsTouchingButton(Input.mousePosition))
                 {
-                    Debug.Log("[DecorateManager] 버튼 클릭 감지됨 - 빈 공간 터치 처리 무시");
-                    return;
+                    //Debug.Log("[DecorateManager] 버튼 클릭 감지됨 - 빈 공간 터치 처리 무시");
+                    //return;
                 }
 
                 CheckForEmptySpaceTouch(Input.mousePosition);

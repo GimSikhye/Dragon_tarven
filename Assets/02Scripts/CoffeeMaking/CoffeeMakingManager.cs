@@ -628,7 +628,7 @@ public class CoffeeMakingManager : MonoBehaviour
 
         return new Vector3(simulatedTilt.x, 0f, simulatedTilt.y);
 #else
-    return Input.acceleration;
+    return -Input.acceleration;
 #endif
     }
 
