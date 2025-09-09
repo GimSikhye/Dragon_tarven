@@ -6,16 +6,21 @@ public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button startButton;
     [SerializeField] private Button quitButton;
-    [SerializeField] private PlayerStats playerStats;
-
+    [SerializeField] private PlayerStatsManager playerStatsManager;
     private void Awake()
     {
         startButton.onClick.AddListener(() =>
         {
-            // 재화 초기화
-            playerStats.coffeeBean = 1000;
-            playerStats.coin = 100;
-            playerStats.gem = 10;
+
+            PlayerPrefs.DeleteAll();
+            //재화 초기화
+
+            playerStatsManager.InitializeStat();
+            PlayerPrefs.SetInt("CoffeeBean", playerStatsManager.CoffeeBeans);
+            PlayerPrefs.SetInt("Coin", playerStatsManager.Coin);
+            PlayerPrefs.SetInt("Gem", playerStatsManager.Gem);
+
+            PlayerPrefs.Save();
 
             SceneManager.LoadScene("DialogueScene");
         });

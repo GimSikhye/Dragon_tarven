@@ -6,7 +6,7 @@ public class ShopManager : MonoBehaviour
 {
     public static ShopManager Instance;
 
-    [Header("Shop Items")]
+    [Header("상점 아이템 SO")]
     [SerializeField] private List<ShopItemData> allItems;
 
     public List<ShopItemData> GetItems(ShopCategoryType category, DecoSubCategory? sub = null)

@@ -17,13 +17,13 @@ public class ShopUIController : MonoBehaviour
 
     [Header("아이템 리스트")]
     public Transform itemParent; // itemParent: UI_ShopPanel의 content, UI_DecoPanel의 content
-    public GameObject itemPrefab;
+    public GameObject itemPrefab; // 아이템 구매 패널들
 
     [Header("플레이어 코인 보유량")]
     public TextMeshProUGUI coinAmountText;
 
     private ShopCategoryType currentCategory;
-    private DecoSubCategory currentSubCategory;
+    private DecoSubCategory currentDecoSubCategory;
 
     void Start()
     {
@@ -31,7 +31,7 @@ public class ShopUIController : MonoBehaviour
         upgradeTab.onClick.AddListener(() => OnTabSelected(ShopCategoryType.Upgrade));
         decoTab.onClick.AddListener(() => OnTabSelected(ShopCategoryType.Decoration));
 
-        OnTabSelected(ShopCategoryType.Material);
+        OnTabSelected(ShopCategoryType.Material); // 기본
         UpdateCoinUI();
     }
 
@@ -87,7 +87,7 @@ public class ShopUIController : MonoBehaviour
             btn.GetComponent<Button>().onClick.RemoveAllListeners();
             btn.GetComponent<Button>().onClick.AddListener(() =>
             {
-                currentSubCategory = sub;
+                currentDecoSubCategory = sub;
                 ClearItems();
                 ShowItems(ShopManager.Instance.GetItems(currentCategory, sub));
             });

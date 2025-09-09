@@ -12,14 +12,13 @@ public class DayCycleManager : MonoBehaviour
     private int day = 1;
     private int gameHour = 20; 
     private int gameMinute = 0; // 시간 바꿔주는 용도(60분-> 1시간)
-    private float tickInterval = 5f; // 5초마다 시간 흐름
+    private float tickInterval = 5f; // 시간 흐르는 간격
+    private const int minutesPerTick = 10; // 몇분씩 흐르는지
     private float elapsed = 0f;
 
-    private bool showColon = true; // :
-    private const int minutesPerTick = 10; // 분당 틱
-    //private const int minutesPerDay = 300; // 10시간 = 300분
-    private const int minutesPerDay = 50; // 임시
-
+    private bool showColon = true;
+    //private const int minutesPerDay = 300; // 1Day 당 300분
+    private const int minutesPerDay = 30; // 임시(테스트용)
 
     private int totalGameMinutesPassed = 0;
 
@@ -27,9 +26,10 @@ public class DayCycleManager : MonoBehaviour
     private bool _isTimePaused = false;
     private Coroutine _gameTimeCoroutine;
     private Coroutine _blinkCoroutine;
+
     private void Awake()
     {
-        if (FindObjectsOfType<DayCycleManager>().Length > 1)
+        if (FindObjectsByType<DayCycleManager>(FindObjectsSortMode.None).Length > 1)
         {
             Destroy(gameObject); // 중복 방지
             return;
@@ -62,7 +62,7 @@ public class DayCycleManager : MonoBehaviour
             dayText = GameObject.Find("DayText").GetComponent<TextMeshProUGUI>();
             UpdateTimeUI(); // UI 즉시 갱신
 
-            ResumeTime();
+            ResumeTime(); // 시간 재개
         }
     }
     private IEnumerator GameTimeLoop()
@@ -124,10 +124,20 @@ public class DayCycleManager : MonoBehaviour
 
     private void EndDay()
     {
-        Debug.Log($"[DayCycle] Day {day} 종료, 정산 씬 이동!");
+        // 하루 수익 계산: 현재 코인 - 저장된 코인 차이
+        int totalCoin = PlayerStatsManager.Instance.Coin;
+        Debug.Log(totalCoin);
+        int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 300); // 초기 코인 300
+        int todayProfit = totalCoin - prevTotalCoin;
+
+        // 저장
+        PlayerPrefs.SetInt("TodayProfit", todayProfit);
+        PlayerPrefs.SetInt("PrevTotalCoin", totalCoin); // 현재 코인 저장
+        PlayerPrefs.Save();
+
         SaveDay();
         PauseTime();
-        SceneManager.LoadScene("SettlementScene"); // 정산 씬으로 전환
+        SceneManager.LoadScene("SettlementScene");
     }
 
     private void SaveDay()

@@ -57,15 +57,23 @@ public class UIManager : MonoBehaviour
     private void OnEnable()
     {
         PlayerStatsManager.OnCoinChanged += UpdateCoinUI;
+        PlayerStatsManager.OnGemChanged += UpdateGemUI;
+        PlayerStatsManager.OnCoffeeBeanChanged += UpdateCoffeeBeanUI;
     }
 
     private void OnDisable()
     {
         PlayerStatsManager.OnCoinChanged -= UpdateCoinUI;
+        PlayerStatsManager.OnGemChanged -= UpdateGemUI;
+        PlayerStatsManager.OnCoffeeBeanChanged -= UpdateCoffeeBeanUI;
     }
+
     private void Start()
     {
-        questButton.onClick.AddListener(() => ShowQuestPopUp());
+        UpdateCoinUI(PlayerStatsManager.Instance.Coin);
+        UpdateCoffeeBeanUI(PlayerStatsManager.Instance.CoffeeBeans);
+        UpdateGemUI(PlayerStatsManager.Instance.Gem);
+        //questButton.onClick.AddListener(() => ShowQuestPopUp());
         //menuButton.onClick.AddListener(() => ShowQuestPopUp);
     }
     private void StartCoffeeMaking(CoffeeData coffeeData)

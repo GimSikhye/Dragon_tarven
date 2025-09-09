@@ -2150,6 +2150,7 @@ MonoBehaviour:
       hintText:
       - "\uC0F7\uC744 \uB450 \uAC1C \uB123\uC5B4\uC8FC\uC138\uC694."
       - "\uC6B0\uC720 80\uB9CC\uD07C \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uC2DC\uB7FD\uC774\uB791 \uD718\uD551\uD06C\uB9BC\uC740 \uB410\uC5B4\uC694"
       baseType: Milk
       shotCount: 2
       expectedPourAmount: 80
@@ -2220,6 +2221,7 @@ MonoBehaviour:
       - "\uB728\uAC70\uC6B4\uBB3C\uB85C 3\uC0F7 \uBD80\uD0C1\uB4DC\uB9B4\uAC8C\uC694."
       - "\uD718\uD551\uD06C\uB9BC \uB0AE\uAC8C \uC313\uC544\uC8FC\uC138\uC694"
       - "\uBC14\uB2D0\uB77C\uC2DC\uB7FD 2\uD38C\uD504 \uB123\uC5B4\uC8FC\uC138\uC694 "
+      - "\uBB3C\uC591\uC740 45\uB85C \uD574\uC8FC\uC138\uC694"
       baseType: HotWater
       shotCount: 3
       expectedPourAmount: 45

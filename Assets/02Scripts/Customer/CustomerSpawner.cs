@@ -38,7 +38,7 @@ public class CustomerSpawner : MonoBehaviour
 
     private IEnumerator InitializeSpawner()
     {
-        Debug.Log("[CustomerSpawner] WaitThenSpawn 실행");
+        //Debug.Log("[CustomerSpawner] WaitThenSpawn 실행");
         pathfindManager = FindFirstObjectByType<PathfindingManager>();
 
         while (pathfindManager == null || !pathfindManager.IsInitialized)
@@ -130,7 +130,10 @@ public class CustomerSpawner : MonoBehaviour
 
     public DraggableItem GetAvailableSeat()
     {
-        var allItems = FindObjectsOfType<DraggableItem>();
+        var allItems = FindObjectsByType<DraggableItem>(FindObjectsSortMode.None);
+        //FindObjectsByType<DayCycleManager>(FindObjectsSortMode.None)
+        //        var allItems = 
+
 
         foreach (var item in allItems)
         {
