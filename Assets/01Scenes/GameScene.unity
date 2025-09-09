@@ -3971,6 +3971,8 @@ MonoBehaviour:
   centerGroup: {fileID: 0}
   _typingSpeed: 0.05
   dialogueData: {fileID: 0}
+  nextDialogueData: {fileID: 0}
+  nextSceneName: GameScene
   cameraShake: {fileID: 0}
   imageEffectObject: {fileID: 0}
   effectImage: {fileID: 0}
@@ -20610,7 +20612,7 @@ GameObject:
   - component: {fileID: 1612567660}
   - component: {fileID: 1612567659}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22301,9 +22303,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 100fe30965414994581872bc7eb5ddc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fridgeUI: {fileID: 1973417881}
+  fridgeWindow: {fileID: 1973417881}
   slotParent: {fileID: 1029026992}
-  fridgeSlotPrefab: {fileID: 3582694686883571357, guid: aff39ab99080f774c839c6baac2b9229, type: 3}
+  slotPrefab: {fileID: 3582694686883571357, guid: aff39ab99080f774c839c6baac2b9229, type: 3}
 --- !u!1 &1836401379
 GameObject:
   m_ObjectHideFlags: 0
@@ -22469,7 +22471,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1c318b8b33104d4fa129f6cadf7966a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  statsSO: {fileID: 11400000, guid: 75ccf8fbdadf67c45b358b3fd0cf9f44, type: 2}
 --- !u!4 &1842433527
 Transform:
   m_ObjectHideFlags: 0

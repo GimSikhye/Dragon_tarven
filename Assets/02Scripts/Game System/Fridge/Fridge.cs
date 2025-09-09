@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Fridge : MonoBehaviour
 {
-    [SerializeField] private GameObject fridgeUI;
+    [Header("³ÃÀå°í UI")]
+    [SerializeField] private GameObject fridgeWindow;
     [SerializeField] private Transform slotParent;
-    [SerializeField] private GameObject fridgeSlotPrefab;
+    [SerializeField] private GameObject slotPrefab;
 
     private bool isOpen = false;
 
@@ -16,13 +17,12 @@ public class Fridge : MonoBehaviour
 
         if (isOpen)
         {
-            Debug.Log("³ÃÀå°í ¿­¸²");
             ShowFridgeItems(slotCount);
-            fridgeUI.SetActive(true);
+            fridgeWindow.SetActive(true);
         }
         else
         {
-            fridgeUI.SetActive(false);
+            fridgeWindow.SetActive(false);
         }
     }
 
@@ -36,15 +36,17 @@ public class Fridge : MonoBehaviour
             .Where(item =>
             {
                 var sub = item.itemData.SubCategory;
-                return sub != null &&
+                return sub != null
+                &&
                         (MaterialType)sub == MaterialType.SideMenu ||
-                        (MaterialType)sub == MaterialType.Both;
+                        (MaterialType)sub == MaterialType.Both ||
+                        (MaterialType)sub == MaterialType.Drink;
             })
             .ToList();
 
         for (int i = 0; i < slotCount; i++)
         {
-            GameObject slot = Instantiate(fridgeSlotPrefab, slotParent);
+            GameObject slot = Instantiate(slotPrefab, slotParent);
             if (i < fridgeItems.Count)
                 slot.GetComponent<FridgeSlot>().SetItem(fridgeItems[i].itemData.icon);
             else

@@ -29,13 +29,6 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
         Coin = 300;
         Gem = 10;
     }
-    //public void InitializeStat(string key, int defaultValue)
-    //{
-    //    //if (!PlayerPrefs.HasKey(key))
-    //    //{
-    //    //    PlayerPrefs.SetInt(key, defaultValue);
-    //    //}
-    //}
 
     private void OnEnable()
     {
