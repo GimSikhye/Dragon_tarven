@@ -129,6 +129,7 @@ public class DayCycleManager : MonoBehaviour
         Debug.Log(totalCoin);
         int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 300); // 초기 코인 300
         int todayProfit = totalCoin - prevTotalCoin;
+        todayProfit = Mathf.Clamp(todayProfit, 0, 10000);
 
         // 저장
         PlayerPrefs.SetInt("TodayProfit", todayProfit);
