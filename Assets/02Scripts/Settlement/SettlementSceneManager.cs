@@ -5,39 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class SettlementSceneManager : MonoBehaviour
 {
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI dayText; // 일차
-    [SerializeField] private TextMeshProUGUI totalIncomeText; // 전체 수익
-    [SerializeField] private TextMeshProUGUI tipText; // 팁
-    [SerializeField] private TextMeshProUGUI rentCostText; // 임대료
-    [SerializeField] private TextMeshProUGUI refundText; // 환불
-    [SerializeField] private TextMeshProUGUI netProfitText; // 순수익
-    [SerializeField] private Button okButton;
+    [Header("영수증 UI")]
+    [SerializeField] private TextMeshProUGUI currentDayAmountText; // 일차
+    [SerializeField] private TextMeshProUGUI todayProfitAmountText; // 전체 수익
+    [SerializeField] private TextMeshProUGUI rentCostAmountText; // 임대료
+
+    [Header("캔버스 UI")]
     [SerializeField] private GameObject settlementCanvas;
     [SerializeField] private GameObject shopCanvas;
 
-    [Header("수치 설정")] // 수치도 게임 내에서 정해야 함
-    public int totalIncome = 63;
-    public int tip = 14;
-    public int rentCost = 63;
-    public int refund = 0;
+    [Header("버튼")]
+    [SerializeField] private Button okayButton;
 
-    private int netProfit => totalIncome + tip - rentCost;
+    [Header("수치 설정")] // 
+    public int todayProfit = 0;
 
     void Start()
     {
-        int day = PlayerPrefs.GetInt("Day", 1); // 기본 시작 1일차
-        dayText.text = $"{day}일째";
+        int day = PlayerPrefs.GetInt("Day", 1);
+        currentDayAmountText.text = $"{day}일째";
 
-        totalIncomeText.text = $"${totalIncome:F2}";
-        tipText.text = $"${tip:F2}";
-        rentCostText.text = $"-${rentCost:F2}";
-        refundText.text = $"${refund:F2}";
-        netProfitText.text = $"${netProfit:F2}";
+        // 저장된 오늘 수익 불러오기
+        todayProfit = PlayerPrefs.GetInt("TodayProfit", 0);
+        todayProfitAmountText.text = $"${todayProfit:F2}";
 
-        okButton.onClick.AddListener(OnConfirmButtonClicked);
+        okayButton.onClick.AddListener(OnConfirmButtonClicked);
 
-        PlayerStatsManager.Instance.AddCoin(netProfit); // 수익 반영
     }
 
     void OpenShop()

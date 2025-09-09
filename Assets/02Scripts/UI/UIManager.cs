@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
     }
     private void Start()
     {
-        questButton.onClick.AddListener(() => ShowQuestPopUp());
+        //questButton.onClick.AddListener(() => ShowQuestPopUp());
         //menuButton.onClick.AddListener(() => ShowQuestPopUp);
     }
     private void StartCoffeeMaking(CoffeeData coffeeData)

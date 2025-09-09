@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 {
-    public PlayerStats statsSO;
+    //public PlayerStats statsSO;
     private UIManager uiManager;
     public int CoffeeBeans { get; private set; }
     public int Coin { get; private set; }
@@ -23,13 +23,19 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     }
 
 
-    private void InitializeStat(string key, int defaultValue)
+    public void InitializeStat()
     {
-        if (!PlayerPrefs.HasKey(key))
-        {
-            PlayerPrefs.SetInt(key, defaultValue);
-        }
+        CoffeeBeans = 300;
+        Coin = 300;
+        Gem = 10;
     }
+    //public void InitializeStat(string key, int defaultValue)
+    //{
+    //    //if (!PlayerPrefs.HasKey(key))
+    //    //{
+    //    //    PlayerPrefs.SetInt(key, defaultValue);
+    //    //}
+    //}
 
     private void OnEnable()
     {

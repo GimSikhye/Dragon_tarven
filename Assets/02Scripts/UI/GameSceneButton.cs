@@ -92,7 +92,7 @@ public class GameSceneButton : MonoBehaviour
 
         CoffeeData coffeeData = roastingWindow.coffeDataList[index];
 
-        if (PlayerStatsManager.Instance.statsSO.coffeeBean >= coffeeData.BeanUse)
+        if (PlayerStatsManager.Instance.CoffeeBeans >= coffeeData.BeanUse)
         {
             PlayerStatsManager.Instance.AddCoffeeBean(-coffeeData.BeanUse);
             coffeeMachineManager.lastTouchedMachine.RoastCoffee(coffeeData);
