@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 {
     //public PlayerStats statsSO;
-    private UIManager uiManager;
     public int CoffeeBeans { get; private set; }
     public int Coin { get; private set; }
     public int Gem { get; private set; }
     public static event Action<int> OnCoinChanged;
-
+    public static event Action<int> OnGemChanged;
+    public static event Action<int> OnCoffeeBeanChanged;
     protected override void Awake()
     {
         base.Awake();
@@ -43,26 +43,20 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     }
     public void LoadStat()
     {
-        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
         CoffeeBeans = PlayerPrefs.GetInt("CoffeeBean");
         Coin = PlayerPrefs.GetInt("Coin");
         Gem = PlayerPrefs.GetInt("Gem");
 
-        uiManager.UpdateCoinUI(Coin);
-        uiManager.UpdateGemUI(Gem);
-        uiManager.UpdateCoffeeBeanUI(CoffeeBeans);
+
+        OnCoinChanged?.Invoke(Coin);
+        OnGemChanged?.Invoke(Gem);
+        OnCoffeeBeanChanged?.Invoke(CoffeeBeans);
 
     }
 
     public void AddCoin(int amount)
     {
-        if (uiManager == null)
-        {
-            uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-
-        }
-
         Coin += amount;
         PlayerPrefs.SetInt("Coin", Coin);
         PlayerPrefs.Save();
@@ -71,24 +65,21 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 
     public void AddGem(int amount)
     {
-        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
 
         Gem += amount;
         PlayerPrefs.SetInt("Gem", Gem);
         PlayerPrefs.Save();
 
-        uiManager.UpdateGemUI(Gem);
+        OnGemChanged?.Invoke(Gem);
     }
 
     public void AddCoffeeBean(int amount)
     {
-        if (uiManager == null) uiManager = GameObject.Find("UIManager").GetComponent<UIManager>();
-
         CoffeeBeans += amount;
         PlayerPrefs.SetInt("CoffeeBean", CoffeeBeans);
         PlayerPrefs.Save();
 
-        uiManager.UpdateCoffeeBeanUI(CoffeeBeans);
+        OnGemChanged?.Invoke(CoffeeBeans);
     }
 
 

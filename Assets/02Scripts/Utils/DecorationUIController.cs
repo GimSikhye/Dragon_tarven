@@ -14,19 +14,18 @@ public class DecorationUIController : MonoBehaviour
         nextDayButton.onClick.AddListener(ProceedToNextDay);
     }
 
-
     void ProceedToNextDay() // 진행하다
     {
-        SaveData();
+        // DayCycleManager 찾아서 AdvanceToNextDay 실행
+        var dayCycleManager = FindAnyObjectByType<DayCycleManager>();
+        if (dayCycleManager != null)
+        {
+            dayCycleManager.AdvanceToNextDay();
+        }
+
         SceneManager.LoadScene("GameScene");
+        PlayerPrefs.Save();
     }
 
-    void SaveData()
-    {
-        PlayerPrefs.SetInt("Day", PlayerPrefs.GetInt("Day", 1) + 1);
-        //PlayerPrefs.SetFloat("Coin", PlayerStatsManager.Instance.Coin);
-        //PlayerPrefs.SetInt("CoffeeBean", PlayerStatsManager.Instance.CoffeeBeans);
-        //PlayerPrefs.SetInt("Gem", PlayerStatsManager.Instance.Gem);
-        PlayerPrefs.Save(); // PlayerPrefs Save 공부
-    }
+
 }

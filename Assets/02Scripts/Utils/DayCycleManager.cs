@@ -18,7 +18,7 @@ public class DayCycleManager : MonoBehaviour
 
     private bool showColon = true;
     //private const int minutesPerDay = 300; // 1Day 당 300분
-    private const int minutesPerDay = 50; // 임시(테스트용)
+    private const int minutesPerDay = 30; // 임시(테스트용)
 
     private int totalGameMinutesPassed = 0;
 

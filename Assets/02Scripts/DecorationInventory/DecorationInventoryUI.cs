@@ -87,7 +87,6 @@ namespace DalbitCafe.Deco
                 });
             }
 
-            Debug.Log($"[DecorationInventoryUI] 총 {categoryGroups.Count}개 카테고리 그룹 초기화됨");
         }
 
         /// <summary>

@@ -22,6 +22,9 @@ public class SettlementSceneManager : MonoBehaviour
 
     void Start()
     {
+        settlementCanvas.SetActive(true);
+        shopCanvas.SetActive(false);
+
         int day = PlayerPrefs.GetInt("Day", 1);
         currentDayAmountText.text = $"{day}일째";
 
@@ -40,17 +43,8 @@ public class SettlementSceneManager : MonoBehaviour
     }
 
     public void OnConfirmButtonClicked()
-    {
-        // DayCycleManager 찾아서 AdvanceToNextDay 실행
-        var dayCycleManager = FindAnyObjectByType<DayCycleManager>();
-        if (dayCycleManager != null)
-        {
-            dayCycleManager.AdvanceToNextDay();
-        }
-
+    {        
         OpenShop();
 
-        // GameScene으로 이동
-        //SceneManager.LoadScene("GameScene");
     }
 }

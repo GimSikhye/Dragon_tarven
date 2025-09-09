@@ -5,7 +5,7 @@ public enum ShopCategoryType
     Decoration   // 장식
 }
 
-public enum DecoSubCategory
+public enum DecoSubCategory // 장식 카테고리 타입이라면
 {
     None, Item, Wall, Floor, Table
 }

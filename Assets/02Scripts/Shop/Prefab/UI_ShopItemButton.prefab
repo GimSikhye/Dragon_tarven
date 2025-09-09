@@ -639,7 +639,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   iconImage: {fileID: 2584536530784366583}
   nameText: {fileID: 7204936904068711567}
-  descText: {fileID: 2927251645778124282}
+  descriptionText: {fileID: 2927251645778124282}
   priceText: {fileID: 2000141644839056493}
   buyButton: {fileID: 4359694228349269645}
   checkMark: {fileID: 2987039598910240428}
