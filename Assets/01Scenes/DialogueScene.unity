@@ -244,6 +244,8 @@ MonoBehaviour:
   centerGroup: {fileID: 1176876170}
   _typingSpeed: 0.05
   dialogueData: {fileID: 11400000, guid: 34f7f5aa72e59024cb193e30a2f34d01, type: 2}
+  nextDialogueData: {fileID: 11400000, guid: ec811bd7aa5e92a43b8cb8ca682ade65, type: 2}
+  nextSceneName: GameScene
   cameraShake: {fileID: 53503324}
   imageEffectObject: {fileID: 53503320}
   effectImage: {fileID: 53503322}
@@ -1151,7 +1153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 2742908117604511484, guid: b3a54b5a317e741429c160a49003ddd2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

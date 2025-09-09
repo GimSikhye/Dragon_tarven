@@ -31,6 +31,8 @@ public class DialogueManager : MonoSingleton<DialogueManager>
 
     [Header("Dialogue Data")]
     public DialogueData dialogueData; // 대화 데이터
+    [SerializeField] private DialogueData nextDialogueData; // 끝나면 이어질 대화 데이터
+    [SerializeField] private string nextSceneName = "GameScene"; // 대화 다 끝난 후 넘어갈 씬
 
     [SerializeField] private CameraShake cameraShake;
 
@@ -84,7 +86,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         if (line.isNarration)
             dialogueText.color = Color.white;
         else if (line.isInnerFeelings)
-            dialogueText.color = new Color32(161, 95, 255, 255);
+            dialogueText.color = new Color32(197, 148, 253, 255);
         else
             dialogueText.color = Color.white;
 
@@ -183,7 +185,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
 
             if (line.isInnerFeelings)
             {
-                dialogueText.color = new Color32(161, 95, 255, 255); // 보라색
+                dialogueText.color = new Color32(197, 148, 253, 255); // 보라색
             }
             else
             {
@@ -259,13 +261,21 @@ public class DialogueManager : MonoSingleton<DialogueManager>
 
     void EndDialogue()
     {
+        //imageEffectObject?.SetActive(false);
+
         dialogueText.text = "";
         nameText.text = "";
-
         SetCharacter(centerCharacterImage, centerGroup, null, 0f);
 
-        SceneManager.LoadScene("GameScene");
-
-        //imageEffectObject?.SetActive(false);
+        if (nextDialogueData != null)
+        {
+            LoadDialogue(nextDialogueData);
+            nextDialogueData = null; // 중복 실행 방지
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(nextSceneName))
+                SceneManager.LoadScene(nextSceneName);
+        }
     }
 }
