@@ -4,8 +4,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
-using System.Linq;
 using System;
 using DalbitCafe.Operations;
 using DalbitCafe.UI;
@@ -43,7 +41,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button questButton;
     [SerializeField] Button menuButton;
 
-    private InventoryUI _inventoryUI;
+    [SerializeField] private InventoryUI _inventoryUI;
     private StoreManager _storeManager;
 
     // 닷트윈 UI 애니메이션을 위한 재화 이전값
@@ -202,6 +200,11 @@ public class UIManager : MonoBehaviour
     public void OpenInventory()
     {
         _inventoryUI.Open();
+    }
+
+    public void OpenSetting()
+    {
+        panels[(int)Windows.Setting].SetActive(true);
     }
 
     public void CloseInventory()
