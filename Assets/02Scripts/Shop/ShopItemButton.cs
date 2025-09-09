@@ -24,7 +24,7 @@ public class ShopItemButton : MonoBehaviour
         Debug.Log("아이템 버튼 Init");
         onPurchase = onPurchaseCallback;
 
-        iconImage.sprite = data.icon; 
+        iconImage.sprite = data.icon;
         nameText.text = data.itemName;
         descriptionText.text = data.description;
         priceText.text = $"${data.price}";
@@ -45,13 +45,16 @@ public class ShopItemButton : MonoBehaviour
         PlayerPrefs.SetInt("Coin", PlayerStatsManager.Instance.Coin);
         PlayerPrefs.Save();
 
-        // 배치용 아이템이라면,
-        if (shopItemData.itemData != null) 
-        Inventory.Instance.AddItem(shopItemData.itemData, 1);
+        // 구매했다면
+        {
+            if (shopItemData.itemData != null)
+                Inventory.Instance.AddItem(shopItemData.itemData, 1);
 
-        checkMark.SetActive(true);
-        buyButton.gameObject.SetActive(false); // 버튼 비활성화
-        onPurchase?.Invoke(); // 코인 UI 갱신
+            checkMark.SetActive(true);
+            buyButton.gameObject.SetActive(false); // 버튼 비활성화
+            onPurchase?.Invoke(); // 코인 UI 갱신
+        }
+
     }
 
 }
