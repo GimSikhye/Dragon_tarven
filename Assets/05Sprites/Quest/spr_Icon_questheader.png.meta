@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 6ba0165d8c6cc234bb0559914fad114b
+guid: aa24990e8e3715142aeb45e277039cb3
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4939141021139276860
-    second: spr_Icon_exp_0
+      213: -4743953068557583031
+    second: 1011_20250422173345_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -72,7 +72,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 2048
+    maxTextureSize: 512
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 1
@@ -110,6 +110,19 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
     buildTarget: iOS
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -126,13 +139,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_Icon_exp_0
+      name: 1011_20250422173345_0
       rect:
         serializedVersion: 2
-        x: 12
-        y: 9
-        width: 488
-        height: 497
+        x: 45
+        y: 31
+        width: 1467
+        height: 436
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +154,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 4cbee63f865a47bb0800000000000000
-      internalID: -4939141021139276860
+      spriteID: 94d308591d71a2eb0800000000000000
+      internalID: -4743953068557583031
       vertices: []
       indices: 
       edges: []
@@ -161,7 +174,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_Icon_exp_0: -4939141021139276860
+      1011_20250422173345_0: -4743953068557583031
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
