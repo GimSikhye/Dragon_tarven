@@ -248,7 +248,6 @@ public class DialogueManager : MonoSingleton<DialogueManager>
         }
 
         Sprite characterSprite = line.speaker.characterSprite;
-
         SetCharacter(centerCharacterImage, centerGroup, characterSprite, 1f);
     }
 
@@ -265,7 +264,7 @@ public class DialogueManager : MonoSingleton<DialogueManager>
 
         dialogueText.text = "";
         nameText.text = "";
-        SetCharacter(centerCharacterImage, centerGroup, null, 0f);
+        //SetCharacter(centerCharacterImage, centerGroup, null, 0f);
 
         if (nextDialogueData != null)
         {

@@ -14,18 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
-    expression: 0
     isNarration: 0
+    isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uB108\uB3C4 \uC5EC\uAE30\uAE4C\uC9C0 \uC654\uAD6C\uB098."
       sfx: {fileID: 0}
       image: {fileID: 0}
   - speaker: {fileID: 11400000, guid: e9f6256fa6252584f96d324166b3858b, type: 2}
-    expression: 0
     isNarration: 1
+    isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uADF8 \uB9D0\uC744 \uB4E3\uB294 \uC21C\uAC04, \uAC00\uC2B4\uC774 \uBB18\uD558\uAC8C
-        \uCC0C\uB9BF\uD588\uB2E4."
+        \uC544\uD320\uB2E4."
       sfx: {fileID: 0}
       image: {fileID: 0}
     - text: "\uC5B4\uB514\uC11C \uB4E4\uC5B4\uBCF8 \uAC83 \uAC19\uC740 \uBAA9\uC18C\uB9AC.
@@ -46,8 +48,9 @@ MonoBehaviour:
       sfx: {fileID: 0}
       image: {fileID: 0}
   - speaker: {fileID: 11400000, guid: 90e14dd5fd4fd98468984c7dac275956, type: 2}
-    expression: 0
     isNarration: 0
+    isInnerFeelings: 0
+    doCameraShake: 0
     dialogueTexts:
     - text: "\uB10C \uC5B8\uC81C\uCBE4, \uB124 \uC790\uC2E0\uC744 \uC704\uD55C \uC2DC\uAC04\uC744
         \uC4F8 \uAC70\uC57C?"
