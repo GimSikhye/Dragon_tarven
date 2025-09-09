@@ -229,35 +229,35 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void ConfirmPlacement()
         {
-            Debug.Log($"[ConfirmPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}");
+            //Debug.Log($"[ConfirmPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}");
 
             if (!_isPendingPlacement)
             {
-                Debug.LogError("[ConfirmPlacement] 배치 대기 상태가 아닙니다!");
+                //Debug.LogError("[ConfirmPlacement] 배치 대기 상태가 아닙니다!");
                 return;
             }
 
-            Debug.Log($"[ConfirmPlacement] 현재 Transform 위치: {transform.position}");
-            Debug.Log($"[ConfirmPlacement] 대기 중인 위치: {_pendingPosition}");
-            Debug.Log($"[ConfirmPlacement] 대기 중인 그리드 위치: {_pendingGridPosition}");
-            Debug.Log($"[ConfirmPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
+            //Debug.Log($"[ConfirmPlacement] 현재 Transform 위치: {transform.position}");
+            //Debug.Log($"[ConfirmPlacement] 대기 중인 위치: {_pendingPosition}");
+            //Debug.Log($"[ConfirmPlacement] 대기 중인 그리드 위치: {_pendingGridPosition}");
+            //Debug.Log($"[ConfirmPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
 
             if (_canPlaceAtPendingPosition)
             {
-                Debug.Log($"[ConfirmPlacement] 배치 확정 진행 중...");
+                //Debug.Log($"[ConfirmPlacement] 배치 확정 진행 중...");
 
                 // 1. 먼저 그리드에 아이템 배치
                 bool placementResult = DecorateManager.Instance.GridManager.CanPlaceItem(_pendingGridPosition, _itemSize);
-                Debug.Log($"[ConfirmPlacement] 그리드 매니저 배치 가능 재확인: {placementResult}");
+                //Debug.Log($"[ConfirmPlacement] 그리드 매니저 배치 가능 재확인: {placementResult}");
 
                 if (placementResult)
                 {
                     DecorateManager.Instance.PlaceItem(_pendingGridPosition, _itemSize);
-                    Debug.Log($"[ConfirmPlacement] 그리드에 아이템 배치 완료");
+                    //Debug.Log($"[ConfirmPlacement] 그리드에 아이템 배치 완료");
                 }
                 else
                 {
-                    Debug.LogError("[ConfirmPlacement] 그리드 매니저에서 배치 불가능!");
+                    //Debug.LogError("[ConfirmPlacement] 그리드 매니저에서 배치 불가능!");
                     CancelPendingPlacement();
                     return;
                 }
@@ -265,7 +265,7 @@ namespace DalbitCafe.Deco
                 // 2. 아이템 위치를 확정된 위치로 설정
                 Vector3 oldPosition = transform.position;
                 transform.position = _pendingPosition;
-                Debug.Log($"[ConfirmPlacement] 위치 업데이트: {oldPosition} -> {transform.position}");
+                //Debug.Log($"[ConfirmPlacement] 위치 업데이트: {oldPosition} -> {transform.position}");
 
                 // 3. 원래 그리드 위치와 초기 위치 업데이트
                 Vector2Int oldOriginalGrid = _originalGridPosition;
@@ -274,14 +274,14 @@ namespace DalbitCafe.Deco
                 _originalGridPosition = _pendingGridPosition;
                 _initialPosition = _pendingPosition;
 
-                Debug.Log($"[ConfirmPlacement] 원래 그리드 위치 업데이트: {oldOriginalGrid} -> {_originalGridPosition}");
-                Debug.Log($"[ConfirmPlacement] 초기 위치 업데이트: {oldInitialPosition} -> {_initialPosition}");
+                //Debug.Log($"[ConfirmPlacement] 원래 그리드 위치 업데이트: {oldOriginalGrid} -> {_originalGridPosition}");
+                //Debug.Log($"[ConfirmPlacement] 초기 위치 업데이트: {oldInitialPosition} -> {_initialPosition}");
 
                 // 4. 슬롯에 배치 확정 알림 (수량 차감)
                 if (sourceSlot != null)
                 {
                     sourceSlot.OnItemPlacementConfirmed();
-                    Debug.Log("[ConfirmPlacement] 슬롯에 배치 확정 알림 완료");
+                    //Debug.Log("[ConfirmPlacement] 슬롯에 배치 확정 알림 완료");
                 }
 
                 // 5. 배치 대기 상태 해제 및 배치 확정 상태로 변경
@@ -291,7 +291,7 @@ namespace DalbitCafe.Deco
                 sourceSlot = null; // 슬롯 참조 해제 (이제 인벤토리와 무관한 배치된 아이템)
                 spriteRenderer.material = _originalMaterial;
 
-                Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제, 배치 확정 상태로 변경");
+                //Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제, 배치 확정 상태로 변경");
 
                 // 6. 아웃라인 효과 비활성화
                 EnableOutline(false);
@@ -299,11 +299,11 @@ namespace DalbitCafe.Deco
                 // 7. UI 스프라이트를 기본 상태로 복원
                 UpdateConfirmButtonSprite(true);
 
-                Debug.Log($"[ConfirmPlacement] 배치 확정 완료! 최종 위치: {transform.position}");
+                //Debug.Log($"[ConfirmPlacement] 배치 확정 완료! 최종 위치: {transform.position}");
             }
             else
             {
-                Debug.LogWarning("[ConfirmPlacement] 배치 불가능한 위치 - 원래 위치로 복귀");
+                //Debug.LogWarning("[ConfirmPlacement] 배치 불가능한 위치 - 원래 위치로 복귀");
                 CancelPendingPlacement();
             }
             // 기존 ConfirmPlacement 로직 유지한 뒤
@@ -316,26 +316,26 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void CancelPendingPlacement()
         {
-            Debug.Log($"[CancelPendingPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}, IsPlacedItem: {_isPlacedItem}");
+            //Debug.Log($"[CancelPendingPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}, IsPlacedItem: {_isPlacedItem}");
 
             if (!_isPendingPlacement)
             {
-                Debug.Log("[CancelPendingPlacement] 배치 대기 상태가 아니므로 종료");
+                //Debug.Log("[CancelPendingPlacement] 배치 대기 상태가 아니므로 종료");
                 return;
             }
 
-            Debug.Log($"[CancelPendingPlacement] 현재 위치: {transform.position}");
-            Debug.Log($"[CancelPendingPlacement] 복귀할 위치: {_initialPosition}");
-            Debug.Log($"[CancelPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
+            //Debug.Log($"[CancelPendingPlacement] 현재 위치: {transform.position}");
+            //Debug.Log($"[CancelPendingPlacement] 복귀할 위치: {_initialPosition}");
+            //Debug.Log($"[CancelPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
 
             // 원래 위치로 복귀
             Vector3 oldPosition = transform.position;
             transform.position = _initialPosition;
-            Debug.Log($"[CancelPendingPlacement] 위치 복귀: {oldPosition} -> {transform.position}");
+            //Debug.Log($"[CancelPendingPlacement] 위치 복귀: {oldPosition} -> {transform.position}");
 
             // 원래 그리드 위치에 다시 배치
             DecorateManager.Instance.PlaceItem(_originalGridPosition, _itemSize);
-            Debug.Log($"[CancelPendingPlacement] 원래 그리드 위치에 재배치 완료");
+            //Debug.Log($"[CancelPendingPlacement] 원래 그리드 위치에 재배치 완료");
 
             // 배치 대기 상태 해제
             _isPendingPlacement = false;
@@ -357,7 +357,7 @@ namespace DalbitCafe.Deco
             if (_isPlacedItem)
             {
                 // 이미 배치 확정된 아이템인 경우: 원래 위치로 복귀만 하고 파괴하지 않음
-                Debug.Log("[CancelPendingPlacement] 배치 확정된 아이템 - 원래 위치로 복귀 완료");
+                //Debug.Log("[CancelPendingPlacement] 배치 확정된 아이템 - 원래 위치로 복귀 완료");
             }
             else
             {
@@ -365,18 +365,18 @@ namespace DalbitCafe.Deco
                 if (sourceSlot != null)
                 {
                     sourceSlot.RestoreItemQuantity();
-                    Debug.Log("[CancelPendingPlacement] 신규 아이템 - 슬롯 수량 복구 후 파괴");
+                    //Debug.Log("[CancelPendingPlacement] 신규 아이템 - 슬롯 수량 복구 후 파괴");
                 }
                 else
                 {
-                    Debug.LogWarning("[CancelPendingPlacement] sourceSlot이 null이어서 수량 복구 불가");
+                    //Debug.LogWarning("[CancelPendingPlacement] sourceSlot이 null이어서 수량 복구 불가");
                 }
 
                 // 오브젝트 파괴
                 Destroy(gameObject);
             }
 
-            Debug.Log($"[CancelPendingPlacement] 취소 완료 - 최종 위치: {transform.position}");
+            //Debug.Log($"[CancelPendingPlacement] 취소 완료 - 최종 위치: {transform.position}");
         }
 
         /// <summary>
@@ -384,7 +384,7 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void StartPendingPlacement()
         {
-            Debug.Log($"[StartPendingPlacement] 새 아이템 배치 대기 시작: {gameObject.name}");
+            //Debug.Log($"[StartPendingPlacement] 새 아이템 배치 대기 시작: {gameObject.name}");
 
             // 현재 위치를 초기 위치로 설정
             _initialPosition = transform.position;
@@ -408,8 +408,8 @@ namespace DalbitCafe.Deco
                 // 보정된 위치로 초기 위치 다시 설정
                 _initialPosition = worldCenter;
 
-                Debug.Log($"[StartPendingPlacement] 초기 위치 설정: {_initialPosition}");
-                Debug.Log($"[StartPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
+                //Debug.Log($"[StartPendingPlacement] 초기 위치 설정: {_initialPosition}");
+                //Debug.Log($"[StartPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
             }
 
             // 배치 대기 상태로 설정
@@ -420,9 +420,9 @@ namespace DalbitCafe.Deco
             // 현재 위치에 배치 가능한지 확인
             _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(_pendingGridPosition, _itemSize);
 
-            Debug.Log($"[StartPendingPlacement] 배치 대기 위치: {_pendingPosition}");
-            Debug.Log($"[StartPendingPlacement] 배치 대기 그리드 위치: {_pendingGridPosition}");
-            Debug.Log($"[StartPendingPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
+            //Debug.Log($"[StartPendingPlacement] 배치 대기 위치: {_pendingPosition}");
+            //Debug.Log($"[StartPendingPlacement] 배치 대기 그리드 위치: {_pendingGridPosition}");
+            //Debug.Log($"[StartPendingPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
 
             // 아웃라인 효과 활성화
             UpdateOutlineColor(_canPlaceAtPendingPosition);
@@ -437,7 +437,7 @@ namespace DalbitCafe.Deco
                 UpdateRotateUIPosition();
             }
 
-            Debug.Log($"[StartPendingPlacement] 배치 대기 상태 설정 완료");
+            //Debug.Log($"[StartPendingPlacement] 배치 대기 상태 설정 완료");
         }
 
         /// <summary>
