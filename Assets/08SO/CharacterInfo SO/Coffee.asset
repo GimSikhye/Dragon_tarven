@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Coffee
   m_EditorClassIdentifier: 
   characterName: "\uC778\uD615\uD0C8"
-  namePlateSprite: {fileID: 0}
+  namePlateSprite: {fileID: 8094979663486101477, guid: 9eae2c46ede4fc049ba2f3dac213d5d4, type: 3}
   characterSprite: {fileID: 21300000, guid: d53fe0c9e629a514baf8ad1ad178d7f0, type: 3}
