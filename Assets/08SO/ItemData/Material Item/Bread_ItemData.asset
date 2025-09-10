@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f73f29bc3e3cfb5488b8c6cc75efab38, type: 3}
-  m_Name: Red bean_ItemData
+  m_Name: Bread_ItemData
   m_EditorClassIdentifier: 
-  itemName: Redbean
-  icon: {fileID: 21300000, guid: 5ee144a16a07adc4d80d1b7b3ecb4c4a, type: 3}
+  itemName: RedBean
+  icon: {fileID: 21300000, guid: 7f86b18be9607344b98887611d4f7220, type: 3}
   price: 15
   prefab: {fileID: 0}
   materialType: 1

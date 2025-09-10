@@ -38,7 +38,7 @@ public class CookingUIManager : MonoBehaviour
         }
     }
 
-    private bool HasAllIngredients(RecipeData recipe) // 해당 레시피 데이터의 모든 재료를 가지고 있으면 true ((( 여기부터 읽기))))
+    public bool HasAllIngredients(RecipeData recipe) // 해당 레시피 데이터의 모든 재료를 가지고 있으면 true ((( 여기부터 읽기))))
     {
         foreach(var ingredient in recipe.ingredients)
         {
@@ -53,15 +53,20 @@ public class CookingUIManager : MonoBehaviour
         return true;
     }
 
-    public void TryCook(RecipeData recipe) // 지금 재료 수량이 안줄어드는중
+    public void TryCook(RecipeData recipe)
     {
         if (!HasAllIngredients(recipe)) return;
 
-        foreach(var ingredient in recipe.ingredients)
+        // 재료 차감
+        foreach (var ingredient in recipe.ingredients)
         {
             Inventory.Instance.RemoveItemAmount(ingredient.item, ingredient.requiredAmount);
         }
 
+        // 결과 아이템 추가
         Inventory.Instance.AddItem(recipe.outputItem, 1);
+
+        //  모든 레시피 다시 검사 & UI 갱신
+        RefreshUI();
     }
 }

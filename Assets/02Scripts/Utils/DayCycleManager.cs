@@ -18,8 +18,8 @@ public class DayCycleManager : MonoBehaviour
     private float elapsed = 0f;
 
     private bool showColon = true;
-    //private const int minutesPerDay = 300; // 1Day 당 300분
-    private const int minutesPerDay = 40; // 임시(테스트용)
+    private const int minutesPerDay = 300; // 1Day 당 300분
+    //private const int minutesPerDay = 100; // 임시(테스트용)
 
     private int totalGameMinutesPassed = 0;
 

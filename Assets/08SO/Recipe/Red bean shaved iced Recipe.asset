@@ -15,9 +15,9 @@ MonoBehaviour:
   recipeName: "\uD325\uBE59\uC218"
   icon: {fileID: 21300000, guid: ae9070b5bd9c73441adbf56260be549b, type: 3}
   ingredients:
-  - item: {fileID: 11400000, guid: 061111748954ff84885f7f3b9c6298d1, type: 2}
+  - item: {fileID: 11400000, guid: c0949a1e15b3a5e44b17fac3a862fdc3, type: 2}
     requiredAmount: 1
-  - item: {fileID: 11400000, guid: a9a165e944fe2834b9c1ffa0f7547ee8, type: 2}
+  - item: {fileID: 11400000, guid: 51b90b1b530358747a56954edef0a839, type: 2}
     requiredAmount: 1
   - item: {fileID: 11400000, guid: b26cd8451447e7041a4c6de3a9e4da2d, type: 2}
     requiredAmount: 1
