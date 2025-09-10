@@ -13,8 +13,8 @@ public class DayCycleManager : MonoBehaviour
     private int day = 1;
     private int gameHour = 20; 
     private int gameMinute = 0; // 시간 바꿔주는 용도(60분-> 1시간)
-    private float tickInterval = 2.5f; // 시간 흐르는 간격
-    private const int minutesPerTick = 10; // 몇분씩 흐르는지
+    private float tickInterval = 2f; // 시간 흐르는 간격
+    private const int minutesPerTick = 20; // 몇분씩 흐르는지
     private float elapsed = 0f;
 
     private bool showColon = true;
@@ -130,7 +130,7 @@ public class DayCycleManager : MonoBehaviour
         // 하루 수익 계산: 현재 코인 - 저장된 코인 차이
         int totalCoin = PlayerStatsManager.Instance.Coin;
         Debug.Log(totalCoin);
-        int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 300); // 초기 코인 300
+        int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 10); // 초기 코인 300
         int todayProfit = totalCoin - prevTotalCoin;
         todayProfit = Mathf.Clamp(todayProfit, 0, 10000);
 
