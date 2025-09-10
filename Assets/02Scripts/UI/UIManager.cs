@@ -80,6 +80,7 @@ public class UIManager : MonoBehaviour
         if (_coffeeMakeCoroutine != null)
             StopCoroutine(_coffeeMakeCoroutine);
 
+        panels[(int)Windows.MakeCoffee].SetActive(false);
         _coffeeMakeCoroutine = StartCoroutine(CoffeeMakingRoutine(coffeeData));
     }
     
@@ -89,6 +90,7 @@ public class UIManager : MonoBehaviour
         _sliderText.gameObject.SetActive(true);
 
         // 커피머신의 월드 위치 -> 스크린 위치로 변환
+
         Vector3 worldPos = coffeeMachineManager.transform.position + Vector3.up * 1.2f; // 약간 위로 띄움
         Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
 
@@ -121,7 +123,7 @@ public class UIManager : MonoBehaviour
     public void UpdateCoffeeBeanUI(int value)
     {
         TextAnimationHelper.AnimateNumber(_coffeeBeanAmountText, _currentCoffeeBean, value);
-        _currentCoffeeBean = value;
+        _currentCoffeeBean = value; 
     }
 
     public void UpdateCoinUI(int value)
@@ -145,18 +147,18 @@ public class UIManager : MonoBehaviour
         panel.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack);
     }
 
-    public void ShowExitPopUp()
-    {
-        panels[(int)Windows.Exit].SetActive(true);
-    }
+    //public void ShowExitPopUp()
+    //{
+    //    panels[(int)Windows.Exit].SetActive(true);
+    //}
 
-    public void ShowCapitonText()
-    {
-        //Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<PlayerCtrl>().transform.position);
-        //_captionText.rectTransform.position = playerScreenPos;
-        _captionText.enabled = true;
-        _captionText.text = "거리가 너무 멀어요!";
-    }
+    //public void ShowCapitonText()
+    //{
+    //    //Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(FindObjectOfType<PlayerCtrl>().transform.position);
+    //    //_captionText.rectTransform.position = playerScreenPos;
+    //    _captionText.enabled = true;
+    //    _captionText.text = "거리가 너무 멀어요!";
+    //}
 
     public void ShowCurrentMenuPopUp()
     {

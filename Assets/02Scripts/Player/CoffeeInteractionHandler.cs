@@ -29,7 +29,7 @@ public class CoffeeInteractionHandler : MonoBehaviour
         if (distance <= _interactionRange)
         {
             coffeMachineManager.SetLastTouchedMachine(coffeMachine);
-
+            Debug.Log("마지막으로 터치된 커피머신 갱신");
             if (coffeMachine.IsRoasting)
             {
                 uiManager.ShowCurrentMenuPopUp();
