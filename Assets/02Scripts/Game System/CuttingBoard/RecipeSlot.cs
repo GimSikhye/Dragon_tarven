@@ -32,7 +32,9 @@ public class RecipeSlot : MonoBehaviour, IPointerClickHandler
     {
         if (isCookable)
         {
-            FindObjectOfType<CookingUIManager>().TryCook(recipe);
+            Debug.Log("·¹½ÃÇÇ½½·Ô Å¬¸¯µÊ");
+            FindFirstObjectByType<CookingUIManager>().TryCook(recipe);
+
         }
     }
 }

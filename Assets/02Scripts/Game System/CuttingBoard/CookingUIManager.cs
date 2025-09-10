@@ -53,7 +53,7 @@ public class CookingUIManager : MonoBehaviour
         return true;
     }
 
-    public void TryCook(RecipeData recipe)
+    public void TryCook(RecipeData recipe) // 지금 재료 수량이 안줄어드는중
     {
         if (!HasAllIngredients(recipe)) return;
 
