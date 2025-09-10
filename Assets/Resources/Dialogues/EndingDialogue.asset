@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5567b85d78bee0459b5b89e85a8aebc, type: 3}
+  m_Name: EndingDialogue
+  m_EditorClassIdentifier: 
+  lines:
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    isNarration: 1
+    isInnerFeelings: 0
+    doCameraShake: 0
+    dialogueTexts:
+    - text: ....
+      sfx: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
+    - text: "7\uC77C\uC774 \uC9C0\uB098\uC790, \uC190\uB2D8\uB4E4\uC774 \uC624\uC9C0
+        \uC54A\uB294\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: -8887674320374244569, guid: d6113c51b824f53469c116035dcfa72c, type: 3}
+    - text: "\uC758\uBB38\uC744 \uB290\uAEF4 \uBC16\uC73C\uB85C \uB098\uAC00\uB2C8
+        \uAE08\uC138 \uC6D0\uB798 \uB0B4\uAC00 \uC54C\uB358 \uD48D\uACBD\uC73C\uB85C
+        \uBC14\uB00C\uC788\uC5C8\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: -8887674320374244569, guid: d6113c51b824f53469c116035dcfa72c, type: 3}
+    - text: "\uB2E4\uC2DC \uB4A4\uB97C \uB3CC\uC544 \uCE74\uD398\uAC00 \uC788\uB358
+        \uACF3\uC744 \uCCD0\uB2E4\uBD24\uB294\uB370 \uC544\uBB34\uAC83\uB3C4 \uC5C6\uB2E4."
+      sfx: {fileID: 0}
+      image: {fileID: -8887674320374244569, guid: d6113c51b824f53469c116035dcfa72c, type: 3}
+  - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
+    isNarration: 0
+    isInnerFeelings: 0
+    doCameraShake: 0
+    dialogueTexts:
+    - text: "\uC5ED\uC2DC \uAFC8\uC774\uC5C8\uB358 \uAC78\uAE4C..?"
+      sfx: {fileID: 0}
+      image: {fileID: -8887674320374244569, guid: d6113c51b824f53469c116035dcfa72c, type: 3}
