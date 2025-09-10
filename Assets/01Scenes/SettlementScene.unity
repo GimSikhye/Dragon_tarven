@@ -2132,10 +2132,13 @@ MonoBehaviour:
   currentDayAmountText: {fileID: 365331111}
   todayProfitAmountText: {fileID: 170396516}
   rentCostAmountText: {fileID: 1226132889}
+  netProfitAmountText: {fileID: 1091526704}
   settlementCanvas: {fileID: 1347298154}
   shopCanvas: {fileID: 1800348907}
   okayButton: {fileID: 1330075457}
   todayProfit: 0
+  rentCost: 100
+  netProfit: 0
 --- !u!4 &1057188576
 Transform:
   m_ObjectHideFlags: 0
