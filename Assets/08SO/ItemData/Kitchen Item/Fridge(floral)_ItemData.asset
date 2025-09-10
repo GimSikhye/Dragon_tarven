@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee84ca0237e320844b08c8862761826e, type: 3}
   m_Name: Fridge(floral)_ItemData
   m_EditorClassIdentifier: 
-  itemName: Fridge(white)
+  itemName: Fridge(floral)
   icon: {fileID: 21300000, guid: 7f05bc7f1bdcf8c4f8c245f049615c18, type: 3}
   price: 30
-  prefab: {fileID: 0}
+  prefab: {fileID: 6689706440051736636, guid: 62bf34f018bda5b4992d66f20140b2d4, type: 3}
   kitchenType: 3

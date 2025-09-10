@@ -18,4 +18,4 @@ MonoBehaviour:
   price: 15
   category: 1
   subCategory: 0
-  itemData: {fileID: 11400000, guid: b49f800af8954d74c9f3ba1684537e19, type: 2}
+  itemData: {fileID: 11400000, guid: e5a166b904a106044a149480c652722b, type: 2}

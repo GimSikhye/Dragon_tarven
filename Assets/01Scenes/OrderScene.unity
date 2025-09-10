@@ -310,7 +310,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &92907848
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1856,8 +1856,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0.01004, y: 81}
-  m_SizeDelta: {x: 1920, y: 326.2193}
+  m_AnchoredPosition: {x: 0.01004, y: 255.74295}
+  m_SizeDelta: {x: 1920, y: 670.0872}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &359436173
 MonoBehaviour:
@@ -1879,7 +1879,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3114,8 +3114,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.5249}
-  m_SizeDelta: {x: 0, y: 173.051}
+  m_AnchoredPosition: {x: 0, y: 127.181885}
+  m_SizeDelta: {x: 0, y: 254.365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &634438558
 MonoBehaviour:
@@ -3137,7 +3137,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4316,8 +4316,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.5249}
-  m_SizeDelta: {x: 0, y: 173.051}
+  m_AnchoredPosition: {x: 0, y: 270.59802}
+  m_SizeDelta: {x: 0, y: 541.1974}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &863877258
 MonoBehaviour:
@@ -4339,7 +4339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5117,7 +5117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5268,7 +5268,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6905,8 +6905,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 86.5249}
-  m_SizeDelta: {x: 0, y: 173.051}
+  m_AnchoredPosition: {x: 0, y: 254.57349}
+  m_SizeDelta: {x: 0, y: 509.1483}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1276923165
 MonoBehaviour:
@@ -6928,7 +6928,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1564389914659431781, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 393b05bfaf2e3814dad3c3f2446489db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9300,7 +9300,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1789544189
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10590,7 +10590,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 29}
-  m_SizeDelta: {x: 0, y: 100}
+  m_SizeDelta: {x: 0, y: 103.287}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!1 &2005934187
 GameObject:

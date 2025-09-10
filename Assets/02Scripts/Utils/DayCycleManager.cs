@@ -1,7 +1,8 @@
+using DalbitCafe.Deco;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using TMPro;
 public class DayCycleManager : MonoBehaviour
 {
     [Header("UI 연결")]
@@ -12,13 +13,13 @@ public class DayCycleManager : MonoBehaviour
     private int day = 1;
     private int gameHour = 20; 
     private int gameMinute = 0; // 시간 바꿔주는 용도(60분-> 1시간)
-    private float tickInterval = 5f; // 시간 흐르는 간격
+    private float tickInterval = 2.5f; // 시간 흐르는 간격
     private const int minutesPerTick = 10; // 몇분씩 흐르는지
     private float elapsed = 0f;
 
     private bool showColon = true;
     //private const int minutesPerDay = 300; // 1Day 당 300분
-    private const int minutesPerDay = 30; // 임시(테스트용)
+    private const int minutesPerDay = 300; // 임시(테스트용)
 
     private int totalGameMinutesPassed = 0;
 
@@ -60,6 +61,8 @@ public class DayCycleManager : MonoBehaviour
             timeText = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
             ampmText = GameObject.Find("AmPmText").GetComponent<TextMeshProUGUI>();
             dayText = GameObject.Find("DayText").GetComponent<TextMeshProUGUI>();
+            DecorateManager.Instance.LoadPlacedItems();
+
             UpdateTimeUI(); // UI 즉시 갱신
 
             ResumeTime(); // 시간 재개

@@ -44,7 +44,7 @@ public class MovementHandler : MonoBehaviour
 
     }
 
-    private void HandleTouch(Vector3 worldPos)
+    private void HandleTouch(Vector2 worldPos)
     {
         if (!FloorManager.Instance.IsFloor(worldPos)) return;
 

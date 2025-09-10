@@ -1,7 +1,8 @@
 using System;
 using DalbitCafe.Operations;
 using UnityEngine;
-
+//원두수급 할곳 구하기.
+// 원두 부족하면 못사용하게 막아야함(로스팅커피)
 public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
 {
     //public PlayerStats statsSO;
@@ -26,8 +27,8 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     public void InitializeStat()
     {
         CoffeeBeans = 300;
-        Coin = 300;
-        Gem = 10;
+        Coin = 10;
+        Gem = 5;
     }
 
     private void OnEnable()
@@ -72,7 +73,7 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
         PlayerPrefs.SetInt("CoffeeBean", CoffeeBeans);
         PlayerPrefs.Save();
 
-        OnGemChanged?.Invoke(CoffeeBeans);
+        OnCoffeeBeanChanged?.Invoke(CoffeeBeans);
     }
 
 

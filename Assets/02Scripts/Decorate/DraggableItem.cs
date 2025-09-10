@@ -299,6 +299,9 @@ namespace DalbitCafe.Deco
                 // 7. UI 스프라이트를 기본 상태로 복원
                 UpdateConfirmButtonSprite(true);
 
+                // 정렬 순서 갱신
+                UpdateSortingOrder();
+
                 //Debug.Log($"[ConfirmPlacement] 배치 확정 완료! 최종 위치: {transform.position}");
             }
             else
@@ -308,6 +311,13 @@ namespace DalbitCafe.Deco
             }
             // 기존 ConfirmPlacement 로직 유지한 뒤
             DecorateManager.Instance.RegisterPlacedItem(this);
+        }
+        private void UpdateSortingOrder()
+        {
+            if (spriteRenderer != null)
+            {
+                spriteRenderer.sortingOrder = -(int)(transform.position.y * 100);
+            }
         }
 
 
@@ -509,6 +519,7 @@ namespace DalbitCafe.Deco
             // 스프라이트 변경(회전)
             if (directionSprites != null && directionSprites.Length >= rotationLimit)
             {
+                Debug.Log("스프라이트 바뀜");
                 spriteRenderer.sprite = directionSprites[_rotationIndex];
             }
 

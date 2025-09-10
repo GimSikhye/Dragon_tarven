@@ -22,11 +22,12 @@ namespace DalbitCafe.Operations
 
         public CoffeeMachine GetCoffeeMachineAtWorldPosition(Vector2 position, float threshold = 0.5f) 
         {
-            foreach (var machine in machines)
+            foreach (CoffeeMachine machine in machines)
             {
                 if (Vector2.Distance(machine.transform.position, position) < threshold) // 임계값보다 더 가깝다면
                     return machine;
             }
+            Debug.Log("임계값보다 멈");
             return null;
         }
 

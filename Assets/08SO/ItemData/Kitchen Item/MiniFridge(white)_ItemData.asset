@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: MiniFridge(white)
   icon: {fileID: 21300000, guid: faf7e7f2f37a3f640bc58b2412b63d5c, type: 3}
   price: 15
-  prefab: {fileID: 0}
+  prefab: {fileID: 6689706440051736636, guid: 95e9693c914f9844f889722eb48fc54b, type: 3}
   kitchenType: 3

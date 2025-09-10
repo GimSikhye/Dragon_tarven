@@ -1,5 +1,6 @@
-using UnityEngine.SceneManagement;
+using DalbitCafe.Deco;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DecorationUIController : MonoBehaviour

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coffeeId: espresso
   coffeeName: "\uC5D0\uC2A4\uD504\uB808\uC18C"
-  price: 200
+  price: 1
   mugQty: 5
-  beanUse: 3
+  beanUse: 5
   menuIcon: {fileID: 21300000, guid: 9132704896dd53b4782c59a9544dc1c5, type: 3}

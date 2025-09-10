@@ -7,7 +7,7 @@ using DalbitCafe.Deco;
 
 public class InputManager : MonoBehaviour
 {
-    public static event Action<Vector3> OnTouchEnded; // 터치 끝 이벤트 (월드 좌표 기준)
+    public static event Action<Vector2> OnTouchEnded; // 터치 끝 이벤트 (월드 좌표 기준)
 
     [SerializeField] private GraphicRaycaster uiRaycaster;
     [SerializeField] private DecorateManager decorateManager;

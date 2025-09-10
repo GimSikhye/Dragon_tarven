@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coffeeId: conpannaIcon
   coffeeName: "\uCF58\uD30C\uB0D0"
-  price: 300
+  price: 1
   mugQty: 10
   beanUse: 5
   menuIcon: {fileID: 21300000, guid: 51a0addf05001ae499210a1cc318e59a, type: 3}

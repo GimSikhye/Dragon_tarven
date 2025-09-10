@@ -10,6 +10,9 @@ namespace DalbitCafe.Deco
 {
     public class DecorateManager : MonoBehaviour
     {
+        [SerializeField] private ItemDatabase itemDatabase;
+
+
         [Header("모드 진입 시 비활성화할 오브젝트들")]
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _customerParent;
@@ -45,9 +48,13 @@ namespace DalbitCafe.Deco
         }
         public static DecorateManager Instance { get; private set; }
 
+        private const string PREFS_KEY = "PlacedItems";
+
+
         private void Awake()
         {
             Instance = this;
+
         }
 
         public List<DraggableItem> GetPlacedItems() => placedItems;
@@ -277,6 +284,7 @@ namespace DalbitCafe.Deco
 
         public void OnRotateButtonPressed()
         {
+            Debug.Log("아이템 회전 버튼 누름");
             targetItem.RotateItem();
         }
 
@@ -285,14 +293,14 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void OnConfirmButtonPressed()
         {
-            Debug.Log($"[DecorateManager] 확인 버튼 클릭됨");
-            Debug.Log($"[DecorateManager] targetItem이 null인가? {targetItem == null}");
+            //Debug.Log($"[DecorateManager] 확인 버튼 클릭됨");
+            //Debug.Log($"[DecorateManager] targetItem이 null인가? {targetItem == null}");
 
             if (targetItem != null)
             {
-                Debug.Log($"[DecorateManager] targetItem 이름: {targetItem.gameObject.name}");
-                Debug.Log($"[DecorateManager] targetItem.IsPendingPlacement: {targetItem.IsPendingPlacement}");
-                Debug.Log($"[DecorateManager] targetItem 현재 위치: {targetItem.transform.position}");
+                //Debug.Log($"[DecorateManager] targetItem 이름: {targetItem.gameObject.name}");
+                //Debug.Log($"[DecorateManager] targetItem.IsPendingPlacement: {targetItem.IsPendingPlacement}");
+                //Debug.Log($"[DecorateManager] targetItem 현재 위치: {targetItem.transform.position}");
             }
 
             if (targetItem != null && targetItem.IsPendingPlacement)
@@ -337,6 +345,8 @@ namespace DalbitCafe.Deco
             {
                 Debug.LogWarning("[DecorateManager] targetItem이 null이거나 Pending 상태가 아님");
             }
+
+            SavePlacedItems();
         }
 
         /// <summary>
@@ -390,7 +400,70 @@ namespace DalbitCafe.Deco
             return draggableItem.GetItemData();
 
         }
-    }
+
+        // 저장
+        public void SavePlacedItems()
+        {
+            PlacedItemSaveData saveData = new();
+
+            foreach (var item in placedItems)
+            {
+                if (item != null && item.GetItemData() != null)
+                {
+                    saveData.placedItems.Add(new PlacedItemData
+                    {
+                        itemId = item.GetItemData().itemName, // ItemData에 고유한 itemName 있다고 가정
+                        posX = item.transform.position.x,
+                        posY = item.transform.position.y,
+                        rotationIndex = item.RotationIndex
+                    });
+                }
+            }
+
+            string json = JsonUtility.ToJson(saveData);
+            PlayerPrefs.SetString(PREFS_KEY, json);
+            PlayerPrefs.Save();
+
+            Debug.Log($"[DecorateManager] 저장 완료 - {saveData.placedItems.Count}개 아이템");
+        }
+
+        // 불러오기
+        public void LoadPlacedItems()
+        {
+            if (!PlayerPrefs.HasKey("PlacedItems")) return;
+
+            string json = PlayerPrefs.GetString("PlacedItems");
+            PlacedItemSaveData saveData = JsonUtility.FromJson<PlacedItemSaveData>(json);
+
+            foreach (PlacedItemData data in saveData.placedItems)
+            {
+                ItemData itemData = itemDatabase.GetItemById(data.itemId);
+                if (itemData == null)
+                {
+                    Debug.LogWarning($"[DecorateManager] ItemData {data.itemId} 없음");
+                    continue;
+                }
+
+                GameObject obj = Instantiate(itemData.prefab);
+                obj.transform.position = new Vector3(data.posX, data.posY, 0);
+
+                DraggableItem draggable = obj.GetComponent<DraggableItem>();
+                draggable.Initialize(itemData);
+
+                // 회전 복원
+                for (int i = 0; i < data.rotationIndex; i++)
+                {
+                    draggable.RotateItem();
+                }
+
+                RegisterPlacedItem(draggable);
+            }
+        }
+}
+
 
 }
+
+
+
 

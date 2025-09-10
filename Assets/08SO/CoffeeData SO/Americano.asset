@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coffeeId: americano
   coffeeName: "\uC544\uBA54\uB9AC\uCE74\uB178"
-  price: 250
+  price: 1
   mugQty: 10
   beanUse: 5
   menuIcon: {fileID: 21300000, guid: 57348f8ec2265d04f9cb886de98b6a10, type: 3}

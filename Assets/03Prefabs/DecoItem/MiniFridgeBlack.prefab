@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 501423630672643444}
   - component: {fileID: 4573046559606593623}
   m_Layer: 9
-  m_Name: P_Funiture_PatioTable
+  m_Name: MiniFridgeBlack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 231120833
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8abb20f1718abec438f258a3bc48cf29, type: 3}
+  m_Sprite: {fileID: 21300000, guid: df93a01c0966b284d9ee47154a4b3cff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,17 +104,16 @@ MonoBehaviour:
   sourceSlot: {fileID: 0}
   spriteRenderer: {fileID: 9002122089546757465}
   directionSprites:
-  - {fileID: 21300000, guid: 8abb20f1718abec438f258a3bc48cf29, type: 3}
-  - {fileID: 21300000, guid: 03db253182d28a24591c071855959dff, type: 3}
+  - {fileID: 21300000, guid: df93a01c0966b284d9ee47154a4b3cff, type: 3}
   _rotationIndex: 0
-  rotationLimit: 2
+  rotationLimit: 1
   _itemSize: {x: 1, y: 1}
   greenOutlineMaterial: {fileID: 2100000, guid: fdb3db24d00dfd34895526797a509f3b, type: 2}
   redOutlineMaterial: {fileID: 2100000, guid: 5a8e5bba1ec50a84e9f1e06e52213b8b, type: 2}
   _originalMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   confirmActiveSprite: {fileID: 21300000, guid: bf6d359889db3f34392f1ac1084f63a4, type: 3}
   confirmDeactiveSprite: {fileID: 21300000, guid: 9b9383c096a414b4e9de1afbf72da389, type: 3}
-  defaultItemData: {fileID: 11400000, guid: 15f1e43de516eea4288f9b0f58b5e01e, type: 2}
+  defaultItemData: {fileID: 11400000, guid: e5a166b904a106044a149480c652722b, type: 2}
 --- !u!61 &4573046559606593623
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -149,15 +148,15 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: -0.02773279, y: 0.012181222}
+  m_Offset: {x: -0.010816693, y: 0.21067613}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1, y: 1}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.8142816, y: 1.0576028}
+  m_Size: {x: 1.0847597, y: 0.8717755}
   m_EdgeRadius: 0

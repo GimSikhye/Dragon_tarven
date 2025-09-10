@@ -23,8 +23,8 @@ namespace DalbitCafe.Operations
 
         private void Awake()
         {
-            if (_questTracker == null)
-                _questTracker = FindObjectOfType<QuestTracker>();
+            //if (_questTracker == null)
+            //    _questTracker = FindObjectOfType<QuestTracker>();
 
             _machineManager.RegisterMachine(this);
         }
@@ -56,7 +56,7 @@ namespace DalbitCafe.Operations
 
             _currentCoffee = coffee;
             _remainingMugs = coffee.MugQty; 
-
+            
             PlayerStatsManager.Instance.AddCoffeeBean(-coffee.BeanUse); 
 
             GameObject particle = Instantiate(_steamParticle);
