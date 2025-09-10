@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class CookingUIManager : MonoBehaviour
 {
+    // 활성화된 레시피 아이템 클릭시 요리 되고, 코인얻도록 만들기.
     [SerializeField] private GameObject cookingWindow;
     [SerializeField] private Transform recipeSlotParent;
     [SerializeField] private GameObject recipeSlotPrefab;

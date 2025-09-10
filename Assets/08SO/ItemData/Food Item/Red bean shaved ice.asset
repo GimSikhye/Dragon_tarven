@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5e7d3e215e6aa2a4a935ecf72f106520, type: 3}
-  m_Name: Strawberry Cake
+  m_Name: Red bean shaved ice
   m_EditorClassIdentifier: 
-  itemName: "\uB538\uAE30\uCF00\uC775"
-  icon: {fileID: 21300000, guid: dcd4d6be745ecf841b6ff8bc1443f834, type: 3}
+  itemName: "\uD325\uBE59\uC218"
+  icon: {fileID: 21300000, guid: ae9070b5bd9c73441adbf56260be549b, type: 3}
   price: 30
   prefab: {fileID: 0}
   foodType: 1
