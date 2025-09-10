@@ -20,13 +20,13 @@ MonoBehaviour:
     dialogueTexts:
     - text: ....
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
     - text: "\uC7A0\uC2DC\uB9CC.."
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
     - text: "\uCE74\uD398\uB97C \uC6B4\uC601\uD560 \uB3C8\uC774 \uC774\uC81C \uC5C6\uC796\uC544.."
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
   - speaker: {fileID: 11400000, guid: 93f7f782c94526846b27620cf85a2a0e, type: 2}
     isNarration: 0
     isInnerFeelings: 1
@@ -35,10 +35,10 @@ MonoBehaviour:
     - text: "\uD604\uC2E4\uC5D0\uC11C\uB3C4 \uBABB\uD574\uBCF8 \uD30C\uC0B0\uC744
         \uC5EC\uAE30\uC11C.."
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
     - text: ....
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
     - text: "\uD30C\uC0B0\uC774\uB2E4.."
       sfx: {fileID: 0}
-      image: {fileID: 0}
+      image: {fileID: 21300000, guid: cca63d72e911b7e49b36fd6ee7ea95be, type: 3}
