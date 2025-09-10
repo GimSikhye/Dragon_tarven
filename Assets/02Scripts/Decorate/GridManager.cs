@@ -58,7 +58,7 @@ namespace DalbitCafe.Deco
 
         private void InitTile()
         {
-            Debug.Log("GirdManager 초기화");
+            //Debug.Log("GirdManager 초기화");
 
             GameObject tileObj = GameObject.Find("1FFloor");
             if (tileObj == null)
@@ -89,7 +89,7 @@ namespace DalbitCafe.Deco
 
             _grid = new bool[_gridWidth, _gridHeight];
 
-            Debug.Log("[GridManager] 초기화 완료");
+            //Debug.Log("[GridManager] 초기화 완료");
         }
 
 

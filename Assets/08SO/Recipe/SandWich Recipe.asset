@@ -15,10 +15,10 @@ MonoBehaviour:
   recipeName: "\uC0CC\uB4DC\uC704\uCE58"
   icon: {fileID: 21300000, guid: 967f4ed712c039e4c9e039f6dd52e82e, type: 3}
   ingredients:
-  - item: {fileID: 0}
-    requiredAmount: 0
-  - item: {fileID: 11400000, guid: f6b845a42fbce53429b725d76e10ecfc, type: 2}
-    requiredAmount: 0
+  - item: {fileID: 11400000, guid: e819b5acf20b25a4da9320038d265868, type: 2}
+    requiredAmount: 1
+  - item: {fileID: 11400000, guid: 93404cf402e0e504fa0913fe413b4e83, type: 2}
+    requiredAmount: 1
   - item: {fileID: 11400000, guid: 01718cf2130e2434fa6bd6bb214775dc, type: 2}
-    requiredAmount: 0
+    requiredAmount: 1
   outputItem: {fileID: 11400000, guid: ced9fdb9f719ff04dbe231efb66818d6, type: 2}
