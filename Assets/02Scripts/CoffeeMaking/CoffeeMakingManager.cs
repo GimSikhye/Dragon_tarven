@@ -571,71 +571,40 @@ public class CoffeeMakingManager : MonoBehaviour
     }
     #endregion
 
-    private void HandleBasePouring() //  
+    private void HandleBasePouring()
     {
-        Vector3 tilt = GetSimulatedAcceleration(); // tilt: 기울이다
+        float tiltX = GetSimulatedAcceleration(); // X축 값만 사용
 
-        // 기울기 감지
-        bool isTilting = tilt.x > 0.3f || tilt.z > 0.3f; // x: 좌우 기울기, y: 위아래(수직) 방향, z: 앞뒤 기울기
-        // y값이 사용되지 않는 이유: y축은 보통 회전이나 수직 방향의 움직임에 해당하여, 단순한 '기울어진 정도'를 측정하는 데는 포함되지 않는 경우가 많음.
-        // Mathf.Max() 함수는 괄호 안의 두 값 중 더 큰 값을 반환한다.
-        // 이 부분은 X축 기울기의 절댓값과 Z축 기울기의 절댓값 중에서 더 큰 값을 선택한다. 
-        // 즉, 앞뒤 기울기와 좌우 기울기 중 가장 크게 기울어진 방향의 강도를 찾는다.
-        
         if (currentPouredAmount >= 100f)
         {
-            tiltIntensity = 0f; // 기울기 강도 0으로 변경
+            tiltIntensity = 0f;
             UpdatePouringAnimation(0);
             return;
         }
 
-        if(isTilting) // 기울여져 있다면
+        if (tiltX < -0.3f) // 왼쪽으로 기울었을 때만
         {
-            // 기울어진 정도에 따라 기울기 강도 조절, Mathf.Clmap01: 주어진 숫자를 0과 1 사이에 묶어주는 함수
-            tiltIntensity = Mathf.Clamp01(Mathf.Max(Mathf.Abs(tilt.x), Mathf.Abs(tilt.z))); // 여기 부분 잘 모르겠음
+            tiltIntensity = Mathf.Clamp01(Mathf.Abs(tiltX));
             currentPouredAmount += Time.deltaTime * tiltIntensity * pourSpeed;
         }
         else
         {
-            // 점점 줄어들다가 멈춤, Mathf.MovToWards: 지정된 값(current)을 목표 값(target)으로 일정한 속도로 이동시키는 함수.
+            // 서서히 줄어듦
             tiltIntensity = Mathf.MoveTowards(tiltIntensity, 0f, Time.deltaTime * pourDecreaseSpeed);
         }
 
-        currentPouredAmount = Mathf.Min(currentPouredAmount, 100f); // 100으로 제한 (capped)
+        currentPouredAmount = Mathf.Min(currentPouredAmount, 100f);
         UpdatePouringUI(currentPouredAmount);
         UpdatePouringAnimation(tiltIntensity);
-        
     }
 
-    private Vector3 GetSimulatedAcceleration()
+    private float GetSimulatedAcceleration()
     {
-#if UNITY_EDITOR
-        float xInput = 0f;
-        float zInput = 0f;
-
-        if (Input.GetKey(KeyCode.LeftArrow)) xInput = -1f;
-        if (Input.GetKey(KeyCode.RightArrow)) xInput = 1f;
-        if (Input.GetKey(KeyCode.UpArrow)) zInput = 1f;
-        if (Input.GetKey(KeyCode.DownArrow)) zInput = -1f;
-
-        // 누르고 있는 시간에 따라 기울기 누적 (Time.deltaTime 적용)
-        simulatedTilt.x = Mathf.Clamp(simulatedTilt.x + (xInput * simulatedTiltSpeed * Time.deltaTime), -simulatedTiltMax, simulatedTiltMax);
-        simulatedTilt.y = Mathf.Clamp(simulatedTilt.y + zInput * simulatedTiltSpeed * Time.deltaTime, -simulatedTiltMax, simulatedTiltMax);
-
-        // 키를 떼면 기울기가 천천히 복원됨
-        if (xInput == 0) simulatedTilt.x = Mathf.MoveTowards(simulatedTilt.x, 0f, simulatedTiltSpeed * Time.deltaTime);
-        if (zInput == 0) simulatedTilt.y = Mathf.MoveTowards(simulatedTilt.y, 0f, simulatedTiltSpeed * Time.deltaTime);
-
-        return new Vector3(simulatedTilt.x, 0f, simulatedTilt.y);
-#else
-    float tiltX = Input.acceleration.x;
-    if (Mathf.Abs(tiltX) < 0.1f) tiltX = 0f; // 흔들림 방지
-
-    float pourAmount = -tiltX * pourSpeed;
-    return pourAmount;
-
-#endif
+        float tiltX = Input.acceleration.x;
+        if (Mathf.Abs(tiltX) < 0.1f) tiltX = 0f; // 흔들림 방지
+        return tiltX; // 이제 X축 값 그대로 반환
     }
+
 
     public void SetState(CoffeeState newState)
     {
