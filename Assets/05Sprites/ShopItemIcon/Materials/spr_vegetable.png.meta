@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 0a6820dde5290af4f83b9b9f0f165d92
+guid: ac87a092d2bd86149a82fdf9aa8bf69c
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4241729703826220154
-    second: spr_cocoaPowder_0
+      213: 1041678454088203091
+    second: spr_vegetable_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -110,19 +110,6 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 4
-    buildTarget: iOS
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 4
     buildTarget: WebGL
     maxTextureSize: 2048
     resizeAlgorithm: 0
@@ -139,13 +126,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_cocoaPowder_0
+      name: spr_vegetable_0
       rect:
         serializedVersion: 2
-        x: 90
-        y: 67
-        width: 332
-        height: 373
+        x: 56
+        y: 96
+        width: 389
+        height: 284
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -154,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a74e8c521b6adda30800000000000000
-      internalID: 4241729703826220154
+      spriteID: 35bfa12f809c47e00800000000000000
+      internalID: 1041678454088203091
       vertices: []
       indices: 
       edges: []
@@ -174,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      spr_cocoaPowder_0: 4241729703826220154
+      spr_vegetable_0: 1041678454088203091
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

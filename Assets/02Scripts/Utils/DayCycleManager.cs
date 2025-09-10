@@ -28,6 +28,8 @@ public class DayCycleManager : MonoBehaviour
     private Coroutine _gameTimeCoroutine;
     private Coroutine _blinkCoroutine;
 
+    private PlayerStats playerStats;
+
     private void Awake()
     {
         if (FindObjectsByType<DayCycleManager>(FindObjectsSortMode.None).Length > 1)
@@ -147,6 +149,13 @@ public class DayCycleManager : MonoBehaviour
 
         SaveDay();
         PauseTime();
+
+        if (totalCoin <= 0)
+        {
+            Debug.Log("[DayCycleManager] 파산 엔딩으로 이동합니다.");
+            SceneManager.LoadScene("BankruptEndingScene"); // 파산 엔딩 씬 이름
+            return;
+        }
 
         if (day >= 7)
         {
