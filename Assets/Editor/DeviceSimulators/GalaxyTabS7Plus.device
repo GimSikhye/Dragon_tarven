@@ -1,0 +1,39 @@
+{
+  "version": 1,
+  "name": "Samsung Galaxy Tab S7+",
+  "friendlyName": "Galaxy Tab S7+",
+  "manufacturer": "Samsung",
+  "model": "SM-T970",
+  "systemInfo": {
+    "operatingSystem": "Android 12",
+    "systemMemorySize": 8192,
+    "graphicsMemorySize": 512,
+    "graphicsMultiThreaded": true,
+    "graphicsDeviceName": "Adreno 650",
+    "graphicsDeviceVendor": "Qualcomm",
+    "graphicsDeviceType": "OpenGLES3",
+    "processorType": "Kryo 585",
+    "processorCount": 8,
+    "supportsGyroscope": true,
+    "supportsAccelerometer": true,
+    "supportsLocationService": true,
+    "supportsVibration": true
+  },
+  "screens": [
+    {
+      "width": 2800,
+      "height": 1752,
+      "dpi": 266,
+      "orientation": "Landscape",
+      "physicalWidth": 296.0,
+      "physicalHeight": 185.0
+    }
+  ],
+  "safeArea": {
+    "x": 0,
+    "y": 0,
+    "width": 2800,
+    "height": 1752
+  },
+  "cutouts": []
+}
