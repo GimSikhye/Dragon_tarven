@@ -20,7 +20,7 @@ public class SettlementSceneManager : MonoBehaviour
 
     [Header("수치 설정")]
     public int todayProfit = 0;   // 전체 수익
-    public int rentCost = 20;    // 기본 임대료 (원하는 값으로 설정)
+    public int rentCost = 20;    // 기본 임대료
     public int netProfit = 0;     // 순수익
 
     void Start()
@@ -38,17 +38,15 @@ public class SettlementSceneManager : MonoBehaviour
         // 임대료 표시
         rentCostAmountText.text = $"-${rentCost}";
 
-        // 순수익 계산 = 전체 수익 - 임대료
+        // 순수익 계산 (음수 허용)
         netProfit = todayProfit - rentCost;
-        if (netProfit < 0) netProfit = 0; // 순수익이 음수가 되지 않도록 보정
 
+        // 순수익 UI 표시 및 색상 처리
         netProfitAmountText.text = $"${netProfit}";
+        netProfitAmountText.color = netProfit < 0 ? Color.red : Color.green;
 
-        // 코인 저장 (PlayerStatsManager 반영)
-        int currentCoin = PlayerPrefs.GetInt("Coin", 0);
-        currentCoin += netProfit;
-        PlayerPrefs.SetInt("Coin", currentCoin);
-        PlayerPrefs.Save();
+        // PlayerStatsManager를 이용해서 코인 반영
+        PlayerStatsManager.Instance.AddCoin(netProfit);
 
         okayButton.onClick.AddListener(OnConfirmButtonClicked);
     }
