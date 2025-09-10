@@ -9,11 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e7d3e215e6aa2a4a935ecf72f106520, type: 3}
-  m_Name: Strawberry Cake
+  m_Script: {fileID: 11500000, guid: f73f29bc3e3cfb5488b8c6cc75efab38, type: 3}
+  m_Name: Red bean_ItemData
   m_EditorClassIdentifier: 
-  itemName: "\uB538\uAE30\uCF00\uC775"
-  icon: {fileID: 21300000, guid: dcd4d6be745ecf841b6ff8bc1443f834, type: 3}
-  price: 30
+  itemName: Redbean
+  icon: {fileID: 21300000, guid: 5ee144a16a07adc4d80d1b7b3ecb4c4a, type: 3}
+  price: 15
   prefab: {fileID: 0}
-  foodType: 1
+  materialType: 1
