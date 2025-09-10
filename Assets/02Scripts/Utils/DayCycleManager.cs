@@ -141,7 +141,17 @@ public class DayCycleManager : MonoBehaviour
 
         SaveDay();
         PauseTime();
-        SceneManager.LoadScene("SettlementScene");
+
+        if (day >= 7)
+        {
+            Debug.Log("[DayCycleManager] Day >= 7 : 엔딩 대화 실행으로 씬 전환");
+            SceneManager.LoadScene("EndingDialogueScene"); // 씬 이름이 다른 경우 여기에 정확한 이름 넣으세요
+        }
+        else
+        {
+            // 기존 SettlementScene 진행
+            SceneManager.LoadScene("SettlementScene");
+        }
     }
 
     private void SaveDay()
