@@ -24,6 +24,20 @@ public class ShopUIController : MonoBehaviour
 
     private ShopCategoryType currentCategory;
     private DecoSubCategory currentDecoSubCategory;
+    void OnEnable()
+    {
+        PlayerStatsManager.OnCoinChanged += HandleCoinChanged;
+    }
+
+    void OnDisable()
+    {
+        PlayerStatsManager.OnCoinChanged -= HandleCoinChanged;
+    }
+
+    void HandleCoinChanged(int newCoin)
+    {
+        coinAmountText.text = newCoin.ToString();
+    }
 
     void Start()
     {
