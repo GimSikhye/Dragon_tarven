@@ -33,7 +33,7 @@ public class QuestManager : MonoBehaviour
     {
         if(scene.name == "GameScene")
         {
-            dialougManager = DialogueManager.Instance;
+            //dialougManager = DialogueManager.Instance;
             //questCatalogContent = UIManager.Instance.panels[(int)Windows.Quest].transform.Find("UI_QuestCatalog/Viewport/QuestCatalogContent");
             questItemPrefab = Resources.Load<GameObject>("Prefabs/UI_QuestSelectButton"); //Resources.Load ¼º´É?
 

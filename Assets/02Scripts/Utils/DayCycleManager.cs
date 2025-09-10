@@ -56,7 +56,13 @@ public class DayCycleManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "GameScene")
+        if(scene.name == "MainMenu")
+        {
+            day = 1;
+            PlayerPrefs.SetInt("Day", day);
+
+        }
+        else if (scene.name == "GameScene")
         {
             timeText = GameObject.Find("TimeText").GetComponent<TextMeshProUGUI>();
             ampmText = GameObject.Find("AmPmText").GetComponent<TextMeshProUGUI>();
