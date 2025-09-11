@@ -7,10 +7,14 @@ public class ShowcaseItemUI : MonoBehaviour, IPointerDownHandler, IPointerUpHand
 {
     [SerializeField] private Image iconImage;
     [SerializeField] private TextMeshProUGUI quantityText;
-    [SerializeField] private Vector2 tooltipOffset = new Vector2(20f, -20f); // 기본 offset
+    [SerializeField] private Vector2 tooltipOffset = new Vector2(20f, -20f);
 
     private InventoryItem inventoryItem;
     private TooltipUI tooltip;
+    private SellConfirmUI sellConfirmUI;
+
+    private float lastTapTime = 0f;
+    private const float doubleTapThreshold = 0.3f; // 0.3초 안에 두 번 터치하면 더블탭
 
     public void Setup(InventoryItem inventoryItem)
     {
@@ -21,31 +25,54 @@ public class ShowcaseItemUI : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             iconImage.sprite = foodItem.icon;
             quantityText.text = $"x{inventoryItem.quantity}";
         }
+
+        if (sellConfirmUI == null)
+            sellConfirmUI = FindAnyObjectByType<SellConfirmUI>();
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
         if (inventoryItem == null) return;
 
-        if (tooltip == null)
-            tooltip = FindAnyObjectByType<TooltipUI>();
-
-        if (tooltip == null || tooltip.tooltipObject == null)
-        {
-            Debug.LogError("[ShowcaseItemUI] TooltipUI 또는 tooltipObject가 할당되지 않았습니다!");
-            return;
-        }
-
+        // 툴팁 표시
+        if (tooltip == null) tooltip = FindAnyObjectByType<TooltipUI>();
         tooltip.tooltipObject.SetActive(true);
         tooltip.SetData(inventoryItem.itemData.itemName, inventoryItem.itemData.price);
-
         PositionTooltip();
+
+        // 더블탭 감지
+        if (Time.time - lastTapTime < doubleTapThreshold)
+        {
+            Debug.Log("더블탭!");
+            ShowSellConfirm();
+            lastTapTime = 0f; // 초기화
+        }
+        else
+        {
+            lastTapTime = Time.time;
+        }
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (tooltip != null && tooltip.tooltipObject != null)
-            tooltip.tooltipObject.SetActive(false);
+        if (tooltip != null) tooltip.tooltipObject.SetActive(false);
+    }
+
+    private void ShowSellConfirm()
+    {
+        if (inventoryItem == null || sellConfirmUI == null) return;
+
+        sellConfirmUI.Show(inventoryItem.itemData.itemName, () =>
+        {
+            // 코인 추가
+            PlayerStatsManager.Instance.AddCoin(inventoryItem.itemData.price);
+
+            // 아이템 1개 제거
+            Inventory.Instance.RemoveItemAmount(inventoryItem.itemData, 1);
+
+            // Showcase 갱신
+            FindAnyObjectByType<ShowcaseManager>()?.RefreshShowcase();
+        });
     }
 
     private void PositionTooltip()
@@ -55,12 +82,10 @@ public class ShowcaseItemUI : MonoBehaviour, IPointerDownHandler, IPointerUpHand
         Canvas canvas = tooltipRect.GetComponentInParent<Canvas>();
         RectTransform canvasRect = canvas.transform as RectTransform;
 
-        // 슬롯의 우하단 월드 좌표
         Vector3[] corners = new Vector3[4];
         slotRect.GetWorldCorners(corners);
         Vector3 targetWorldPos = corners[3];
 
-        // 월드 → 스크린 → 로컬(Canvas 좌표)
         Vector2 localPoint;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             canvasRect,
@@ -68,22 +93,7 @@ public class ShowcaseItemUI : MonoBehaviour, IPointerDownHandler, IPointerUpHand
             canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
             out localPoint);
 
-        // offset 적용
         localPoint += tooltipOffset;
         tooltipRect.anchoredPosition = localPoint;
-
-        // 오른쪽 화면 밖이면 좌하단으로 이동
-        if (tooltipRect.anchoredPosition.x + tooltipRect.rect.width > canvasRect.rect.width / 2f)
-        {
-            targetWorldPos = corners[2]; // 좌하단
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                canvasRect,
-                RectTransformUtility.WorldToScreenPoint(null, targetWorldPos),
-                canvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : canvas.worldCamera,
-                out localPoint);
-
-            localPoint += new Vector2(-tooltipOffset.x, tooltipOffset.y);
-            tooltipRect.anchoredPosition = localPoint;
-        }
     }
 }
