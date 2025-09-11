@@ -186,12 +186,20 @@ namespace DalbitCafe.Deco
             _isDragging = false;
 
             Tilemap currentMap = GetCurrentTilemap();
-            Vector3Int cellPosition = currentMap.WorldToCell(transform.position);
+            Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
+            worldMousePosition.z = 0;
+
+            // 드래그 중 계산한 방식과 동일하게 처리
+            Vector3Int cellPosition = currentMap.WorldToCell(worldMousePosition);
+            Vector3 worldCenter = currentMap.GetCellCenterWorld(cellPosition);
+
+            transform.position = worldCenter;
+
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
 
             _isPendingPlacement = true;
-            _pendingPosition = transform.position;
-            _pendingGridPosition = cell2D;
+            _pendingPosition = worldCenter;           // 스냅된 위치 저장
+            _pendingGridPosition = cell2D;            // 같은 셀 좌표 저장
             _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize, (InteriorType)SubCategory);
 
             UpdateOutlineColor(_canPlaceAtPendingPosition);
@@ -203,6 +211,7 @@ namespace DalbitCafe.Deco
                 UpdateRotateUIPosition();
             }
         }
+
 
 
         /// <summary>

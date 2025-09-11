@@ -17,6 +17,7 @@ public enum Windows
     Quest = 3,
     QuestComplete = 4,
     Setting = 5
+    
     // 필요한 만큼 아래에 계속 추가 가능
 }
 

@@ -20,8 +20,16 @@ namespace DalbitCafe.Deco
 
         public bool IsOccupied(Vector2Int gridIndex)
         {
+            if (gridIndex.x < 0 || gridIndex.y < 0 ||
+                gridIndex.x >= _gridWidth || gridIndex.y >= _gridHeight)
+            {
+                Debug.LogWarning($"[GridManager] IsOccupied: 범위를 벗어난 좌표 ({gridIndex.x}, {gridIndex.y})");
+                return true; // 범위 밖은 배치 불가 처리
+            }
+
             return _grid[gridIndex.x, gridIndex.y];
         }
+
 
         public static GridManager Instance { get; private set; }
 
@@ -170,10 +178,20 @@ namespace DalbitCafe.Deco
             {
                 for (int y = 0; y < size.y; y++)
                 {
-                    _grid[localPos.x + x, localPos.y + y] = true;
+                    int gx = localPos.x + x;
+                    int gy = localPos.y + y;
+
+                    if (gx < 0 || gy < 0 || gx >= _gridWidth || gy >= _gridHeight)
+                    {
+                        Debug.LogWarning($"[GridManager] PlaceItem: 범위를 벗어난 좌표 ({gx}, {gy}) → 무시");
+                        continue;
+                    }
+
+                    _grid[gx, gy] = true;
                 }
             }
         }
+
 
         public void RemoveItem(Vector2Int worldCellPos, Vector2Int size)
         {
@@ -184,7 +202,16 @@ namespace DalbitCafe.Deco
             {
                 for (int y = 0; y < size.y; y++)
                 {
-                    _grid[localPos.x + x, localPos.y + y] = false;
+                    int gx = localPos.x + x;
+                    int gy = localPos.y + y;
+
+                    if (gx < 0 || gy < 0 || gx >= _gridWidth || gy >= _gridHeight)
+                    {
+                        Debug.LogWarning($"[GridManager] RemoveItem: 범위를 벗어난 좌표 ({gx}, {gy}) → 무시");
+                        continue;
+                    }
+
+                    _grid[gx, gy] = false;
                 }
             }
         }
