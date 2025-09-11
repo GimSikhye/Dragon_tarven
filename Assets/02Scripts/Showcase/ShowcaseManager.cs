@@ -41,7 +41,6 @@ public class ShowcaseManager : MonoBehaviour
 
     public void ToggleShowcaseUI()
     {
-        Debug.Log("ºÓƒ…¿ÃΩ∫");
         if (showcaseWindow.activeSelf)
         {
             showcaseWindow.SetActive(false);
