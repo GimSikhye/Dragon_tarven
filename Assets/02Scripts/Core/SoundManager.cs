@@ -104,6 +104,32 @@ namespace DalbitCafe.Core
                 Debug.LogWarning($"SFX {sfx} 클립이 등록되지 않았습니다!");
             }
         }
+        public void PlayLoopSFX(Sfx sfx)
+        {
+            if (_sfxDictionary.TryGetValue(sfx, out AudioClip clip))
+            {
+                _sfxAudioSource.clip = clip;
+                _sfxAudioSource.loop = true;
+                _sfxAudioSource.Play();
+            }
+        }
+
+        public void StopSFX(Sfx sfx)
+        {
+            if (_sfxAudioSource.isPlaying &&
+                _sfxAudioSource.clip == _sfxDictionary[sfx])
+            {
+                _sfxAudioSource.Stop();
+                _sfxAudioSource.clip = null;
+                _sfxAudioSource.loop = false;
+            }
+        }
+
+        public bool IsSfxPlaying(Sfx sfx)
+        {
+            return _sfxAudioSource.isPlaying &&
+                   _sfxAudioSource.clip == _sfxDictionary[sfx];
+        }
 
         // --- 슬라이더 연결 ---
         public void SettingBGMVolume(float value)
