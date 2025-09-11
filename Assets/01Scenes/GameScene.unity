@@ -17117,6 +17117,7 @@ MonoBehaviour:
   tilemap: {fileID: 570655510}
   wallTilemap: {fileID: 1314251515}
   storeFloorTile: {fileID: 11400000, guid: 21052a65ab577694aa86874a93cb6552, type: 2}
+  wallTile: {fileID: 11400000, guid: 977e6b3a2a574cd438dbaa65b14755c6, type: 2}
   _tileSize: 0.5
 --- !u!4 &1227330924
 Transform:

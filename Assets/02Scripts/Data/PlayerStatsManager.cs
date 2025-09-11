@@ -27,7 +27,9 @@ public class PlayerStatsManager : MonoSingleton<PlayerStatsManager>
     public void InitializeStat()
     {
         CoffeeBeans = 300;
-        Coin = 10000; // 임시 테스트
+        Coin = 30; // 임시 테스트
+
+        //Coin = 10000; // 임시 테스트
         Gem = 5;
     }
 
