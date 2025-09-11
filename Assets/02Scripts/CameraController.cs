@@ -9,18 +9,19 @@ namespace DalbitCafe.Cameras
     public class CameraController : MonoBehaviour
     {
         [Header("화면 이동")]
-        public float dragSpeed = 0.0001f; // 드래그 민감도
+        public float dragSpeed = 0.000005f; // 드래그 더 느리게
         public float smoothTime = 0.15f;
-        public float dragThreshold = 5f; // 드래그 시작 최소 거리(px)
+        public float dragThreshold = 5f;
         public Vector2 minBounds = new Vector2(-10f, -10f);
         public Vector2 maxBounds = new Vector2(10f, 10f);
 
         [Header("줌 이동")]
-        public float zoomSpeed = 0.001f;
+        public float zoomSpeed = 0.05f;   // 줌 더 빠르게
         public float zoomSmoothTime = 0.15f;
         public float minZoom = 3f;
         public float maxZoom = 10f;
-        public float maxZoomDelta = 0.1f; // 프레임당 최대 줌 변화 제한
+        public float maxZoomDelta = 0.3f; // 프레임당 최대 줌 변화 증가
+
 
         private Camera cam;
         private bool isTouchingUI = false;

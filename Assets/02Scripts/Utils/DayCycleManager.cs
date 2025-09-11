@@ -135,36 +135,34 @@ public class DayCycleManager : MonoBehaviour
 
     private void EndDay()
     {
-        // 하루 수익 계산: 현재 코인 - 저장된 코인 차이
         int totalCoin = PlayerStatsManager.Instance.Coin;
-        Debug.Log(totalCoin);
-        int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 10); // 초기 코인 300
+        Debug.Log("[DayCycleManager] 현재 코인: " + totalCoin);
+
+        int prevTotalCoin = PlayerPrefs.GetInt("PrevTotalCoin", 10);
         int todayProfit = totalCoin - prevTotalCoin;
         todayProfit = Mathf.Clamp(todayProfit, 0, 10000);
 
-        // 저장
         PlayerPrefs.SetInt("TodayProfit", todayProfit);
-        PlayerPrefs.SetInt("PrevTotalCoin", totalCoin); // 현재 코인 저장
+        PlayerPrefs.SetInt("PrevTotalCoin", totalCoin);
         PlayerPrefs.Save();
 
         SaveDay();
         PauseTime();
 
+        // 파산 체크 (여기서 가장 먼저 확인해야 함)
         if (totalCoin <= 0)
         {
             Debug.Log("[DayCycleManager] 파산 엔딩으로 이동합니다.");
-            SceneManager.LoadScene("BankruptEndingScene"); // 파산 엔딩 씬 이름
+            SceneManager.LoadScene("BankruptEndingScene");
             return;
         }
 
         if (day >= 7)
         {
-            Debug.Log("[DayCycleManager] Day >= 7 : 엔딩 대화 실행으로 씬 전환");
-            SceneManager.LoadScene("EndingDialogueScene"); // 씬 이름이 다른 경우 여기에 정확한 이름 넣으세요
+            SceneManager.LoadScene("EndingDialogueScene");
         }
         else
         {
-            // 기존 SettlementScene 진행
             SceneManager.LoadScene("SettlementScene");
         }
     }
