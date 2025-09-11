@@ -918,18 +918,17 @@ public class CoffeeMakingManager : MonoBehaviour
 
     private void CheckRecipe()
     {
-        var recipe = OrderData.CurrentRecipe;
+        MenuVariantRecipe recipe = OrderData.CurrentRecipe;
         CoffeeResultData result = new CoffeeResultData();
-
 
         //  베이스
         result.ShotAccuracy = (selectedBase == recipe.baseType) ? 1f : 0f;
 
         //  샷 횟수 비교
         int shotCount = shotGlassHasShot.Count(x => x); // 실제 shotCount 측정
-        result.ShotAccuracy = (shotCount == recipe.shotCount) ? 1f : 0f;
+        result.ShotAccuracy = (shotCount == recipe.shotCount) ? 1f : 0f; // 샷 정확도
 
-        //  우유량 비교
+        //  pour량 비교
         float pourError = Mathf.Abs(currentPouredAmount - recipe.expectedPourAmount);
         result.PourAccuracy = 1f - Mathf.Clamp01(pourError / 100f); // 최대 오차 100ml 기준
 
@@ -948,7 +947,7 @@ public class CoffeeMakingManager : MonoBehaviour
     {
         resultNotePanel.SetActive(true);
 
-        var result = OrderData.Result;
+        CoffeeResultData result = OrderData.Result;
         string grade = result.EvaluateGrade();
 
         feedbackText.text = grade switch
