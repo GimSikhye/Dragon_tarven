@@ -9,24 +9,27 @@ namespace DalbitCafe.Cameras
     public class CameraController : MonoBehaviour
     {
         [Header("화면 이동")]
-        public float dragSpeed = 0.001f; // 드래그 민감도 (낮출수록 천천히)
-        public float smoothTime = 0.15f;  // 부드럽게 이동할 시간
+        public float dragSpeed = 0.0001f; // 드래그 민감도
+        public float smoothTime = 0.15f;
+        public float dragThreshold = 5f; // 드래그 시작 최소 거리(px)
         public Vector2 minBounds = new Vector2(-10f, -10f);
         public Vector2 maxBounds = new Vector2(10f, 10f);
 
         [Header("줌 이동")]
-        public float zoomSpeed = 0.001f; // 줌 민감도 (낮출수록 천천히)
+        public float zoomSpeed = 0.001f;
         public float zoomSmoothTime = 0.15f;
         public float minZoom = 3f;
         public float maxZoom = 10f;
+        public float maxZoomDelta = 0.1f; // 프레임당 최대 줌 변화 제한
 
         private Camera cam;
         private bool isTouchingUI = false;
+        private Vector2 dragStartPos; // 드래그 시작 위치
 
-        private Vector3 velocity = Vector3.zero; // SmoothDamp용
-        private float zoomVelocity = 0f;         // SmoothDamp용
-        private Vector3 targetPos;               // 목표 카메라 위치
-        private float targetZoom;                // 목표 줌 값
+        private Vector3 velocity = Vector3.zero;
+        private float zoomVelocity = 0f;
+        private Vector3 targetPos;
+        private float targetZoom;
 
         private void Awake()
         {
@@ -60,14 +63,17 @@ namespace DalbitCafe.Cameras
             if (touch.phase == TouchPhase.Began)
             {
                 isTouchingUI = EventSystem.current.IsPointerOverGameObject(touch.fingerId);
+                dragStartPos = touch.position;
             }
 
             if (isTouchingUI) return;
 
             if (touch.phase == TouchPhase.Moved)
             {
-                Vector2 delta = touch.deltaPosition * dragSpeed;
+                // 드래그 threshold 체크 (5px 이상 움직여야 적용)
+                if (Vector2.Distance(touch.position, dragStartPos) < dragThreshold) return;
 
+                Vector2 delta = touch.deltaPosition * dragSpeed * Time.deltaTime * 60f; // 프레임 보정
                 Vector3 move = new Vector3(-delta.x, -delta.y, 0);
                 SetTargetPosition(move);
             }
@@ -90,9 +96,12 @@ namespace DalbitCafe.Cameras
             float prevDist = (touch0.position - touch0.deltaPosition - (touch1.position - touch1.deltaPosition)).magnitude;
             float currentDist = (touch0.position - touch1.position).magnitude;
 
-            float delta = currentDist - prevDist;
+            float delta = (currentDist - prevDist) * zoomSpeed * Time.deltaTime * 60f;
 
-            targetZoom = Mathf.Clamp(targetZoom - delta * zoomSpeed, minZoom, maxZoom);
+            // 프레임당 최대 변화 제한
+            delta = Mathf.Clamp(delta, -maxZoomDelta, maxZoomDelta);
+
+            targetZoom = Mathf.Clamp(targetZoom - delta, minZoom, maxZoom);
         }
 
         private void SetTargetPosition(Vector3 move)
