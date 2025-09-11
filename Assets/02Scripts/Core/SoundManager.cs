@@ -30,7 +30,6 @@ namespace DalbitCafe.Core
         {
             // ¾Àº° BGM Àç»ý
             PlaySceneBGM(scene);
-           
             
         }
 

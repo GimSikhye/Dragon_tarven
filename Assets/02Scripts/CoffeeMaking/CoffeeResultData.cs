@@ -33,9 +33,14 @@ public class CoffeeResultData
             Debug.Log("시럽 횟수&종류 정답");
             correctCount++;
         }
+        if(WhippedLevel == "")
+        {
+            correctCount++;
+
+        }
         if (WhippedMatch)
         {
-            Debug.Log("휘핑레벨 매치 안됨");
+            Debug.Log("휘핑레벨 매치 됨");
             correctCount++;
         }
 
