@@ -172,7 +172,12 @@ namespace DalbitCafe.Deco
 
             // 배치 가능 여부 확인
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
-            bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
+            bool canPlace = DecorateManager.Instance.CanPlaceItem(
+            cell2D,
+            _itemSize,
+            (InteriorType)SubCategory   // SubCategory는 Enum이므로 캐스팅
+            );
+
 
             // 아웃라인 색상 갱신
             UpdateOutlineColor(canPlace);
@@ -199,7 +204,11 @@ namespace DalbitCafe.Deco
             _isPendingPlacement = true;
             _pendingPosition = transform.position;
             _pendingGridPosition = cell2D;
-            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize);
+            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(
+                cell2D,
+                _itemSize,
+                (InteriorType)SubCategory
+            );
 
             Debug.Log($"[OnEndDrag] 배치 대기 위치: {_pendingPosition}");
             Debug.Log($"[OnEndDrag] 배치 대기 그리드 위치: {_pendingGridPosition}");
@@ -247,8 +256,11 @@ namespace DalbitCafe.Deco
                 //Debug.Log($"[ConfirmPlacement] 배치 확정 진행 중...");
 
                 // 1. 먼저 그리드에 아이템 배치
-                bool placementResult = DecorateManager.Instance.GridManager.CanPlaceItem(_pendingGridPosition, _itemSize);
-                //Debug.Log($"[ConfirmPlacement] 그리드 매니저 배치 가능 재확인: {placementResult}");
+                bool placementResult = DecorateManager.Instance.CanPlaceItem(
+                    _pendingGridPosition,
+                    _itemSize,
+                    (InteriorType)SubCategory
+                );
 
                 if (placementResult)
                 {
@@ -428,7 +440,11 @@ namespace DalbitCafe.Deco
             _pendingGridPosition = _originalGridPosition;
 
             // 현재 위치에 배치 가능한지 확인
-            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(_pendingGridPosition, _itemSize);
+            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(
+                _pendingGridPosition,
+                _itemSize,
+                (InteriorType)SubCategory
+            );
 
             //Debug.Log($"[StartPendingPlacement] 배치 대기 위치: {_pendingPosition}");
             //Debug.Log($"[StartPendingPlacement] 배치 대기 그리드 위치: {_pendingGridPosition}");

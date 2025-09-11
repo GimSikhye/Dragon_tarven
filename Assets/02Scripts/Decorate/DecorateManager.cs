@@ -265,10 +265,22 @@ namespace DalbitCafe.Deco
             targetItem = null;
         }
         // 아이템 배치 기능 여부 체크
-        public bool CanPlaceItem(Vector2Int position, Vector2Int size)
+        // 기존
+        public bool CanPlaceItem(Vector2Int position, Vector2Int size, InteriorType? interiorType = null)
         {
-            return _gridManager.CanPlaceItem(position, size); //그리드 매니저의 스크립트
+            if (interiorType.HasValue && interiorType.Value == InteriorType.WallDecoration)
+            {
+                return _gridManager.CanPlaceWallItem(position, size);
+            }
+            else
+            {
+                return _gridManager.CanPlaceItem(position, size);
+            }
         }
+
+
+
+
 
         // 아이템 배치
         public void PlaceItem(Vector2Int position, Vector2Int size)

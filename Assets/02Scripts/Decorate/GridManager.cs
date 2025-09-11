@@ -6,8 +6,10 @@ namespace DalbitCafe.Deco
 {// 코드 먼저 (3개스크립트) 이해하고 회전 버튼 연결해야함
     public class GridManager : MonoBehaviour
     {
-        public Tilemap tilemap;
+        public Tilemap tilemap;         // 바닥 
+        public Tilemap wallTilemap;     // 벽
         public TileBase storeFloorTile; // 이 타일만 있는 곳에 배치 가능
+        public TileBase wallTile;       // 벽 타일(예: spr_tile_wall)
         [SerializeField] private float _tileSize = 0.5f;
 
         private bool[,] _grid;
@@ -96,33 +98,56 @@ namespace DalbitCafe.Deco
         /// <summary>
         /// 배치 가능한지 확인
         /// </summary>
-        public bool CanPlaceItem(Vector2Int worldCellPos, Vector2Int size)
+        // 기본 바닥 검사용 (기존 코드와 호환)
+        public bool CanPlaceItem(Vector2Int position, Vector2Int size)
         {
-            Vector3Int vec3 = new Vector3Int(worldCellPos.x, worldCellPos.y, 0);
-            Vector2Int localPos = WorldToGridIndex(vec3); // 전달받은 셀 좌표를 로컬 인덱스로 변환 (WorldToGridIndex)
-
-            if (!IsInsideGrid(localPos, size)) return false; // size 만큼 루프를 돌면서 그 셀에 타일이 있는지, 다른 아이템이 이미 있는지 확인
-
-            for (int x = 0; x < size.x; x++)
-            {
-                for (int y = 0; y < size.y; y++)
-                {
-                    int checkX = localPos.x + x;
-                    int checkY = localPos.y + y;
-
-                    // 배치된 타일이 있어야 함 (storeFloorTile과 같아야 함)
-                    Vector3Int cellPos = new Vector3Int(checkX + _origin.x, checkY + _origin.y, 0);
-                    if (tilemap.GetTile(cellPos) != storeFloorTile)
-                        return false;
-
-                    // 이미 다른 아이템이 배치되어 있다면 불가능
-                    if (_grid[checkX, checkY])
-                        return false;
-                }
-            }
-
-            return true;
+            // 기본은 FloorGrid 검사
+            return CanPlaceItem(position, size, InteriorType.Decoration);
         }
+
+        // 새 버전 (InteriorType 직접 지정)
+        public bool CanPlaceItem(Vector2Int position, Vector2Int size, InteriorType type)
+        {
+            if (type == InteriorType.WallDecoration)
+            {
+                return CanPlaceWallItem(position, size); // 벽 전용 검사
+            }
+            else
+            {
+                // 기존 FloorGrid 검사 로직
+                Vector3Int vec3 = new Vector3Int(position.x, position.y, 0);
+                Vector2Int localPos = WorldToGridIndex(vec3);
+
+                if (!IsInsideGrid(localPos, size))
+                    return false;
+
+                for (int x = 0; x < size.x; x++)
+                {
+                    for (int y = 0; y < size.y; y++)
+                    {
+                        int checkX = localPos.x + x;
+                        int checkY = localPos.y + y;
+
+                        // 타일 존재 확인
+                        Vector3Int cell = new Vector3Int(checkX + _origin.x, checkY + _origin.y, 0);
+                        if (tilemap.GetTile(cell) != storeFloorTile)
+                            return false;
+
+                        // 이미 점유된 셀인지 확인
+                        if (_grid[checkX, checkY])
+                            return false;
+                    }
+                }
+                return true;
+            }
+        }
+
+
+
+
+
+
+
         /// <summary>
         /// 실제 아이템 배치
         /// </summary>
@@ -171,6 +196,28 @@ namespace DalbitCafe.Deco
                    index.x + size.x <= _gridWidth &&
                    index.y + size.y <= _gridHeight;
         }
+
+
+        // GridManager.cs
+        public bool CanPlaceWallItem(Vector2Int position, Vector2Int size)
+        {
+            // "WallGrid"라는 타일맵에서만 체크하도록 구현
+            GameObject wallGridObj = GameObject.Find("WallGrid");
+            if (wallGridObj == null) return false;
+
+            Tilemap wallTilemap = wallGridObj.GetComponent<Tilemap>();
+            if (wallTilemap == null) return false;
+
+            Vector3Int cellPos = new Vector3Int(position.x, position.y, 0);
+
+            // 벽 장식은 지정된 WallGrid 타일맵에 타일이 있어야 배치 가능
+            if (wallTilemap.GetTile(cellPos) == null)
+                return false;
+
+            // 겹치는지 확인 (GridManager 내부 _grid 대신 별도 wallGridOccupy 배열을 두는 게 안전)
+            return true;
+        }
+
 
 
 

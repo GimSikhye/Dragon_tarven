@@ -316,38 +316,34 @@ public class InventoryUI : MonoBehaviour
 
     private void PlaceDraggableItem(ItemData data)
     {
-        draggableItemPrefab = data.prefab;   
-        // 프리팹 생성
+        draggableItemPrefab = data.prefab;
         GameObject go = Instantiate(draggableItemPrefab);
 
-        DraggableItem draagable = go.GetComponent<DraggableItem>();
+        DraggableItem draggable = go.GetComponent<DraggableItem>();
+        InteriorType interiorType = (data as InteriorItemData)?.interiorType ?? InteriorType.Decoration;
 
-        // 위치 찾기 (0,0에서 가장 가까운 빈 공간)
-        Vector2Int position = FindNearestPlaceablePosition(draagable._itemSize);
+        // 위치 찾기
+        Vector2Int position = FindNearestPlaceablePosition(draggable._itemSize, interiorType);
 
-        // 좌표를 셀 중심으로 변환 
         Vector3 worldPos = GridManager.Instance.tilemap.GetCellCenterWorld(new Vector3Int(position.x, position.y, 0));
         go.transform.position = worldPos;
 
         // 배치 처리
-        GridManager.Instance.PlaceItem(position, draagable._itemSize);   
-        
+        GridManager.Instance.PlaceItem(position, draggable._itemSize);
     }
 
-    // 빈 셀 찾기(0, 0 기준 정렬)
-    private Vector2Int FindNearestPlaceablePosition(Vector2Int itemSize)
+    private Vector2Int FindNearestPlaceablePosition(Vector2Int itemSize, InteriorType interiorType)
     {
-        // 탐색 범위 설정
-        int searchRadius = 20; // 맵 사이즈
+        int searchRadius = 20;
 
-        for(int r = 0; r <= searchRadius; r++)
+        for (int r = 0; r <= searchRadius; r++)
         {
-            for(int x = -r; x<=r; x++)
+            for (int x = -r; x <= r; x++)
             {
-                for(int y= -r; y<=r; y++)
+                for (int y = -r; y <= r; y++)
                 {
                     Vector2Int pos = new Vector2Int(x, y);
-                    if(decorateManager.CanPlaceItem(pos, itemSize))
+                    if (decorateManager.CanPlaceItem(pos, itemSize, interiorType))
                     {
                         return pos;
                     }
@@ -358,4 +354,5 @@ public class InventoryUI : MonoBehaviour
         Debug.LogWarning("빈 공간을 찾을 수 없습니다.");
         return Vector2Int.zero;
     }
+
 }
