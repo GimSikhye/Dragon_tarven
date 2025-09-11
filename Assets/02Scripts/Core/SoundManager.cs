@@ -31,31 +31,8 @@ namespace DalbitCafe.Core
             // 씬별 BGM 재생
             PlaySceneBGM(scene);
 
-            // GameScene에서 슬라이더 찾기
-            if (scene.name == "GameScene")
-            {
-                // 이름으로 슬라이더 찾기 (씬 UI에 "BGMSlider", "SFXSlider"라는 이름의 오브젝트가 있어야 함)
-                Slider bgmSlider = GameObject.Find("BGMSlider")?.GetComponent<Slider>();
-                Slider sfxSlider = GameObject.Find("SFXSlider")?.GetComponent<Slider>();
-
-                if (bgmSlider != null)
-                {
-                    Debug.Log("브금 슬라이더가 null아님");
-                    bgmSlider.value = _bgmAudioSource.volume;
-                    bgmSlider.onValueChanged.AddListener(SettingBGMVolume);
-                }
-                else
-                {
-                    Debug.Log("브금 슬라이더가 null");
-                }
-
-
-                if (sfxSlider != null)
-                {
-                    sfxSlider.value = _sfxAudioSource.volume;
-                    sfxSlider.onValueChanged.AddListener(SettingSFXVolume);
-                }
-            }
+           
+            
         }
 
         // 씬별 브금 선택
@@ -102,6 +79,22 @@ namespace DalbitCafe.Core
         public void SettingSFXVolume(float value)
         {
             _sfxAudioSource.volume = value;
+        }
+        public void RegisterSliders(Slider bgm, Slider sfx)
+        {
+            if (bgm != null)
+            {
+                bgm.value = _bgmAudioSource.volume;
+                bgm.onValueChanged.RemoveAllListeners(); // 중복 방지
+                bgm.onValueChanged.AddListener(SettingBGMVolume);
+            }
+
+            if (sfx != null)
+            {
+                sfx.value = _sfxAudioSource.volume;
+                sfx.onValueChanged.RemoveAllListeners();
+                sfx.onValueChanged.AddListener(SettingSFXVolume);
+            }
         }
 
 

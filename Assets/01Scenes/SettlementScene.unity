@@ -2137,7 +2137,7 @@ MonoBehaviour:
   shopCanvas: {fileID: 1800348907}
   okayButton: {fileID: 1330075457}
   todayProfit: 0
-  rentCost: 20
+  rentCost: 10
   netProfit: 0
 --- !u!4 &1057188576
 Transform:
@@ -2591,7 +2591,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 75517cfe23bae834aa4adbbce03116d8, type: 2}
   - {fileID: 11400000, guid: 7f73f933edbdb8c42ae5d38a743dffc8, type: 2}
   - {fileID: 11400000, guid: 2e6fa1b3ca0861a4192a2528c0875ef1, type: 2}
-  - {fileID: 11400000, guid: 00d211e0f5a6b4e49a8a7353045c30e3, type: 2}
   - {fileID: 11400000, guid: 00d211e0f5a6b4e49a8a7353045c30e3, type: 2}
 --- !u!1 &1172965463
 GameObject:
