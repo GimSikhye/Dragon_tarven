@@ -15,5 +15,5 @@ MonoBehaviour:
   itemName: Air conditioner(white)
   icon: {fileID: 21300000, guid: d99b2f6c6bf247443817667c9434f5ef, type: 3}
   price: 15
-  prefab: {fileID: 0}
+  prefab: {fileID: 6689706440051736636, guid: ec248c5e2fff702448a1e0233a60fd6c, type: 3}
   interiorType: 5
