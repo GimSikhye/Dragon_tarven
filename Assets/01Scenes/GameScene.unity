@@ -5987,6 +5987,8 @@ MonoBehaviour:
     quantity: 1
   - itemData: {fileID: 11400000, guid: 15f1e43de516eea4288f9b0f58b5e01e, type: 2}
     quantity: 1
+  - itemData: {fileID: 11400000, guid: e43df2424bb4a2f499d83c8335b17560, type: 2}
+    quantity: 1
 --- !u!1 &649691861
 GameObject:
   m_ObjectHideFlags: 0
@@ -17457,7 +17459,7 @@ GameObject:
   - component: {fileID: 1294714145}
   - component: {fileID: 1294714146}
   m_Layer: 0
-  m_Name: WallLGrid
+  m_Name: WallGrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18712,11 +18714,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 0.4
+  smoothTime: 0.15
+  dragThreshold: 5
   minBounds: {x: -7, y: -2}
   maxBounds: {x: 7, y: 2}
   zoomSpeed: 0.05
+  zoomSmoothTime: 0.15
   minZoom: 3
   maxZoom: 10
+  maxZoomDelta: 0.1
 --- !u!114 &1420154418
 MonoBehaviour:
   m_ObjectHideFlags: 0

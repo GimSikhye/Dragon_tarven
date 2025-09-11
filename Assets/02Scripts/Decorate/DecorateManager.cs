@@ -282,17 +282,38 @@ namespace DalbitCafe.Deco
 
 
 
+
         // 아이템 배치
-        public void PlaceItem(Vector2Int position, Vector2Int size)
+        public void PlaceItem(Vector2Int position, Vector2Int size, InteriorType? interiorType = null)
         {
-            _gridManager.PlaceItem(position, size); // 아이템 배치 처리
+            if (interiorType.HasValue && interiorType.Value == InteriorType.WallDecoration)
+                _gridManager.PlaceWallItem(position, size);
+            else
+                _gridManager.PlaceItem(position, size);
         }
 
-        // 아이템 제거
-        public void RemoveItem(Vector2Int position, Vector2Int size)
+        public void PlaceItem(Vector2Int position, Vector2Int size, InteriorType interiorType)
         {
-            _gridManager.RemoveItem(position, size);
+            if (interiorType == InteriorType.WallDecoration)
+            {
+                _gridManager.CanPlaceWallItem(position, size); // 기록만 필요하다면 별도 관리 추가
+            }
+            else
+            {
+                _gridManager.PlaceItem(position, size);
+            }
         }
+
+
+
+        public void RemoveItem(Vector2Int position, Vector2Int size, InteriorType? interiorType = null)
+        {
+            if (interiorType.HasValue && interiorType.Value == InteriorType.WallDecoration)
+                _gridManager.RemoveWallItem(position, size);
+            else
+                _gridManager.RemoveItem(position, size);
+        }
+
 
         public void OnRotateButtonPressed()
         {

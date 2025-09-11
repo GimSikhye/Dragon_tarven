@@ -142,7 +142,17 @@ namespace DalbitCafe.Deco
             }
         }
 
+        public void PlaceWallItem(Vector2Int worldCellPos, Vector2Int size)
+        {
+            Debug.Log($"[GridManager] Wall 아이템 배치 기록: {worldCellPos} size {size}");
+            // 벽 전용이므로 현재는 단순히 로그만 남기고,
+            // 필요하다면 별도의 wallGridOccupied[,] 배열 만들어 기록
+        }
 
+        public void RemoveWallItem(Vector2Int worldCellPos, Vector2Int size)
+        {
+            Debug.Log($"[GridManager] Wall 아이템 제거 기록: {worldCellPos} size {size}");
+        }
 
 
 
@@ -199,24 +209,57 @@ namespace DalbitCafe.Deco
 
 
         // GridManager.cs
-        public bool CanPlaceWallItem(Vector2Int position, Vector2Int size)
+        public bool CanPlaceWallItem(Vector2Int worldCellPos, Vector2Int size)
         {
-            // "WallGrid"라는 타일맵에서만 체크하도록 구현
-            GameObject wallGridObj = GameObject.Find("WallGrid");
-            if (wallGridObj == null) return false;
-
-            Tilemap wallTilemap = wallGridObj.GetComponent<Tilemap>();
-            if (wallTilemap == null) return false;
-
-            Vector3Int cellPos = new Vector3Int(position.x, position.y, 0);
-
-            // 벽 장식은 지정된 WallGrid 타일맵에 타일이 있어야 배치 가능
-            if (wallTilemap.GetTile(cellPos) == null)
+            GameObject wallObj = GameObject.Find("WallGrid");
+            if (wallObj == null)
+            {
+                Debug.LogError("[GridManager] WallGrid 오브젝트를 찾을 수 없습니다.");
                 return false;
+            }
 
-            // 겹치는지 확인 (GridManager 내부 _grid 대신 별도 wallGridOccupy 배열을 두는 게 안전)
+            Tilemap[] wallTilemaps = wallObj.GetComponentsInChildren<Tilemap>();
+            if (wallTilemaps.Length == 0)
+            {
+                Debug.LogError("[GridManager] WallGrid 자식에 Tilemap이 없습니다.");
+                return false;
+            }
+
+            // 배치하려는 셀 좌표 기록용
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.Append("[GridManager] WallGrid 배치 가능 검사 셀들: ");
+
+            for (int x = 0; x < size.x; x++)
+            {
+                for (int y = 0; y < size.y; y++)
+                {
+                    Vector3Int cellPos = new Vector3Int(worldCellPos.x + x, worldCellPos.y + y, 0);
+                    bool hasTile = false;
+
+                    foreach (var tilemap in wallTilemaps)
+                    {
+                        if (tilemap.GetTile(cellPos) != null)
+                        {
+                            hasTile = true;
+                            break;
+                        }
+                    }
+
+                    if (!hasTile)
+                    {
+                        Debug.Log($"[GridManager] WallGrid의 어떤 Tilemap에도 타일 없음: {cellPos}");
+                        return false;
+                    }
+
+                    // 이 셀은 배치 가능
+                    sb.Append(cellPos + " ");
+                }
+            }
+
+            Debug.Log(sb.ToString()); // 최종적으로 가능한 셀들 출력
             return true;
         }
+
 
 
 

@@ -39,7 +39,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        inventory = FindObjectOfType<Inventory>();
+        inventory = FindAnyObjectByType<Inventory>();
         inventoryPanel.SetActive(false);
 
         _subCategoryIconMap = new Dictionary<string, Sprite>();

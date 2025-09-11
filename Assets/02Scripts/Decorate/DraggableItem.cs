@@ -9,6 +9,7 @@ namespace DalbitCafe.Deco
     public class DraggableItem : MonoBehaviour, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
 
+
         [Header("Slot Reference")]
         public InventorySlot sourceSlot; // 이 아이템을 생성한 슬롯 참조
 
@@ -58,6 +59,7 @@ namespace DalbitCafe.Deco
         public Vector3 InitialPosition => _initialPosition;
 
         private Tilemap FloorTilemap { get; set; }
+        private Tilemap[] WallTilemaps { get; set; }  // WallGrid 자식 Tilemap들
         private RectTransform RotateUIParent { get; set; }
         private Image ConfirmButtonImage { get; set; } // UI_DecoConfirmBtn의 Image 컴포넌트
 
@@ -111,6 +113,12 @@ namespace DalbitCafe.Deco
         private void OnEnable()
         {
             FloorTilemap = GameObject.Find("1FFloor")?.GetComponent<Tilemap>();
+
+            GameObject wallObj = GameObject.Find("WallGrid");
+            if (wallObj != null)
+            {
+                WallTilemaps = wallObj.GetComponentsInChildren<Tilemap>();
+            }
         }
 
         public void OnPointerDown(PointerEventData eventData)
@@ -132,18 +140,17 @@ namespace DalbitCafe.Deco
 
         public void OnBeginDrag(PointerEventData eventData)
         {
-            // 배치모드가 아니면 드래그 불가
             if (!DecorateManager.Instance.IsDecorateMode) return;
 
             _initialPosition = transform.position;
             _isDragging = true;
 
-            // 현재 그리드 위치 저장 및 해당 위치에서 아이템 제거
-            Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
+            Tilemap currentMap = GetCurrentTilemap();
+            Vector3Int cellPosition = currentMap.WorldToCell(transform.position);
             _originalGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+
             DecorateManager.Instance.RemoveItem(_originalGridPosition, _itemSize);
 
-            // 기존 배치 대기 상태 취소
             if (_isPendingPlacement)
             {
                 _isPendingPlacement = false;
@@ -156,79 +163,47 @@ namespace DalbitCafe.Deco
 
         public void OnDrag(PointerEventData eventData)
         {
-            // 배치모드가 아니면 드래그 불가
-            if (!DecorateManager.Instance.IsDecorateMode || !_isDragging) return;
-
-            // 마우스 위치를 월드 좌표로 변환
             Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(eventData.position);
             worldMousePosition.z = 0;
 
-            // 셀 기준 위치 계산
-            Vector3Int cellPosition = FloorTilemap.WorldToCell(worldMousePosition);
-            Vector3 worldCenter = FloorTilemap.GetCellCenterWorld(cellPosition);
+            Tilemap currentMap = GetCurrentTilemap();
+            Vector3Int cellPosition = currentMap.WorldToCell(worldMousePosition);
+            Vector3 worldCenter = currentMap.GetCellCenterWorld(cellPosition);
 
-            // 셀 중심에 아이템 이동
             transform.position = worldCenter;
 
-            // 배치 가능 여부 확인
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
-            bool canPlace = DecorateManager.Instance.CanPlaceItem(
-            cell2D,
-            _itemSize,
-            (InteriorType)SubCategory   // SubCategory는 Enum이므로 캐스팅
-            );
+            bool canPlace = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize, (InteriorType)SubCategory);
 
-
-            // 아웃라인 색상 갱신
             UpdateOutlineColor(canPlace);
-
-            // UI 스프라이트 갱신
             UpdateConfirmButtonSprite(canPlace);
         }
 
+
         public void OnEndDrag(PointerEventData eventData)
         {
-            // 배치모드가 아니면 드래그 불가
             if (!DecorateManager.Instance.IsDecorateMode) return;
-
             _isDragging = false;
 
-            Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
+            Tilemap currentMap = GetCurrentTilemap();
+            Vector3Int cellPosition = currentMap.WorldToCell(transform.position);
             Vector2Int cell2D = new Vector2Int(cellPosition.x, cellPosition.y);
 
-            Debug.Log($"[OnEndDrag] 드래그 종료 위치: {transform.position}");
-            Debug.Log($"[OnEndDrag] 셀 위치: {cellPosition}");
-            Debug.Log($"[OnEndDrag] 2D 셀 위치: {cell2D}");
-
-            // 드래그 종료 시 항상 배치 대기 상태로 전환
             _isPendingPlacement = true;
             _pendingPosition = transform.position;
             _pendingGridPosition = cell2D;
-            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(
-                cell2D,
-                _itemSize,
-                (InteriorType)SubCategory
-            );
+            _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(cell2D, _itemSize, (InteriorType)SubCategory);
 
-            Debug.Log($"[OnEndDrag] 배치 대기 위치: {_pendingPosition}");
-            Debug.Log($"[OnEndDrag] 배치 대기 그리드 위치: {_pendingGridPosition}");
-            Debug.Log($"[OnEndDrag] 배치 가능 여부: {_canPlaceAtPendingPosition}");
-
-            // 아웃라인 효과 유지 (배치 가능 여부에 따라)
             UpdateOutlineColor(_canPlaceAtPendingPosition);
-
-            // UI 스프라이트 유지
             UpdateConfirmButtonSprite(_canPlaceAtPendingPosition);
 
-            // UI 다시 활성화 + 위치 업데이트
             if (RotateUIParent != null && DecorateManager.Instance.targetItem == this)
             {
                 RotateUIParent.gameObject.SetActive(true);
                 UpdateRotateUIPosition();
             }
-
-            Debug.Log($"[OnEndDrag] 최종 상태 - IsPendingPlacement: {_isPendingPlacement}, CanPlace: {_canPlaceAtPendingPosition}");
         }
+
 
         /// <summary>
         /// 배치 확정 (Confirm 버튼을 눌렀을 때 호출)
@@ -238,24 +213,12 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void ConfirmPlacement()
         {
-            //Debug.Log($"[ConfirmPlacement] 시작 - IsPendingPlacement: {_isPendingPlacement}");
-
             if (!_isPendingPlacement)
-            {
-                //Debug.LogError("[ConfirmPlacement] 배치 대기 상태가 아닙니다!");
                 return;
-            }
-
-            //Debug.Log($"[ConfirmPlacement] 현재 Transform 위치: {transform.position}");
-            //Debug.Log($"[ConfirmPlacement] 대기 중인 위치: {_pendingPosition}");
-            //Debug.Log($"[ConfirmPlacement] 대기 중인 그리드 위치: {_pendingGridPosition}");
-            //Debug.Log($"[ConfirmPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
 
             if (_canPlaceAtPendingPosition)
             {
-                //Debug.Log($"[ConfirmPlacement] 배치 확정 진행 중...");
-
-                // 1. 먼저 그리드에 아이템 배치
+                // 1. 먼저 그리드에 아이템 배치 가능 여부 확인
                 bool placementResult = DecorateManager.Instance.CanPlaceItem(
                     _pendingGridPosition,
                     _itemSize,
@@ -264,66 +227,65 @@ namespace DalbitCafe.Deco
 
                 if (placementResult)
                 {
-                    DecorateManager.Instance.PlaceItem(_pendingGridPosition, _itemSize);
-                    //Debug.Log($"[ConfirmPlacement] 그리드에 아이템 배치 완료");
+                    // 타입에 따라 올바른 PlaceItem 호출
+                    InteriorType type = (InteriorType)SubCategory;
+
+                    if (type == InteriorType.WallDecoration)
+                    {
+                        // 벽 전용
+                        DecorateManager.Instance.PlaceItem(_pendingGridPosition, _itemSize, InteriorType.WallDecoration);
+                        Debug.Log($"[ConfirmPlacement] WallDecoration 배치 완료 at {_pendingGridPosition}");
+                    }
+                    else
+                    {
+                        // 바닥 전용
+                        DecorateManager.Instance.PlaceItem(_pendingGridPosition, _itemSize);
+                        Debug.Log($"[ConfirmPlacement] Floor 아이템 배치 완료 at {_pendingGridPosition}");
+                    }
                 }
                 else
                 {
-                    //Debug.LogError("[ConfirmPlacement] 그리드 매니저에서 배치 불가능!");
                     CancelPendingPlacement();
                     return;
                 }
 
                 // 2. 아이템 위치를 확정된 위치로 설정
-                Vector3 oldPosition = transform.position;
                 transform.position = _pendingPosition;
-                //Debug.Log($"[ConfirmPlacement] 위치 업데이트: {oldPosition} -> {transform.position}");
 
                 // 3. 원래 그리드 위치와 초기 위치 업데이트
-                Vector2Int oldOriginalGrid = _originalGridPosition;
-                Vector3 oldInitialPosition = _initialPosition;
-
                 _originalGridPosition = _pendingGridPosition;
                 _initialPosition = _pendingPosition;
 
-                //Debug.Log($"[ConfirmPlacement] 원래 그리드 위치 업데이트: {oldOriginalGrid} -> {_originalGridPosition}");
-                //Debug.Log($"[ConfirmPlacement] 초기 위치 업데이트: {oldInitialPosition} -> {_initialPosition}");
-
                 // 4. 슬롯에 배치 확정 알림 (수량 차감)
                 if (sourceSlot != null)
-                {
                     sourceSlot.OnItemPlacementConfirmed();
-                    //Debug.Log("[ConfirmPlacement] 슬롯에 배치 확정 알림 완료");
-                }
 
-                // 5. 배치 대기 상태 해제 및 배치 확정 상태로 변경
+                // 5. 상태 업데이트
                 _isPendingPlacement = false;
                 _canPlaceAtPendingPosition = false;
-                _isPlacedItem = true; // 배치 확정된 아이템으로 표시
-                sourceSlot = null; // 슬롯 참조 해제 (이제 인벤토리와 무관한 배치된 아이템)
+                _isPlacedItem = true;
+                sourceSlot = null;
                 spriteRenderer.material = _originalMaterial;
 
-                //Debug.Log($"[ConfirmPlacement] 배치 대기 상태 해제, 배치 확정 상태로 변경");
-
-                // 6. 아웃라인 효과 비활성화
+                // 6. 아웃라인/버튼 UI 원상복구
                 EnableOutline(false);
-
-                // 7. UI 스프라이트를 기본 상태로 복원
                 UpdateConfirmButtonSprite(true);
 
-                // 정렬 순서 갱신
+                // 7. 정렬 순서 갱신
                 UpdateSortingOrder();
 
-                //Debug.Log($"[ConfirmPlacement] 배치 확정 완료! 최종 위치: {transform.position}");
+                Debug.Log($"[ConfirmPlacement] 최종 배치 완료! 위치: {transform.position}");
             }
             else
             {
-                //Debug.LogWarning("[ConfirmPlacement] 배치 불가능한 위치 - 원래 위치로 복귀");
                 CancelPendingPlacement();
             }
-            // 기존 ConfirmPlacement 로직 유지한 뒤
+
+            // 등록
             DecorateManager.Instance.RegisterPlacedItem(this);
         }
+
+
         private void UpdateSortingOrder()
         {
             if (spriteRenderer != null)
@@ -406,65 +368,38 @@ namespace DalbitCafe.Deco
         /// </summary>
         public void StartPendingPlacement()
         {
-            //Debug.Log($"[StartPendingPlacement] 새 아이템 배치 대기 시작: {gameObject.name}");
-
-            // 현재 위치를 초기 위치로 설정
             _initialPosition = transform.position;
-            _isPlacedItem = false; // 신규 아이템임을 표시
+            _isPlacedItem = false;
 
-            // 현재 그리드 위치 계산
-            if (FloorTilemap == null)
-            {
-                FloorTilemap = GameObject.Find("1FFloor")?.GetComponent<Tilemap>();
-            }
+            Tilemap currentMap = GetCurrentTilemap();
+            Vector3Int cellPosition = currentMap.WorldToCell(transform.position);
+            _originalGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
 
-            if (FloorTilemap != null)
-            {
-                Vector3Int cellPosition = FloorTilemap.WorldToCell(transform.position);
-                _originalGridPosition = new Vector2Int(cellPosition.x, cellPosition.y);
+            Vector3 worldCenter = currentMap.GetCellCenterWorld(cellPosition);
+            transform.position = worldCenter;
+            _initialPosition = worldCenter;
 
-                // 셀 중심으로 위치 보정
-                Vector3 worldCenter = FloorTilemap.GetCellCenterWorld(cellPosition);
-                transform.position = worldCenter;
-
-                // 보정된 위치로 초기 위치 다시 설정
-                _initialPosition = worldCenter;
-
-                //Debug.Log($"[StartPendingPlacement] 초기 위치 설정: {_initialPosition}");
-                //Debug.Log($"[StartPendingPlacement] 원래 그리드 위치: {_originalGridPosition}");
-            }
-
-            // 배치 대기 상태로 설정
             _isPendingPlacement = true;
             _pendingPosition = transform.position;
             _pendingGridPosition = _originalGridPosition;
 
-            // 현재 위치에 배치 가능한지 확인
             _canPlaceAtPendingPosition = DecorateManager.Instance.CanPlaceItem(
                 _pendingGridPosition,
                 _itemSize,
                 (InteriorType)SubCategory
             );
 
-            //Debug.Log($"[StartPendingPlacement] 배치 대기 위치: {_pendingPosition}");
-            //Debug.Log($"[StartPendingPlacement] 배치 대기 그리드 위치: {_pendingGridPosition}");
-            //Debug.Log($"[StartPendingPlacement] 배치 가능 여부: {_canPlaceAtPendingPosition}");
-
-            // 아웃라인 효과 활성화
             UpdateOutlineColor(_canPlaceAtPendingPosition);
-
-            // UI 스프라이트 업데이트
             UpdateConfirmButtonSprite(_canPlaceAtPendingPosition);
 
-            // 회전 UI 활성화 및 위치 업데이트
             if (RotateUIParent != null)
             {
                 RotateUIParent.gameObject.SetActive(true);
                 UpdateRotateUIPosition();
             }
-
-            //Debug.Log($"[StartPendingPlacement] 배치 대기 상태 설정 완료");
         }
+
+
 
         /// <summary>
         /// 아웃라인 효과 활성화/비활성화
@@ -511,16 +446,11 @@ namespace DalbitCafe.Deco
         {
             if (ConfirmButtonImage == null) return;
 
-            if (canPlace)
-            {
-                if (confirmActiveSprite != null)
-                    ConfirmButtonImage.sprite = confirmActiveSprite;
-            }
-            else
-            {
-                if (confirmDeactiveSprite != null)
-                    ConfirmButtonImage.sprite = confirmDeactiveSprite;
-            }
+            Button confirmBtn = ConfirmButtonImage.GetComponent<Button>();
+            if (confirmBtn != null)
+                confirmBtn.interactable = canPlace;  // 버튼 활성/비활성 제어
+
+            ConfirmButtonImage.sprite = canPlace ? confirmActiveSprite : confirmDeactiveSprite;
         }
 
         public void RotateItem()
@@ -565,6 +495,17 @@ namespace DalbitCafe.Deco
 
             // UI 위치 업데이트
             RotateUIParent.position = screenPos;
+        }
+
+        // 어떤 Tilemap을 기준으로 할지 선택
+        private Tilemap GetCurrentTilemap()
+        {
+            if (SubCategory is InteriorType interiorType && interiorType == InteriorType.WallDecoration)
+            {
+                if (WallTilemaps != null && WallTilemaps.Length > 0)
+                    return WallTilemaps[0]; // 첫 번째 자식 Tilemap 기준 (원하면 이름별 선택도 가능)
+            }
+            return FloorTilemap;
         }
     }
 }
