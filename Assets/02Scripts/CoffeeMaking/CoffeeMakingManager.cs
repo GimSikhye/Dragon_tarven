@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.EventSystems;
 using System.Collections;
 using System.Linq;
+using DalbitCafe.Core;
 
 public enum CoffeeState { BaseSelect, DoTheShot, BasePouring, SyrupPumping, WhippedCreamSelect, WhippedCreamSqueeze }
 // 점수에 따른 점수 아이콘 이미지
@@ -312,7 +313,9 @@ public class CoffeeMakingManager : MonoBehaviour
         isWhipping = false;
 
         // 다음 단계로 넘어가기
-        CheckRecipe(); 
+        CheckRecipe();
+        SoundManager.Instance.PlaySFX(Sfx.Next);
+
         ShowResultUI();
     }
 
@@ -579,6 +582,10 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             tiltIntensity = 0f;
             UpdatePouringAnimation(0);
+
+            if (SoundManager.Instance.IsSfxPlaying(Sfx.Pouring))
+                SoundManager.Instance.StopSFX(Sfx.Pouring);
+
             return;
         }
 
@@ -586,11 +593,19 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             tiltIntensity = Mathf.Clamp01(Mathf.Abs(tiltX));
             currentPouredAmount += Time.deltaTime * tiltIntensity * pourSpeed;
+
+            if (!SoundManager.Instance.IsSfxPlaying(Sfx.Pouring))
+                SoundManager.Instance.PlayLoopSFX(Sfx.Pouring); 
         }
         else
         {
             // 서서히 줄어듦
             tiltIntensity = Mathf.MoveTowards(tiltIntensity, 0f, Time.deltaTime * pourDecreaseSpeed);
+
+
+            if (SoundManager.Instance.IsSfxPlaying(Sfx.Pouring))
+                SoundManager.Instance.StopSFX(Sfx.Pouring);
+
         }
 
         currentPouredAmount = Mathf.Min(currentPouredAmount, 100f);
@@ -713,9 +728,9 @@ public class CoffeeMakingManager : MonoBehaviour
     private void InitSyrup()
     {
         pumpingSyrupCooldown = 0f;
-        
+
         // 기존 복귀 코루틴이 있다면 중단
-        if(returnCoroutine != null)
+        if (returnCoroutine != null)
         {
             StopCoroutine(returnCoroutine);
             returnCoroutine = null;
@@ -810,6 +825,8 @@ public class CoffeeMakingManager : MonoBehaviour
 
         // 애니메이션 실행
         anim.SetTrigger("Pump");
+        SoundManager.Instance.PlaySFX(Sfx.Syrup);
+
 
         // 시럽 카운트 추가
         if (!syrupCounts.ContainsKey(syrupName))
@@ -908,10 +925,12 @@ public class CoffeeMakingManager : MonoBehaviour
         {
             whippingAmountControlButtonText.text = "멈춤";
             isWhipping = true; // 휘핑중
+            SoundManager.Instance.PlayLoopSFX(Sfx.Whipcream);
         }
         else
         {
             isWhipping = false;
+            SoundManager.Instance.StopSFX(Sfx.Whipcream);
             CheckRecipe();
         }
     }

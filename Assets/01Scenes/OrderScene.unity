@@ -8290,6 +8290,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: _sfxClips.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: '_sfxClips.Array.data[0]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 502b2b9030ce158428100f8da7ac6f00, type: 3}
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: '_sfxClips.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8300000, guid: afc5265e043a8eb4483a2053406e9996, type: 3}
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: '_sfxClips.Array.data[2]'
+      value: 
+      objectReference: {fileID: 8300000, guid: cbab07b1acf00404ea5c522876a16bab, type: 3}
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: '_sfxClips.Array.data[3]'
+      value: 
+      objectReference: {fileID: 8300000, guid: 88b491044ee0cd343bed9fba8cf886ff, type: 3}
+    - target: {fileID: 2692655247719567551, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
+      propertyPath: '_sfxClips.Array.data[4]'
+      value: 
+      objectReference: {fileID: 8300000, guid: d0d8c030011ba304e947871d1de33188, type: 3}
     - target: {fileID: 7212255822429083890, guid: 350149f63dc0ae34bb43215da8beffd0, type: 3}
       propertyPath: m_Name
       value: SoundManager
