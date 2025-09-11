@@ -150,7 +150,7 @@ public class DayCycleManager : MonoBehaviour
         PauseTime();
 
         // 파산 체크 (여기서 가장 먼저 확인해야 함)
-        if (totalCoin <= 0)
+        if (todayProfit <= 0)
         {
             Debug.Log("[DayCycleManager] 파산 엔딩으로 이동합니다.");
             SceneManager.LoadScene("BankruptEndingScene");

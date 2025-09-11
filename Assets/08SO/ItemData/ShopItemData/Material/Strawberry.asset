@@ -15,7 +15,7 @@ MonoBehaviour:
   itemName: "\uB538\uAE30"
   description: "\uC0C1\uD07C\uD558\uACE0 \uB2EC\uCF64\uD55C \uACFC\uC77C \uC7AC\uB8CC."
   icon: {fileID: 21300000, guid: d1a31468632ea6846a8d361d8c969826, type: 3}
-  price: 15
+  price: 5
   category: 0
   subCategory: 0
   itemData: {fileID: 11400000, guid: a9a165e944fe2834b9c1ffa0f7547ee8, type: 2}

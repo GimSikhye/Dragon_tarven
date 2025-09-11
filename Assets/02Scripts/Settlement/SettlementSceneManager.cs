@@ -20,7 +20,7 @@ public class SettlementSceneManager : MonoBehaviour
 
     [Header("수치 설정")]
     public int todayProfit = 0;   // 전체 수익
-    public int rentCost = 20;    // 기본 임대료
+    public int rentCost = 10;    // 기본 임대료
     public int netProfit = 0;     // 순수익
 
     void Start()
