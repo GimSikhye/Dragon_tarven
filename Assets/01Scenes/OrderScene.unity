@@ -4992,6 +4992,16 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 972ca66bbbd1d72408c120fdeac12a2c, type: 3}
   - levelName: verylow
     sprite: {fileID: 21300000, guid: 8fb3565b093350643832344d4a4e6667, type: 3}
+  - levelName: Espresso_None
+    sprite: {fileID: 21300000, guid: c2de77b1a2316884d87c0220a761ae8c, type: 3}
+  - levelName: Espresso_veryhigh
+    sprite: {fileID: 21300000, guid: 4db290f9acdb62f42b246c9f4fbe9845, type: 3}
+  - levelName: Espresso_high
+    sprite: {fileID: 21300000, guid: 2bafb95ee5d67b248b569073a65286a6, type: 3}
+  - levelName: Espresso_low
+    sprite: {fileID: 21300000, guid: e50398bdaf060784dbda3668cd9a64b1, type: 3}
+  - levelName: Espresso_low
+    sprite: {fileID: 21300000, guid: e50398bdaf060784dbda3668cd9a64b1, type: 3}
   outletAnimators:
   - {fileID: 1443023784}
   - {fileID: 1127855389}
