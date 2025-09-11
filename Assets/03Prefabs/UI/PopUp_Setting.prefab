@@ -447,6 +447,7 @@ GameObject:
   - component: {fileID: 4032054473887660975}
   - component: {fileID: 492012590200878960}
   - component: {fileID: 2123077153600584494}
+  - component: {fileID: 8018779837967675479}
   m_Layer: 5
   m_Name: PopUp_Setting
   m_TagString: UIPanel
@@ -517,6 +518,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8018779837967675479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2492872626840081988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1127f5fa5a075e64aaac9329da556154, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmSlider: {fileID: 1640473996258829391}
+  sfxSlider: {fileID: 2541004455904301879}
 --- !u!1 &2498836144416160496
 GameObject:
   m_ObjectHideFlags: 0

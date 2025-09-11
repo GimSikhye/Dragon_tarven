@@ -356,7 +356,7 @@ public class CoffeeMakingManager : MonoBehaviour
         float veryHighArrowPos = GetArrowRelativePosition(whippedCreamGauageveryHighArrow, whippedCreamGaugeImage.rectTransform);
 
         // 레벨 결정
-        string level = CalculateWhippedLevelFromGauge(currentWhippingAmount); ////
+        string level = CalculateWhippedLevelFromGauge(currentWhippingAmount);
 
 
         // 텍스트는 항상 동일
@@ -922,18 +922,18 @@ public class CoffeeMakingManager : MonoBehaviour
         CoffeeResultData result = new CoffeeResultData();
 
         //  베이스
-        result.ShotAccuracy = (selectedBase == recipe.baseType) ? 1f : 0f;
+        result.BaseMatch = (selectedBase == recipe.baseType);
 
         //  샷 횟수 비교
         int shotCount = shotGlassHasShot.Count(x => x); // 실제 shotCount 측정
-        result.ShotAccuracy = (shotCount == recipe.shotCount) ? 1f : 0f; // 샷 정확도
+        result.ShotAccuracy = (shotCount == recipe.shotCount); // 샷 정확도
 
         //  pour량 비교
         float pourError = Mathf.Abs(currentPouredAmount - recipe.expectedPourAmount);
-        result.PourAccuracy = 1f - Mathf.Clamp01(pourError / 100f); // 최대 오차 100ml 기준
+        result.PourAccuracy = pourError;
 
         //  시럽 비교 (정확히 같은 종류와 횟수만 인정)
-        result.SyrupCount = CompareSyrups(recipe.syrups) ? 1 : 0;
+        result.SyrupMatch = CompareSyrups(recipe.syrups);
 
         //  휘핑 크림
         result.WhippedLevel = GetCurrentWhippedLevel();

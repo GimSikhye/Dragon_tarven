@@ -3,22 +3,41 @@ using UnityEngine;
 public class CoffeeResultData
 {
     public bool BaseMatch;
-    public float ShotAccuracy;
+    public bool ShotAccuracy;
     public float PourAccuracy;
-    public int SyrupCount;
-    public string WhippedLevel;
     public bool SyrupMatch;
+    public string WhippedLevel;
     public bool WhippedMatch;
 
     public string EvaluateGrade()
     {
         int correctCount = 0;
 
-        if (BaseMatch) correctCount++;
-        if (ShotAccuracy >= 0.9f) correctCount++;  // 샷이 거의 정확히 맞았을 경우 인정
-        if (PourAccuracy >= 0.8f) correctCount++;  // 우유량도 비슷하게 맞았을 때만 인정
-        if (SyrupMatch) correctCount++;
-        if (WhippedMatch) correctCount++;
+        if (BaseMatch)
+        {
+            Debug.Log("베이스 정답");
+            correctCount++;
+        }
+        if (ShotAccuracy)
+        {
+            Debug.Log("샷 정답");
+            correctCount++;  // 샷이 거의 정확히 맞았을 경우 인정
+        }
+        if (PourAccuracy < 5f)
+        {
+            Debug.Log("pour 오차량 5미만");
+            correctCount++;
+        }
+        if (SyrupMatch)
+        {
+            Debug.Log("시럽 횟수&종류 정답");
+            correctCount++;
+        }
+        if (WhippedMatch)
+        {
+            Debug.Log("휘핑레벨 매치 안됨");
+            correctCount++;
+        }
 
         // 등급 판정
         return correctCount switch

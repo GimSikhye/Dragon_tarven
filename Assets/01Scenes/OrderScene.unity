@@ -2174,7 +2174,7 @@ MonoBehaviour:
       - "\uBCA0\uC774\uC2A4\uB97C \uB450\uC720\uB85C \uD574\uC8FC\uC138\uC694"
       - "\uC0F7\uC740 1\uAC1C\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
       - "\uD718\uD551\uC740 \uB123\uC9C0 \uB9D0\uC544\uC8FC\uC138\uC694"
-      - "\uC6B0\uC720\uB294 45 \uC815\uB3C4\uB85C\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
+      - "\uB450\uC720\uB294 45 \uC815\uB3C4\uB85C\uB9CC \uB123\uC5B4\uC8FC\uC138\uC694"
       baseType: SoyMilk
       shotCount: 1
       expectedPourAmount: 45
@@ -5046,7 +5046,7 @@ MonoBehaviour:
   timeRemainingText: {fileID: 439844025}
   timerProgressImage: {fileID: 1102379811}
   totalTime: 120
-  timerFillSmoothSpeed: 0.03
+  timerFillSmoothSpeed: 0.003
   resultNotePanel: {fileID: 1868291899}
   scoreIcons:
   - {fileID: 21300000, guid: b690904d0c81494409ef0c289e71d98f, type: 3}

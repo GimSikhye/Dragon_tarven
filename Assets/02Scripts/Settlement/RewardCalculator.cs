@@ -9,7 +9,7 @@ public static class RewardCalculator
         int correctCount = 0;
 
         if (result.BaseMatch) correctCount++;
-        if (result.ShotAccuracy >= 0.9f) correctCount++;
+        if (result.ShotAccuracy) correctCount++;
         if (result.PourAccuracy >= 0.9f) correctCount++;
         if (result.SyrupMatch) correctCount++;
         if (result.WhippedMatch) correctCount++;
